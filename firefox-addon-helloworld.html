@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>通过AddonSdk编写firefox插件addon,helloworld | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="通过AddonSdk编写firefox插件addon
+https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started
+This tutorial walks through creating a simple add-on using the SDK.## PrerequisitesTo create add-on">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过AddonSdk编写firefox插件addon,helloworld">
+<meta property="og:url" content="http://www.ibmer.info/firefox-addon-helloworld.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="通过AddonSdk编写firefox插件addon
+https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started
+This tutorial walks through creating a simple add-on using the SDK.## PrerequisitesTo create add-on">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过AddonSdk编写firefox插件addon,helloworld">
+<meta name="twitter:description" content="通过AddonSdk编写firefox插件addon
+https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started
+This tutorial walks through creating a simple add-on using the SDK.## PrerequisitesTo create add-on">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-firefox-addon-helloworld" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/firefox-addon-helloworld.html" class="article-date">
+  <time datetime="2014-07-18T08:15:13.000Z" itemprop="datePublished">2014-07-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      通过AddonSdk编写firefox插件addon,helloworld
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过AddonSdk编写firefox插件addon</p>
+<p><a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started" target="_blank" rel="external">https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started</a></p>
+<article id="wikiArticle">This tutorial walks through creating a simple add-on using the SDK.<br><br>## Prerequisites<br><br>To create add-ons for Firefox using the SDK, you’ll first need to follow the instructions to <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation" target="_blank" rel="external">install and activate the SDK</a>. Once you’ve done that, you’ll be looking at a command prompt.<br><br>## Initializing an empty add-on<br><br>In the command prompt, create a new directory. The directory doesn’t have to be under the SDK root: you can create it anywhere you like. Navigate to it, type <code>cfx init</code>, and hit enter:<br><pre class="language-html">mkdir my-addon<br>cd my-addon<br>cfx init<br></pre><br>You’ll see some output like this:<br><pre class="language-html"><em> lib directory created
+</em> data directory created<br><em> test directory created
+</em> doc directory created<br><em> README.md written
+</em> package.json written<br><em> test/test-main.js written
+</em> lib/main.js written<br><em> doc/main.md written<br>Your sample add-on is now ready for testing:<br>try “cfx test” and then “cfx run”. Have fun!”<br></em></pre><br><br>## Implementing the add-on<br><br>Now you can write the add-on’s code, which goes in the “main.js” file in your “lib” directory. This file was created for you in the previous step. Open it and add the following code:<br><br>    <span class="token keyword">var</span> buttons <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">‘sdk/ui/button/action’</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">var</span> button <span class="token operator">=</span> buttons<span class="token punctuation">.</span><span class="token function">ActionButton<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Visit Mozilla”</span><span class="token punctuation">,</span><br>      icon<span class="token punctuation">:</span> <span class="token punctuation">{</span><br>        <span class="token string">“16”</span><span class="token punctuation">:</span> <span class="token string">“./icon-16.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“32”</span><span class="token punctuation">:</span> <span class="token string">“./icon-32.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“64”</span><span class="token punctuation">:</span> <span class="token string">“./icon-64.png”</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> handleClick<br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">function</span> <span class="token function">handleClick<span class="token punctuation">(</span></span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="http://www.mozilla.org/" target="_blank" rel="external">http://www.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><code>&lt;/pre&gt;
+    Save the file.
+
+    Next, save these three icon files to the &quot;data&quot; directory:
+    &lt;table class=&quot;standard-table&quot;&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;td&gt;![](https://mdn.mozillademos.org/files/7635/icon-16.png)&lt;/td&gt;
+    &lt;td&gt;icon-16.png&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td&gt;![](https://mdn.mozillademos.org/files/7637/icon-32.png)&lt;/td&gt;
+    &lt;td&gt;icon-32.png&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td&gt;![](https://mdn.mozillademos.org/files/7639/icon-64.png)&lt;/td&gt;
+    &lt;td&gt;icon-64.png&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;div class=&quot;note&quot;&gt;
+
+    Note that this example uses the [action button](https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action) module, which is only available from Firefox 29 onwards. If you&#39;re still on an earlier version on Firefox, this code is equivalent, except that the icon will appear in the bottom-right of the browser window:
+    &lt;pre class=&quot;brush: js  language-js&quot; data-number=&quot;&quot;&gt;</code><span class="token keyword">var</span> widgets <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/widget”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> widget <span class="token operator">=</span> widgets<span class="token punctuation">.</span><span class="token function">Widget<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Mozilla website”</span><span class="token punctuation">,</span><br>      contentURL<span class="token punctuation">:</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/self”</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">url<span class="token punctuation">(</span></span><span class="token string">“icon-16.png”</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="http://www.mozilla.org/" target="_blank" rel="external">http://www.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><code>&lt;/pre&gt;
+    &lt;/div&gt;
+    Back at the command prompt, type:
+    &lt;pre class=&quot;language-html&quot;&gt;cfx run
+    &lt;/pre&gt;
+    This is the SDK command to run a new instance of Firefox with your add-on installed. When Firefox launches, in the top-right corner of the browser you&#39;ll see an icon with the Firefox logo. Click the icon, and a new tab will open with [http://www.mozilla.org/](http://www.mozilla.org/) loaded into it.
+    &lt;div class=&quot;note&quot;&gt;
+
+    You might see an error message like this when you type cfx run:
+    &lt;pre id=&quot;comment_text_0&quot; class=&quot;bz_comment_text language-html&quot;&gt;A given cfx option has an inappropriate value:
+      ZIP does not support timestamps before 1980&lt;/pre&gt;
+    If so, you&#39;ve run into [bug 1005412](https://bugzilla.mozilla.org/show_bug.cgi?id=1005412), meaning that the icon files you downloaded are given a timestamp of 1970\. Until this bug is fixed, the workaround is to use the [</code>touch<code>](http://www.linfo.org/touch.html) command to update the timestamps:
+    &lt;pre class=&quot;language-html&quot;&gt;touch icon-16.png&lt;/pre&gt;
+    &lt;/div&gt;
+    That&#39;s all this add-on does. It uses two SDK modules: the [action button](https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action) module, which enables you to add buttons to the browser, and the [tabs](https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/tabs) module, which enables you to perform basic operations with tabs. In this case, we&#39;ve created a button whose icon is the Firefox icon, and added a click handler that loads the Mozilla home page in a new tab.
+
+    ![](https://mdn.mozillademos.org/files/7643/mozilla-button.png)Try editing this file. For example, we could change the page that gets loaded:
+    &lt;pre class=&quot;brush: js  language-js&quot; data-number=&quot;&quot;&gt;</code><span class="token keyword">var</span> buttons <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">‘sdk/ui/button/action’</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">var</span> button <span class="token operator">=</span> buttons<span class="token punctuation">.</span><span class="token function">ActionButton<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Visit Mozilla”</span><span class="token punctuation">,</span><br>      icon<span class="token punctuation">:</span> <span class="token punctuation">{</span><br>        <span class="token string">“16”</span><span class="token punctuation">:</span> <span class="token string">“./icon-16.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“32”</span><span class="token punctuation">:</span> <span class="token string">“./icon-32.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“64”</span><span class="token punctuation">:</span> <span class="token string">“./icon-64.png”</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> handleClick<br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">function</span> <span class="token function">handleClick<span class="token punctuation">(</span></span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="https://developer.mozilla.org/" target="_blank" rel="external">https://developer.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><code>&lt;/pre&gt;
+    &lt;div class=&quot;note&quot;&gt;
+
+    Note that this example uses the [action button](https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action) module, which is only available from Firefox 29 onwards. If you&#39;re still on an earlier version on Firefox, this code is equivalent, except that the icon will appear in the bottom-right of the browser window:
+    &lt;pre class=&quot;brush: js  language-js&quot; data-number=&quot;&quot;&gt;</code><span class="token keyword">var</span> widgets <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/widget”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> widget <span class="token operator">=</span> widgets<span class="token punctuation">.</span><span class="token function">Widget<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Mozilla website”</span><span class="token punctuation">,</span><br>      contentURL<span class="token punctuation">:</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/self”</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">url<span class="token punctuation">(</span></span><span class="token string">“icon-16.png”</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="http://developer.mozilla.org/" target="_blank" rel="external">http://developer.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><br>At the command prompt, execute <code>cfx run</code> again. This time clicking it takes you to <a href="https://developer.mozilla.org/" target="_blank" rel="external">https://developer.mozilla.org/</a>.<br><br>## Packaging the add-on<br><br>When you’ve finished the add-on and are ready to distribute it, you’ll need to package it as an XPI file. This is the installable file format for Firefox add-ons. You can distribute XPI files yourself or publish them to <a href="https://addons.mozilla.org" target="_blank" rel="external">https://addons.mozilla.org</a> so other users can download and install them.<br><br>To build an XPI, just execute the command <code>cfx xpi</code> from the add-on’s directory:<br><pre class="language-html">cfx xpi<br></pre><br>You should see a message like:<br><pre class="language-html">Exporting extension to my-addon.xpi.<br></pre><br>To test that this worked, try installing the XPI file in your own Firefox installation. You can do this by pressing the Ctrl+O key combination (Cmd+O on Mac) from within Firefox, or selecting the “Open” item from Firefox’s “File” menu. This will bring up a file selection dialog: navigate to the “my-addon.xpi” file, open it and follow the prompts to install the add-on.<br><br>## Summary<br><br>In this tutorial we’ve built and packaged an add-on using three commands:
+
+   <code>cfx init</code> to initialize an empty add-on template<br><em>   <code>cfx run</code> to run a new instance of Firefox with the add-on installed, so we can try it out
+</em>   <code>cfx xpi</code> to package the add-on into an XPI file for distribution<br>These are the three main commands you’ll use when developing SDK add-ons. There’s comprehensive <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/cfx" target="_blank" rel="external">reference documentation</a> covering all the commands you can use and all the options they take.<br><br>The add-on code itself uses two SDK modules, <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action" target="_blank" rel="external">action button</a> and <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/tabs" target="_blank" rel="external">tabs</a>. There’s reference documentation for all the <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs" target="_blank" rel="external">high-level</a> and <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs" target="_blank" rel="external">low-level</a> APIs in the SDK.<br><br>## What’s next?<br><br>To get a feel for some of the things you can do with the SDK APIs, try working through some of the <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials" target="_blank" rel="external">tutorials</a>.<br><br>## Advanced techniques<br><br>### Overriding the built-in modules<br><br>The SDK modules you use to implement your add-on are built into Firefox. When you run or package an add-on using <code>cfx run</code> or <code>cfx xpi</code>, the add-on will use the versions of the modules in the version of Firefox that hosts it.<br><br>As an add-on developer, this is usually what you want. But if you’re developing the SDK modules themselves, of course, it isn’t. In this case it’s assumed that you have checked out the SDK from its <a href="https://github.com/mozilla/addon-sdk" target="_blank" rel="external">GitHub repo</a> and will have run the <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation" target="_blank" rel="external">bin/activate</a> script from the root of your checkout.<br><br>Then when you invoke <code>cfx run</code> or <code>cfx xpi</code>, you pass the “-o” option:<br><pre class="language-html">cfx run -o<br></pre><br>This instructs cfx to use the local copies of the SDK modules, not the ones in Firefox.<br><br>### Developing without cfx run<br><br>Because <code>cfx run</code> restarts the browser each time you invoke it, it can be a little cumbersome if you are making very frequent changes to an add-on. An alternative development model is to use the <a href="https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/" target="_blank" rel="external">Extension Auto-Installer</a> add-on: this listens for new XPI files on a specified port and installs them automatically. That way you can test new changes without needing to restart the browser:<br><br><em>   make a change to your add-on
+</em>   run cfx xpi<br>*   post the add-on to the port specified<br>You could even automate this workflow with a simple script. For example:<br><pre class="language-html">while true ; do cfx xpi ; wget –post-file=codesy.xpi <a href="http://localhost:8888/" target="_blank" rel="external">http://localhost:8888/</a> ; sleep 5 ; done<br></pre><br>Note that the logging level defined for the console is different when you use this method, compared to the logging level used when an add-on is run using <code>cfx run</code>. This means that if you want to see output from <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Logging" target="_blank" rel="external"><code>console.log()</code></a> messages, you’ll have to tweak a setting. See the documentation on <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/console#Logging_Levels" target="_blank" rel="external">logging levels</a> for the details on this.<br><br></article>
+
+<h3 id="Attachments"><a href="#Attachments" class="headerlink" title="Attachments"></a>Attachments</h3><table id="page-attachments-table" cellspacing="0" cellpadding="0"><br><thead><br><tr><br><th>File</th><br><th>Size</th><br><th>Date</th><br><th>Attached by</th><br></tr><br></thead><br><tbody><br><tr data-revision-id="7935" data-attachment-id="7635"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7635/icon-16.png" target="_blank" rel="external">icon-16</a></td><br><td>1657 bytes</td><br><td>2014-04-08 15:48:41</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br><tr data-revision-id="7937" data-attachment-id="7637"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7637/icon-32.png" target="_blank" rel="external">icon-32</a></td><br><td>3457 bytes</td><br><td>2014-04-08 15:48:49</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br><tr data-revision-id="7939" data-attachment-id="7639"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7639/icon-64.png" target="_blank" rel="external">icon-64</a></td><br><td>8635 bytes</td><br><td>2014-04-08 15:48:56</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br><tr data-revision-id="7943" data-attachment-id="7643"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7643/mozilla-button.png" target="_blank" rel="external">mozilla-button</a></td><br><td>31239 bytes</td><br><td>2014-04-08 17:18:00</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br></tbody><br></table>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/firefox-addon-helloworld.html" data-id="cji8sg1ro004s40iogler0tpm" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/wechat-androidmanifest-xml.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          微信wechat AndroidManifest.xml
+        
+      </div>
+    </a>
+  
+  
+    <a href="/emoji.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">手机使用 图片表情，Emoji表情符号</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

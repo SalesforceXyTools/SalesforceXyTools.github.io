@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Exia.Huang">
+<meta property="og:url" content="http://www.ibmer.info/page/13/index.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Exia.Huang">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-python-pip-setup" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/python-pip-setup.html" class="article-date">
+  <time datetime="2014-08-14T01:23:57.000Z" itemprop="datePublished">2014-08-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/python-pip-setup.html"> Win7下Python,setuptools,pip,virtualenv的安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Windows下Python,setuptools,pip,virtualenv的安装</p>
+<p>Windows 7平台，安装Python2.7.4，Python3.3，setuptools，pip，virtualenv。</p>
+<p>安装Python2.7.4（当前版本是2.7.6），安装路径：C:\Python27</p>
+<p>安装Python3.3.2，安装路径：C:\Python33</p>
+<p>安装完毕之后，请勿将python的目录添加到系统的环境变量中。</p>
+<p>优先安装setuptools后面的pip和virtualenv可以通过easy_install来安装。</p>
+<p>setuptools可以在 <a href="http://pypi.python.org/pypi/setuptools" target="_blank" rel="external">http://pypi.python.org/pypi/setuptools</a> 找到Windows的安装方式，现在官网建议使用的是下载ez_setup.py来安装。</p>
+<p>下载完ez_setup.py，CMD下路由到下载目录，使用：<br>C:\Python27\Scripts\python.exe ez_setup.py</p>
+<p>下载完毕最新版本之后，系统会自动安装setuptools，安装完毕之后，会在scripts下会有一个easy_install.exe可执行文件。</p>
+<p>当安装完毕setuptools之后，剩下的就比较简单了。</p>
+<h1 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h1><p>&gt;C:\Python27\Scripts\easy_install.exe pip</p>
+<p>#安装完成pip之后，接着安装virtualenv<br>&gt;C:\Python27\Scripts\easy_install.exe virtualenv==1.10.1</p>
+<p>安装完毕之后，同样在Scripts下面可以看到pip.exe和virtualenv.exe文件。需要注意，当前irtualenv的版本是1.11，安装的时候如果不设定==1.10.1，默认会安装最新版本，而1.11版本的virtualenv是有问题的，安装1.11后，在创建环境的时候会失败，报错： setuptools pip failed with error code 1.这个问题是1.11的本身的问题，用1.10.1版本，没有这个问题，所以我们安装的时候需要明确版本1.10.1。</p>
+<p>安装完毕virtualenv之后，就可以创建虚拟环境了：</p>
+<p>#创建虚拟环境：先在cmd中路由到需要创建虚拟环境的目录下，创建的虚拟环境是在该目录下的一个文件夹<br>&gt;c:\python27\Scripts\virtualenv.exe vProject</p>
+<p>创建之后，我们可以检查下vProject下是否有文件，同时确认下vProject\Scripts\下是否有activate.bat和deactivate.bat两个文件。至此，虚拟环境就创建好了。运行虚拟环境只需要在CMD下运行activate.bat，并在当前窗口中进行操作——所有的操作此时都已经在虚拟环境中进行的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/python-pip-setup.html" data-id="cji8sg1u5009p40iogeiace2j" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php-curl-multi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/php-curl-multi.html" class="article-date">
+  <time datetime="2014-08-12T08:40:32.000Z" itemprop="datePublished">2014-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/php-curl-multi.html">PHP实现多线程抓取网页</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>PHP 利用 Curl Functions 可以完成各种传送文件操作，比如模拟浏览器发送GET，POST请求等等，受限于php语言本身不支持多线程，所以开发爬虫程序效率并不高，这时候往往需 要借助Curl Multi Functions 它可以实现并发多线程的访问多个url地址。既然 Curl Multi Function如此强大，能否用 Curl Multi Functions 来写并发多线程下载文件呢，当然可以，下面给出我的代码：</p>
+<p>代码1：将获得的代码直接写入某个文件</p>
+<pre>&lt;?php
+$urls = array(
+ 'http://www.sina.com.cn/',
+ 'http://www.sohu.com/',
+ 'http://www.163.com/'
+); // 设置要抓取的页面URL  
+
+$save_to='/test.txt';   // 把抓取的代码写入该文件   
+
+$st = fopen($save_to,"a");
+$mh = curl_multi_init();   
+
+foreach ($urls as $i =&gt; $url) {
+  $conn[$i] = curl_init($url);
+  curl_setopt($conn[$i], CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)");
+  curl_setopt($conn[$i], CURLOPT_HEADER ,0);
+  curl_setopt($conn[$i], CURLOPT_CONNECTTIMEOUT,60);
+  curl_setopt($conn[$i], CURLOPT_FILE,$st); // 设置将爬取的代码写入文件
+  curl_multi_add_handle ($mh,$conn[$i]);
+} // 初始化  
+
+do {
+  curl_multi_exec($mh,$active);
+} while ($active);  // 执行  
+
+foreach ($urls as $i =&gt; $url) {
+  curl_multi_remove_handle($mh,$conn[$i]);
+  curl_close($conn[$i]);
+} // 结束清理  
+
+curl_multi_close($mh);
+fclose($st);
+?&gt;
+
+</pre>
+代码2：将获得的代码先放入变量，再写入某个文件
+<pre>
+&lt;?php
+$urls = array(
+'http://www.sina.com.cn/',
+'http://www.sohu.com/',
+'http://www.163.com/'
+);
+
+$save_to='/test.txt';   // 把抓取的代码写入该文件
+$st = fopen($save_to,"a");
+
+$mh = curl_multi_init();
+foreach ($urls as $i =&gt; $url) {
+$conn[$i] = curl_init($url);
+curl_setopt($conn[$i], CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)");
+curl_setopt($conn[$i], CURLOPT_HEADER ,0);
+curl_setopt($conn[$i], CURLOPT_CONNECTTIMEOUT,60);
+curl_setopt($conn[$i],CURLOPT_RETURNTRANSFER,true);  // 设置不将爬取代码写到浏览器，而是转化为字符串
+curl_multi_add_handle ($mh,$conn[$i]);
+}
+
+do {
+curl_multi_exec($mh,$active);
+} while ($active);
+
+foreach ($urls as $i =&gt; $url) {
+$data = curl_multi_getcontent($conn[$i]); // 获得爬取的代码字符串
+fwrite($st,$data);  // 将字符串写入文件。当然，也可以不写入文件，比如存入数据库
+} // 获得数据变量，并写入文件
+
+foreach ($urls as $i =&gt; $url) {
+curl_multi_remove_handle($mh,$conn[$i]);
+curl_close($conn[$i]);
+}
+
+curl_multi_close($mh);
+fclose($st);
+?&gt;
+
+</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/php-curl-multi.html" data-id="cji8sg1ti008d40ioahhpc6pt" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wordpress-qiniu-cdn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wordpress-qiniu-cdn.html" class="article-date">
+  <time datetime="2014-08-12T06:02:55.000Z" itemprop="datePublished">2014-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wordpress-qiniu-cdn.html">三个实现wordpress非插件使用七牛云存储的方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><p><span style="color: #333333;">打开你主题文件中的funtion.php文件加入以下代码</span></p>
+<pre class="brush:php">//将主题自带的 CSS 和 JS 文件替换成七牛镜像存储    
+define(‘CDN_HOST’,’http://ibmer.qiniudn.com/’);    
+ add_filter(‘stylesheet_directory_uri’,’dw_cdn_stylesheet_directory_uri’,10,3);    
+ function dw_cdn_stylesheet_directory_uri($stylesheet_dir_uri, $stylesheet, $theme_root_uri) {    
+ return str_replace(home_url(), CDN_HOST, $stylesheet_dir_uri);    
+ }    
+ add_filter(‘template_directory_uri’,’dw_cdn_template_directory_uri’,10,3);    
+ function dw_cdn_template_directory_uri($template_dir_uri, $template, $theme_root_uri) {    
+ return str_replace(home_url(), CDN_HOST, $template_dir_uri);    
+ }</pre>
+
+<p>把里边的cdn地址更换为你在七牛申请的地址即可！</p>
+<pre style="color: #666666;"><span style="color: #c0c0c0;">http://ibmer.qiniudn.com/（更换这个）</span></pre>
+
+<p><span style="color: #333333;">然后保存刷新下后查看下源代码，不过只能同步CSS 和 JS 文件。</span></p>
+<p>还看到有一种方法是，如下文</p>
+<p>就如这个地址：<a href="http://你的博客地址/wp-admin/options.php，然后呢找到upload_url_path，在后边输入" target="_blank" rel="external">http://你的博客地址/wp-admin/options.php，然后呢找到upload_url_path，在后边输入</a></p>
+<p><a href="http://你的二级域名（七牛三级域名）/" target="_blank" rel="external">http://你的二级域名（七牛三级域名）/</a></p>
+<p>保存即可 <span style="color: #ff6600;">ps：后面的“/”不能少</span></p>
+<p>二者结合就能把静态的文件都上传到七牛去了</p>
+<h2 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h2><p>在 WordPress 主题目录下的<code>functions.php</code>文件中，加入以下代码实现替换功能：</p>
+<p><pre class="brush:php">if ( !is_admin() ) {<br>    add_action(‘wp_loaded’,’ibmer_ob_start’);</pre></p>
+<pre><code>function ibmer_ob_start() {
+    ob_start(&apos;ibmer_qiniu_cdn_replace&apos;);
+}
+
+function ibmer_qiniu_cdn_replace($html) {
+    return str_replace(&apos;http://ibmer.info/wp-content/uploads/&apos;, &apos;http://ibmer.qiniudn.com/wp-uploads/&apos;, $html);
+}
+</code></pre><p>}<br><code>return str_replace(&#39;http://ibmer.info/wp-content/uploads/&#39;, &#39;http://ibmer.qiniudn.com/wp-uploads/&#39;, $html);</code><br>前者是博客路径，后者是七牛空间路径。<br>如果你需要更具体的范围控制（多目录、指定文件类型），可使用以下代码替换上面的<code>ibmer_qiniu_cdn_replace</code> 部分：</p>
+<p><pre class="brush:php">//修改自七牛镜像存储 WordPress 插件<br>function ibmer_qiniu_cdn_replace($html){<br>    $local_host = ‘<a href="http://ibmer.info" target="_blank" rel="external">http://ibmer.info</a>‘; //博客域名<br>    $qiniu_host = ‘<a href="http://ibmer.qiniudn.com" target="_blank" rel="external">http://ibmer.qiniudn.com</a>‘; //七牛域名<br>    $cdn_exts   = ‘js|css|png|jpg|jpeg|gif|ico’; //扩展名（使用|分隔）<br>    $cdn_dirs   = ‘wp-content|wp-includes’; //目录（使用|分隔）</pre></p>
+<pre><code>$cdn_dirs   = str_replace(&apos;-&apos;, &apos;\-&apos;, $cdn_dirs);
+
+if ($cdn_dirs) {
+    $regex    =  &apos;/&apos; . str_replace(&apos;/&apos;, &apos;\/&apos;, $local_host) . &apos;\/((&apos; . $cdn_dirs . &apos;)\/[^\s\?\\\&apos;\&quot;\;\&amp;gt;\&amp;lt;]{1,}.(&apos; . $cdn_exts . &apos;))([\&quot;\\\&apos;\s\?]{1})/&apos;;
+    $html =  preg_replace($regex, $qiniu_host . &apos;/$1$4&apos;, $html);
+} else {
+    $regex    = &apos;/&apos; . str_replace(&apos;/&apos;, &apos;\/&apos;, $local_host) . &apos;\/([^\s\?\\\&apos;\&quot;\;\&amp;gt;\&amp;lt;]{1,}.(&apos; . $cdn_exts . &apos;))([\&quot;\\\&apos;\s\?]{1})/&apos;;
+    $html =  preg_replace($regex, $qiniu_host . &apos;/$1$3&apos;, $html);
+}
+return $html;
+</code></pre><p>}<br>简单的3步，就能让你的 WordPress 实现 CDN 加速</p>
+<h2 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h2><p>这个方法同样是把下面的代码加入<code>function.php</code></p>
+<p><pre class="brush:php">define(‘FocusCDNHost’,’<a href="http://www.ibmer.info&#39;);//wordpress网站网址">http://www.ibmer.info&#39;);//wordpress网站网址</a><br>define(‘FocusCDNRemote’,’<a href="http://ibmer.qiniudn.com&#39;);//cdn域名" target="_blank" rel="external">http://ibmer.qiniudn.com&#39;);//cdn域名</a><br>define(‘FocusCDNIncludes’,’wp-content,wp-includes’);//设置加速目录<br>define(‘FocusCDNExcludes’,’.php|.xml|.html|.po|.mo’);//设置文件白名单<br>define(‘FocusCDNRelative’,’’);//Check this if you want to have links like &lt;wp-content/abc.png&gt; rewritten<br>                                       // i.e. without your blog’s domain as prefix.</pre></p>
+<p>function do_cdnrewrite_ob_start() {<br>$rewriter = new FocusCDNRewriteWordpress();<br>$rewriter-&gt;register_as_output_buffer();<br>}<br>add_action(‘template_redirect’, ‘do_cdnrewrite_ob_start’);</p>
+<p>class FocusCDNRewriteWordpress extends FocusCDNRewrite<br>{<br>function __construct() {<br>$excl_tmp = FocusCDNExcludes;<br>$excludes = array_map(‘trim’, explode(‘|’, $excl_tmp));</p>
+<p>parent::__construct(<br>FocusCDNHost,<br>FocusCDNRemote,<br>FocusCDNIncludes,<br>$excludes,<br>!!FocusCDNRelative<br>);<br>}<br>public function register_as_output_buffer() {<br>if ($this-&gt;blog_url != FocusCDNRemote) {<br>ob_start(array(&amp;$this, ‘rewrite’));<br>}<br>}</p>
+<p>}</p>
+<p>class FocusCDNRewrite {<br>var $blog_url    = null;<br>var $cdn_url     = null;<br>var $include_dirs   = null;<br>var $excludes    = array();<br>var $rootrelative   = false;</p>
+<p>function __construct($blog_url, $cdn_url, $include_dirs, array $excludes, $root_relative) {<br>$this-&gt;blog_url   = $blog_url;<br>$this-&gt;cdn_url    = $cdn_url;<br>$this-&gt;include_dirs  = $include_dirs;<br>$this-&gt;excludes   = $excludes;<br>$this-&gt;rootrelative  = $root_relative;<br>}</p>
+<p>protected function exclude_single(&amp;$match) {<br>foreach ($this-&gt;excludes as $badword) {<br>if (stristr($match, $badword) != false) {<br>return true;<br>}<br>}<br>return false;<br>}</p>
+<p>protected function rewrite_single(&amp;$match) {<br>if ($this-&gt;exclude_single($match[0])) {<br>return $match[0];<br>} else {<br>if (!$this-&gt;rootrelative || strstr($match[0], $this-&gt;blog_url)) {<br>return str_replace($this-&gt;blog_url, $this-&gt;cdn_url, $match[0]);<br>} else {<br>return $this-&gt;cdn_url . $match[0];<br>}<br>}<br>}</p>
+<p>protected function include_dirs_to_pattern() {<br>$input = explode(‘,’, $this-&gt;include_dirs);<br>if ($this-&gt;include_dirs == ‘’ || count($input) &lt; 1) {<br>return ‘wp-content|wp-includes’;<br>} else {<br>return implode(‘|’, array_map(‘quotemeta’, array_map(‘trim’, $input)));<br>}<br>}</p>
+<p>public function rewrite(&amp;$content) {<br>$dirs = $this-&gt;include_dirs_to_pattern();<br>$regex = ‘#(?&lt;=[(\”\’])’;<br>$regex .= $this-&gt;rootrelative<br>? (‘(?:’.quotemeta($this-&gt;blog_url).’)?’)<br>: quotemeta($this-&gt;blog_url);<br>$regex .= ‘/(?:((?:’.$dirs.’)[^\”\’)]+)|([^/\”\’]+.[^/\”\’)]+))(?=[\”\’)])#’;<br>return preg_replace_callback($regex, array(&amp;$this, ‘rewrite_single’), $content);<br>}</p>
+<p>}<br>cdn的域名同样适用于又拍云，总得来说很方便，虽然代码有点长。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/wordpress-qiniu-cdn.html" data-id="cji8sg1xm00fp40ioz2hyrvso" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-upload-httpfile-to-qiniu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/upload-httpfile-to-qiniu.html" class="article-date">
+  <time datetime="2014-08-11T06:24:16.000Z" itemprop="datePublished">2014-08-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/upload-httpfile-to-qiniu.html">如何上传网络文件到七牛</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>七牛云的官方文档中，给出了两种上传方式，一种是上传字符串，一种是上传文件，示例代码如下：</p>
+<p>上传字符串</p>
+<p>&nbsp;</p>
+<pre class="prettyprint lang-php">require_once("qiniu/io.php");
+require_once("qiniu/rs.php");
+
+$bucket = "phpsdk";
+$key1 = "file_name1";
+$accessKey = '&lt;YOUR_APP_ACCESS_KEY&gt;';
+$secretKey = '&lt;YOUR_APP_SECRET_KEY&gt;';
+
+Qiniu_SetKeys($accessKey, $secretKey);
+$putPolicy = new Qiniu_RS_PutPolicy($bucket);
+$upToken = $putPolicy-&gt;Token(null);
+list($ret, $err) = Qiniu_Put($upToken, $key1, "Qiniu Storage!", null);
+echo "====&gt; Qiniu_Put result: 
+";
+if ($err !== null) {
+    var_dump($err);
+} else {
+    var_dump($ret);
+}
+</pre>
+上传本地文件：
+
+&nbsp;
+<pre class="prettyprint lang-php">require_once("qiniu/io.php");
+require_once("qiniu/rs.php");
+
+$bucket = "phpsdk";
+$key1 = "file_name1";
+$accessKey = '&lt;YOUR_APP_ACCESS_KEY&gt;';
+$secretKey = '&lt;YOUR_APP_SECRET_KEY&gt;';
+
+Qiniu_SetKeys($accessKey, $secretKey);
+$putPolicy = new Qiniu_RS_PutPolicy($bucket);
+$upToken = $putPolicy-&gt;Token(null);
+$putExtra = new Qiniu_PutExtra();
+$putExtra-&gt;Crc32 = 1;
+list($ret, $err) = Qiniu_PutFile($upToken, $key1, __file__, $putExtra);
+echo "====&gt; Qiniu_PutFile result: 
+";
+if ($err !== null) {
+    var_dump($err);
+} else {
+    var_dump($ret);
+}</pre>
+由于第二种方式上传文件只能读取本地文件，而本站图片存放在storage中，并不能通过读取网络地址的方式上传至七牛云，经过咨询七牛云技术客服，对方建议使用第一种，先读取网络文件为字符串，再使用上传字符串的方式上传至七牛云，经测试，成功上传。上传代码如下：
+<pre class="prettyprint lang-php">/**
+*上传图片至七牛云
+*$path 图片地址
+*$dirname 在七牛云上的文类名称
+*$filename 文件保存名称
+*$bucket 你的七牛云域名称
+*/
+function upPicTo7niu($path,$dirname,$filename,$bucket){
+
+    $contents = @file_get_contents($path);
+
+    $storename = $dirname."/".$filename;
+    $bu = $bucket.":".$storename;
+    $accessKey = '&lt;YOUR_APP_ACCESS_KEY&gt;';
+    $secretKey = '&lt;YOUR_APP_SECRET_KEY&gt;';
+
+    Qiniu_SetKeys($accessKey, $secretKey);
+    $putPolicy = new Qiniu_RS_PutPolicy($bu);
+    $upToken = $putPolicy-&gt;Token(null);
+    $putExtra = new Qiniu_PutExtra();
+    $putExtra-&gt;Crc32 = 1;
+    list($ret, $err) = Qiniu_Put($upToken, $storename, $contents, $putExtra);
+}</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/upload-httpfile-to-qiniu.html" data-id="cji8sg1wb00dk40ioh0nyobe7" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mac-os-x" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/mac-os-x.html" class="article-date">
+  <time datetime="2014-08-01T05:43:15.000Z" itemprop="datePublished">2014-08-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mac-os-x.html">Mac os x实用技巧-关闭渐隐和弹出动画效果</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不带任何动画效果不是更好吗？就像过去那样清清爽爽也不错。接下来将介绍如何在OS X操作系统里关闭大部分的视觉动画效果。</p>
+<h3 id="1、关闭窗口和对话框弹出的动画特效"><a href="#1、关闭窗口和对话框弹出的动画特效" class="headerlink" title="1、关闭窗口和对话框弹出的动画特效"></a>1、关闭窗口和对话框弹出的动画特效</h3><p>打开终端窗口（Finder-应用程序-实用工具-终端）并运行下面的命令，就能取消对话框和窗口在屏幕中央位置弹出的效果：</p>
+<blockquote>
+<p>defaults write -g NSAutomaticWindowAnimationEnabled -bool FALSE</p>
+</blockquote>
+<p>然后注销并重新登录系统使更改生效。</p>
+<p>如果想恢复这个特效的话，可以打开终端窗口并运行下面的命令。同样地，需要注销并重新登录使更改生效：</p>
+<blockquote>
+<p>defaults delete -g NSAutomaticWindowAnimationEnabled</p>
+</blockquote>
+<h3 id="2、关闭快速查看的动画特效"><a href="#2、关闭快速查看的动画特效" class="headerlink" title="2、关闭快速查看的动画特效"></a>2、关闭快速查看的动画特效</h3><p>当你选中某个文件并敲下《Space》键时会弹出快速查看窗口。它显示文件内容的预览画面。你可以在终端窗口里运行下面的命令，停用“快速查看”窗口从当前文件位置向外扩张的动画效果（这样做也会同时停用快速查看窗口缩回当前文件位置时的动画效果）：</p>
+<blockquote>
+<p>defaults write com.apple.finder QLPanelAnimationDuration -int 0;killall Finder</p>
+</blockquote>
+<p>命令运行后立即生效。如果想恢复这个动态效果，请打开终端窗口并运行以下命令（同理，这个更改也是立即生效）：</p>
+<blockquote>
+<p>defaults delete com.apple.finder QLPanelAnimationDuration;killall Finder</p>
+</blockquote>
+<h3 id="3、关闭Mission-Control的动画特效"><a href="#3、关闭Mission-Control的动画特效" class="headerlink" title="3、关闭Mission Control的动画特效"></a>3、关闭Mission Control的动画特效</h3><p>在终端窗口里运行下面的命令，可以关闭当用户使用或退出Mission Control功能时所出现的动画缩放效果：</p>
+<blockquote>
+<p>defaults write com.apple.dock expose-animation -duration -int 0;killall Dock</p>
+</blockquote>
+<p>更改在命令运行后立即生效。要注意这样也会关闭在使用“显示桌面”（Show Desktop）特效时，窗口向四周急速分散的动画效果。“显示桌面”特效通常是在触控板上用多个手指同时张开的手势来启用的。</p>
+<p>如果想要恢复Mission Control功能的默认动画效果，可以打开终端窗口并运行以下命令：</p>
+<blockquote>
+<p>defaults delete com.apple.dock expose-animation -duration;killall Dock</p>
+</blockquote>
+<h3 id="4、关闭文件保存和打印对话框的动画效果"><a href="#4、关闭文件保存和打印对话框的动画效果" class="headerlink" title="4、关闭文件保存和打印对话框的动画效果"></a>4、关闭文件保存和打印对话框的动画效果</h3><p>每当保存或打印文件时，程序的标题栏位置会向下滑出对话框。要关闭这一动画效果，可打开终端窗口并运行下面的命令：</p>
+<blockquote>
+<p>defaults write -g NSWindowResizeTime -float 0.01</p>
+</blockquote>
+<p>你需要注销后再登录系统来使更改生效。</p>
+<p>如果你希望再次看到这个视觉特效的话，可以运行下面的命令，之后同样要注销再登录系统使更改生效：</p>
+<blockquote>
+<p>defaults delete -g NSWindowResizeTime</p>
+</blockquote>
+<h3 id="5、关闭Launchpad界面动画效果"><a href="#5、关闭Launchpad界面动画效果" class="headerlink" title="5、关闭Launchpad界面动画效果"></a>5、关闭Launchpad界面动画效果</h3><p>更改一个隐藏的设置就可以使Launchpad界面立刻出现或消失。打开终端窗口并键入下面两行命令，再按下《Return》键就可以了：</p>
+<blockquote>
+<p>defaults write com.apple.dock springboard-show-duration -int 0</p>
+<p>defaults write com.apple.dock springboard-hide-duration -int 0;killall Dock</p>
+</blockquote>
+<p>更改会立即生效。如果你要恢复之前的动画效果，可以再次打开终端窗口并运行下面的两行命令：</p>
+<blockquote>
+<p>defaults delete com.apple.dock springboard-show-duration</p>
+<p>defaults delete com.apple.dock springboard-hide-duration;killall Dock</p>
+</blockquote>
+<p>在Launchpad界面里的应用程序页面划动时，如果你想立刻切换到下一页面而不带动画过渡从而减少页面切换所需的时间，那么可以打开终端窗口并键入下面的命令：</p>
+<blockquote>
+<p>defaults write com.apple.dock springboard-page-duration -int 0;killall Dock</p>
+</blockquote>
+<p>运行后更改会立即生效。如果需要恢复默认状态，请打开终端窗口并键入以下命令：</p>
+<blockquote>
+<p>defaults delete com.apple.dock springboard-page-duration;killall Dock</p>
+</blockquote>
+<h3 id="6、关闭Dock栏的动画效果"><a href="#6、关闭Dock栏的动画效果" class="headerlink" title="6、关闭Dock栏的动画效果"></a>6、关闭Dock栏的动画效果</h3><p>Dock栏可以启动隐藏功能，以便在它用不到的时候会自动滑出屏幕。这样可以为屏幕腾出一些空间。把鼠标移到Dock栏平常所在的位置的边缘时可以让它重新进入屏幕中。右击Dock栏上的应用程序图标和栈之间的虚线，然后就可以选择是否启动隐藏功能。</p>
+<p>如果想让Dock栏在需要用到的时候立刻跳入到屏幕里，而不是滑进屏幕，可以在打开的终端窗口里输入以下命令：</p>
+<blockquote>
+<p>defaults write com.apple.dock autohide-time-moidifier -int 0;killall Dock</p>
+</blockquote>
+<p>如果想要恢复默认的滑动效果，可以打开终端窗口并运行以下命令：</p>
+<blockquote>
+<p>defaults write com.apple.dock autohide-time-moidifier -int 0;killall Dock</p>
+</blockquote>
+<p>好了，关于渐隐和弹出动画效果就说到这里了。在这里我列举了常用的功能，修改和恢复的代码。喜欢折腾的童鞋不防试一下。有什么问题欢迎在微IT留言。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/mac-os-x.html" data-id="cji8sg1sw007440ioyb8nofpj" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wordpress-workflow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wordpress-workflow.html" class="article-date">
+  <time datetime="2014-08-01T00:37:59.000Z" itemprop="datePublished">2014-08-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wordpress-workflow.html">wordpress程序流程分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>index.php 统一入口文件</p>
+<p>包含wp-blog-heaer.php</p>
+<p>包含wp-load.php</p>
+<p>包含wp-config.php</p>
+<p>数据库、语言包配置等</p>
+<p>包含wp-setting.php</p>
+<p>对各种运行环境做兼容性处理<br>定义路径常量等<br>载入公共函数，类<br>初始化公用对象（数据库等）<br>魔术引用处理</p>
+<p>运行wp();</p>
+<p>初始化<br>发送HTTP头信息<br>post （文章数据）查询，这里很关键，整个wp站的post 数据都是通过这里查询的。</p>
+<p>包含template-loader.php</p>
+<p>根据页面类型载入不同的模板页面文件</p>
+<p>——————————————————————————————————————————</p>
+<p>我们可以看出整个wp的程序结构 是很特别的，也不象一些普通的面向过程，也不是MVC，总之就是他自己的程序结构。</p>
+<p>在模板前面的程序基本上都是公共处理，但是把post的查询的逻辑处理放在公共处理中。因为整个wp的页面基本上都有查询post。</p>
+<p>其它的逻辑操作基本上是在模板中调用的（比如评论），所以它的模板并不是单纯的V,可以算是C+V。</p>
+<p>1、Loads the WordPress environment:</p>
+<p>加载流程：index.php -&gt; wp-blog-header.php -&gt; wp-load.php -&gt; wp-config.php -&gt; wp-settings.php</p>
+<p>wp-load.php:根据wp-config.php文件是否在判断程序是否已安装，已安装则加载wp-config.php，未安装则提示安装</p>
+<p>wp-config.php:记录了安装时的配置信息，包括数据库和程序的配置;并加载wp-settings.php</p>
+<p>wp-settings.php:加载wp的函数和类库等环境</p>
+<p>2、Loads the template:</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/wordpress-workflow.html" data-id="cji8sg1xq00fw40io450cfhw9" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-find-android-activity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/find-android-activity.html" class="article-date">
+  <time datetime="2014-07-25T03:44:56.000Z" itemprop="datePublished">2014-07-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/find-android-activity.html">手把手教你_如何找android应用的包名和启动activity </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>手把手教你_怎么找android应用的包名和启动activity</p>
+<p>自动化测试中经常遇到这个问题，关于这个题目，方法众多，咱的目的是找个比较简单靠谱的：</p>
+<p>方法一：</p>
+<p>先进入cmd窗口，adb shell 后：</p>
+<p>cd /data/data</p>
+<p>ls</p>
+<p>可以看到包名了吧，缺点很明显，必须root手机先</p>
+<p>方法二：</p>
+<p>先进入cmd窗口：</p>
+<p>adb shell ps|findstr /i “keyword”</p>
+<p>要搜哪个不就都行了，这个不用root手机了吧，嗯，这个还凑活</p>
+<p>方法三：</p>
+<p>在手机上启动了程序，usb连接电脑，然后启动android-sdk/tools/monitor.bat，device里面也就可以看到包名了吧。</p>
+<p>上面三种方法查看包名都还凑活，可能稍微需要猜猜，不过都能达到目的，但是启动的任务窗口(activity)是啥呢，这几个方法都看不到。</p>
+<p>得，不卖关子了，直接推出我的建议方法：</p>
+<p>方法四：</p>
+<p>首先在手机上运行一下程序，进入第一个界面就行了，别去多多操作了，usb连接电脑，进入cmd窗口运行：</p>
+<p>adb shell “dumpsysusagestats”|findstr /i “keyword”</p>
+<p>这个也不用root手机的，原本这个dumpsys usagestats 是用来记录打开了程序的哪些activity次数和时间一类信息的，这里可以用来直接看看你的这个程序开启了哪些activity。</p>
+<p>你可以试试在cmd下执行下面的命令：</p>
+<p>微信</p>
+<p>adb shell “am start -n com.tencent.mm/com.tencent.mm.ui.LauncherUI”</p>
+<p>手机QQ</p>
+<p>adb shell “am start -n com.tencent.mobileqq/com.tencent.mobileqq.activity.SplashActivity”</p>
+<p>微博</p>
+<p>adb shell “am start -n com.sina.weibo/com.sina.weibo.SplashActivity”</p>
+<p>QQ空间</p>
+<p>adb shell “am start -n com.qzone/com.tencent.sc.activity.SplashActivity”</p>
+<p>不过如果你可以直接看到程序项目中的AndroidManifest.xml或者可以直接问开发，那这篇文章你就压根不用看了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/find-android-activity.html" data-id="cji8sg1rm004p40iowmajm858" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wechat-androidmanifest-xml" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wechat-androidmanifest-xml.html" class="article-date">
+  <time datetime="2014-07-25T03:44:02.000Z" itemprop="datePublished">2014-07-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wechat-androidmanifest-xml.html">微信wechat AndroidManifest.xml</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+ &lt;manifest android:versionCode="352" android:versionName="5.0.2" android:installLocation="0" package="com.tencent.mm"
+ xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+ &lt;permission android:name="com.tencent.mm.oauth.permission.SEND" android:protectionLevel="signature" /&gt;
+ &lt;permission android:name="com.tencent.mm.plugin.permission.WRITE" android:protectionLevel="signature" /&gt;
+ &lt;permission android:name="com.tencent.mm.plugin.permission.READ" android:protectionLevel="signature" /&gt;
+ &lt;permission android:name="com.tencent.mm.permission.MM_MESSAGE" android:protectionLevel="signature" /&gt;
+ &lt;permission android:name="com.tencent.mm.permission.GET_QRCODE_INFO" android:protectionLevel="signature" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.oauth.permission.SEND" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.plugin.permission.READ" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.plugin.permission.WRITE" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.plugin.permission.SEND" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.permission.MM_MESSAGE" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.permission.GET_QRCODE_INFO" /&gt;
+ &lt;uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7" /&gt;
+ &lt;uses-feature android:name="android.hardware.camera" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.camera.autofocus" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.bluetooth" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.location" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.location.gps" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.location.network" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.microphone" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.telephony" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.touchscreen" android:required="false" /&gt;
+ &lt;uses-feature android:name="android.hardware.wifi" android:required="false" /&gt;
+ &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
+ &lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+ &lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+ &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
+ &lt;uses-permission android:name="android.permission.GET_TASKS" /&gt;
+ &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+ &lt;uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /&gt;
+ &lt;uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /&gt;
+ &lt;uses-permission android:name="android.permission.RECORD_AUDIO" /&gt;
+ &lt;uses-permission android:name="android.permission.READ_CONTACTS" /&gt;
+ &lt;uses-permission android:name="android.permission.READ_SMS" /&gt;
+ &lt;uses-permission android:name="android.permission.VIBRATE" /&gt;
+ &lt;uses-permission android:name="android.permission.WAKE_LOCK" /&gt;
+ &lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /&gt;
+ &lt;uses-permission android:name="android.permission.WRITE_CONTACTS" /&gt;
+ &lt;uses-permission android:name="android.permission.WRITE_SETTINGS" /&gt;
+ &lt;uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /&gt;
+ &lt;uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.location.permission.SEND_VIEW" /&gt;
+ &lt;uses-permission android:name="android.permission.BLUETOOTH" /&gt;
+ &lt;uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /&gt;
+ &lt;uses-permission android:name="android.permission.BROADCAST_STICKY" /&gt;
+ &lt;uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /&gt;
+ &lt;uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /&gt;
+ &lt;application android:theme="@style/MMTheme.Basic" android:label="@string/app_name" android:icon="@drawable/icon" android:name="com.tencent.mm.app.MMApplication" android:largeHeap="true"&gt;
+ &lt;uses-library android:name="com.google.android.maps" android:required="false" /&gt;
+ &lt;uses-library android:name="com.sec.android.app.multiwindow" android:required="false" /&gt;
+ &lt;meta-data android:name="com.sec.android.support.multiwindow" android:value="true" /&gt;
+ &lt;meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W" android:value="632.0dip" /&gt;
+ &lt;meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H" android:value="598.0dip" /&gt;
+ &lt;meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W" android:value="632.0dip" /&gt;
+ &lt;meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H" android:value="598.0dip" /&gt;
+ &lt;activity android:label="@string/launcher_name" android:name="com.tencent.mm.ui.LauncherUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustPan"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.MAIN" /&gt;
+ &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+ &lt;category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.ui.LauncherUIProxy" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.DataTransferUI" android:launchMode="singleTask" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.LoginSelectorUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.LoginHistoryUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.LoginUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.AddAccountLoginUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.FacebookLoginUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByQQAuthUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByMobileRegUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.MobileVerifyUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByMobileVoiceVerifyUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByMobileVoiceVerifySelectUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByMobileSetPwdUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByMobileSetNickUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.SimpleLoginUI" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByFacebookSetPwdUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegByQQUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.RegSetInfoUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.LoginByMobileUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.LoginIndepPass" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.chatting.ChattingUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.chatting.ImageDownloadUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.chatting.AtSomeoneUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.chatting.HelperAddressUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.chatting.AppAttachDownloadUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.chatting.AppMsgEmojiDownloadUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.chatting.CustomSmileyPreviewUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.transmit.SelectConversationUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.conversation.MainUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.MoreTabUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.AddressUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.SelectContactUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.FMessageConversationUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.GroupCardSelectUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.pluginapp.ContactSearchUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.RoomInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.GrantRoomUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.RoomRightUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.RoomInfoDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.SendContactCardUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.pluginapp.FindMoreFriendsUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.pluginapp.AddMoreFriendsUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.conversation.BizConversationUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.conversation.TConversationUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.conversation.QConversationUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.ui.transmit.MsgRetransmitUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.ui.transmit.SendAppMessageWrapperUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.ui.transmit.TaskRedirectUI" android:taskAffinity="com.tencent.mm.openapi.taskredirect" android:excludeFromRecents="true" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.player.MusicDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.profile.ContactInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.ModRemarkNameUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.ContactQZoneWebView" android:process=":tools" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.pluginapp.ContactSearchResultUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.MobileFriendUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.QQFriendUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.QQGroupUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.InviteFriendUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.InviteRecommendChoiceUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.RecommendFriendUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.InviteFacebookFriendsUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.ContactsSyncUI" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.VIEW" /&gt;
+ &lt;action android:name="com.tencent.mm.login.ACTION_LOGIN" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;data android:mimeType="vnd.android.cursor.item/vnd.com.tencent.mm.login" /&gt;
+ &lt;data android:mimeType="vnd.android.cursor.item/vnd.com.tencent.mm.chatting.profile" /&gt;
+ &lt;data android:mimeType="vnd.android.cursor.item/vnd.com.tencent.mm.plugin.sns.timeline" /&gt;
+ &lt;data android:mimeType="vnd.android.cursor.item/vnd.com.tencent.mm.chatting.phonenum" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.SayHiEditUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.profile.BizExposeUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsLanguageUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsAboutMicroMsgUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsAboutPrivacyUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsAboutTimelineUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsPrivacyUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsPersonalInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsTWeiboUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsAccountInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsAliasUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsPluginsUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsNotificationUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SetTextSizeUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsAboutSystemUI" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.action.DISPLAY_SETTINGS" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsRingtoneUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsModifyNameUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsModifyEmailAddrUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsModifyPasswordUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsActiveTimeUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsNetStatUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.EditSignatureUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.qrcode.ShareToQQUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsPluginsNotifyUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SendFeedBackUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsFAQWebUI" android:process=":tools" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsChattingBackgroundUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsSelectBgUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.accountsync.ui.FacebookAuthUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.accountsync.ui.FacebookFriendUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.accountsync.ui.ShowNonWeixinFriendUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingsEmojiUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.emoji.EmojiLocalUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.emoji.EmojiCustomUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.emoji.EmojiStoreUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.emoji.EmojiPaidUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.emoji.EmojiStoreDetailUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindmobile.BindMContactIntroUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindmobile.BindMContactUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindmobile.BindMContactVerifyUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindmobile.BindMContactStatusUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindmobile.FindMContactIntroUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.FindMContactAddUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.friend.FindMContactInviteUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindqq.BindQQUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindqq.VerifyQQUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.login.BindFacebookUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindqq.StartUnbindQQ" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.bindqq.SuccUnbindQQ" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMNewTaskTheme.Transparent" android:name="com.tencent.mm.ui.tools.NewTaskUI" android:launchMode="singleInstance" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.MultiStageCitySelectUI" android:exported="false" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.action.GET_ADRESS" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.CountryCodeUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.CropImageNewUI" android:process=":tools" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.ImageGalleryUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.ShowImageUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.video.VideoPlayerUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.video.VideoDownloadUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.bottle.ui.BottleWizardStep1" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.bottle.ui.BottleWizardStep2" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.bottle.ui.BottleBeachUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.bottle.ui.BottleConversationUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.bottle.ui.BottleChattingUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.bottle.ui.BottlePersonalInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.traceroute.ui.NetworkDiagnoseIntroUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.traceroute.ui.NetworkDiagnoseUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.traceroute.ui.NetworkDiagnoseReportUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.masssend.ui.MassSendSelectContactUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.masssend.ui.MassSendMsgUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.masssend.ui.MassSendHistoryUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.readerapp.ui.ReaderAppUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.readerapp.ui.ReaderAppIntroUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.gallery.GestureGalleryUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.readerapp.ui.ReaderAppSubscribeUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.location.ui.RedirectUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.location.ui.SosoMapUI" android:process=":tools" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.location.ui.GGmapUI" android:process=":tools" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.location.ui.RemarkUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsAnimation$SnsPostAnimationUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsUserUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsTimeLineUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsCommentDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsStrangerCommentDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsUploadUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustResize" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsGalleryUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.ArtistBrowseUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Transparent" android:name="com.tencent.mm.plugin.sns.ui.SnsBrowseUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMSnsTheme.Transparent" android:name="com.tencent.mm.plugin.sns.ui.SnsSelectContactDialog" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsMsgUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SettingSnsBackgroundUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.ArtistUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsUploadBrowseUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsCommentUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.SnsAddressUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsTagUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsTagDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsBlackDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsTagPartlyUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.contact.SnsTagContactListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsPermissionUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:icon="@drawable/icon" android:name="com.tencent.mm.ui.tools.ShareImgUI" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter android:label="@string/app_share_to_weixin"&gt;
+ &lt;action android:name="android.intent.action.SEND" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;data android:mimeType="image/*" /&gt;
+ &lt;data android:mimeType="video/*" /&gt;
+ &lt;data android:mimeType="application/*" /&gt;
+ &lt;data android:mimeType="text/*" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;intent-filter android:label="@string/app_share_to_weixin"&gt;
+ &lt;action android:name="android.intent.action.SEND_MULTIPLE" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;data android:mimeType="image/*" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:icon="@drawable/share_to_time_line_icon" android:name="com.tencent.mm.ui.tools.ShareToTimeLineUI" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter android:label="@string/app_share_to_timeline"&gt;
+ &lt;action android:name="android.intent.action.SEND" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;data android:mimeType="image/*" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;intent-filter android:label="@string/app_share_to_timeline"&gt;
+ &lt;action android:name="android.intent.action.SEND_MULTIPLE" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;data android:mimeType="image/*" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakChatUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakChatRecoverCheckUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakChatUploadSelectUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakChatUploadingUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakChatRecoveringUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakchatSetCryptUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakchatSelcetCryptUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.backup.ui.BakChatInputCryptUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.securityaccount.SecurityAccountIntroUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.securityaccount.SecurityAccountVerifyUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.securityaccount.MySafeDeviceListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.securityaccount.ModSafeDeviceNameUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.securityaccount.BindSafeDeviceUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;receiver android:name="com.tencent.mm.booter.NotifyReceiver" android:exported="false"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.action.SHOOT_NETSCENE" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;receiver android:name="com.tencent.mm.sandbox.monitor.CrashUploadAlarmReceiver" android:exported="false" /&gt;
+ &lt;receiver android:name="com.tencent.mm.booter.MountReceiver"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.MEDIA_MOUNTED" /&gt;
+ &lt;action android:name="android.intent.action.MEDIA_EJECT" /&gt;
+ &lt;action android:name="android.intent.action.MEDIA_UNMOUNTED" /&gt;
+ &lt;action android:name="android.intent.action.MEDIA_SHARED" /&gt;
+ &lt;action android:name="android.intent.action.MEDIA_SCANNER_STARTED" /&gt;
+ &lt;action android:name="android.intent.action.MEDIA_SCANNER_FINISHED" /&gt;
+ &lt;action android:name="android.intent.action.MEDIA_REMOVED" /&gt;
+ &lt;action android:name="android.intent.action.MEDIA_BAD_REMOVAL" /&gt;
+ &lt;data android:scheme="file" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;service android:name="com.tencent.mm.booter.NotifyReceiver$NotifyService" /&gt;
+ &lt;service android:name="com.tencent.mm.modelfriend.AddrBookObserver$AddrBookService" /&gt;
+ &lt;receiver android:name="com.tencent.mm.booter.BluetoothReceiver"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.media.SCO_AUDIO_STATE_CHANGED" /&gt;
+ &lt;action android:name="android.media.ACTION_SCO_AUDIO_STATE_UPDATED" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;receiver android:name="com.tencent.mm.booter.MMReceivers$ToolsProcessReceiver" android:exported="false" android:process=":tools"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.intent.ACTION_START_TOOLS_PROCESS" /&gt;
+ &lt;action android:name="com.tencent.mm.intent.ACTION_KILL_TOOLS_PROCESS" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;service android:name="com.tencent.mm.booter.CoreService" android:process=":push" /&gt;
+ &lt;service android:name="com.tencent.mm.booter.cache.CacheService" android:process=":push" /&gt;
+ &lt;receiver android:name="com.tencent.mm.booter.MMReceivers$BootReceiver" android:process=":push"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.BOOT_COMPLETED" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;receiver android:name="com.tencent.mm.booter.MMReceivers$ConnectionReceiver" android:process=":push"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.net.conn.CONNECTIVITY_CHANGE" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;receiver android:name="com.tencent.mm.booter.MMReceivers$AlarmReceiver" android:process=":push" /&gt;
+ &lt;receiver android:name="com.tencent.mm.jni.platformcomm.Alarm" android:exported="false" android:process=":push" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.base.stub.MMPluginProvider" android:writePermission="com.tencent.mm.plugin.permission.WRITE" android:authorities="com.tencent.mm.sdk.plugin.provider" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.base.stub.RContactDBProvider" android:readPermission="com.tencent.mm.plugin.permission.READ" android:writePermission="com.tencent.mm.plugin.permission.WRITE" android:authorities="com.tencent.mm.sdk.contact.provider" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.base.stub.RConversationDBProvider" android:readPermission="com.tencent.mm.plugin.permission.READ" android:writePermission="com.tencent.mm.plugin.permission.WRITE" android:authorities="com.tencent.mm.sdk.conversation.provider" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.base.stub.RMsgInfoDBProvider" android:readPermission="com.tencent.mm.plugin.permission.READ" android:writePermission="com.tencent.mm.plugin.permission.WRITE" android:authorities="com.tencent.mm.sdk.msginfo.provider" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.base.stub.WXEntryActivity" android:exported="true" android:excludeFromRecents="true" android:launchMode="singleTop" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.base.stub.WXPayEntryActivity" android:exported="true" android:excludeFromRecents="true" android:launchMode="singleTop" /&gt;
+ &lt;receiver android:name="com.tencent.mm.plugin.base.stub.WXEntryActivity$EntryReceiver"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_HANDLE_APP_REGISTER" /&gt;
+ &lt;action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_HANDLE_APP_UNREGISTER" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.plugin.base.stub.UIEntryStub" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.base.stub.OAuthUI" android:process=":tools" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.openapi.AddAppUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.openapi.AppProfileUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.webwx.ui.WebWXLogoutUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.webwx.ui.WebWeiXinIntroductionUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.voicesearch.VoiceSearchResultUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.voicesearch.SearchConversationResultUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustPan" /&gt;
+ &lt;activity android:theme="@android:style/Theme.Translucent" android:name="com.tencent.mm.plugin.voicereminder.ui.RemindDialog" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.qrcode.QRCodeIntroductionWebViewUI" android:process=":tools" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.ui.qrcode.GetQRCodeInfoUI" android:permission="com.tencent.mm.permission.GET_QRCODE_INFO" android:exported="false" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.VIEW" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;category android:name="android.intent.category.BROWSABLE" /&gt;
+ &lt;data android:scheme="http" android:host="weixin.qq.com" android:pathPrefix="/r/" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.VIEW" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;category android:name="android.intent.category.BROWSABLE" /&gt;
+ &lt;data android:scheme="weixin" android:host="qr" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SelfQRCodeUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.qrcode.ShareMicroMsgChoiceUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.qrcode.ShowQRCodeStep1UI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.game.ui.GameCenterUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.game.ui.GameDetailInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.game.ui.AuthorizedGameListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.game.ui.GameSettingsUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.game.ui.GameRankUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.game.ui.GameMessageUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.plugin.game.ui.GameMD5CheckUI" android:exported="false" android:taskAffinity="com.tencent.mm.game.md5check" android:excludeFromRecents="true" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.game.md5check" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingDeleteAccountAgreementUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingDeleteAccountInputPassUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.setting.SettingDeleteAccountUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;service android:name="com.tencent.mm.modelfriend.AccountAuthenticatorService" android:exported="true"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.accounts.AccountAuthenticator" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;meta-data android:name="android.accounts.AccountAuthenticator" android:resource="@xml/authenticator" /&gt;
+ &lt;/service&gt;
+ &lt;service android:name="com.tencent.mm.modelfriend.ContactsSyncService" android:exported="true"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.content.SyncAdapter" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;meta-data android:name="android.content.SyncAdapter" android:resource="@xml/sync_contacts" /&gt;
+ &lt;meta-data android:name="android.provider.CONTACTS_STRUCTURE" android:resource="@xml/contacts" /&gt;
+ &lt;/service&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.nearby.ui.NearbyFriendsIntroUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.nearby.ui.NearbyFriendShowSayHiUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.nearby.ui.NearbyFriendsUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.nearby.ui.NearbyPersonalInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.nearby.ui.NearbySayHiListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.brandservice.ui.BrandServiceIndexUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.brandservice.ui.SearchOrRecommendBizUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.video.VideoRecorderUI" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.action.VIDEO" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:name="com.tencent.mm.ui.video.VideoRecorderPreviewUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.ui.ShakeSayHiListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.shakemedia.ui.ShakeMusicPlayerUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.ui.ShakeReportUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.ui.ShakePhotoViewerUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.ui.ShakeTranImgGalleryUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.ui.ShakePersonalInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.ui.ShakeTranImgIntroUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.ui.ShakeItemListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.shake.shakemedia.ui.ShakeTVDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:name="com.tencent.mm.plugin.voip.ui.VideoActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@android:style/Theme.Translucent" android:name="com.tencent.mm.ui.base.MMSuperAlert" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@android:style/Theme.Translucent" android:name="com.tencent.mm.plugin.voip.ui.InviteRemindDialog" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:name="com.tencent.mm.plugin.voip.audio.ui.VoipAudioUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.favorite.ui.FavoriteIndexUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustPan" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.favorite.ui.FavOpenApiEntry" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.plugin.favorite.ui.FavTipsUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.favorite.ui.detail.FavoriteTextDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.favorite.ui.detail.FavoriteImgDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.favorite.ui.detail.FavoriteFileDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.favorite.ui.detail.FavoriteVoiceDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.favorite.ui.detail.FavoriteMusicDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.favorite.ui.post.FavPostTextUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.plugin.favorite.ui.post.FavPostVoiceUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqsync.ui.QQSyncUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.gallery.ui.GalleryUI" android:process=":tools" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.gallery.ui.ImagePreviewUI" android:process=":tools" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.gallery.ui.AlbumPreviewUI" android:process=":tools" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Launcher" android:name="com.tencent.mm.plugin.gallery.ui.GalleryEntryUI" android:process=":tools" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.radar.ui.RadarSearchUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsSingleTextViewUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.sns.ui.SnsLongMsgUI" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.ext.provider.ExtContentProviderBase" android:readPermission="com.tencent.mm.ext.permission.READ" android:writePermission="com.tencent.mm.ext.permission.WRITE" android:authorities="com.tencent.mm.plugin.ext.ExtContentProviderBase" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.ext.provider.ExtControlProviderMsg" android:readPermission="com.tencent.mm.ext.permission.READ" android:writePermission="com.tencent.mm.ext.permission.WRITE" android:authorities="com.tencent.mm.plugin.ext.message" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.ext.provider.ExtControlProviderSearchContact" android:readPermission="com.tencent.mm.ext.permission.READ" android:writePermission="com.tencent.mm.ext.permission.WRITE" android:authorities="com.tencent.mm.plugin.ext.SearchContact" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.ext.provider.ExtControlProviderNearBy" android:readPermission="com.tencent.mm.ext.permission.READ" android:writePermission="com.tencent.mm.ext.permission.WRITE" android:authorities="com.tencent.mm.plugin.ext.NearBy" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.ext.provider.ExtControlProviderSNS" android:readPermission="com.tencent.mm.ext.permission.READ" android:writePermission="com.tencent.mm.ext.permission.WRITE" android:authorities="com.tencent.mm.plugin.ext.SNS" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.ext.provider.ExtControlProviderAccountSync" android:readPermission="com.tencent.mm.ext.permission.READ" android:writePermission="com.tencent.mm.ext.permission.WRITE" android:authorities="com.tencent.mm.plugin.ext.AccountSync" /&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.ext.provider.ExtControlProviderEntry" android:readPermission="com.tencent.mm.ext.permission.READ" android:writePermission="com.tencent.mm.ext.permission.WRITE" android:authorities="com.tencent.mm.plugin.ext.entry" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.RoomInfoShareQrUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.ComposeUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.MailAddrListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.ReadMailUI" android:process=":tools" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.MailAddrProfileUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.MailWebViewUI" android:process=":tools" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.CompressPreviewUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.qqmail.ui.AttachDownloadPage" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.qqmail.stub.QQMailStubProxyUI" /&gt;
+ &lt;service android:name="com.tencent.mm.plugin.qqmail.stub.QQMailStubService" android:exported="false" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.jsapi.ShareToQQWeiboUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.WebViewUI" android:process=":tools" android:screenOrientation="sensor" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.webview.stub.WebViewStubProxyUI" /&gt;
+ &lt;service android:name="com.tencent.mm.plugin.webview.stub.WebViewStubService" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.scanner.ui.BaseScanUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.scanner.ui.ProductUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.scanner.ui.VcardContactUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.sandbox.updater.AppUpdaterUI" android:process=":sandbox" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;service android:name="com.tencent.mm.sandbox.monitor.ExceptionMonitorService" android:process=":sandbox" /&gt;
+ &lt;activity android:theme="@style/MMTheme.Talkroom" android:name="com.tencent.mm.plugin.talkroom.ui.TalkRoomUI" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;service android:name="com.tencent.mm.plugin.talkroom.component.TalkRoomService" /&gt;
+ &lt;receiver android:name="com.tencent.mm.plugin.talkroom.model.TalkRoomReceiver" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.whatsnew.ui.WhatsNewActivity" android:process=":tools" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:label="@string/app_name" android:name="com.tencent.mm.plugin.shoot.ui.ShootMainUI" android:process=":tools" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation"&gt;
+ &lt;intent-filter /&gt;
+ &lt;/activity&gt;
+ &lt;activity android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:name="com.tencent.mm.plugin.shoot.ui.ShootFlashUI" android:process=":tools" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" /&gt;
+ &lt;receiver android:name="com.tencent.mm.plugin.shoot.remote.RemoteNetSceneMgr$RespReceiver" android:permission="com.tencent.mm.permission.SHOOT_STUB_REQ_RESP" android:process=":tools"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.action.SHOOT_STUB_RESP" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;receiver android:name="com.tencent.mm.plugin.shootstub.communicate.ReqReceiver" android:permission="com.tencent.mm.permission.SHOOT_STUB_REQ_RESP"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.action.SHOOT_STUB_REQ" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.mall.ui.MallIndexUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.mall.ui.MallRechargeUI" android:configChanges="keyboardHidden|orientation" android:windowAnimationStyle="@null" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletManageUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletInputCardIDUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysVisible" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.wallet.ui.WalletLauncherUI" android:permission="com.tencent.mm.plugin.permission.READ" android:exported="false" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.action.WALLET_PAY" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.wallet.ui.WalletPayUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletCardElmentUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletVerifyCodeUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletSetPasswordUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletPwdConfirmUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletOrderListUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletOrderInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletPasswordSettingUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.wallet.ui.WalletCheckPwdUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletBankcardDetailUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletCardSelectUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletForgotPwdUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.wallet.ui.WalletBrandUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.wallet.ui.WalletIapUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:theme="@style/Theme.Transparent" android:name="com.tencent.mm.plugin.wallet.ui.OrderHandlerUI" android:launchMode="singleTop" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletResetInfoUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletAddAddressUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletSelectAddrUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.MultiRcptSelectUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.plugin.wallet.ui.WalletChangeBankcardUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;activity android:name="com.tencent.mm.pluginsdk.ui.tools.FileExplorerUI" android:configChanges="keyboardHidden|orientation" /&gt;
+ &lt;service android:name="com.tencent.mm.pluginsdk.model.downloader.FileDownloadManger$FileDownloadService" /&gt;
+ &lt;receiver android:name="com.tencent.mm.pluginsdk.model.downloader.FileDownloadManger$FileDownloadReceiver"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.DOWNLOAD_COMPLETE" /&gt;
+ &lt;action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;activity android:name="com.tencent.mm.ui.tools.MMTextInputUI" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustPan" /&gt;
+ &lt;receiver android:name="com.tencent.mm.compatible.audio.MMRemoteController$Receiver"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="android.intent.action.MEDIA_BUTTON" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/receiver&gt;
+ &lt;activity android:theme="@android:style/Theme.Translucent" android:name="com.tencent.mm.plugin.gwallet.GWalletUI"&gt;
+ &lt;intent-filter&gt;
+ &lt;action android:name="com.tencent.mm.gwallet.ACTION_PAY_REQUEST" /&gt;
+ &lt;action android:name="com.tencent.mm.gwallet.ACTION_QUERY_REQUEST" /&gt;
+ &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ &lt;/intent-filter&gt;
+ &lt;/activity&gt;
+ &lt;provider android:name="com.tencent.mm.plugin.gwallet.GWalletQueryProvider" android:permission="com.tencent.mm.plugin.permission.READ" android:authorities="com.tencent.mm.plugin.gwallet.queryprovider" /&gt;
+ &lt;/application&gt;
+ &lt;uses-permission android:name="android.permission.GET_ACCOUNTS" /&gt;
+ &lt;uses-permission android:name="android.permission.MANAGE_ACCOUNTS" /&gt;
+ &lt;uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" /&gt;
+ &lt;uses-permission android:name="android.permission.READ_SYNC_SETTINGS" /&gt;
+ &lt;uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" /&gt;
+ &lt;permission android:name="com.tencent.mm.ext.permission.READ" android:protectionLevel="signatureOrSystem" /&gt;
+ &lt;permission android:name="com.tencent.mm.ext.permission.WRITE" android:protectionLevel="signatureOrSystem" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.ext.permission.READ" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.ext.permission.WRITE" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.permission.SHOOT_STUB_REQ_RESP" /&gt;
+ &lt;permission android:name="com.tencent.mm.permission.SHOOT_STUB_REQ_RESP" android:protectionLevel="signature" /&gt;
+ &lt;uses-permission android:name="com.tencent.mm.gwallet.BILLING" /&gt;
+ &lt;uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /&gt;
+ &lt;uses-permission android:name="android.permission.READ_PHONE_STATE" /&gt;
+ &lt;uses-permission android:name="com.android.vending.BILLING" /&gt;
+ &lt;/manifest&gt;</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/wechat-androidmanifest-xml.html" data-id="cji8sg1x100f140iong5lvdni" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信/">微信</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-firefox-addon-helloworld" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/firefox-addon-helloworld.html" class="article-date">
+  <time datetime="2014-07-18T08:15:13.000Z" itemprop="datePublished">2014-07-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/firefox-addon-helloworld.html">通过AddonSdk编写firefox插件addon,helloworld</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过AddonSdk编写firefox插件addon</p>
+<p><a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started" target="_blank" rel="external">https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started</a></p>
+<article id="wikiArticle">This tutorial walks through creating a simple add-on using the SDK.<br><br>## Prerequisites<br><br>To create add-ons for Firefox using the SDK, you’ll first need to follow the instructions to <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation" target="_blank" rel="external">install and activate the SDK</a>. Once you’ve done that, you’ll be looking at a command prompt.<br><br>## Initializing an empty add-on<br><br>In the command prompt, create a new directory. The directory doesn’t have to be under the SDK root: you can create it anywhere you like. Navigate to it, type <code>cfx init</code>, and hit enter:<br><pre class="language-html">mkdir my-addon<br>cd my-addon<br>cfx init<br></pre><br>You’ll see some output like this:<br><pre class="language-html"><em> lib directory created
+</em> data directory created<br><em> test directory created
+</em> doc directory created<br><em> README.md written
+</em> package.json written<br><em> test/test-main.js written
+</em> lib/main.js written<br><em> doc/main.md written<br>Your sample add-on is now ready for testing:<br>try “cfx test” and then “cfx run”. Have fun!”<br></em></pre><br><br>## Implementing the add-on<br><br>Now you can write the add-on’s code, which goes in the “main.js” file in your “lib” directory. This file was created for you in the previous step. Open it and add the following code:<br><br>    <span class="token keyword">var</span> buttons <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">‘sdk/ui/button/action’</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">var</span> button <span class="token operator">=</span> buttons<span class="token punctuation">.</span><span class="token function">ActionButton<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Visit Mozilla”</span><span class="token punctuation">,</span><br>      icon<span class="token punctuation">:</span> <span class="token punctuation">{</span><br>        <span class="token string">“16”</span><span class="token punctuation">:</span> <span class="token string">“./icon-16.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“32”</span><span class="token punctuation">:</span> <span class="token string">“./icon-32.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“64”</span><span class="token punctuation">:</span> <span class="token string">“./icon-64.png”</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> handleClick<br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">function</span> <span class="token function">handleClick<span class="token punctuation">(</span></span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="http://www.mozilla.org/" target="_blank" rel="external">http://www.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><code>&lt;/pre&gt;
+    Save the file.
+
+    Next, save these three icon files to the &quot;data&quot; directory:
+    &lt;table class=&quot;standard-table&quot;&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;td&gt;![](https://mdn.mozillademos.org/files/7635/icon-16.png)&lt;/td&gt;
+    &lt;td&gt;icon-16.png&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td&gt;![](https://mdn.mozillademos.org/files/7637/icon-32.png)&lt;/td&gt;
+    &lt;td&gt;icon-32.png&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td&gt;![](https://mdn.mozillademos.org/files/7639/icon-64.png)&lt;/td&gt;
+    &lt;td&gt;icon-64.png&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;div class=&quot;note&quot;&gt;
+
+    Note that this example uses the [action button](https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action) module, which is only available from Firefox 29 onwards. If you&#39;re still on an earlier version on Firefox, this code is equivalent, except that the icon will appear in the bottom-right of the browser window:
+    &lt;pre class=&quot;brush: js  language-js&quot; data-number=&quot;&quot;&gt;</code><span class="token keyword">var</span> widgets <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/widget”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> widget <span class="token operator">=</span> widgets<span class="token punctuation">.</span><span class="token function">Widget<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Mozilla website”</span><span class="token punctuation">,</span><br>      contentURL<span class="token punctuation">:</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/self”</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">url<span class="token punctuation">(</span></span><span class="token string">“icon-16.png”</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="http://www.mozilla.org/" target="_blank" rel="external">http://www.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><code>&lt;/pre&gt;
+    &lt;/div&gt;
+    Back at the command prompt, type:
+    &lt;pre class=&quot;language-html&quot;&gt;cfx run
+    &lt;/pre&gt;
+    This is the SDK command to run a new instance of Firefox with your add-on installed. When Firefox launches, in the top-right corner of the browser you&#39;ll see an icon with the Firefox logo. Click the icon, and a new tab will open with [http://www.mozilla.org/](http://www.mozilla.org/) loaded into it.
+    &lt;div class=&quot;note&quot;&gt;
+
+    You might see an error message like this when you type cfx run:
+    &lt;pre id=&quot;comment_text_0&quot; class=&quot;bz_comment_text language-html&quot;&gt;A given cfx option has an inappropriate value:
+      ZIP does not support timestamps before 1980&lt;/pre&gt;
+    If so, you&#39;ve run into [bug 1005412](https://bugzilla.mozilla.org/show_bug.cgi?id=1005412), meaning that the icon files you downloaded are given a timestamp of 1970\. Until this bug is fixed, the workaround is to use the [</code>touch<code>](http://www.linfo.org/touch.html) command to update the timestamps:
+    &lt;pre class=&quot;language-html&quot;&gt;touch icon-16.png&lt;/pre&gt;
+    &lt;/div&gt;
+    That&#39;s all this add-on does. It uses two SDK modules: the [action button](https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action) module, which enables you to add buttons to the browser, and the [tabs](https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/tabs) module, which enables you to perform basic operations with tabs. In this case, we&#39;ve created a button whose icon is the Firefox icon, and added a click handler that loads the Mozilla home page in a new tab.
+
+    ![](https://mdn.mozillademos.org/files/7643/mozilla-button.png)Try editing this file. For example, we could change the page that gets loaded:
+    &lt;pre class=&quot;brush: js  language-js&quot; data-number=&quot;&quot;&gt;</code><span class="token keyword">var</span> buttons <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">‘sdk/ui/button/action’</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">var</span> button <span class="token operator">=</span> buttons<span class="token punctuation">.</span><span class="token function">ActionButton<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Visit Mozilla”</span><span class="token punctuation">,</span><br>      icon<span class="token punctuation">:</span> <span class="token punctuation">{</span><br>        <span class="token string">“16”</span><span class="token punctuation">:</span> <span class="token string">“./icon-16.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“32”</span><span class="token punctuation">:</span> <span class="token string">“./icon-32.png”</span><span class="token punctuation">,</span><br>        <span class="token string">“64”</span><span class="token punctuation">:</span> <span class="token string">“./icon-64.png”</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> handleClick<br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">function</span> <span class="token function">handleClick<span class="token punctuation">(</span></span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="https://developer.mozilla.org/" target="_blank" rel="external">https://developer.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><code>&lt;/pre&gt;
+    &lt;div class=&quot;note&quot;&gt;
+
+    Note that this example uses the [action button](https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action) module, which is only available from Firefox 29 onwards. If you&#39;re still on an earlier version on Firefox, this code is equivalent, except that the icon will appear in the bottom-right of the browser window:
+    &lt;pre class=&quot;brush: js  language-js&quot; data-number=&quot;&quot;&gt;</code><span class="token keyword">var</span> widgets <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/widget”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> tabs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/tabs”</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">var</span> widget <span class="token operator">=</span> widgets<span class="token punctuation">.</span><span class="token function">Widget<span class="token punctuation">(</span></span><span class="token punctuation">{</span><br>      id<span class="token punctuation">:</span> <span class="token string">“mozilla-link”</span><span class="token punctuation">,</span><br>      label<span class="token punctuation">:</span> <span class="token string">“Mozilla website”</span><span class="token punctuation">,</span><br>      contentURL<span class="token punctuation">:</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">“sdk/self”</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">url<span class="token punctuation">(</span></span><span class="token string">“icon-16.png”</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>      onClick<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        tabs<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">“<a href="http://developer.mozilla.org/" target="_blank" rel="external">http://developer.mozilla.org/</a>“</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><br>At the command prompt, execute <code>cfx run</code> again. This time clicking it takes you to <a href="https://developer.mozilla.org/" target="_blank" rel="external">https://developer.mozilla.org/</a>.<br><br>## Packaging the add-on<br><br>When you’ve finished the add-on and are ready to distribute it, you’ll need to package it as an XPI file. This is the installable file format for Firefox add-ons. You can distribute XPI files yourself or publish them to <a href="https://addons.mozilla.org" target="_blank" rel="external">https://addons.mozilla.org</a> so other users can download and install them.<br><br>To build an XPI, just execute the command <code>cfx xpi</code> from the add-on’s directory:<br><pre class="language-html">cfx xpi<br></pre><br>You should see a message like:<br><pre class="language-html">Exporting extension to my-addon.xpi.<br></pre><br>To test that this worked, try installing the XPI file in your own Firefox installation. You can do this by pressing the Ctrl+O key combination (Cmd+O on Mac) from within Firefox, or selecting the “Open” item from Firefox’s “File” menu. This will bring up a file selection dialog: navigate to the “my-addon.xpi” file, open it and follow the prompts to install the add-on.<br><br>## Summary<br><br>In this tutorial we’ve built and packaged an add-on using three commands:
+
+   <code>cfx init</code> to initialize an empty add-on template<br><em>   <code>cfx run</code> to run a new instance of Firefox with the add-on installed, so we can try it out
+</em>   <code>cfx xpi</code> to package the add-on into an XPI file for distribution<br>These are the three main commands you’ll use when developing SDK add-ons. There’s comprehensive <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/cfx" target="_blank" rel="external">reference documentation</a> covering all the commands you can use and all the options they take.<br><br>The add-on code itself uses two SDK modules, <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_action" target="_blank" rel="external">action button</a> and <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/tabs" target="_blank" rel="external">tabs</a>. There’s reference documentation for all the <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs" target="_blank" rel="external">high-level</a> and <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs" target="_blank" rel="external">low-level</a> APIs in the SDK.<br><br>## What’s next?<br><br>To get a feel for some of the things you can do with the SDK APIs, try working through some of the <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials" target="_blank" rel="external">tutorials</a>.<br><br>## Advanced techniques<br><br>### Overriding the built-in modules<br><br>The SDK modules you use to implement your add-on are built into Firefox. When you run or package an add-on using <code>cfx run</code> or <code>cfx xpi</code>, the add-on will use the versions of the modules in the version of Firefox that hosts it.<br><br>As an add-on developer, this is usually what you want. But if you’re developing the SDK modules themselves, of course, it isn’t. In this case it’s assumed that you have checked out the SDK from its <a href="https://github.com/mozilla/addon-sdk" target="_blank" rel="external">GitHub repo</a> and will have run the <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation" target="_blank" rel="external">bin/activate</a> script from the root of your checkout.<br><br>Then when you invoke <code>cfx run</code> or <code>cfx xpi</code>, you pass the “-o” option:<br><pre class="language-html">cfx run -o<br></pre><br>This instructs cfx to use the local copies of the SDK modules, not the ones in Firefox.<br><br>### Developing without cfx run<br><br>Because <code>cfx run</code> restarts the browser each time you invoke it, it can be a little cumbersome if you are making very frequent changes to an add-on. An alternative development model is to use the <a href="https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/" target="_blank" rel="external">Extension Auto-Installer</a> add-on: this listens for new XPI files on a specified port and installs them automatically. That way you can test new changes without needing to restart the browser:<br><br><em>   make a change to your add-on
+</em>   run cfx xpi<br>*   post the add-on to the port specified<br>You could even automate this workflow with a simple script. For example:<br><pre class="language-html">while true ; do cfx xpi ; wget –post-file=codesy.xpi <a href="http://localhost:8888/" target="_blank" rel="external">http://localhost:8888/</a> ; sleep 5 ; done<br></pre><br>Note that the logging level defined for the console is different when you use this method, compared to the logging level used when an add-on is run using <code>cfx run</code>. This means that if you want to see output from <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Logging" target="_blank" rel="external"><code>console.log()</code></a> messages, you’ll have to tweak a setting. See the documentation on <a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/console#Logging_Levels" target="_blank" rel="external">logging levels</a> for the details on this.<br><br></article>
+
+<h3 id="Attachments"><a href="#Attachments" class="headerlink" title="Attachments"></a>Attachments</h3><table id="page-attachments-table" cellspacing="0" cellpadding="0"><br><thead><br><tr><br><th>File</th><br><th>Size</th><br><th>Date</th><br><th>Attached by</th><br></tr><br></thead><br><tbody><br><tr data-revision-id="7935" data-attachment-id="7635"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7635/icon-16.png" target="_blank" rel="external">icon-16</a></td><br><td>1657 bytes</td><br><td>2014-04-08 15:48:41</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br><tr data-revision-id="7937" data-attachment-id="7637"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7637/icon-32.png" target="_blank" rel="external">icon-32</a></td><br><td>3457 bytes</td><br><td>2014-04-08 15:48:49</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br><tr data-revision-id="7939" data-attachment-id="7639"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7639/icon-64.png" target="_blank" rel="external">icon-64</a></td><br><td>8635 bytes</td><br><td>2014-04-08 15:48:56</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br><tr data-revision-id="7943" data-attachment-id="7643"><br><td class="attachment-name-cell"><a href="https://mdn.mozillademos.org/files/7643/mozilla-button.png" target="_blank" rel="external">mozilla-button</a></td><br><td>31239 bytes</td><br><td>2014-04-08 17:18:00</td><br><td><a href="https://developer.mozilla.org/en-US/profiles/wbamberg" target="_blank" rel="external">wbamberg</a></td><br></tr><br></tbody><br></table>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/firefox-addon-helloworld.html" data-id="cji8sg1ro004s40iogler0tpm" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-emoji" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/emoji.html" class="article-date">
+  <time datetime="2014-07-10T00:42:57.000Z" itemprop="datePublished">2014-07-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/emoji.html">手机使用 图片表情，Emoji表情符号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一 什么是Emoji</p>
+<p>emoji就是表情符号；词义来自日语（えもじ，e-moji，moji在日语中的含义是字符）<br>表情符号现已普遍应用于手机短信和网络聊天软件。<br>emoji表情符号，在外国的手机短信里面已经是很流行使用的一种表情。</p>
+<p>在国内的微信和微信中也被采用。</p>
+<p>Emoji 全编码表：<br><a href="http://punchdrunker.github.com/iOSEmoji/table_html/flower.html" target="_blank" rel="external">http://punchdrunker.github.com/iOSEmoji/table_html/flower.html</a></p>
+<p><a href="http://code.iamcal.com/php/emoji/" target="_blank" rel="external">http://code.iamcal.com/php/emoji/</a></p>
+<p>[php]</p>
+<p>&lt;?php<br>include(‘emoji.php’);</p>
+<h1 id="browser-sniffing-tells-us-that-a-docomo-phone"><a href="#browser-sniffing-tells-us-that-a-docomo-phone" class="headerlink" title="browser sniffing tells us that a docomo phone"></a>browser sniffing tells us that a docomo phone</h1><h1 id="submitted-this-text"><a href="#submitted-this-text" class="headerlink" title="submitted this text"></a>submitted this text</h1><p>$clean_text = emoji_docomo_to_unified($_POST[message]);</p>
+<p>…</p>
+<h1 id="now-we-want-to-show-it-in-a-desktop-browser"><a href="#now-we-want-to-show-it-in-a-desktop-browser" class="headerlink" title="now we want to show it in a desktop browser"></a>now we want to show it in a desktop browser</h1><p>$html = emoji_unified_to_html($clean_text);<br>?&gt;<br>[/php]</p>
+<p>对于公共账号，其实也是一样做的。</p>
+<h3 id="公众帐号怎样向用户发送emoji表情"><a href="#公众帐号怎样向用户发送emoji表情" class="headerlink" title="公众帐号怎样向用户发送emoji表情"></a>公众帐号怎样向用户发送emoji表情</h3><p>上面已经给出了emoji表情的unified unicode代码对比表，那么这些代码要怎样使用，才干发送出相应的emoji表情呢？假设你仅仅是简单的像使用QQ表情代码那样，直接在文本消息的Content里写emoji表情代码，一定是会原样显示的。</p>
+<p>这里须要用到一个Java方法做转换处理，方法的代码例如以下：</p>
+<p>[java]<br>/**</p>
+<ul>
+<li>emoji表情转换(hex -&gt; utf-16)<br>*</li>
+<li>@param hexEmoji</li>
+<li>@return<br>*/<br>public static String emoji(int hexEmoji) {<br>return String.valueOf(Character.toChars(hexEmoji));<br>}</li>
+</ul>
+<p>[/java]</p>
+<p>方法说明：比如，“自行车”的unicode编码值为U+1F6B2，假设我们要在程序代码中使用“自行车”这个emoji表情，须要这样使用：</p>
+<p>String bike = String.valueOf(Character.toChars(0x1F6B2));<br>事实上前面那个emoji()方法就是对上面这行代码做了个简单的封装而以。如今知道怎样使用emoji表情代码了吧，事实上就是将代码表中的U+替换为0x，再调用emoji方法进行转换，将转换后的结果放在文本消息的Content中，返回给用户就会显示emoji表情了。</p>
+<p>以下，我给出一个使用emoji表情的完整演示例子，例如以下：</p>
+<p>[java]</p>
+<p>import java.util.Date;<br>import java.util.Map;</p>
+<p>import javax.servlet.http.HttpServletRequest;</p>
+<p>/**</p>
+<ul>
+<li>核心服务类<br><em>
+</em>/<br>public class CoreService {<br>/**</li>
+<li>处理微信发来的请求<br>*</li>
+<li>@param request</li>
+<li>@return<br>*/<br>public static String processRequest(HttpServletRequest request) {<br>String respMessage = null;<br>try {<br>// xml请求解析<br>Map&lt;String, String&gt; requestMap = MessageUtil.parseXml(request);</li>
+</ul>
+<p>// 发送方帐号（open_id）<br>String fromUserName = requestMap.get(&quot;FromUserName&quot;);<br>// 公众帐号<br>String toUserName = requestMap.get(&quot;ToUserName&quot;);</p>
+<p>// 回复文本消息<br>TextMessage textMessage = new TextMessage();<br>textMessage.setToUserName(fromUserName);<br>textMessage.setFromUserName(toUserName);<br>textMessage.setCreateTime(new Date().getTime());<br>textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);<br>textMessage.setFuncFlag(0);<br>textMessage.setContent(&quot;自行车&quot; + emoji(0x1F6B2) + &quot; 男性&quot; + emoji(0x1F6B9) + &quot; 钱袋&quot; + emoji(0x1F4B0));<br>respMessage = MessageUtil.textMessageToXml(textMessage);<br>} catch (Exception e) {<br>e.printStackTrace();<br>}</p>
+<p>return respMessage;<br>}</p>
+<p>/**</p>
+<ul>
+<li>emoji表情转换(hex -&gt; utf-16)<br>*</li>
+<li>@param hexEmoji</li>
+<li>@return<br>*/<br>public static String emoji(int hexEmoji) {<br>return String.valueOf(Character.toChars(hexEmoji));<br>}<br>}</li>
+</ul>
+<p>[/java]</p>
+<p>上面代码的作用是：无论用户发送什么类型的消息，都返回包含三个emoji表情的文本消息。假设不明确CoreService类怎么回事，请查看本系列教程的第5篇，或者你仅仅须要认真看第42行代码，就知道怎么样把emoji表情代码放在文本消息的Content中了。最后再来看下执行效果截图：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/emoji.html" data-id="cji8sg1rf004840io3xmo1g9x" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/12/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/14/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

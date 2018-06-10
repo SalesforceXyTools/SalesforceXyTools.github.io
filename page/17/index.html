@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Exia.Huang">
+<meta property="og:url" content="http://www.ibmer.info/page/17/index.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Exia.Huang">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-php-time-function" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/php-time-function.html" class="article-date">
+  <time datetime="2014-05-25T09:01:49.000Z" itemprop="datePublished">2014-05-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/php-time-function.html">php时间函数大锦集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="cnblogs_post_body"><br><br>PHP中的时间函数有这么些:<br>(1)date<br>用法: date(格式,[时间]);<br>如果没有时间参数,则使用当前时间. 格式是一个字符串,其中以下字符有特殊意义:<br>U 替换成从一个起始时间(好象是1970年1月1日)以来的秒数<br><br>Y 替换成4位的年号.<br>y 替换成2位的年号.<br>F 替换成月份的英文全称.<br>M 替换成月份的英文简称.<br>m 替换成月份数.<br>z 替换成从当年1月1日以来的天数.<br>d 替换成日数.<br>l 替换成星期几的英文全称.<br>D 替换成星期几的英文简称.<br>w 替换成星期几(数字).<br>H 替换成小时数(24小时制).<br>h 替换成小时数(12小时制).<br>i 替换成分钟数.<br>s 替换成秒数.<br>A 替换成”AM”或”PM”.<br>a 替换成”am”或”pm”.<br>S 替换成序数字后缀,例如:”st”,”nd”,”rd”,”th”.<br>函数返回作过了替换的格式串.<br><br>(2)getdate(时间)<br>返回一个哈希表,各下标是:<br>“seconds” – 秒数<br>“minutes” – 分数<br>“hours” – 小时数<br>“mday” – 日数<br>“mon” – 月份数<br>“year” – 年号<br>“yday” – 1月1日以来的天数<br>“weekday” – 星期几,英文全称<br>“month” – 月份,英文全名<br>(3)gmdate<br>与date类似,但先将时间转换成格林威治标准时.<br>(4)mktime<br>用法:<br>mktime(小时数,分数,秒数,月,日,年); 返回一个时间值,可用于其他函数.<br><strong>(5)time()</strong><br>用法:<br>time(); 返回1970年1月1日零点以来的秒数.<br><strong>(6)microtime()</strong><br>用法:<br><span style="text-decoration: underline;">microtime(); 返回一个字符串,用空格分成两部分,后一部分相当于time()<br></span>的返回值,前一部分是微秒数.<br>(7)checkdate<br>checkdate(月,日,年); 返回逻辑真或逻辑假. 如果:<br>年在1900和32767之间(包括1900与32767);<br>月在1到12之间;<br>日在该月的允许日数范围内(考虑了闰年);<br><br>则返回逻辑真.<br>(8)set_time_limit<br>用法:<br>set_time_limit(秒数);<br>规定从该句运行时起程序必须在指定秒数内运行结束, 超时则程序出错退出.<br><br>1·　by：<br>PHP中所有函数都是UNIX纪元的，即从1970年1月1日开始的。日期是从这个时候开始的秒数。当一个函数调用从这时候计的秒数时，就把它当作(timestamp)时间戳。<br><br>本地时间函数<br><strong>1. **</strong>string date(string format,inieger timestamp)<strong>
+
+</strong>该函数返回一个表示时间的字符串，是由string format 控制的。<br>如：<strong>
+
+</strong>&lt;?<strong>
+
+</strong>print(date(“Y年 m月d日”);//输出当前,年月日.<strong>
+
+</strong>print(date(“Y年 m月d日”,60<em>60</em>24<em>365</em>10);//输出1980年1月1日.<strong>
+
+</strong>?&gt;<strong>
+
+</strong>也许你会问,怎麽没有timestamp呢?若timestamp为空时,或不写时,表示使用当前时间一刻timestamp.<strong>
+
+</strong>表示年份的控制符： Y—四位的年份 y—两位的年份<strong>
+
+</strong>表示月份的控制符： m—从1-12的月份 F—英文月份名 M—简写的月份名<strong>
+
+</strong>表示日号的控制符： d—前面有0的月份中日期 j–前面没有0的日号<strong>
+
+</strong>表示星期的控制符： l–英文星期 D–简写的星期<strong>
+
+</strong>表示小时的控制符： h–从1到12小时 H—从0到23的小时<strong>
+
+</strong>表示上下午的控制符 a —am或pm A—AM或PM<strong>
+
+</strong>表示分钟的控制符： i—取值00-59<strong>
+
+</strong>另外的 z–一年中的日期<em>*<br><br>2. array getdate(integer timestamp)<br><br>该函数返回一个矩阵.<br><br>如:<br><br>&lt;?<br><br>$current_date=getdate();<br><br>print($current_date(“hours”));<br><br>print($current_date(“minutes”);<br><br>print($current_date(“seconds”);<br><br>?&gt;<br><br>说明:<br><br>元素 描述<br><br>hours 24小时格式的小时<br><br>mday 月份中日期<br><br>minutes 分钟<br><br>mon 数字形式的月份<br><br>month 月份全称<br><br>seconds 秒数<br><br>wday 从0到6的数字形式的星期几<br><br>weekday 星期几的名称<br><br>year 年份<br><br>0 时间戳即从1970年1月1日到现在的秒数<br><br>yday 一年中数字形式的日期<br><br>3. boolean checkdate(integer month,integer day,integer year)<br><br>该函数检查日期是否合法.如:<br><br>&lt;?<br><br>if(checkdate(2,29,1980))<br><br>print(“日期合法!n”);<br><br>?&gt;<br><br>4. integer time()<br><br>该函数获得当前时间戳.如:<br><br>&lt;?<br><br>print(time());//输出一大串整数<br><br>?&gt;<br><br>5. integer mktime(integer hour,integer minutes,integer seconds,integer month, integer day,integer year)<br><br>该函数返回给出日期的时间戳,即从1970年1月1日到现在的秒数.<br><br>如某参数超出范围,该函数也可以解释它,如13月即为第二年的一月.<br><br>如:<br><br>&lt;?<br><br>$currenthour=date(“H”);<br><br>print(“50个小时后为:”);<br><br>print(date(“h:i A l F dS,Y”,mktime($currenthour+50)));<br><br>print(“&lt;br&gt;n”);<br><br>?&gt;<br><br>6. string microtime()<br><br>该函数返回一个字符串,由当前时间的毫秒数+空格+从1970年开始的秒数<br><br>&lt;?<br><br>print(“start:microtime()&lt;br&gt;n”);<br><br>for($index=0;$index&lt;1000;$index++)<br><br>print(“good!”);<br><br>print(“stop:microtime()&lt;br&gt;n”);<br><br>?&gt;<br><br>还有,各林威治标准时间函数,不常用我就不说了!常用的就这些。<br><br>——————————————————————————–<br><wbr><br>2·　by：楼主<br><br>一个问题举例<br>$nowdate=”1999-08-05” ;<br><br>$aa=getdate($nowdate);<br><br>$year=$aa[‘year’];<br><br>$month=$aa[‘mon’];<br><br>echo $year.”&lt;/br&gt;”;<br><br>echo $month;<br><br>为何得到：<br><br>1970<br><br>1<br><br>我希望得到：<br><br>1999<br><br>8<br><br>如何解决？<br>——————————————————————————–<br>$nowdate=”1999-08-05” ;<br><br>$aa=strtotime($nowdate);<br><br>$year=date(“Y”,$aa);<br><br>$month=date(“n”,$aa);<br><br>echo $year.”&lt;/br&gt;”;<br><br>echo $month;<br><br>——————————————————————————–<br>3·　by：<br><br>1，年-月-日<br><br>echo date(‘Y-m-j’);<br><br>2007-02-6<br>echo date(‘y-n-j’);<br><br>07-2-6<br><br>大写Y表示年四位数字，而小写y表示年的两位数字；<br><br>小写m表示月份的数字(带前导)，而小写n则表示不带前导的月份数字。<br><br>echo date(‘Y-M-j’);<br><br>2007-Feb-6<br><br>echo date(‘Y-m-d’);<br><br>2007-02-06<br><br>大写M表示月份的3个缩写字符，而小写m则表示月份的数字(带前导0);<br><br>没有大写的J，只有小写j表示月份的日期，无前导o；若需要月份带前导则使用小写d。<br><br>echo date(‘Y-M-j’);<br><br>2007-Feb-6<br><br>echo date(‘Y-F-jS’);<br><br>2007-February-6th<br><br>大写M表示月份的3个缩写字符，而大写F表示月份的英文全写。(没有小写f)<br><br>大写S表示日期的后缀，比如“st”、“nd”、“rd”和“th”，具体看日期数字为何。<br><br>小结：<br><br>表示年可以用大写的Y和小写y;<br><br>表示月可以用大写F、大写M、小写m和小写n(分别表示字符和数字的两种方式);<br><br>表示日可以用小写d和小写j，大写S表示日期的后缀。<br><br>2，时:分:秒<br><br>默认情况下，PHP解释显示的时间为“格林威治标准时间”，与我们本地的时间相差8个小时。<br><br>echo date(‘g:i:s a’);<br><br>5:56:57 am<br><br>echo date(‘h:i:s A’);<br><br>05:56:57 AM<br><br>小写g表示12小时制，无前导0，而小写h则表示有前导0的12小时制。<br><br>当使用12小时制时需要表明上下午，小写a表示小写的“am”和“pm”，大写A表示大写的“AM”和“PM”。<br><br>echo date(‘G:i:s’);<br><br>14:02:26<br><br>大写G表示24小时制的小时数，但是不带前导的；使用大写的H表示带前导的24小时制小时数<br><br>小结：<br><br>字母g表示小时不带前导，字母h表示小时带前导；<br><br>小写g、h表示12小时制，大写G、H表示24小时制。<br><br>3，闰年、星期、天<br><br>echo date(‘L’);<br><br>今年是否闰年：0<br><br>echo date(‘l’);<br><br>今天是：Tuesday<br><br>echo date(‘D’);<br><br>今天是：Tue<br><br>大写L表示判断今年是否闰年，布尔值，为真返回1，否则为0；<br><br>小写l表示当天是星期几的英文全写(Tuesday)；<br><br>而使用大写D表示星期几的3个字符缩写(Tue)。<br><br>echo date(‘w’);<br>今天星期：2<br><br>echo date(‘W’);<br><br>本周是全年中的第 06 周<br><br>小写w表示星期几，数字形式表示<br><br>大写W表示一年中的星期数<br><br>echo date(‘t’);<br><br>本月是 28 天<br><br>echo date(‘z’);<br><br>今天是今年的第 36 天<br><br>小写t表示当前月份又多少天<br><br>小写z表示今天是本年中第几天<br><br>4，其他<br><br>echo date(‘T’);<br><br>UTC<br><br>大写T表示服务器的时间区域设置<br><br>echo date(‘I’);<br><br>0<br><br>大写I表示判断当前是否为夏令时，为真返回1，否则为0<br><br>echo date(‘U’);<br><br>1170769424<br><br>大写U表示从1970年1月1日到现在的总秒数，就是Unix时间纪元的UNIX时间戳。<br><br>echo date(‘c’);<br><br>2007-02-06T14:24:43+00:00<br><br>小写c表示ISO8601日期，日期格式为YYYY-MM-DD，用字母T来间隔日期和时间，时间格式为HH:MM:SS，时区使用格林威治标准时间(GMT)的偏差来表示。<br><br>echo date(‘r’);<br><br>Tue, 06 Feb 2007 14:25:52 +0000<br><br>小写r表示RFC822日期。<br><br>——————————————————————————–<br><wbr><br>4·　by：<br><br>php中计算时间差有时候是件很麻烦的事!<br><br>不过我相信任何语言，只要撑握了其中规率就能找到办法，绝对是化腐朽为神奇的。<br><br>工作中经常要进行日期计算,下面总结几个工作中总结出的经验。先记下免得日后会忘！<br><br>1。第一种 计算时间段差（可以是分，秒，天）<br>$endtime=”2004-09-09 18:10:00”;<br><br>$d1=substr($endtime,17,2); //秒<br><br>$d2=substr($endtime,14,2); //分<br><br>$d3=substr($endtime,11,2); // 时<br><br>$d4=substr($endtime,8,2); //日<br><br>$d5=substr($endtime,5,2); //月<br><br>$d6=substr($endtime,0,4); //年<br>echo $d1.’-‘.$d2.’-‘.$d3.’-‘.$d5.’-‘.$d4.’-‘.$d6.”n”;<br><br>echo date(“Y-m-d H:i:s”).”n”;<br><br>$now_T=mktime(date(“H”),date(“i”),date(“s”),date(“m”),date(“d”),date(“Y”));<br><br>echo $now_T.”n”;<br><br>$now_S=mktime(“$d3”,”$d2”,”$d1”,”$d5”,”$d4”,”$d6”);<br><br>echo $now_S.”n”;<br><br>$end_TS=($now_S-$now_T)/60; <wbr> <wbr> //计算 剩余分钟<br><br>echo $end_TS;<br><br>?&gt;<br><br>注 $startdate=mktime(“0”,”0”,”0”,”1”,”1”,”2000”);<br><br><wbr> //所得到的值为从1970-1-1到参数时间的总秒数 那么 化为分 /60 <wbr> <wbr> 时 /3600 <wbr> <wbr> 天/3600/24 即可！ <wbr> <wbr><br>若mktime()中的参数缺省,那表示使用当前日期。<br><br>2. 如果有数据库就很容易了!若是MSSQL可以使用触发器!用专门计算日期差的函数datediff()便可!<br><br>若是MYSQL那就用两个日期字段的差值计算的计算结果保存在另一个数值型字段中!用时调用便可!<br><br>——————————————————————————–<br><wbr>5·　by：楼主<br><br>下列收集日期计算的方法：<br><br>某个日期加几天：<br><br>$tdate=date(“Y-m-d”);<br><br>$a=date( “Y-m-d”, mktime(0,0,0,date(“m”),date(“d”)+3,date(“Y”)));<br><br>$sql=”select </em> from memo where username=’$session_user_id’<br><br>and compid=$compid and telldate&gt;=’$tdate’ and telldate&lt;=’$a’<br><br>order by id desc”;<br><br>$ret=mysql_query($sql,$conn);<br><br>$a就是今天＋三天的时间！<br><br>$b=date( “Y-m-d”, mktime(0,0,0,date(“m”),date(“d”)-3,date(“Y”)));<br><br>$b就是今天-三天的时间！<br><br>////<br><br>某个日期加n天后的日期<br><br>$days=abs((strtotime(date(“Y-m-d”))-strtotime(“xxxx-xx-xx”))/86400);<br><br>/////<br><br>&lt;?PHP$Date_1=”2003-7-15”;//也可以是:$Date_1=”2003-7-15 23:29:14”;$Date_2=”1982-10-1”;$d1=strtotime($Date_1);$d2=strtotime($Date<em>2);$Days=round(($d1-$d2)/3600/24);Echo <wbr> <wbr> “偶已经奋斗了 $Days 天^</em>^”;?&gt;<br><br>——————————————————————————–<br><wbr><br>6·php中计算时间差的几种方法　by：楼主<br><br>一个简单的例子就是计算借书的天数,这需要php根据每天的日期进行计算,下面就来谈谈实现这种日期计算的几种方法:<br><br>(1) 如果有数据库就很容易了!若是MSSQL可以使用触发器!用专门计算日期差的函数datediff()便可!若是MYSQL那就用两个日期字段的差值计算的计算结果保存在另一个数值型字段中!用时调用便可!<br>(2)如果没有数据库,那就得完全用php的时间日期函数!下面主要说明之: <wbr> <wbr><br>例:计算1998年5月3日到1999-6-5的天数: <wbr> <wbr><br><br>&lt;? $startdate=mktime(“0”,”0”,”0”,”5”,”3”,”1998”);<br><br>$enddate=mktime(“0”,”0”,”0”,”6”,”5”,”1999”);<br>//所得到的值为从1970-1-1到参数时间的总秒数:是整数.那么<br><br>//下面的代码就好编多了:<br><br>$days=round(($enddate-$startdate)/3600/24) ;<br><br>//days为得到的天数;<br><br>若mktime()中的参数缺省,那表示使用当前日期,这样便可计算从借书日期至今的天数.<br><br>——————————————————————————–<br><wbr><br>7·　by：楼主<br><br>php中计算时间差有时候是件很麻烦的事!<br><br>不过我相信任何语言，只要撑握了其中规率就能找到办法，绝对是化腐朽为神奇的。<br><br>工作中经常要进行日期计算,下面总结几个工作中总结出的经验。先记下免得日后会忘！<br><br>1。第一种 计算时间段差（可以是分，秒，天）<br><br>$endtime=”2004-09-09 18:10:00”;<br><br>$d1=substr($endtime,17,2); //秒<br><br>$d2=substr($endtime,14,2); //分<br><br>$d3=substr($endtime,11,2); // 时<br><br>$d4=substr($endtime,8,2); //日<br><br>$d5=substr($endtime,5,2); //月<br><br>$d6=substr($endtime,0,4); //年<br><br>echo $d1.’-‘.$d2.’-‘.$d3.’-‘.$d5.’-‘.$d4.’-‘.$d6.”n”;<br><br>echo date(“Y-m-d H:i:s”).”n”;<br><br>$now_T=mktime(date(“H”),date(“i”),date(“s”),date(“m”),date(“d”),date(“Y”));<br><br>echo $now_T.”n”;<br><br>$now_S=mktime(“$d3”,”$d2”,”$d1”,”$d5”,”$d4”,”$d6”);<br><br>echo $now_S.”n”;<br><br>$end_TS=($now_S-$now_T)/60; <wbr> <wbr> //计算 剩余分钟<br><br>echo $end_TS;<br><br>?&gt;<br><br>注 $startdate=mktime(“0”,”0”,”0”,”1”,”1”,”2000”);<br><br><wbr> //所得到的值为从1970-1-1到参数时间的总秒数 那么 化为分 /60 <wbr> <wbr> 时 /3600 <wbr> <wbr> 天/3600/24 即可！ <wbr> <wbr><br><br>若mktime()中的参数缺省,那表示使用当前日期。<br><br>2. 如果有数据库就很容易了!若是MSSQL可以使用触发器!用专门计算日期差的函数datediff()便可!<br><br>若是MYSQL那就用两个日期字段的差值计算的计算结果保存在另一个数值型字段中!用时调用便可!<br><br>——————————————————————————–<br><wbr><br>8·　by<br>日期与时间函数库<br><br>——————————————————————————–<br>本函数库共有 12 个函数<br><br>checkdate: 验证日期的正确性。<br><br>date: 将服务器的时间格式化。<br><br>strftime: 将服务器的时间本地格式化。<br><br>getdate: 获得时间及日期信息。<br><br>gettimeofday: 取得目前时间。<br><br>gmdate: 取得目前与 GMT 差后的时间。<br><br>easter_date: 计算复活节日期。<br><br>easter_days: 计算复活节与三月廿一日之间日期数。<br><br>mktime: 取得 UNIX 时间戳记。<br><br>gmmktime: 取得 UNIX 时间戳记的格林威治时间。<br><br>time: 取得目前时间的 UNIX 时间戳记。<br><br>microtime: 取得目前时间的 UNIX 时间戳记的百万分之一秒值。<br><br>函数:checkdate()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>checkdate<br><br>验证日期的正确性。<br><br>语法: int checkdate(int month, int day, int year);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br><br>若日期是有效的则返回 true，若日期有问题，则返回 false。本函数可以用来检查日期是否有效。有效范围如下：<br><br>年 为 0 至 32767 年<br><br>月 为 1 至 12 月<br><br>日 则随着月份及闰年变化<br><br>函数:date()<br><br>——————————————————————————–<br><br>日期与时间函数库<br>date<br><br>将服务器的时间格式化。<br><br>语法: string date(string format, int [timestamp]);<br><br>返回值: 字符串<br><br>函数种类: 时间日期<br><br>内容说明<br><br>返回值的字符串依配置的格式来决定。若有传入时间戳记值，则将时间戳记格式化返回；若无传入时间戳记值，则将目前服务器的时间格式化返回。要将日期转为其它的语系格式，应使用setlocale() 及 strftime() 二个函数。字符串格式化的选项如下：<br><br>a - “am” 或是 “pm”<br><br>A - “AM” 或是 “PM”<br><br>d - 几日，二位数字，若不足二位则前面补零; 如: “01” 至 “31”<br><br>D - 星期几，三个英文字母; 如: “Fri”<br><br>F - 月份，英文全名; 如: “January”<br><br>h - 12 小时制的小时; 如: “01” 至 “12”<br><br>H - 24 小时制的小时; 如: “00” 至 “23”<br><br>g - 12 小时制的小时，不足二位不补零; 如: “1” 至 12”<br><br>G - 24 小时制的小时，不足二位不补零; 如: “0” 至 “23”<br><br>i - 分钟; 如: “00” 至 “59”<br><br>j - 几日，二位数字，若不足二位不补零; 如: “1” 至 “31”<br><br>l - 星期几，英文全名; 如: “Friday”<br><br>m - 月份，二位数字，若不足二位则在前面补零; 如: “01” 至 “12”<br><br>n - 月份，二位数字，若不足二位则不补零; 如: “1” 至 “12”<br><br>M - 月份，三个英文字母; 如: “Jan”<br><br>s - 秒; 如: “00” 至 “59”<br><br>S - 字尾加英文序数，二个英文字母; 如: “th”，”nd”<br><br>t - 指定月份的天数; 如: “28” 至 “31”<br><br>U - 总秒数<br><br>w - 数字型的星期几，如: “0” (星期日) 至 “6” (星期六)<br><br>Y - 年，四位数字; 如: “1999”<br><br>y - 年，二位数字; 如: “99”<br><br>z - 一年中的第几天; 如: “0” 至 “365”<br><br>其它不在上列的字符则直接列出该字符。<br><br>使用范例<br><br>范例一:<br><br>&lt;?<br><br>print(date( “l dS of F Y h:i:s A” ));<br><br>print(“July 1, 2000 is on a “ . date(“l”, mktime(0,0,0,7,1,2000)));<br><br>?&gt;<br><br>范例二:<br><br>&lt;?<br><br>$tomorrow = mktime(0,0,0,date(“m”) ,date(“d”)+1,date(“Y”));<br><br>$lastmonth = mktime(0,0,0,date(“m”)-1,date(“d”), date(“Y”));<br><br>$nextyear = mktime(0,0,0,date(“m”), date(“d”, <wbr> <wbr> date(“Y”)+1);<br><br>?&gt;<br><br>函数:strftime()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>strftime<br><br>将服务器的时间本地格式化。<br><br>语法: string strftime(string format, int [timestamp]);<br><br>返回值: 字符串<br><br>函数种类: 时间日期<br><br>内容说明<br><br>返回值的字符串依配置的格式来决定。若有传入时间戳记值，则将时间戳记格式化返回；若无传入时间戳记值，则将目前服务器的时间本地格式化返回。月份或者星期名称随着本地语系配置 setlocale() 的不同而改变。<br><br>返回的字符串可以依下列的格式而定：<br><br>%a 星期几的缩写。<br><br>%A 星期几的全名。<br><br>%b 月份名称的缩写。<br><br>%B 月份名称的全名。<br><br>%c 本地端日期时间较佳表示字符串。<br><br>%d 用数字表示本月的第几天 (范围为 00 至 31)。<br><br>%H 用 24 小时制数字表示小时数 (范围为 00 至 23)。<br><br>%I 用 12 小时制数字表示小时数 (范围为 01 至 12)。<br><br>%j 以数字表示当年度的第几天 (范围为 001 至 366)。<br><br>%m 月份的数字 (范围由 1 至 12)。<br><br>%M 分钟。<br><br>%p 以 ‘AM’ 或 ‘PM’ 表示本地端时间。<br><br>%S 秒数。<br><br>%U 数字表示为本年度的第几周，第一个星期由第一个周日开始。<br><br>%W 数字表示为本年度的第几周，第一个星期由第一个周一开始。<br><br>%w 用数字表示本周的第几天 ( 0 为周日)。<br><br>%x 不含时间的日期表示法。<br><br>%X 不含日期的时间表示法。<br><br>%y 二位数字表示年份 (范围由 00 至 99)。<br><br>%Y 完整的年份数字表示，即四位数。<br><br>%Z 时区或名称缩写。<br><br>%% % 字符。<br><br>使用范例<br>&lt;?php<br><br>setlocale (“LC_TIME”, “C”);<br><br>print(strftime(“%A in Finnish is “));<br><br>setlocale (“LC_TIME”, “fi”);<br><br>print(strftime(“%A, in French “));<br><br>setlocale (“LC_TIME”, “fr”);<br><br>print(strftime(“%A and in German “));<br><br>setlocale (“LC_TIME”, “de”);<br><br>print(strftime(“%A.<br><br>“));<br><br>?&gt;<br><br>函数:getdate()<br><br>——————————————————————————–<br><br>日期与时间函数库<br>getdate<br><br>获得时间及日期信息。<br><br>语法: array getdate(int timestamp);<br>返回值: 数组<br>函数种类: 时间日期<br>内容说明<br>返回数组的元素包括下列的项目：<br>“seconds” - 秒<br><br>“minutes” - 分<br><br>“hours” - 时<br><br>“mday” - 当月的第几天<br><br>“wday” - 当周的第几天数字<br><br>“mon” - 月份数字<br><br>“year” - 年，数字<br><br>“yday” - 当年的第几天数字; 如: “299”<br><br>“weekday” - 星期几全名; 如: “Friday”<br><br>“month” - 月份全名; 如: “January”<br>——————————————————————————–<br>函数:gettimeofday()<br>——————————————————————————–<br>日期与时间函数库<br>gettimeofday<br><br>取得目前时间。<br><br>语法: array gettimeofday(void)<br>返回值: 数组<br>函数种类: 时间日期<br>内容说明<br>返回数组的元素包括下列的项目：<br>“sec” - 秒<br><br>“usec” - 百万分之一秒<br><br>“minuteswest” - 格林威治时间的分<br><br>“dsttime” - 目的的时区<br><br>函数:gmdate()<br><br>——————————————————————————–<br>日期与时间函数库<br>gmdate<br><br>取得目前与 GMT 差后的时间。<br>语法: string gmdate(string format, int timestamp);<br>返回值: 字符串<br>函数种类: 时间日期<br>内容说明<br><br>本函数与 date() 函数相似，不同的是本函数返回与格林威治标准时间 (Greenwich Mean Time, GMT) 时间差后的时间。<br><br>使用范例<br><br>&lt;?php<br><br>echo date( “M d Y H:i:s”,mktime(0,0,0,1,1,1998) );<br><br>echo gmdate( “M d Y H:i:s”,mktime(0,0,0,1,1,1998) );<br><br>?&gt;<br><br>若执行本范例的机器在芬兰 (Finland, GMT +0200)，返回的结果为:<br><br>Jan 01 1998 00:00:00<br><br>Dec 31 1997 22:00:00<br>函数:easter_date()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>easter_date<br><br>计算复活节日期。<br>语法: int easter_date(int [year]);<br><br>返回值: 整数<br>函数种类: 时间日期<br><br>内容说明<br>输入某一年份，则以 UNIX 时间戳记的格式返回该年的复活节日期，若没有输入年份，则计算当年的日期。值的注意的是输入的年份必需在公元 1970 至 2037 年之间，否则无法计算。<br><br>使用范例<br><br>&lt;?<br><br>echo date(“M-d-Y”, easter_date(1999));<br><br>echo date(“M-d-Y”, easter_date(2000));<br><br>echo date(“M-d-Y”, easter_date(2001));<br><br>?&gt;<br><br>返回结果为<br><br>Apr-04-1999<br><br>Apr-23-2000<br><br>Apr-15-2001<br><br>——————————————————————————–<br><wbr><br>9·　by：楼主<br><br>函数:easter_days()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>easter_days<br><br>计算复活节与三月廿一日之间日期数。<br><br>语法: int easter_days(int [year]);<br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br><br>输入某一年份，则以计算该年复活节与三月二十一日之间的日期数，若没有输入年份，则以当年计算。这个函数可以用来替代 easter_date() 1970-2037 年外范围无法计算的问题。<br>使用范例<br>&lt;?<br><br>echo easter_days(1999);<br><br>echo easter_days(1492);<br><br>echo easter_days(1913);<br><br>?&gt;<br><br>返回结果为:<br><br>14 (4/4)<br><br>32 (4/22)<br><br>2 (3/23)<br>——————————————————————————–<br><wbr>10·　by：楼主<br><br>函数:mktime()<br>——————————————————————————–<br>日期与时间函数库<br>mktime<br><br>取得 UNIX 时间戳记。<br><br>语法: int mktime(int hour, int minute, int second, int month, int day, int year);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br>输入一个时间，则返回 UNIX 时间戳记的长整数。<br>使用范例<br><br>&lt;?<br><br>echo date( “M-d-Y”, mktime(0,0,0,12,32,1997) );<br><br>echo date( “M-d-Y”, mktime(0,0,0,13,1,1997) );<br><br>echo date( “M-d-Y”, mktime(0,0,0,1,1,1998) );<br><br>?&gt;<br><br>11·　by：楼主<br><br>函数:gmmktime()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>gmmktime<br><br>取得 UNIX 时间戳记的格林威治时间。<br>语法: int gmmktime(int hour, int minute, int second, int month, int day, int year);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br><br>输入一个时间，则返回 UNIX 的格林威治时间戳记的长整数。<br><br>——————————————————————————–<br>12·　by：楼主<br><br>函数:time()<br><br>——————————————————————————–<br><br>日期与时间函数库<br>time<br><br>取得目前时间的 UNIX 时间戳记。<br><br>语法: int time(void);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br>内容说明<br>返回目前时间的戳记值。<br>——————————————————————————–<br><wbr>13·　by：楼主<br><br>函数:microtime()<br><br>——————————————————————————–<br>日期与时间函数库<br>microtime<br><br>取得目前时间的 UNIX 时间戳记的百万分之一秒值。<br><br>语法: string microtime(void);<br><br>返回值: 字符串<br><br>函数种类: 时间日期<br><br>内容说明<br><br>返回目前时间的百万分之一秒戳记值。若操作系统没有提供 gettimeofday() 的系统呼叫函数，则本函数亦无效。<br><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/php-time-function.html" data-id="cji8sg1tu009540iosvbkzuxb" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php-server-setting" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/php-server-setting.html" class="article-date">
+  <time datetime="2014-05-25T04:51:11.000Z" itemprop="datePublished">2014-05-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/php-server-setting.html">PHP服务器的几个配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.PHP短标签设置</p>
+<p>打开php.ini，找到“short_open_tag = Off”，将其修改为“short_open_tag = On”，然后重启IIS或Apache即可。</p>
+<p>; This directive determines whether or not PHP will recognize code between<br>; &lt;? and ?&gt; tags as PHP source which should be processed as such. It’s been<br>; recommended for several years that you not use the short tag “short cut” and<br>; instead to use the full &lt;?php and ?&gt; tag combination. With the wide spread use<br>; of XML and use of these tags by other languages, the server can become easily<br>; confused and end up parsing the wrong code in the wrong context. But because<br>; this short cut has been a feature for such a long time, it’s currently still<br>; supported for backwards compatibility, but we recommend you don’t use them.</p>
+<p>2.上传文件太大了，修改上传文件大小限制</p>
+<p>Maximum allowed size for uploaded files.</p>
+<p>upload_max_filesize = 20M</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/php-server-setting.html" data-id="cji8sg1tl008k40io0ysy1711" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-aix-release-and-mount" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/aix-release-and-mount.html" class="article-date">
+  <time datetime="2014-05-21T01:27:00.000Z" itemprop="datePublished">2014-05-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/aix-release-and-mount.html">AIX解压和mount命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AIX上解压tar-gz"><a href="#AIX上解压tar-gz" class="headerlink" title="AIX上解压tar.gz"></a>AIX上解压tar.gz</h1><p>tar.gz file format<br>o  压缩<br>§ # tar cvf - folder | gzip &gt; filename.tar.gz<br>o  解压<br>§ # gunzip -c filename.tar.gz | tar -xvf -</p>
+<h1 id="AIX上解压zip"><a href="#AIX上解压zip" class="headerlink" title="AIX上解压zip"></a>AIX上解压zip</h1><p>通过jar解压zip，觉得是最方便的，因为很多aix上没有安装其他zip解压软件。<br>§ # jar -xvf a.zip</p>
+<h1 id="挂载ISO命令"><a href="#挂载ISO命令" class="headerlink" title="挂载ISO命令"></a>挂载ISO命令</h1><p>使用命令：loopmount -i xxx.iso -m /xxx -o “-V cdrfs -o ro”<br>注意2点：<br>1、iso文件处需要输入绝对路径；<br>2、挂载的路径如:/xxx需要是存放ISO文件的绝对路径。这样，我们就可以方便的在AIX下挂载ISO</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/aix-release-and-mount.html" data-id="cji8sg1pf000y40iouc5d78c8" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-db2-v97-silent-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/db2-v97-silent-install.html" class="article-date">
+  <time datetime="2014-05-19T05:53:10.000Z" itemprop="datePublished">2014-05-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/db2-v97-silent-install.html">DB2 V9.7静默安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="DB2-V9-7静默安装"><a href="#DB2-V9-7静默安装" class="headerlink" title="DB2 V9.7静默安装"></a>DB2 V9.7静默安装</h3><p>1.创建db2ese.rsp静默安装文件</p>
+<p>[php]</p>
+<p>LIC_AGREEMENT = ACCEPT<br>PROD = ENTERPRISE_SERVER_EDITION<br>FILE = /opt/IBM/db2/V9.7<br>INSTALL_TYPE = TYPICAL<br>DAS_CONTACT_LIST = LOCAL<br>DAS_USERNAME = dasusr1<br>DAS_GROUP_NAME = dasadm1<br>DAS_HOME_DIRECTORY = /home/dasusr1<br>DAS_PASSWORD = dasusr1<br>INSTANCE = db2inst1<br>db2inst1.TYPE = ese<br>db2inst1.NAME = db2inst1<br>db2inst1.GROUP_NAME = db2grp1<br>db2inst1.HOME_DIRECTORY = /home/db2inst1<br>db2inst1.PASSWORD = db2inst1<br>db2inst1.AUTOSTART = YES<br>db2inst1.SVCENAME = db2c_db2inst1<br>db2inst1.PORT_NUMBER = 50000<br>db2inst1.FCM_PORT_NUMBER = 60000<br>db2inst1.MAX_LOGICAL_NODES = 4<br>db2inst1.CONFIGURE_TEXT_SEARCH = NO<br>db2inst1.FENCED_USERNAME = db2fenc1<br>db2inst1.FENCED_GROUP_NAME = db2fgrp1<br>db2inst1.FENCED_HOME_DIRECTORY = /home/db2fenc1<br>db2inst1.FENCED_PASSWORD = db2fenc1<br>LANG = EN<br>INSTALL_TSAMP = NO<br>[/php]</p>
+<p>2.DB2 V9.7安装指令</p>
+<p>[shell]</p>
+<p>#rm　-r /opt/IBM/db2/V9.7/lost+found</p>
+<p>#cd　工作目录</p>
+<p>#./db2setup -r /work/db2ese.rsp<br>DBI1191I  db2setup is installing and configuring DB2 according to the<br>      response file provided. Please wait.</p>
+<p>iocp0 Filesystem size changed to 3276800<br>The execution completed successfully.</p>
+<p>For more information see the DB2 installation log at &quot;/tmp/db2setup.log&quot;.</p>
+<p>[/shell]</p>
+<p>3.语言包静默安装文件db2nlpack.rsp</p>
+<p>[shell]</p>
+<p>PROD = NATIONAL_LANGUAGE_PACKAGE<br>FILE = /opt/IBM/db2/V9.7<br>INSTALL_TYPE = CUSTOM<br>LANG = EN<br>LANG = JP<br>[/shell]</p>
+<p>4.语言包安装前，需要停止DB2</p>
+<p>[shell]</p>
+<p>#su - db2inst1<br>$db2 force application all<br>DB20000I  The FORCE APPLICATION command completed successfully.<br>DB21024I  This command is asynchronous and may not be effective immediately.</p>
+<p>$db2 terminate<br>DB20000I  The TERMINATE command completed successfully.<br>$db2stop<br>2014-05-20 16:35:44     0   0   SQL1064N  DB2STOP processing was successful.<br>SQL1064N  DB2STOP processing was successful.<br>$exit</p>
+<p>#su - dasusr1<br>$db2admin stop<br>SQL4407W  The DB2 Administration Server was stopped successfully.<br>$exit<br>#<br>[/shell]</p>
+<p>5.语言包安装</p>
+<p>[shell]</p>
+<h1 id="db2setup-r-db2nlpack-rsp"><a href="#db2setup-r-db2nlpack-rsp" class="headerlink" title="./db2setup -r db2nlpack.rsp"></a>./db2setup -r db2nlpack.rsp</h1><p>DBI1191I  db2setup is installing and configuring DB2 according to the<br>      response file provided. Please wait.</p>
+<p>The response file specified &quot;/tmp/GD_P/DB2/nlpack/db2nlpack.rsp&quot; is not<br>valid.</p>
+<p>For more information see the DB2 installation log at &quot;/tmp/db2setup.log&quot;.</p>
+<p>#/opt/IBM/db2/V9.7/install/db2ls -q -b /opt/IBM/db2V9.7/ -a | grep -i message<br>DB2_PRODUCT_MESSAGES_EN 9.7.0.9 9 Product Messages - English<br>DB2_PRODUCT_MESSAGES_JP 9.7.0.9 9 Product Messages - Japanese<br>#<br>[/shell]</p>
+<p>6.Lincese安装</p>
+<p>[shell]</p>
+<p>lincese确认</p>
+<p>#/opt/IBM/db2/V9.7/adm/db2licm -l</p>
+<p>Product name:                     &quot;DB2 Enterprise Server Edition&quot;<br>License type:                     &quot;Trial&quot;<br>Expiry date:                      &quot;08/17/2014&quot;<br>Product identifier:               &quot;db2ese&quot;<br>Version information:              &quot;9.7&quot;</p>
+<p>Product name:                     &quot;DB2 Connect Server&quot;<br>License type:                     &quot;Trial&quot;<br>Expiry date:                      &quot;08/17/2014&quot;<br>Product identifier:               &quot;db2consv&quot;<br>Version information:              &quot;9.7&quot;</p>
+<p>lincese安装</p>
+<p>#/opt/IBM/db2/V9.7/adm/db2licm -a /work/db2ese_o.lic</p>
+<p>LIC1402I  License added successfully.<br>LIC1426I  This product is now licensed for use as outlined in your License Agreement.  USE OF THE PRODUCT CONSTITUTES ACCEPTANCE OF THE TERMS OF THE IBM LICENSE AGREEMENT, LOCATED IN THE FOLLOWING DIRECTORY: &quot;/opt/IBM/db2/license/en_US.iso88591&quot;</p>
+<p>確認</p>
+<p>#/opt/IBM/db2/V9.7/adm/db2licm -l</p>
+<p>root@localhost:/opt/IBM/db2/adm)./db2licm -l<br>Product name:                     &quot;DB2 Enterprise Server Edition&quot;<br>License type:                     &quot;Restricted&quot;<br>Expiry date:                      &quot;Permanent&quot;<br>Product identifier:               &quot;db2ese&quot;<br>Version information:              &quot;9.7&quot;<br>Features:<br>DB2 Storage Optimization:         &quot;Not licensed&quot;</p>
+<p>Product name:                     &quot;DB2 Connect Server&quot;<br>License type:                     &quot;Trial&quot;<br>Expiry date:                      &quot;08/17/2014&quot;<br>Product identifier:               &quot;db2consv&quot;<br>Version information:              &quot;9.7&quot;</p>
+<p>[/shell]</p>
+<p>7.启动确认</p>
+<p>[shell]</p>
+<p>#su - db2inst1<br>$db2start<br>05/20/2014 16:43:53     0   0   SQL1063N  DB2START processing was successful.<br>SQL1063N  DB2START processing was successful.</p>
+<p>$db2 list db directory<br>SQL1031N  The database directory cannot be found on the indicated file system.<br>SQLSTATE=58031<br>[/shell]</p>
+<p>8.版本确认</p>
+<p>[shell]<br>$db2level<br>DB21085I  This instance or install (instance name, where applicable:<br>&quot;db2inst1&quot;) uses &quot;64&quot; bits and DB2 code release &quot;SQL09079&quot; with level<br>identifier &quot;080A0107&quot;.<br>Informational tokens are &quot;DB2 v9.7.0.9&quot;, &quot;s131204&quot;, &quot;IP23554&quot;, and Fix Pack<br>&quot;9&quot;.<br>Product is installed at &quot;/opt/IBM/db2&quot;.</p>
+<p>[/shell]</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><ul>
+<li><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.qb.server.doc/doc/r0025127.html" title="(新しいタブまたはウィンドウで開く)" target="_blank" rel="external"><span class="resultofText">DB2</span>バージョン 9.7 のインストール</a></li>
+<li><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.qb.server.doc/doc/r0025127.html" title="(新しいタブまたはウィンドウで開く)" target="_blank" rel="external"><span class="resultofText">DB2</span> バージョン 9.5 のインストール</a></li>
+<li><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9/topic/com.ibm.db2.udb.doc/doc/t0024287.htm" title="(新しいタブまたはウィンドウで開く)" target="_blank" rel="external"><span class="resultofText">DB2</span> バージョン 9.1 のインストール</a></li>
+<li>lincense安装</li>
+<li><ul>
+<li><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9/topic/com.ibm.db2.udb.uprun.doc/doc/t0006749.htm" title="(新しいタブまたはウィンドウで開く)" target="_blank" rel="external"><span class="resultofText">DB2</span> 9.1</a></li>
+<li><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.qb.server.doc/doc/t0006749.html" title="(新しいタブまたはウィンドウで開く)" target="_blank" rel="external"><span class="resultofText">DB2</span> 9.5</a></li>
+<li><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.qb.server.doc/doc/t0006749.html" title="(新しいタブまたはウィンドウで開く)" target="_blank" rel="external"><span class="resultofText">DB2</span> 9.7</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="下载DB2-V9-7版本"><a href="#下载DB2-V9-7版本" class="headerlink" title="下载DB2 V9.7版本"></a>下载DB2 V9.7版本</h4><p><a href="http://www-01.ibm.com/support/docview.wss?uid=swg27007053%20" target="_blank" rel="external">Download DB2 Fix Packs by version for DB2 for Linux, UNIX and Windows</a></p>
+<h3 id="DB2-Version-9-7-Activation-key-part-numbers"><a href="#DB2-Version-9-7-Activation-key-part-numbers" class="headerlink" title="DB2 Version 9.7 Activation key part numbers"></a><a href="http://www-01.ibm.com/support/docview.wss?uid=swg21445568" target="_blank" rel="external">DB2 Version 9.7 Activation key part numbers</a></h3><p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/db2-v97-silent-install.html" data-id="cji8sg1r2003i40iot8ctgnlg" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB2/">DB2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Database/">Database</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ilmt-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ilmt-install.html" class="article-date">
+  <time datetime="2014-05-19T04:53:59.000Z" itemprop="datePublished">2014-05-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ilmt-install.html">IBM License Metric Tool 7.5安装设定 ILMT</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="IBM-License-Metric-Tool-7-5安装设定"><a href="#IBM-License-Metric-Tool-7-5安装设定" class="headerlink" title="IBM License Metric Tool 7.5安装设定"></a>IBM License Metric Tool 7.5安装设定</h1><h3 id="安装ILMT比较繁琐，大致顺序如下"><a href="#安装ILMT比较繁琐，大致顺序如下" class="headerlink" title="安装ILMT比较繁琐，大致顺序如下"></a>安装ILMT比较繁琐，大致顺序如下</h3><p>DB2 v9.7.0.9安装-&gt;</p>
+<p>ILMT V7.5.0.0-&gt;</p>
+<p>TIP2.2.0.0更新到2.2.0.3-&gt;</p>
+<p>TIP2.2.0.3更新到2.2.0.7-&gt;</p>
+<p>ILMT V7.5Fixpack1安装-&gt;</p>
+<p>ILMTV7.5Interim Fix 9安装</p>
+<p>&nbsp;</p>
+<h3 id="硬件配置"><a href="#硬件配置" class="headerlink" title="硬件配置"></a>硬件配置</h3><p>安装的时候，<br>如果1G内存，512M paging space，会报内存不足<br>4Gn内存,512M PS 不会错误，大概需要1h内<br>1G内存，4.5G ps，也不会出错，不过时间会要3.5h以上<br>另外，SoftwareCatalog更新，一般要24h小时内。</p>
+<p>&nbsp;</p>
+<h3 id="安装顺序："><a href="#安装顺序：" class="headerlink" title="安装顺序："></a>安装顺序：</h3><p>1.下载ILMT安装包</p>
+<p><a href="http://www-01.ibm.com/support/docview.wss?uid=swg24030690" target="_blank" rel="external">Download IBM License Metric Tool 7.5 for AIX platforms</a></p>
+<p><a href="http://www-01.ibm.com/support/docview.wss?rs=3505&amp;uid=swg24028383" target="_blank" rel="external">Download IBM License Metric Tool 7.2.2 for AIX platforms</a></p>
+<p>2.下载DB2 V9.7版本</p>
+<p><a href="http://www-01.ibm.com/support/docview.wss?uid=swg27007053%20" target="_blank" rel="external">Download DB2 Fix Packs by version for DB2 for Linux, UNIX and Windows</a></p>
+<p>3.<a href="http://115.29.220.91/db2-v97-silent-install.html" title="DB2 V9.7静默安装" target="_blank" rel="external">安装DB2 9.7</a></p>
+<p>4.<a href="http://pic.dhe.ibm.com/infocenter/tivihelp/v53r1/index.jsp?topic=%2Fcom.ibm.lmt75.doc%2Fcom.ibm.license.mgmt.planinconf.doc%2Fr_software_reqs_other.html" target="_blank" rel="external">ILMT安装前提</a></p>
+<p>硬盘空间需求：</p>
+<p><table border="1"></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><th>Partition</th></p>
+<p><th>Needed Space</th></p>
+<p><th>Free Space</th><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/opt</td></p>
+<p><td align="RIGHT">2376.4 MB</td></p>
+<p><td align="RIGHT">3915.8 MB</td><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/usr</td></p>
+<p><td align="RIGHT">3.9 MB</td></p>
+<p><td align="RIGHT">7477.8 MB</td><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/tmp</td></p>
+<p><td align="RIGHT">1584.7 MB</td></p>
+<p><td align="RIGHT">2384.2 MB</td><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/opt/IBM/LMT</td></p>
+<p><td align="RIGHT">251.6 MB</td></p>
+<p><td align="RIGHT">4095.1 MB</td><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/</td></p>
+<p><td align="RIGHT">748.0 kB</td></p>
+<p><td align="RIGHT">838.4 MB</td><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/home/db2inst1</td></p>
+<p><td align="RIGHT">755.7 MB</td></p>
+<p><td align="RIGHT">1687.2 MB</td><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/var</td></p>
+<p><td align="RIGHT">9.5 MB</td></p>
+<p><td align="RIGHT">3812.0 MB</td><br></p>
+<p><tr></tr></p>
+<p><td align="LEFT">/opt/netcool</td></p>
+<p><td align="RIGHT">412.5 MB</td></p>
+<p><td align="RIGHT">98.5 MB</td><br><br><br><br>&nbsp;</p>
+<p>5.ILMT安装文件设置</p>
+<pre>需要注意，TIP安装在LMT目录下，比如安装在/opt/IBM/LMT/TIP目录下，
+最后安装FP0001的时候，会导致权限错误。
+
+[shell]
+
+RSP_LICENSE_ACCEPTED=true
+RSP_TLM_ROOT=/opt/IBM/LMT
+RSP_SETUP_TYPE=Production
+RSP_ADMINDB_COMPONENT=true
+RSP_ADMIN_COMPONENT=true
+RSP_TLM_TLMSRV_PASSWD=xxxxxx
+RSP_TLM_DB_PATH=/home/db2inst1
+RSP_TLM_SERVER_FIPS_ENABLED=false
+RSP_TLM_MIN_SEC_PORT=9988
+RSP_TLM_MED_SEC_PORT=9999
+RSP_TLM_MAX_SEC_PORT=9977
+RSP_TLM_DB_HOST=localhost
+RSP_TLM_DB_PORT=50000
+RSP_INSTALL_TIP_INTO_WAS_HOME=false
+RSP_TIP_HOME=/opt/IBM/TIP
+RSP_TIP_ADMIN_NAME=xxxxxx
+RSP_TIP_ADMIN_PASSWD=xxxxxx
+RSP_TIP_WC_PORT=16310
+RSP_TIP_WC_SECURE_PORT=16311
+RSP_TIP_BOOTSRAP_PORT=16312
+RSP_TIP_SOAP_CONNECTOR_PORT=16313
+RSP_TIP_WC_ADMIN_PORT=16314
+RSP_TIP_WC_ADMIN_SECURE_PORT=16315
+RSP_TIP_DCS_UNICAST_PORT=16316
+RSP_TIP_IPC_CONNECTOR_PORT=16318
+RSP_TIP_ORB_LISTENER_PORT=16320
+RSP_TIP_SAS_SSL_SERVERAUTH_PORT=16321
+RSP_TIP_CSIV2_SSL_MUTUALAUTH_PORT=16322
+RSP_TIP_CSIV2_SSL_SERVERAUTH_PORT=16323
+RSP_TIP_REST_NOTIFICATION_PORT=16324
+
+[/shell]
+
+6.执行ILMT安装设定
+
+[shell]
+## UNIX/Linux:
+## &lt;ILMT/TAD4D&gt;-server-7.5-.sh -f &lt;full_path_to_response_file&gt; -i silent
+## Example:
+## ILMT-server-7.5-linux-ppc64.sh -f /installResponseProduction.txt -i silent
+##
+## Windows:
+## &lt;ILMT/TAD4D&gt;-server-7.5-.bat -f &lt;full_path_to_response_file&gt; -i silent
+## Example:
+## TAD4D-server-7.5-windows-x86_64.bat -f &quot;c:\images\installResponseProduction.txt&quot; -i silent
+[/shell]
+
+[shell]
+#./ILMT-server-7.5-aix-ppc64.sh -f `pwd`/installResponseProduction.txt -i silent
+Running installation wizard for AIX
+Preparing to install...
+Extracting the JRE from the installer archive...
+Unpacking the JRE...
+Extracting the installation resources from the installer archive...
+Configuring the installer for this system's environment...
+
+Launching installer...
+
+Preparing SILENT Mode Installation...
+
+===============================================================================
+IBM License Metric Tool                          (created with InstallAnywhere)
+-------------------------------------------------------------------------------
+
+===============================================================================
+Installing...
+-------------
+
+ [==================|==================|==================|==================]
+ [------------------|------------------|------------------|------------------]
+
+Installation Complete.
+All logs can be found in: /opt/IBM/LMT/LMT_7.5_20140521-122847_12583022_logs.tar.gz
+
+[/shell]
+
+7.几个常见错误：
+
+[shell]
+#./ILMT-server-7.5-aix-ppc64.sh -f `pwd`/installResponseProduction.txt -i silent
+Running installation wizard for AIX
+Preparing to install...
+Extracting the JRE from the installer archive...
+Unpacking the JRE...
+ Extracting the installation resources from the installer archive...
+Configuring the installer for this system's environment...
+
+Launching installer...
+
+Preparing SILENT Mode Installation...
+
+===============================================================================
+IBM License Metric Tool                          (created with InstallAnywhere)
+-------------------------------------------------------------------------------
+
+cp: /opt/IBM/TIP/profiles/TIPProfile/logs: No such file or directory
+The following file/directory could not be copied: /opt/IBM/TIP/profiles/TIPProfile/logs
+All logs can be found in: /tmp/LMT_7.5_20140521-120347_6029368_logs.tar.gz
+ERROR: 52
+##
+[/shell]
+
+<pre>这些一般都是内存不足导致的错误，
+如果不能追加内存，请扩展Page Space。
+
+8.安装成功后，可以访问
+https://www.ibmer.info:16311/ibm/console/
+查看ILMT的登录界面</pre>
+[caption id="attachment_97" align="alignnone" width="781"][![ILMT登录界面](http://115.29.220.91/wp-content/uploads/2014/05/1.jpg)](http://115.29.220.91/wp-content/uploads/2014/05/1.jpg) ILMT登录界面[/caption]
+
+关于ILMT登录端口，大家会比较迷惑，其实和was一样，可以通过AboutThisProfile.txt文件查看。
+
+[shell]
+root@localhost:# cat /opt/IBM/TIP/profiles/TIPProfile/logs/AboutThisProfile.txt
+Application server environment to create: Application server
+Location: /opt/IBM/TIP/profiles/TIPProfile
+Disk space required: 200 MB
+Profile name: TIPProfile
+Make this profile the default: True
+Node name: TIPNode
+Host name: loopback
+Enable administrative security (recommended): True
+Administrative console port: 16314
+Administrative console secure port: 16315
+HTTP transport port: 16310
+HTTPS transport port: 16311
+Bootstrap port: 16312
+SOAP connector port: 16313
+Run application server as a service: False
+Create a Web server definition: False
+Performance tuning setting: Standard
+[/shell]
+
+&nbsp;
+
+9.版本查看
+
+[shell]
+root@localhost: # ./opt/IBM/LMT/cli/lmtcli.sh
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x Licensed Materials - Property of IBM
+x 5724-T40 IBM License Metric Tool
+x 5725-C68 IBM Tivoli Asset Discovery for Distributed
+x Command line version 7.5 for AIX .
+x (C) Copyright IBM Corp. 2002, 2010.
+x All Rights Reserved. US Government Users Restricted Rights - Use,
+x duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+x For more detailed help, refer to product manual.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+lmt&gt;login -u username -p password
+
+CODCL0033I: The command has been successfully performed.
+
+lmt&gt;info
+Server version: IBM License Metric Tool  7.5
+Installation date: May 21, 2014
+Database name: TLMA
+Build version: 201112061421
+The start day for the next report: May 21, 2014
+
+CODCL0033I: The command has been successfully performed.
+
+lmt&gt;
+[/shell]
+
+通过 TLMA database查看版本
+
+[shell]
+
+root@localhost:/)# su - db2inst1
+db2inst1@localhost:/home/db2inst1)# db2 connect to TLMA
+
+Database Connection Information
+
+Database server        = DB2/AIX64 9.7.9
+SQL authorization ID   = DB2INST1
+Local database alias   = TLMA
+
+db2inst1@localhost:/home/db2inst1)# db2 &quot;select * from adm.control&quot;
+
+NAME                                     VALUE
+---------------------------------------- ------------------------------------------------------------
+ID1                                      5d4f80e2403a4f6e9437a12986d23cca
+ID2                                      1cd397a5014610009d097f000001
+DB_CREATION                              2014-05-21 04:38:42.0
+FIRST_TO_AGGREGATE_DAY                   2014-05-21
+FIRST_TO_CLEAN_USAGE_DAY                 2014-05-21
+LAST_AGGREGATE_STEP                      0
+MAX_WAITING_TIME_FOR_LATE_DATA           14
+MAX_WAITING_TIME_FOR_STDALONE_LATE_DATA  183
+DATABASE_VERSION                         7.5
+DATABASE_SCHEMA_VERSION                  7.5.0.0
+VUT_VERSION                              2011-10-05
+ADMIN_ID                                 854238
+MIGRATION_TIME                           2014-05-21 04:38:42.0
+FIRST_AGENT_ID_NOT_ASSIGNED              1
+LAST_INVENTORY_EXEC_TIME                 2014-05-21 05:53:46.715
+INV_BUILD_STEP_FIELD                     0
+LIC_USAGE_RETENTION_TIME                 180
+COMPUTER_GUID_RULE                       None
+LAST_NOTIFICATION_TIME                   2014-05-21 05:54:00.541
+LATEST_PURGED_DATE                       2014-05-20
+AGGR_REC_BLOCKED                         false
+MAX_NUMBER_OF_HOSTNAMES_IN_EMAIL         1000
+BUILD_VERSION                            201112061421
+HW_SCAN_CONFIG_TIME                      2014-05-21 04:38:42.0
+FULL_HW_SCAN_CONFIG_TIME                 2014-05-21 04:38:42.0
+TIER_TABLE_VERSION                       2010-10-05
+SW_SCAN_CONFIG_TIME                      1970-01-01 00:00:00.0
+REMOTE_SW_SCAN_CONFIG_TIME               1970-01-01 00:00:00.0
+LAST_SOFT_INV_MQT_UPDATE_TIME            2014-05-21 05:53:53.241183
+CATALOG_UPDATE_SEQ_NUMBER                1
+MAX_SELECTED_ROWS_COUNT                  200
+CATALOG_FILE_READY                       true
+
+32 record(s) selected.
+
+db2inst1@localhost:/home/db2inst1)
+[/shell]
+
+10.
+升级TIP2.2.0.0-&gt;2.2.0.3，[参考](http://pic.dhe.ibm.com/infocenter/tivihelp/v53r1/index.jsp?topic=%2Fcom.ibm.lmt75.doc%2Fcom.ibm.license.mgmt.planinconf.doc%2Ft_updating_server_silently.html)
+
+[shell]
+./patch_installer-aix-ppc64.sh -silent -patchHome `pwd` -response `pwd`/tip-update.txt
+vi tip-update.txt
+./patch_installer-aix-ppc64.sh -patchHome `pwd` -response `pwd`/tip-update.txt -silent
+[/shell]
+
+升级TIP2.2.0.3-&gt;2.2.0.7
+
+[shell]
+#./install.sh -i silent -f response.txt
+[/shell]
+
+[升级2.2.0.7错误处理：](http://www-01.ibm.com/support/docview.wss?uid=swg21641413)
+CTGWA0058E The current prerequisites of Tivoli Integrated Portal are not satisfied. See detailed logs in /opt/IBM/TIP/logs/validatePrereqs.out.
+
+Checking Installation Requirements
+Passed Operating system validation check 15:49:49
+Passed System memory prerequisite check 15:49:49
+Passed Accessibility prerequisite check 15:49:49
+freespace=1685344
+tmpfree=1456664
+Passed Disk space prerequisite check 15:49:49
+Failed ! System available memory (1 MB) does not meet minimum requirements (128 MB). 15:49:49
+
+&nbsp;
+
+为什么要升级TIP到2.2.0.7？如果不升级TIP，会有CODIN0501E错误，[详细参考](http://www-01.ibm.com/support/docview.wss?uid=swg21616758)
+<pre>升级ILMT7.5.0.0-&gt;7.5.0.1 (ILMT Fixpack1)
+./ILMT-server-7.5.0.10-aix-ppc64.sh -f `pwd`/upgradeResponse.txt -i silent
+
+升级ILMT7.5.0.1-&gt;7.5.0.19
+
+</pre>
+
+<h3 id="下载资料"><a href="#下载资料" class="headerlink" title="下载资料"></a><a href="http://pan.baidu.com/s/1i3FWorN" target="_blank" rel="external">下载资料</a></h3><p>链接：<a href="http://pan.baidu.com/s/1i3FWorN" target="_blank" rel="external">http://pan.baidu.com/s/1i3FWorN</a> 密码：k9q3</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="http://www-01.ibm.com/support/docview.wss?uid=jpn1J1011451" target="_blank" rel="external">IBM License Metric Tool 7.5導入・設定ガイド(Tivoli-14-04)</a></p>
+</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/ilmt-install.html" data-id="cji8sg1s7005r40iotuh5vvec" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/was/">was</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-osi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/osi.html" class="article-date">
+  <time datetime="2014-05-16T02:30:12.000Z" itemprop="datePublished">2014-05-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/osi.html">OSI七层模型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <table class="table-view log-set-param"><br><tbody><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">具体7层</div></td><br><td align="left" valign="center" width="186"><br><div class="para">数据格式</div></td><br><td align="left" valign="center" width="222"><br><div class="para">功能与连接方式</div></td><br><td align="left" valign="center" width="137"><br><div class="para">典型设备</div></td><br></tr><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">应用层 Application</div></td><br><td></td><br><td align="left" valign="center" width="222"><br><div class="para">网络服务与使用者应用程序间的一个接口</div></td><br><td></td><br></tr><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">表示层 Presentation</div></td><br><td></td><br><td align="left" valign="center" width="222"><br><div class="para">数据表示、数据安全、数据压缩</div></td><br><td></td><br></tr><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">会话层 Session</div></td><br><td></td><br><td align="left" valign="center" width="222"><br><div class="para">建立、管理和终止会话</div></td><br><td></td><br></tr><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">传输层 Transport</div></td><br><td align="left" valign="center" width="186"><br><div class="para">数据组织成数据段Segment</div></td><br><td align="left" valign="center" width="222"><br><div class="para">用一个寻址机制来标识一个特定的应用程序（端口号）</div></td><br><td></td><br></tr><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">网络层 Network</div></td><br><td align="left" valign="center" width="186"><br><div class="para">分割和重新组合数据包Packet</div></td><br><td align="left" valign="center" width="222"><br><div class="para">基于网络层地址（IP地址）进行不同网络系统间的路径选择</div></td><br><td align="left" valign="center" width="137"><br><div class="para">路由器</div></td><br></tr><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">数据链路层 Data Link</div></td><br><td align="left" valign="center" width="186"><br><div class="para">将比特信息封装成数据帧Frame</div></td><br><td align="left" valign="center" width="222"><br><div class="para">在物理层上建立、撤销、标识逻辑链接和链路复用 以及差错校验等功能。通过使用接收系统的硬件地址或物理地址来寻址</div></td><br><td align="left" valign="center" width="137"><br><div class="para">网桥、交换机、网卡</div></td><br></tr><br><tr><br><td align="left" valign="center" width="178"><br><div class="para">物理层Physical</div></td><br><td align="left" valign="center" width="186"><br><div class="para">传输比特（bit）流</div></td><br><td align="left" valign="center" width="222"><br><div class="para">建立、维护和取消物理连接</div></td><br><td align="left" valign="center" width="137"><br><div class="para">光纤、同轴电缆、</div><br><div class="para">双绞线、中继器和集线器</div></td><br></tr><br></tbody><br></table><br>&nbsp;<br><br>TCP/IP结构对应OSI<br><table class="table-view log-set-param" width="99%"><br><tbody><br><tr><br><th><br><div class="para">TCP/IP</div></th><br><th><br><div class="para">OSI</div></th><br></tr><br><tr><br><td align="left" valign="center"><br><div class="para">应用层</div></td><br><td align="left" valign="center"><br><div class="para">应用层</div><br><div class="para">表示层</div><br><div class="para">会话层</div></td><br></tr><br><tr><br><td align="left" valign="center"><br><div class="para">主机到主机层（TCP）（又称传输层）</div></td><br><td align="left" valign="center"><br><div class="para"><a href="http://baike.baidu.com/view/239605.htm" target="_blank" rel="external">传输层</a></div></td><br></tr><br><tr><br><td align="left" valign="center"><br><div class="para">网络层（IP）(又称互联层)</div></td><br><td align="left" valign="center"><br><div class="para"><a href="http://baike.baidu.com/view/239600.htm" target="_blank" rel="external">网络层</a></div></td><br></tr><br><tr><br><td rowspan="2" align="left" valign="center" height="0"><br><div class="para">网络接口层（又称链路层）</div></td><br><td align="left" valign="center"><br><div class="para">数据链路层</div></td><br></tr><br><tr><br><td align="left" valign="center"><br><div class="para">物理层</div></td><br></tr><br></tbody><br></table>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/osi.html" data-id="cji8sg1tg008940iowl0boq4f" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ilmt-agent-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ilmt-agent-install.html" class="article-date">
+  <time datetime="2014-05-14T07:39:17.000Z" itemprop="datePublished">2014-05-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ilmt-agent-install.html">ILMT Agent Install on AIX安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ILMT-Agent-Install安装"><a href="#ILMT-Agent-Install安装" class="headerlink" title="ILMT Agent Install安装"></a>ILMT Agent Install安装</h1><h3 id="（1）ILMT-agent-和-server版本信息"><a href="#（1）ILMT-agent-和-server版本信息" class="headerlink" title="（1）ILMT agent 和 server版本信息"></a>（1）ILMT agent 和 server版本信息</h3><p>IBM的产品就是版本信息太多，fixpack也太多很难搞清楚。</p>
+<p>[php]<br>7.2.0 – base release number<br>7.2.0.1 – ILMT 7.2.0 with Fix Pack 1<br>7.2.0.11 – ILMT 7.2.0 with Fix Pack 1 and Interim Fix 1</p>
+<p>7.2.1 – base release number<br>7.2.1.1 – ILMT 7.2.1 with Fix Pack 1<br>7.2.1.11 – IILMT 7.2.1 with Fix Pack 1 and Interim Fix 1<br>7.2.1.12 – ILMT 7.2.1 with Fix Pack 1 and Interim Fix 2<br>7.2.1.2 – ILMT 7.2.1 with Fix Pack 2</p>
+<p>7.2.2 – base release number<br>7.2.2.01 – ILMT 7.2.2. with Interim Fix 1<br>7.2.2.1 – ILMT 7.2.2 with Fix Pack 1<br>7.2.2.12 – ILMT 7.2.2 with Fix Pack 1 and Interim Fix 2<br>7.2.2.2 - ILMT 7.2.2 with Fix Pack 2<br>7.2.2.23 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 3<br>7.2.2.24 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 4<br>7.2.2.25 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 5<br>7.2.2.26 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 6<br>7.2.2.27 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 7<br>7.2.2.28 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 8<br>7.2.2.29 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 9<br>7.2.2.210 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 10<br>7.2.2.211 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 11<br>7.2.2.212 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 12<br>7.2.2.213 - ILMT 7.2.2 with Fix Pack 2 and Interim Fix 13</p>
+<p>7.5 - base release number<br>7.5.0.01 - ILMT 7.5 with Interim Fix 1<br>7.5.0.02 - ILMT 7.5 with Interim Fix 2<br>7.5.0.03 - ILMT 7.5 with Interim Fix 3<br>7.5.0.10 - ILMT 7.5 with Fix Pack 1<br>7.5.0.14 - ILMT 7.5 with Fix Pack 1 and Interim Fix 4<br>7.5.0.15 - ILMT 7.5 with Fix Pack 1 and Interim Fix 5<br>7.5.0.16 - ILMT 7.5 with Fix Pack 1 and Interim Fix 6<br>7.5.0.17 - ILMT 7.5 with Fix Pack 1 and Interim Fix 7<br>7.5.0.18 - ILMT 7.5 with Fix Pack 1 and Interim Fix 8<br>7.5.0.19 - ILMT 7.5 with Fix Pack 1 and Interim Fix 9<br>7.5.0.110 - ILMT 7.5 with Fix Pack 1 and Interim Fix 10<br>7.5.0.111 - ILMT 7.5 with Fix Pack 1 and Interim Fix 11<br>7.5.0.112 - ILMT 7.5 with Fix Pack 1 and Interim Fix 12<br>7.5.0.113 - ILMT 7.5 with Fix Pack 1 and Interim Fix 13<br>7.5.0.114 - ILMT 7.5 with Fix Pack 1 and Interim Fix 14<br>7.5.0.115 - ILMT 7.5 with Fix Pack 1 and Interim Fix 15<br>7.5.0.116 - ILMT 7.5 with Fix Pack 1 and Interim Fix 16<br>7.5.0.117 - ILMT 7.5 with Fix Pack 1 and Interim Fix 17<br>7.5.0.118 - ILMT 7.5 with Fix Pack 1 and Interim Fix 18<br>7.5.0.119 - ILMT 7.5 with Fix Pack 1 and Interim Fix 19</p>
+<p>[/php]</p>
+<h3 id="（2）ILMT-Agent版本确认指令"><a href="#（2）ILMT-Agent版本确认指令" class="headerlink" title="（2）ILMT Agent版本确认指令"></a>（2）ILMT Agent版本确认指令</h3><p>[php]</p>
+<p>tlmagent.exe -v (Windows)<br>tlmagent -v (Linux/Unix)</p>
+<p>[/php]</p>
+<h3 id="3-ILMT-Agent-Install-on-AIX-ILMT-agent安装"><a href="#3-ILMT-Agent-Install-on-AIX-ILMT-agent安装" class="headerlink" title="(3)ILMT Agent Install on AIX, ILMT agent安装"></a>(3)ILMT Agent Install on AIX, ILMT agent安装</h3><p>[shell]</p>
+<p>对于支持使用 ILMT_INSTALL_PATH 环境变量的安装，请设置变量以指向定制位置：<br>export ILMT_INSTALL_PATH=PATH_TO_DESIRED_LOCATION</p>
+<p>对于支持使用基于用户指定的安装位置 (USIL) 的重定位机制的安装，请执行以下步骤：<br>创建 custom_location 目录：<br>mkdir -p /custom_location</p>
+<p>将该目录设为用户指定的安装位置 (USIL)：<br>mkusil -R /custom_location</p>
+<p>在此位置中安装代理程序：<br>installp -R /custom_location -acgXd full_path_to_the_installation_package_dir ILMT-TAD4D-agent-7.5-aix-ppc ILMT-TAD4D-agent</p>
+<p>代理程序安装在 /custom_location/opt/itlm 和 /custom_location/var/itlm 文件夹中</p>
+<p>[/shell]</p>
+<p><a href="http://pic.dhe.ibm.com/infocenter/tivihelp/v53r1/index.jsp?topic=%2Fcom.ibm.lmt75.doc%2Fcom.ibm.license.mgmt.planinconf.doc%2Ft_deploying_agents_aix_plusnim.html" target="_blank" rel="external">参考资料</a></p>
+<h3 id="4-lslpp指令找不到ILMT-agent？？"><a href="#4-lslpp指令找不到ILMT-agent？？" class="headerlink" title="(4)lslpp指令找不到ILMT agent？？"></a>(4)lslpp指令找不到ILMT agent？？</h3><p>由于通过了mkusil -R指定了安装目录，会导致lslpp指令找不到ilmt的相关信息。</p>
+<p>通过lslpp指定目录，执行下面指令就能正常显示了。</p>
+<p>[shell]&lt;/pre&gt;</p>
+<p>#lspp -R /export/appl/pkgs/itlm -al<br>&lt;pre&gt;[/shell]</p>
+<h3 id="（5）一个错误信息的处理"><a href="#（5）一个错误信息的处理" class="headerlink" title="（5）一个错误信息的处理"></a>（5）一个错误信息的处理</h3><p>[shell]</p>
+<p>#installp -R /opt/ilmt -acgXd ILMT-TAD4D-t -acgXd ILMT-TAD4D-agent-7.5-aix-ppc  ILMT-TAD4D-agent<br>+—————————————————————————–+<br>                    Pre-installation Verification…<br>+—————————————————————————–+<br>Verifying selections…installp: A system error occurred while attempting<br>        to access the Software Vital Product Data.<br>        Use local problem reporting procedures.<br>#<br>通过执行rmusil后重新执行安装指令</p>
+<p>#rmusil -R /opt/ilmt<br>#<br>[/shell]</p>
+<h3 id="（6）安装日志"><a href="#（6）安装日志" class="headerlink" title="（6）安装日志"></a>（6）安装日志</h3><p>[shell]</p>
+<p>[/shell]</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/ilmt-agent-install.html" data-id="cji8sg1s9005v40ioe3rpxqlj" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/was/">was</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wordpress-plugin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wordpress-plugin.html" class="article-date">
+  <time datetime="2014-05-14T05:50:58.000Z" itemprop="datePublished">2014-05-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wordpress-plugin.html">WordPress插件开发-入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a><strong>介绍：</strong></h1><p>本文主要介绍wordpress plugin如何编写。该文介绍的是通过开发插件，在文章中添加文章链接，保证版权信息。</p>
+<hr>
+<p># </p>
+<h1 id="WordPress插件开发-入门"><a href="#WordPress插件开发-入门" class="headerlink" title="WordPress插件开发-入门"></a><strong>WordPress插件开发-入门</strong></h1><p>（1）创建插件目录和插件php文件</p>
+<p>[php]<br>/wp-content/plugins# mkdir ibmer-info<br>/wp-content/plugins# vi index.php<br>[/php]</p>
+<p>（2）在index.php中编写内容</p>
+<p>[php]<br>&lt;?php<br>/<em><br>Plugin Name: ibmer-info<br>Plugin URI: <a href="http://www.ibmer.info/">http://www.ibmer.info/</a><br>Description: This plugin is create by huangxy.<br>Author: Huangxy<br>Version: 0.1<br>Author URI: <a href="http://www.ibmer.info/">http://www.ibmer.info/</a>
+</em>/<br>///文章添加版权<br>function get_content_info ($content){<br>global $post;<br>$content = $content.’&lt;div style=&quot;clear:both; border-top:1px dashed #e0e0e0; padding:10px 0 10px 0;&quot;&gt; » 版权所有©转载必须以链接形式注明作者和原始出处：&lt;a href=&quot;’.get_bloginfo(&quot;home&quot;).’&quot; title=&quot;点击去首页&quot;&gt;’.get_bloginfo(&quot;name&quot;).’&lt;/a&gt; » &lt;a title=&quot;本文地址&quot; href=&quot;’.get_permalink().’&quot;&gt;’.get_the_title().’&lt;/a&gt;&lt;/div&gt;’ ;<br>   return $content;<br>}<br>add_action(‘the_content’, ‘get_content_info’);<br>[/php]</p>
+<p>（3）后台启动插件就有效果了。</p>
+<hr>
+<p># </p>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a><strong>参考资料：</strong></h1><p><a href="http://codex.wordpress.org/zh-cn:%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6" target="_blank" rel="external">http://codex.wordpress.org/zh-cn:%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6</a></p>
+<hr>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/wordpress-plugin.html" data-id="cji8sg1xe00fm40iorajqo788" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nginx-wordpress-404" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/nginx-wordpress-404.html" class="article-date">
+  <time datetime="2014-05-14T00:30:18.000Z" itemprop="datePublished">2014-05-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/nginx-wordpress-404.html">Nginx支持WordPress固定链接，404错误修正</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a><strong>问题：</strong></h1><p>使用wordpress的固定链接时（如设置固定连接格式为 /%category%/%postname%.html ），报404的错误，nginx不支持wordpress的固定链接，需要自己进行设置。</p>
+<p>&nbsp;</p>
+<h1 id="解决思路："><a href="#解决思路：" class="headerlink" title="解决思路："></a><strong>解决思路：</strong></h1><p>创建wordpress.conf，将其包含进nginx.conf即可。</p>
+<p>&nbsp;</p>
+<h1 id="实现："><a href="#实现：" class="headerlink" title="实现："></a><strong>实现：</strong></h1><p>（1）创建wordpress.conf</p>
+<p>[php]</p>
+<p>#vi wordpress.conf</p>
+<p>location / {<br>if (-f $request_filename/index.html){<br>rewrite (.<em>) $1/index.html break;<br>}<br>if (-f $request_filename/index.php){<br>rewrite (.</em>) $1/index.php;<br>}<br>if (!-f $request_filename){<br>rewrite (.*) /index.php;<br>}<br>}[/php]</p>
+<p>(2)修改nginx.conf</p>
+<p>[php]#vi nginx.conf</p>
+<p>server<br>{<br>listen       80;<br>server_name gevin.me;<br>index index.html index.htm index.php;<br>root  /home/wwwroot;<br>include wordpress.conf;<br>location ~ .*.(php|php5)?$<br>{<br>fastcgi_pass  unix:/tmp/php-cgi.sock;<br>fastcgi_index index.php;<br>include fcgi.conf;<br>}</p>
+<p>location /status {<br>stub_status on;<br>access_log   off;<br>}[/php]</p>
+<p>&nbsp;</p>
+<p>(3)重新加载nginx.conf配置文件</p>
+<p>[php]#nginx -s reload<br>[/php]</p>
+<p>通过上面就能用固定链接访问网站了。</p>
+<p>&nbsp;</p>
+<h1 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a><strong>扩展：</strong></h1><p>1、WordPress伪静态</p>
+<p>[php]<br>if (-f $request_filename/index.html){<br>rewrite (.<em>) $1/index.html break;<br>}<br>if (-f $request_filename/index.php){<br>rewrite (.</em>) $1/index.php;<br>}<br>if (!-f $request_filename){<br>rewrite (.*) /index.php;<br>}<br>[/php]</p>
+<p>2、PHPCMS伪静态</p>
+<p>[php]<br>rewrite ^/caipu-([0-9]+)-([0-9]+)-([0-9]+).html /index.php?m=content&amp;amp;c=index&amp;amp;a=show&amp;amp;catid=$1&amp;amp;id=$2&amp;amp;page=$3 last;<br>rewrite ^/content-([0-9]+)-([0-9]+)-([0-9]+).html /index.php?m=content&amp;amp;c=index&amp;amp;a=show&amp;amp;catid=$1&amp;amp;id=$2&amp;amp;page=$3 last;<br>rewrite ^/list-([0-9]+)-([0-9]+).html /index.php?m=content&amp;amp;c=index&amp;amp;a=lists&amp;amp;catid=$1&amp;amp;page=$2 last;<br>rewrite ^/tag-([^.]<em>)-([0-9]+)-([0-9]+).html /index.php?m=content&amp;amp;c=tag&amp;amp;catid=$2&amp;amp;tag=$1&amp;amp;page=$3 last;<br>rewrite ^/comment-([0-9]+)-([0-9]+)-([0-9]+).html /index.php?m=comment&amp;amp;c=index&amp;amp;a=init&amp;amp;commentid=content_$1-$2-$3 last;<br>rewrite ^/([^.]</em>).html /index.php?m=member&amp;amp;c=index&amp;amp;a=$1 last;<br>[/php]</p>
+<p>3、DEDECMS伪静态</p>
+<p>[php]<br>rewrite &quot;^/index.html$&quot; /index.php last;<br>rewrite &quot;^/list-([0-9]+).html$&quot; /plus/list.php?tid=$1 last;<br>rewrite &quot;^/list-([0-9]+)-([0-9]+)-([0-9]+).html$&quot; /plus/list.php?tid=$1&amp;amp;totalresult=$2&amp;amp;PageNo=$3 last;<br>rewrite &quot;^/view-([0-9]+)-1.html$&quot; /plus/view.php?arcID=$1 last;<br>rewrite &quot;^/view-([0-9]+)-([0-9]+).html$&quot; /plus/view.php?aid=$1&amp;amp;pageno=$2 last;<br>rewrite &quot;^/tags.html$&quot; /tags.php last;<br>rewrite &quot;^/tag-([0-9]+)-([0-9]+).html$&quot; /tags.php?/$1/$2/ last;<br>[/php]</p>
+<p>4、Discuz7伪静态</p>
+<p>[php]<br>rewrite ^/archiver/((fid|tid)-[\w-]+.html)$ /archiver/index.php?$1 last;<br>rewrite ^/forum-([0-9]+)-([0-9]+).html$ /forumdisplay.php?fid=$1&amp;amp;page=$2 last;<br>rewrite ^/thread-([0-9]+)-([0-9]+)-([0-9]+).html$ /viewthread.php?tid=$1&amp;amp;extra=page\%3D$3&amp;amp;page=$2 last;<br>rewrite ^/space-(username|uid)-(.+).html$ /space.php?$1=$2 last;<br>rewrite ^/tag-(.+).html$ /tag.php?name=$1 last;<br>[/php]</p>
+<p>5、DiscuzX伪静态</p>
+<p>[php]<br>rewrite ^([^.]<em>)/topic-(.+).html$ $1/portal.php?mod=topic&amp;amp;topic=$2 last;<br>rewrite ^([^.]</em>)/article-([0-9]+)-([0-9]+).html$ $1/portal.php?mod=view&amp;amp;aid=$2&amp;amp;page=$3 last;<br>rewrite ^([^.]<em>)/forum-(\w+)-([0-9]+).html$ $1/forum.php?mod=forumdisplay&amp;amp;fid=$2&amp;amp;page=$3 last;<br>rewrite ^([^.]</em>)/thread-([0-9]+)-([0-9]+)-([0-9]+).html$ $1/forum.php?mod=viewthread&amp;amp;tid=$2&amp;amp;extra=page%3D$4&amp;amp;page=$3 last;<br>rewrite ^([^.]<em>)/group-([0-9]+)-([0-9]+).html$ $1/forum.php?mod=group&amp;amp;fid=$2&amp;amp;page=$3 last;<br>rewrite ^([^.]</em>)/space-(username|uid)-(.+).html$ $1/home.php?mod=space&amp;amp;$2=$3 last;<br>rewrite ^([^.]*)/([a-z]+)-(.+).html$ $1/$2.php?rewrite=$3 last;<br>if (!-e $request_filename) {<br>return 404;<br>}<br>[/php]</p>
+<p>6、ECSHOP伪静态</p>
+<p>[php]<br>if (!-e $request_filename)<br>{<br>rewrite &quot;^/index.html&quot; /index.php last;<br>rewrite &quot;^/category$&quot; /index.php last;<br>rewrite &quot;^/feed-c([0-9]+).xml$&quot; /feed.php?cat=$1 last;<br>rewrite &quot;^/feed-b([0-9]+).xml$&quot; /feed.php?brand=$1 last;<br>rewrite &quot;^/feed.xml$&quot; /feed.php last;<br>rewrite &quot;^/category-([0-9]+)-b([0-9]+)-min([0-9]+)-max([0-9]+)-attr([^-]<em>)-([0-9]+)-(.+)-([a-zA-Z]+)(.</em>).html$&quot; /category.php?id=$1&amp;amp;brand=$2&amp;amp;price_min=$3&amp;amp;price_max=$4&amp;amp;filter_attr=$5&amp;amp;page=$6&amp;amp;sort=$7&amp;amp;order=$8 last;<br>rewrite &quot;^/category-([0-9]+)-b([0-9]+)-min([0-9]+)-max([0-9]+)-attr([^-]<em>)(.</em>).html$&quot; /category.php?id=$1&amp;amp;brand=$2&amp;amp;price_min=$3&amp;amp;price_max=$4&amp;amp;filter_attr=$5 last;<br>rewrite &quot;^/category-([0-9]+)-b([0-9]+)-([0-9]+)-(.+)-([a-zA-Z]+)(.<em>).html$&quot; /category.php?id=$1&amp;amp;brand=$2&amp;amp;page=$3&amp;amp;sort=$4&amp;amp;order=$5 last;<br>rewrite &quot;^/category-([0-9]+)-b([0-9]+)-([0-9]+)(.</em>).html$&quot; /category.php?id=$1&amp;amp;brand=$2&amp;amp;page=$3 last;<br>rewrite &quot;^/category-([0-9]+)-b([0-9]+)(.<em>).html$&quot; /category.php?id=$1&amp;amp;brand=$2 last;<br>rewrite &quot;^/category-([0-9]+)(.</em>).html$&quot; /category.php?id=$1 last;<br>rewrite &quot;^/goods-([0-9]+)(.<em>).html&quot; /goods.php?id=$1 last;<br>rewrite &quot;^/article_cat-([0-9]+)-([0-9]+)-(.+)-([a-zA-Z]+)(.</em>).html$&quot; /article_cat.php?id=$1&amp;amp;page=$2&amp;amp;sort=$3&amp;amp;order=$4 last;<br>rewrite &quot;^/article_cat-([0-9]+)-([0-9]+)(.<em>).html$&quot; /article_cat.php?id=$1&amp;amp;page=$2 last;<br>rewrite &quot;^/article_cat-([0-9]+)(.</em>).html$&quot; /article_cat.php?id=$1 last;<br>rewrite &quot;^/article-([0-9]+)(.<em>).html$&quot; /article.php?id=$1 last;<br>rewrite &quot;^/brand-([0-9]+)-c([0-9]+)-([0-9]+)-(.+)-([a-zA-Z]+).html&quot; /brand.php?id=$1&amp;amp;cat=$2&amp;amp;page=$3&amp;amp;sort=$4&amp;amp;order=$5 last;<br>rewrite &quot;^/brand-([0-9]+)-c([0-9]+)-([0-9]+)(.</em>).html&quot; /brand.php?id=$1&amp;amp;cat=$2&amp;amp;page=$3 last;<br>rewrite &quot;^/brand-([0-9]+)-c([0-9]+)(.<em>).html&quot; /brand.php?id=$1&amp;amp;cat=$2 last;<br>rewrite &quot;^/brand-([0-9]+)(.</em>).html&quot; /brand.php?id=$1 last;<br>rewrite &quot;^/tag-(.<em>).html&quot; /search.php?keywords=$1 last;<br>rewrite &quot;^/snatch-([0-9]+).html$&quot; /snatch.php?id=$1 last;<br>rewrite &quot;^/group_buy-([0-9]+).html$&quot; /group_buy.php?act=view&amp;amp;id=$1 last;<br>rewrite &quot;^/auction-([0-9]+).html$&quot; /auction.php?act=view&amp;amp;id=$1 last;<br>rewrite &quot;^/exchange-id([0-9]+)(.</em>).html$&quot; /exchange.php?id=$1&amp;amp;act=view last;<br>rewrite &quot;^/exchange-([0-9]+)-min([0-9]+)-max([0-9]+)-([0-9]+)-(.+)-([a-zA-Z]+)(.<em>).html$&quot; /exchange.php?cat_id=$1&amp;amp;integral_min=$2&amp;amp;integral_max=$3&amp;amp;page=$4&amp;amp;sort=$5&amp;amp;order=$6 last;<br>rewrite ^/exchange-([0-9]+)-([0-9]+)-(.+)-([a-zA-Z]+)(.</em>).html$&quot; /exchange.php?cat_id=$1&amp;amp;page=$2&amp;amp;sort=$3&amp;amp;order=$4 last;<br>rewrite &quot;^/exchange-([0-9]+)-([0-9]+)(.<em>).html$&quot; /exchange.php?cat_id=$1&amp;amp;page=$2 last;<br>rewrite &quot;^/exchange-([0-9]+)(.</em>).html$&quot; /exchange.php?cat_id=$1 last;<br>}<br>[/php]</p>
+<p>7、PHPWind伪静态</p>
+<p>[php]<br>rewrite ^(.<em>)-htm-(.</em>)$ $1.php?$2 last;<br>rewrite ^(.*)/simple/([a-z0-9_]+.html)$ $1/simple/index.php?$2 last;<br>[/php]</p>
+<p>8、SaBlog2.0伪静态</p>
+<p>[php]</p>
+<h1 id="只带月份的归档"><a href="#只带月份的归档" class="headerlink" title="只带月份的归档"></a>只带月份的归档</h1><p>rewrite &quot;^/date/([0-9]{6})/?([0-9]+)?/?$&quot; /index.php?action=article&amp;amp;setdate=$1&amp;amp;page=$2 last;</p>
+<h1 id="无分类翻页"><a href="#无分类翻页" class="headerlink" title="无分类翻页"></a>无分类翻页</h1><p>rewrite ^/page/([0-9]+)?/?$ /index.php?action=article&amp;amp;page=$1 last;</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>rewrite ^/category/([0-9]+)/?([0-9]+)?/?$ /index.php?action=article&amp;amp;cid=$1&amp;amp;page=$2 last;<br>rewrite ^/category/([^/]+)/?([0-9]+)?/?$ /index.php?action=article&amp;amp;curl=$1&amp;amp;page=$2 last;</p>
+<h1 id="归档、高级搜索"><a href="#归档、高级搜索" class="headerlink" title="归档、高级搜索"></a>归档、高级搜索</h1><p>rewrite ^/(archives|search|article|links)/?$ /index.php?action=$1 last;</p>
+<h1 id="全部评论、标签列表、引用列表-带分页"><a href="#全部评论、标签列表、引用列表-带分页" class="headerlink" title="全部评论、标签列表、引用列表 带分页"></a>全部评论、标签列表、引用列表 带分页</h1><p>rewrite ^/(comments|tagslist|trackbacks|article)/?([0-9]+)?/?$ /index.php?action=$1&amp;amp;page=$2 last;</p>
+<h1 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h1><p>rewrite ^/tag/([^/]+)/?([0-9]+)?/?$ /index.php?action=article&amp;amp;item=$1&amp;amp;page=$2 last;</p>
+<h1 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h1><p>rewrite ^/archives/([0-9]+)/?([0-9]+)?/?$ /index.php?action=show&amp;amp;id=$1&amp;amp;page=$2 last;</p>
+<h1 id="RSS-rewrite-rss-0-9-rss-php-cid-1-last"><a href="#RSS-rewrite-rss-0-9-rss-php-cid-1-last" class="headerlink" title="RSS rewrite ^/rss/([0-9]+)?/?$ /rss.php?cid=$1 last;"></a>RSS rewrite ^/rss/([0-9]+)?/?$ /rss.php?cid=$1 last;</h1><p>rewrite ^/rss/([^/]+)/?$ /rss.php?url=$1 last;</p>
+<h1 id="用户-rewrite-uid-0-9-0-9-index-php-action-article-amp-amp-uid-1-amp-amp-page-2-last"><a href="#用户-rewrite-uid-0-9-0-9-index-php-action-article-amp-amp-uid-1-amp-amp-page-2-last" class="headerlink" title="用户 rewrite ^/uid/([0-9]+)/?([0-9]+)?/?$ /index.php?action=article&amp;amp;uid=$1&amp;amp;page=$2 last;"></a>用户 rewrite ^/uid/([0-9]+)/?([0-9]+)?/?$ /index.php?action=article&amp;amp;uid=$1&amp;amp;page=$2 last;</h1><p>rewrite ^/user/([^/]+)/?([0-9]+)?/?$ /index.php?action=article&amp;amp;user=$1&amp;amp;page=$2 last;</p>
+<h1 id="地图文件"><a href="#地图文件" class="headerlink" title="地图文件"></a>地图文件</h1><p>rewrite sitemap.xml sitemap.php last;</p>
+<h1 id="自定义链接"><a href="#自定义链接" class="headerlink" title="自定义链接"></a>自定义链接</h1><p>rewrite ^(.*)/([0-9a-zA-Z-_]+)/?([0-9]+)?/?$ $1/index.php?action=show&amp;amp;alias=$2&amp;amp;page=$3 last;<br>[/php]</p>
+<p>9、SHOPEX伪静态</p>
+<p>[php]<br>if (!-e $request_filename) {<br>rewrite ^/(.+.(html|xml|json|htm|php|jsp|asp|shtml))$ /index.php?$1 last;<br>}<br>[/php]</p>
+<p>10、Typecho伪静态</p>
+<p>[php]<br>if (-f $request_filename/index.html){<br>rewrite (.<em>) $1/index.html break;<br>}<br>if (-f $request_filename/index.php){<br>rewrite (.</em>) $1/index.php;<br>}<br>if (!-f $request_filename){<br>rewrite (.*) /index.php;<br>}<br>[/php]</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/nginx-wordpress-404.html" data-id="cji8sg1tf008640ioqcku6auh" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-win-wifi-share" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/win-wifi-share.html" class="article-date">
+  <time datetime="2000-12-31T15:00:00.000Z" itemprop="datePublished">2001-01-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/win-wifi-share.html">windows dos wifi share</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="start-wifi-share"><a href="#start-wifi-share" class="headerlink" title="start wifi share"></a>start wifi share</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">netsh wlan <span class="built_in">set</span> hostednetwork mode=allow ssid=yourssid key=password</div><div class="line">netsh wlan start hostednetwork</div><div class="line">pause</div></pre></td></tr></table></figure>
+<h3 id="stop-wifi-share"><a href="#stop-wifi-share" class="headerlink" title="stop wifi share"></a>stop wifi share</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">netsh wlan stop hostednetwork</div><div class="line">pause</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/win-wifi-share.html" data-id="cji8sg1x300f440io5wol8eum" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IT/">IT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/16/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/18/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

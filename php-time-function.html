@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>php时间函数大锦集 | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="PHP中的时间函数有这么些:(1)date用法: date(格式,[时间]);如果没有时间参数,则使用当前时间. 格式是一个字符串,其中以下字符有特殊意义:U 替换成从一个起始时间(好象是1970年1月1日)以来的秒数Y 替换成4位的年号.y 替换成2位的年号.F 替换成月份的英文全称.M 替换成月份的英文简称.m 替换成月份数.z 替换成从当年1月1日以来的天数.d 替换成日数.l 替换成星期几">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php时间函数大锦集">
+<meta property="og:url" content="http://www.ibmer.info/php-time-function.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="PHP中的时间函数有这么些:(1)date用法: date(格式,[时间]);如果没有时间参数,则使用当前时间. 格式是一个字符串,其中以下字符有特殊意义:U 替换成从一个起始时间(好象是1970年1月1日)以来的秒数Y 替换成4位的年号.y 替换成2位的年号.F 替换成月份的英文全称.M 替换成月份的英文简称.m 替换成月份数.z 替换成从当年1月1日以来的天数.d 替换成日数.l 替换成星期几">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php时间函数大锦集">
+<meta name="twitter:description" content="PHP中的时间函数有这么些:(1)date用法: date(格式,[时间]);如果没有时间参数,则使用当前时间. 格式是一个字符串,其中以下字符有特殊意义:U 替换成从一个起始时间(好象是1970年1月1日)以来的秒数Y 替换成4位的年号.y 替换成2位的年号.F 替换成月份的英文全称.M 替换成月份的英文简称.m 替换成月份数.z 替换成从当年1月1日以来的天数.d 替换成日数.l 替换成星期几">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-php-time-function" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/php-time-function.html" class="article-date">
+  <time datetime="2014-05-25T09:01:49.000Z" itemprop="datePublished">2014-05-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      php时间函数大锦集
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="cnblogs_post_body"><br><br>PHP中的时间函数有这么些:<br>(1)date<br>用法: date(格式,[时间]);<br>如果没有时间参数,则使用当前时间. 格式是一个字符串,其中以下字符有特殊意义:<br>U 替换成从一个起始时间(好象是1970年1月1日)以来的秒数<br><br>Y 替换成4位的年号.<br>y 替换成2位的年号.<br>F 替换成月份的英文全称.<br>M 替换成月份的英文简称.<br>m 替换成月份数.<br>z 替换成从当年1月1日以来的天数.<br>d 替换成日数.<br>l 替换成星期几的英文全称.<br>D 替换成星期几的英文简称.<br>w 替换成星期几(数字).<br>H 替换成小时数(24小时制).<br>h 替换成小时数(12小时制).<br>i 替换成分钟数.<br>s 替换成秒数.<br>A 替换成”AM”或”PM”.<br>a 替换成”am”或”pm”.<br>S 替换成序数字后缀,例如:”st”,”nd”,”rd”,”th”.<br>函数返回作过了替换的格式串.<br><br>(2)getdate(时间)<br>返回一个哈希表,各下标是:<br>“seconds” – 秒数<br>“minutes” – 分数<br>“hours” – 小时数<br>“mday” – 日数<br>“mon” – 月份数<br>“year” – 年号<br>“yday” – 1月1日以来的天数<br>“weekday” – 星期几,英文全称<br>“month” – 月份,英文全名<br>(3)gmdate<br>与date类似,但先将时间转换成格林威治标准时.<br>(4)mktime<br>用法:<br>mktime(小时数,分数,秒数,月,日,年); 返回一个时间值,可用于其他函数.<br><strong>(5)time()</strong><br>用法:<br>time(); 返回1970年1月1日零点以来的秒数.<br><strong>(6)microtime()</strong><br>用法:<br><span style="text-decoration: underline;">microtime(); 返回一个字符串,用空格分成两部分,后一部分相当于time()<br></span>的返回值,前一部分是微秒数.<br>(7)checkdate<br>checkdate(月,日,年); 返回逻辑真或逻辑假. 如果:<br>年在1900和32767之间(包括1900与32767);<br>月在1到12之间;<br>日在该月的允许日数范围内(考虑了闰年);<br><br>则返回逻辑真.<br>(8)set_time_limit<br>用法:<br>set_time_limit(秒数);<br>规定从该句运行时起程序必须在指定秒数内运行结束, 超时则程序出错退出.<br><br>1·　by：<br>PHP中所有函数都是UNIX纪元的，即从1970年1月1日开始的。日期是从这个时候开始的秒数。当一个函数调用从这时候计的秒数时，就把它当作(timestamp)时间戳。<br><br>本地时间函数<br><strong>1. **</strong>string date(string format,inieger timestamp)<strong>
+
+</strong>该函数返回一个表示时间的字符串，是由string format 控制的。<br>如：<strong>
+
+</strong>&lt;?<strong>
+
+</strong>print(date(“Y年 m月d日”);//输出当前,年月日.<strong>
+
+</strong>print(date(“Y年 m月d日”,60<em>60</em>24<em>365</em>10);//输出1980年1月1日.<strong>
+
+</strong>?&gt;<strong>
+
+</strong>也许你会问,怎麽没有timestamp呢?若timestamp为空时,或不写时,表示使用当前时间一刻timestamp.<strong>
+
+</strong>表示年份的控制符： Y—四位的年份 y—两位的年份<strong>
+
+</strong>表示月份的控制符： m—从1-12的月份 F—英文月份名 M—简写的月份名<strong>
+
+</strong>表示日号的控制符： d—前面有0的月份中日期 j–前面没有0的日号<strong>
+
+</strong>表示星期的控制符： l–英文星期 D–简写的星期<strong>
+
+</strong>表示小时的控制符： h–从1到12小时 H—从0到23的小时<strong>
+
+</strong>表示上下午的控制符 a —am或pm A—AM或PM<strong>
+
+</strong>表示分钟的控制符： i—取值00-59<strong>
+
+</strong>另外的 z–一年中的日期<em>*<br><br>2. array getdate(integer timestamp)<br><br>该函数返回一个矩阵.<br><br>如:<br><br>&lt;?<br><br>$current_date=getdate();<br><br>print($current_date(“hours”));<br><br>print($current_date(“minutes”);<br><br>print($current_date(“seconds”);<br><br>?&gt;<br><br>说明:<br><br>元素 描述<br><br>hours 24小时格式的小时<br><br>mday 月份中日期<br><br>minutes 分钟<br><br>mon 数字形式的月份<br><br>month 月份全称<br><br>seconds 秒数<br><br>wday 从0到6的数字形式的星期几<br><br>weekday 星期几的名称<br><br>year 年份<br><br>0 时间戳即从1970年1月1日到现在的秒数<br><br>yday 一年中数字形式的日期<br><br>3. boolean checkdate(integer month,integer day,integer year)<br><br>该函数检查日期是否合法.如:<br><br>&lt;?<br><br>if(checkdate(2,29,1980))<br><br>print(“日期合法!n”);<br><br>?&gt;<br><br>4. integer time()<br><br>该函数获得当前时间戳.如:<br><br>&lt;?<br><br>print(time());//输出一大串整数<br><br>?&gt;<br><br>5. integer mktime(integer hour,integer minutes,integer seconds,integer month, integer day,integer year)<br><br>该函数返回给出日期的时间戳,即从1970年1月1日到现在的秒数.<br><br>如某参数超出范围,该函数也可以解释它,如13月即为第二年的一月.<br><br>如:<br><br>&lt;?<br><br>$currenthour=date(“H”);<br><br>print(“50个小时后为:”);<br><br>print(date(“h:i A l F dS,Y”,mktime($currenthour+50)));<br><br>print(“&lt;br&gt;n”);<br><br>?&gt;<br><br>6. string microtime()<br><br>该函数返回一个字符串,由当前时间的毫秒数+空格+从1970年开始的秒数<br><br>&lt;?<br><br>print(“start:microtime()&lt;br&gt;n”);<br><br>for($index=0;$index&lt;1000;$index++)<br><br>print(“good!”);<br><br>print(“stop:microtime()&lt;br&gt;n”);<br><br>?&gt;<br><br>还有,各林威治标准时间函数,不常用我就不说了!常用的就这些。<br><br>——————————————————————————–<br><wbr><br>2·　by：楼主<br><br>一个问题举例<br>$nowdate=”1999-08-05” ;<br><br>$aa=getdate($nowdate);<br><br>$year=$aa[‘year’];<br><br>$month=$aa[‘mon’];<br><br>echo $year.”&lt;/br&gt;”;<br><br>echo $month;<br><br>为何得到：<br><br>1970<br><br>1<br><br>我希望得到：<br><br>1999<br><br>8<br><br>如何解决？<br>——————————————————————————–<br>$nowdate=”1999-08-05” ;<br><br>$aa=strtotime($nowdate);<br><br>$year=date(“Y”,$aa);<br><br>$month=date(“n”,$aa);<br><br>echo $year.”&lt;/br&gt;”;<br><br>echo $month;<br><br>——————————————————————————–<br>3·　by：<br><br>1，年-月-日<br><br>echo date(‘Y-m-j’);<br><br>2007-02-6<br>echo date(‘y-n-j’);<br><br>07-2-6<br><br>大写Y表示年四位数字，而小写y表示年的两位数字；<br><br>小写m表示月份的数字(带前导)，而小写n则表示不带前导的月份数字。<br><br>echo date(‘Y-M-j’);<br><br>2007-Feb-6<br><br>echo date(‘Y-m-d’);<br><br>2007-02-06<br><br>大写M表示月份的3个缩写字符，而小写m则表示月份的数字(带前导0);<br><br>没有大写的J，只有小写j表示月份的日期，无前导o；若需要月份带前导则使用小写d。<br><br>echo date(‘Y-M-j’);<br><br>2007-Feb-6<br><br>echo date(‘Y-F-jS’);<br><br>2007-February-6th<br><br>大写M表示月份的3个缩写字符，而大写F表示月份的英文全写。(没有小写f)<br><br>大写S表示日期的后缀，比如“st”、“nd”、“rd”和“th”，具体看日期数字为何。<br><br>小结：<br><br>表示年可以用大写的Y和小写y;<br><br>表示月可以用大写F、大写M、小写m和小写n(分别表示字符和数字的两种方式);<br><br>表示日可以用小写d和小写j，大写S表示日期的后缀。<br><br>2，时:分:秒<br><br>默认情况下，PHP解释显示的时间为“格林威治标准时间”，与我们本地的时间相差8个小时。<br><br>echo date(‘g:i:s a’);<br><br>5:56:57 am<br><br>echo date(‘h:i:s A’);<br><br>05:56:57 AM<br><br>小写g表示12小时制，无前导0，而小写h则表示有前导0的12小时制。<br><br>当使用12小时制时需要表明上下午，小写a表示小写的“am”和“pm”，大写A表示大写的“AM”和“PM”。<br><br>echo date(‘G:i:s’);<br><br>14:02:26<br><br>大写G表示24小时制的小时数，但是不带前导的；使用大写的H表示带前导的24小时制小时数<br><br>小结：<br><br>字母g表示小时不带前导，字母h表示小时带前导；<br><br>小写g、h表示12小时制，大写G、H表示24小时制。<br><br>3，闰年、星期、天<br><br>echo date(‘L’);<br><br>今年是否闰年：0<br><br>echo date(‘l’);<br><br>今天是：Tuesday<br><br>echo date(‘D’);<br><br>今天是：Tue<br><br>大写L表示判断今年是否闰年，布尔值，为真返回1，否则为0；<br><br>小写l表示当天是星期几的英文全写(Tuesday)；<br><br>而使用大写D表示星期几的3个字符缩写(Tue)。<br><br>echo date(‘w’);<br>今天星期：2<br><br>echo date(‘W’);<br><br>本周是全年中的第 06 周<br><br>小写w表示星期几，数字形式表示<br><br>大写W表示一年中的星期数<br><br>echo date(‘t’);<br><br>本月是 28 天<br><br>echo date(‘z’);<br><br>今天是今年的第 36 天<br><br>小写t表示当前月份又多少天<br><br>小写z表示今天是本年中第几天<br><br>4，其他<br><br>echo date(‘T’);<br><br>UTC<br><br>大写T表示服务器的时间区域设置<br><br>echo date(‘I’);<br><br>0<br><br>大写I表示判断当前是否为夏令时，为真返回1，否则为0<br><br>echo date(‘U’);<br><br>1170769424<br><br>大写U表示从1970年1月1日到现在的总秒数，就是Unix时间纪元的UNIX时间戳。<br><br>echo date(‘c’);<br><br>2007-02-06T14:24:43+00:00<br><br>小写c表示ISO8601日期，日期格式为YYYY-MM-DD，用字母T来间隔日期和时间，时间格式为HH:MM:SS，时区使用格林威治标准时间(GMT)的偏差来表示。<br><br>echo date(‘r’);<br><br>Tue, 06 Feb 2007 14:25:52 +0000<br><br>小写r表示RFC822日期。<br><br>——————————————————————————–<br><wbr><br>4·　by：<br><br>php中计算时间差有时候是件很麻烦的事!<br><br>不过我相信任何语言，只要撑握了其中规率就能找到办法，绝对是化腐朽为神奇的。<br><br>工作中经常要进行日期计算,下面总结几个工作中总结出的经验。先记下免得日后会忘！<br><br>1。第一种 计算时间段差（可以是分，秒，天）<br>$endtime=”2004-09-09 18:10:00”;<br><br>$d1=substr($endtime,17,2); //秒<br><br>$d2=substr($endtime,14,2); //分<br><br>$d3=substr($endtime,11,2); // 时<br><br>$d4=substr($endtime,8,2); //日<br><br>$d5=substr($endtime,5,2); //月<br><br>$d6=substr($endtime,0,4); //年<br>echo $d1.’-‘.$d2.’-‘.$d3.’-‘.$d5.’-‘.$d4.’-‘.$d6.”n”;<br><br>echo date(“Y-m-d H:i:s”).”n”;<br><br>$now_T=mktime(date(“H”),date(“i”),date(“s”),date(“m”),date(“d”),date(“Y”));<br><br>echo $now_T.”n”;<br><br>$now_S=mktime(“$d3”,”$d2”,”$d1”,”$d5”,”$d4”,”$d6”);<br><br>echo $now_S.”n”;<br><br>$end_TS=($now_S-$now_T)/60; <wbr> <wbr> //计算 剩余分钟<br><br>echo $end_TS;<br><br>?&gt;<br><br>注 $startdate=mktime(“0”,”0”,”0”,”1”,”1”,”2000”);<br><br><wbr> //所得到的值为从1970-1-1到参数时间的总秒数 那么 化为分 /60 <wbr> <wbr> 时 /3600 <wbr> <wbr> 天/3600/24 即可！ <wbr> <wbr><br>若mktime()中的参数缺省,那表示使用当前日期。<br><br>2. 如果有数据库就很容易了!若是MSSQL可以使用触发器!用专门计算日期差的函数datediff()便可!<br><br>若是MYSQL那就用两个日期字段的差值计算的计算结果保存在另一个数值型字段中!用时调用便可!<br><br>——————————————————————————–<br><wbr>5·　by：楼主<br><br>下列收集日期计算的方法：<br><br>某个日期加几天：<br><br>$tdate=date(“Y-m-d”);<br><br>$a=date( “Y-m-d”, mktime(0,0,0,date(“m”),date(“d”)+3,date(“Y”)));<br><br>$sql=”select </em> from memo where username=’$session_user_id’<br><br>and compid=$compid and telldate&gt;=’$tdate’ and telldate&lt;=’$a’<br><br>order by id desc”;<br><br>$ret=mysql_query($sql,$conn);<br><br>$a就是今天＋三天的时间！<br><br>$b=date( “Y-m-d”, mktime(0,0,0,date(“m”),date(“d”)-3,date(“Y”)));<br><br>$b就是今天-三天的时间！<br><br>////<br><br>某个日期加n天后的日期<br><br>$days=abs((strtotime(date(“Y-m-d”))-strtotime(“xxxx-xx-xx”))/86400);<br><br>/////<br><br>&lt;?PHP$Date_1=”2003-7-15”;//也可以是:$Date_1=”2003-7-15 23:29:14”;$Date_2=”1982-10-1”;$d1=strtotime($Date_1);$d2=strtotime($Date<em>2);$Days=round(($d1-$d2)/3600/24);Echo <wbr> <wbr> “偶已经奋斗了 $Days 天^</em>^”;?&gt;<br><br>——————————————————————————–<br><wbr><br>6·php中计算时间差的几种方法　by：楼主<br><br>一个简单的例子就是计算借书的天数,这需要php根据每天的日期进行计算,下面就来谈谈实现这种日期计算的几种方法:<br><br>(1) 如果有数据库就很容易了!若是MSSQL可以使用触发器!用专门计算日期差的函数datediff()便可!若是MYSQL那就用两个日期字段的差值计算的计算结果保存在另一个数值型字段中!用时调用便可!<br>(2)如果没有数据库,那就得完全用php的时间日期函数!下面主要说明之: <wbr> <wbr><br>例:计算1998年5月3日到1999-6-5的天数: <wbr> <wbr><br><br>&lt;? $startdate=mktime(“0”,”0”,”0”,”5”,”3”,”1998”);<br><br>$enddate=mktime(“0”,”0”,”0”,”6”,”5”,”1999”);<br>//所得到的值为从1970-1-1到参数时间的总秒数:是整数.那么<br><br>//下面的代码就好编多了:<br><br>$days=round(($enddate-$startdate)/3600/24) ;<br><br>//days为得到的天数;<br><br>若mktime()中的参数缺省,那表示使用当前日期,这样便可计算从借书日期至今的天数.<br><br>——————————————————————————–<br><wbr><br>7·　by：楼主<br><br>php中计算时间差有时候是件很麻烦的事!<br><br>不过我相信任何语言，只要撑握了其中规率就能找到办法，绝对是化腐朽为神奇的。<br><br>工作中经常要进行日期计算,下面总结几个工作中总结出的经验。先记下免得日后会忘！<br><br>1。第一种 计算时间段差（可以是分，秒，天）<br><br>$endtime=”2004-09-09 18:10:00”;<br><br>$d1=substr($endtime,17,2); //秒<br><br>$d2=substr($endtime,14,2); //分<br><br>$d3=substr($endtime,11,2); // 时<br><br>$d4=substr($endtime,8,2); //日<br><br>$d5=substr($endtime,5,2); //月<br><br>$d6=substr($endtime,0,4); //年<br><br>echo $d1.’-‘.$d2.’-‘.$d3.’-‘.$d5.’-‘.$d4.’-‘.$d6.”n”;<br><br>echo date(“Y-m-d H:i:s”).”n”;<br><br>$now_T=mktime(date(“H”),date(“i”),date(“s”),date(“m”),date(“d”),date(“Y”));<br><br>echo $now_T.”n”;<br><br>$now_S=mktime(“$d3”,”$d2”,”$d1”,”$d5”,”$d4”,”$d6”);<br><br>echo $now_S.”n”;<br><br>$end_TS=($now_S-$now_T)/60; <wbr> <wbr> //计算 剩余分钟<br><br>echo $end_TS;<br><br>?&gt;<br><br>注 $startdate=mktime(“0”,”0”,”0”,”1”,”1”,”2000”);<br><br><wbr> //所得到的值为从1970-1-1到参数时间的总秒数 那么 化为分 /60 <wbr> <wbr> 时 /3600 <wbr> <wbr> 天/3600/24 即可！ <wbr> <wbr><br><br>若mktime()中的参数缺省,那表示使用当前日期。<br><br>2. 如果有数据库就很容易了!若是MSSQL可以使用触发器!用专门计算日期差的函数datediff()便可!<br><br>若是MYSQL那就用两个日期字段的差值计算的计算结果保存在另一个数值型字段中!用时调用便可!<br><br>——————————————————————————–<br><wbr><br>8·　by<br>日期与时间函数库<br><br>——————————————————————————–<br>本函数库共有 12 个函数<br><br>checkdate: 验证日期的正确性。<br><br>date: 将服务器的时间格式化。<br><br>strftime: 将服务器的时间本地格式化。<br><br>getdate: 获得时间及日期信息。<br><br>gettimeofday: 取得目前时间。<br><br>gmdate: 取得目前与 GMT 差后的时间。<br><br>easter_date: 计算复活节日期。<br><br>easter_days: 计算复活节与三月廿一日之间日期数。<br><br>mktime: 取得 UNIX 时间戳记。<br><br>gmmktime: 取得 UNIX 时间戳记的格林威治时间。<br><br>time: 取得目前时间的 UNIX 时间戳记。<br><br>microtime: 取得目前时间的 UNIX 时间戳记的百万分之一秒值。<br><br>函数:checkdate()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>checkdate<br><br>验证日期的正确性。<br><br>语法: int checkdate(int month, int day, int year);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br><br>若日期是有效的则返回 true，若日期有问题，则返回 false。本函数可以用来检查日期是否有效。有效范围如下：<br><br>年 为 0 至 32767 年<br><br>月 为 1 至 12 月<br><br>日 则随着月份及闰年变化<br><br>函数:date()<br><br>——————————————————————————–<br><br>日期与时间函数库<br>date<br><br>将服务器的时间格式化。<br><br>语法: string date(string format, int [timestamp]);<br><br>返回值: 字符串<br><br>函数种类: 时间日期<br><br>内容说明<br><br>返回值的字符串依配置的格式来决定。若有传入时间戳记值，则将时间戳记格式化返回；若无传入时间戳记值，则将目前服务器的时间格式化返回。要将日期转为其它的语系格式，应使用setlocale() 及 strftime() 二个函数。字符串格式化的选项如下：<br><br>a - “am” 或是 “pm”<br><br>A - “AM” 或是 “PM”<br><br>d - 几日，二位数字，若不足二位则前面补零; 如: “01” 至 “31”<br><br>D - 星期几，三个英文字母; 如: “Fri”<br><br>F - 月份，英文全名; 如: “January”<br><br>h - 12 小时制的小时; 如: “01” 至 “12”<br><br>H - 24 小时制的小时; 如: “00” 至 “23”<br><br>g - 12 小时制的小时，不足二位不补零; 如: “1” 至 12”<br><br>G - 24 小时制的小时，不足二位不补零; 如: “0” 至 “23”<br><br>i - 分钟; 如: “00” 至 “59”<br><br>j - 几日，二位数字，若不足二位不补零; 如: “1” 至 “31”<br><br>l - 星期几，英文全名; 如: “Friday”<br><br>m - 月份，二位数字，若不足二位则在前面补零; 如: “01” 至 “12”<br><br>n - 月份，二位数字，若不足二位则不补零; 如: “1” 至 “12”<br><br>M - 月份，三个英文字母; 如: “Jan”<br><br>s - 秒; 如: “00” 至 “59”<br><br>S - 字尾加英文序数，二个英文字母; 如: “th”，”nd”<br><br>t - 指定月份的天数; 如: “28” 至 “31”<br><br>U - 总秒数<br><br>w - 数字型的星期几，如: “0” (星期日) 至 “6” (星期六)<br><br>Y - 年，四位数字; 如: “1999”<br><br>y - 年，二位数字; 如: “99”<br><br>z - 一年中的第几天; 如: “0” 至 “365”<br><br>其它不在上列的字符则直接列出该字符。<br><br>使用范例<br><br>范例一:<br><br>&lt;?<br><br>print(date( “l dS of F Y h:i:s A” ));<br><br>print(“July 1, 2000 is on a “ . date(“l”, mktime(0,0,0,7,1,2000)));<br><br>?&gt;<br><br>范例二:<br><br>&lt;?<br><br>$tomorrow = mktime(0,0,0,date(“m”) ,date(“d”)+1,date(“Y”));<br><br>$lastmonth = mktime(0,0,0,date(“m”)-1,date(“d”), date(“Y”));<br><br>$nextyear = mktime(0,0,0,date(“m”), date(“d”, <wbr> <wbr> date(“Y”)+1);<br><br>?&gt;<br><br>函数:strftime()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>strftime<br><br>将服务器的时间本地格式化。<br><br>语法: string strftime(string format, int [timestamp]);<br><br>返回值: 字符串<br><br>函数种类: 时间日期<br><br>内容说明<br><br>返回值的字符串依配置的格式来决定。若有传入时间戳记值，则将时间戳记格式化返回；若无传入时间戳记值，则将目前服务器的时间本地格式化返回。月份或者星期名称随着本地语系配置 setlocale() 的不同而改变。<br><br>返回的字符串可以依下列的格式而定：<br><br>%a 星期几的缩写。<br><br>%A 星期几的全名。<br><br>%b 月份名称的缩写。<br><br>%B 月份名称的全名。<br><br>%c 本地端日期时间较佳表示字符串。<br><br>%d 用数字表示本月的第几天 (范围为 00 至 31)。<br><br>%H 用 24 小时制数字表示小时数 (范围为 00 至 23)。<br><br>%I 用 12 小时制数字表示小时数 (范围为 01 至 12)。<br><br>%j 以数字表示当年度的第几天 (范围为 001 至 366)。<br><br>%m 月份的数字 (范围由 1 至 12)。<br><br>%M 分钟。<br><br>%p 以 ‘AM’ 或 ‘PM’ 表示本地端时间。<br><br>%S 秒数。<br><br>%U 数字表示为本年度的第几周，第一个星期由第一个周日开始。<br><br>%W 数字表示为本年度的第几周，第一个星期由第一个周一开始。<br><br>%w 用数字表示本周的第几天 ( 0 为周日)。<br><br>%x 不含时间的日期表示法。<br><br>%X 不含日期的时间表示法。<br><br>%y 二位数字表示年份 (范围由 00 至 99)。<br><br>%Y 完整的年份数字表示，即四位数。<br><br>%Z 时区或名称缩写。<br><br>%% % 字符。<br><br>使用范例<br>&lt;?php<br><br>setlocale (“LC_TIME”, “C”);<br><br>print(strftime(“%A in Finnish is “));<br><br>setlocale (“LC_TIME”, “fi”);<br><br>print(strftime(“%A, in French “));<br><br>setlocale (“LC_TIME”, “fr”);<br><br>print(strftime(“%A and in German “));<br><br>setlocale (“LC_TIME”, “de”);<br><br>print(strftime(“%A.<br><br>“));<br><br>?&gt;<br><br>函数:getdate()<br><br>——————————————————————————–<br><br>日期与时间函数库<br>getdate<br><br>获得时间及日期信息。<br><br>语法: array getdate(int timestamp);<br>返回值: 数组<br>函数种类: 时间日期<br>内容说明<br>返回数组的元素包括下列的项目：<br>“seconds” - 秒<br><br>“minutes” - 分<br><br>“hours” - 时<br><br>“mday” - 当月的第几天<br><br>“wday” - 当周的第几天数字<br><br>“mon” - 月份数字<br><br>“year” - 年，数字<br><br>“yday” - 当年的第几天数字; 如: “299”<br><br>“weekday” - 星期几全名; 如: “Friday”<br><br>“month” - 月份全名; 如: “January”<br>——————————————————————————–<br>函数:gettimeofday()<br>——————————————————————————–<br>日期与时间函数库<br>gettimeofday<br><br>取得目前时间。<br><br>语法: array gettimeofday(void)<br>返回值: 数组<br>函数种类: 时间日期<br>内容说明<br>返回数组的元素包括下列的项目：<br>“sec” - 秒<br><br>“usec” - 百万分之一秒<br><br>“minuteswest” - 格林威治时间的分<br><br>“dsttime” - 目的的时区<br><br>函数:gmdate()<br><br>——————————————————————————–<br>日期与时间函数库<br>gmdate<br><br>取得目前与 GMT 差后的时间。<br>语法: string gmdate(string format, int timestamp);<br>返回值: 字符串<br>函数种类: 时间日期<br>内容说明<br><br>本函数与 date() 函数相似，不同的是本函数返回与格林威治标准时间 (Greenwich Mean Time, GMT) 时间差后的时间。<br><br>使用范例<br><br>&lt;?php<br><br>echo date( “M d Y H:i:s”,mktime(0,0,0,1,1,1998) );<br><br>echo gmdate( “M d Y H:i:s”,mktime(0,0,0,1,1,1998) );<br><br>?&gt;<br><br>若执行本范例的机器在芬兰 (Finland, GMT +0200)，返回的结果为:<br><br>Jan 01 1998 00:00:00<br><br>Dec 31 1997 22:00:00<br>函数:easter_date()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>easter_date<br><br>计算复活节日期。<br>语法: int easter_date(int [year]);<br><br>返回值: 整数<br>函数种类: 时间日期<br><br>内容说明<br>输入某一年份，则以 UNIX 时间戳记的格式返回该年的复活节日期，若没有输入年份，则计算当年的日期。值的注意的是输入的年份必需在公元 1970 至 2037 年之间，否则无法计算。<br><br>使用范例<br><br>&lt;?<br><br>echo date(“M-d-Y”, easter_date(1999));<br><br>echo date(“M-d-Y”, easter_date(2000));<br><br>echo date(“M-d-Y”, easter_date(2001));<br><br>?&gt;<br><br>返回结果为<br><br>Apr-04-1999<br><br>Apr-23-2000<br><br>Apr-15-2001<br><br>——————————————————————————–<br><wbr><br>9·　by：楼主<br><br>函数:easter_days()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>easter_days<br><br>计算复活节与三月廿一日之间日期数。<br><br>语法: int easter_days(int [year]);<br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br><br>输入某一年份，则以计算该年复活节与三月二十一日之间的日期数，若没有输入年份，则以当年计算。这个函数可以用来替代 easter_date() 1970-2037 年外范围无法计算的问题。<br>使用范例<br>&lt;?<br><br>echo easter_days(1999);<br><br>echo easter_days(1492);<br><br>echo easter_days(1913);<br><br>?&gt;<br><br>返回结果为:<br><br>14 (4/4)<br><br>32 (4/22)<br><br>2 (3/23)<br>——————————————————————————–<br><wbr>10·　by：楼主<br><br>函数:mktime()<br>——————————————————————————–<br>日期与时间函数库<br>mktime<br><br>取得 UNIX 时间戳记。<br><br>语法: int mktime(int hour, int minute, int second, int month, int day, int year);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br>输入一个时间，则返回 UNIX 时间戳记的长整数。<br>使用范例<br><br>&lt;?<br><br>echo date( “M-d-Y”, mktime(0,0,0,12,32,1997) );<br><br>echo date( “M-d-Y”, mktime(0,0,0,13,1,1997) );<br><br>echo date( “M-d-Y”, mktime(0,0,0,1,1,1998) );<br><br>?&gt;<br><br>11·　by：楼主<br><br>函数:gmmktime()<br><br>——————————————————————————–<br>日期与时间函数库<br><br>gmmktime<br><br>取得 UNIX 时间戳记的格林威治时间。<br>语法: int gmmktime(int hour, int minute, int second, int month, int day, int year);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br><br>内容说明<br><br>输入一个时间，则返回 UNIX 的格林威治时间戳记的长整数。<br><br>——————————————————————————–<br>12·　by：楼主<br><br>函数:time()<br><br>——————————————————————————–<br><br>日期与时间函数库<br>time<br><br>取得目前时间的 UNIX 时间戳记。<br><br>语法: int time(void);<br><br>返回值: 整数<br><br>函数种类: 时间日期<br>内容说明<br>返回目前时间的戳记值。<br>——————————————————————————–<br><wbr>13·　by：楼主<br><br>函数:microtime()<br><br>——————————————————————————–<br>日期与时间函数库<br>microtime<br><br>取得目前时间的 UNIX 时间戳记的百万分之一秒值。<br><br>语法: string microtime(void);<br><br>返回值: 字符串<br><br>函数种类: 时间日期<br><br>内容说明<br><br>返回目前时间的百万分之一秒戳记值。若操作系统没有提供 gettimeofday() 的系统呼叫函数，则本函数亦无效。<br><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/php-time-function.html" data-id="cji8sg1tu009540iosvbkzuxb" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/myisam-and-innodb.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          MyISAM InnoDB 区别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/php-server-setting.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">PHP服务器的几个配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

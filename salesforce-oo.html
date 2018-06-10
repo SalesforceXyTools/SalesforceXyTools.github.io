@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Salesforce面向对象语言 | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="★关于APEX，如果想要继承父类，父类必须virtual或者abstract，否则会出现In Salesforce Non-virtual and non-abstract type cannot be extended.的错误。★★★&amp;nbsp;
+Object-Oriented Programming in Apex
+Classes
+Properties
+Encapsulation
+Polymo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Salesforce面向对象语言">
+<meta property="og:url" content="http://www.ibmer.info/salesforce-oo.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="★关于APEX，如果想要继承父类，父类必须virtual或者abstract，否则会出现In Salesforce Non-virtual and non-abstract type cannot be extended.的错误。★★★&amp;nbsp;
+Object-Oriented Programming in Apex
+Classes
+Properties
+Encapsulation
+Polymo">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Salesforce面向对象语言">
+<meta name="twitter:description" content="★关于APEX，如果想要继承父类，父类必须virtual或者abstract，否则会出现In Salesforce Non-virtual and non-abstract type cannot be extended.的错误。★★★&amp;nbsp;
+Object-Oriented Programming in Apex
+Classes
+Properties
+Encapsulation
+Polymo">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-salesforce-oo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/salesforce-oo.html" class="article-date">
+  <time datetime="2016-07-26T05:44:53.000Z" itemprop="datePublished">2016-07-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Salesforce/">Salesforce</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Salesforce面向对象语言
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="★关于APEX，如果想要继承父类，父类必须virtual或者abstract，否则会出现In-Salesforce-Non-virtual-and-non-abstract-type-cannot-be-extended-的错误。"><a href="#★关于APEX，如果想要继承父类，父类必须virtual或者abstract，否则会出现In-Salesforce-Non-virtual-and-non-abstract-type-cannot-be-extended-的错误。" class="headerlink" title="★关于APEX，如果想要继承父类，父类必须virtual或者abstract，否则会出现In Salesforce Non-virtual and non-abstract type cannot be extended.的错误。"></a>★关于APEX，如果想要继承父类，父类必须virtual或者abstract，否则会出现In Salesforce Non-virtual and non-abstract type cannot be extended<strong>.</strong>的错误。</h3><h3 id="★"><a href="#★" class="headerlink" title="★"></a>★</h3><h3 id="★-1"><a href="#★-1" class="headerlink" title="★"></a>★</h3><h3 id="★-2"><a href="#★-2" class="headerlink" title="★"></a>★</h3><p>&nbsp;</p>
+<h3 id="Object-Oriented-Programming-in-Apex"><a href="#Object-Oriented-Programming-in-Apex" class="headerlink" title="Object-Oriented Programming in Apex"></a>Object-Oriented Programming in Apex</h3><ol>
+<li>Classes</li>
+<li>Properties</li>
+<li>Encapsulation</li>
+<li>Polymorphism and Inheritance</li>
+<li>Virtual Class</li>
+<li>Abstract class</li>
+<li>Interfaces</li>
+</ol>
+<h2 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h2><ul>
+<li>A class is a template or blueprint from which objects are created.</li>
+<li>They consist of methods and attributes</li>
+<li>Are stored with the version of API that is used to compile it</li>
+<li>May contain other classes, known as inner classes (but these can only be one level deep)</li>
+<li>Even though Apex code is not case sensitive, it is recommended that you follow the Java naming convention</li>
+<li>Static methods and attributes can only be declared in a top-level class definition</li>
+<li>To create new exception classes, the Exception class must be extended</li>
+<li><p>Classes can be enabled or disabled for profiles.<br><strong>Ways to Create Classes</strong></p>
+</li>
+<li><p>Through the UI:</p>
+<ul>
+<li>Go to Setup -&gt; Develop and Apex Classes.</li>
+<li>Click “New” or “Generate from WSDL”</li>
+<li>Enter code or upload a WSDL</li>
+</ul>
+</li>
+<li><p>Through a Force.com IDE project:</p>
+<ul>
+<li>Right-click the src folder and click New -&gt; Apex Class (this is the recommended way)<br><strong>Class Syntax:</strong></li>
+</ul>
+</li>
+</ul>
+<p>private | public | global</p>
+<p>[virtual  | abstract | with sharing | without sharing | (none)]<br>Class <em>ClassName</em> [<em>implements InterfaceNameList</em> | (<em>none)] [extends ClassOrInterfaceName</em> | (none}] {<br>// The body of the class<br>}</p>
+<p><strong>Example</strong></p>
+<p>public class myOuterClass {</p>
+<p>// Additional myOuterClass code here</p>
+<p>class myInnerClass {</p>
+<p>// myInnerClass code here</p>
+<p>}</p>
+<p>}</p>
+<ul>
+<li>If global, the class is accessible everywhere. This must be used with the webService keyword. All methods, attributes and inner classes that are global must be within a global class</li>
+<li>If public, the class is visible across the application, org or namespace that comprises the class.</li>
+<li>If private is used for an inner class, the inner class is only accessible to the outer class. The default for inner classes is private.</li>
+<li>Top level or outer classes must have either a global or public keyword.</li>
+<li>A class can implement multiple interfaces, but it can only extend once class</li>
+<li>A class can cast as a superclass and verify an objects class using the instanceof keyword</li>
+<li><p>You can implement and extend classes using the keywords, virtual, abstract and extends</p>
+<ul>
+<li>Virtual declares that the class allows extensions and overrides, Classes that are virtual cannot be global.</li>
+<li>Abstract declares that the class contains abstract methods and can be extended. These classes just have a method signature and do not have code. You cannot instantiate an object of an abstract class until some other class extends it.</li>
+<li>The Extends keyword declares that the class is a subclass. The “super” keyword can be used to invoke constructors and methods from the parent class.</li>
+</ul>
+</li>
+<li><p>All Apex code executes in the system mode and ignores all CRUD, field-level security and record sharing level privileges. You use with and without sharing keywords to implement sharing. By default a class will run in the without sharing mode.</p>
+<ul>
+<li>With sharing – This means that when performing DML operations, the user can only update records to which he or she has edit level access</li>
+<li>Without Sharing – This ensures that sharing model access is ignored and is referred to a running in system mode.</li>
+</ul>
+</li>
+<li><p>Interfaces are classes that only include the method signature. The methods are not implemented in the interfaces. Apex supports both top-level and inner interfaces</p>
+</li>
+<li>Avoid using standard object names for class names. Doing so causes unexpected results</li>
+</ul>
+<h2 id="Properties-Attributes-Syntax"><a href="#Properties-Attributes-Syntax" class="headerlink" title="Properties/ Attributes Syntax"></a>Properties/ Attributes Syntax</h2><p>Properties are the shortened form of a method that has access to static and instance variable.</p>
+<p>modifiers dataType attributeName initialization;</p>
+<p>For example:<br>public static final Integer MAX_AMOUNT = 200;</p>
+<p>private Integer cost;</p>
+<p>public Integer getcost() { return cost; }</p>
+<p>public void setcost(Integer cost) { this.cost=cost; }</p>
+<p>// Variable as Property</p>
+<p>public Integer cost { get { return cost; }  set { this.cost= cost;}}</p>
+<p>//Variable as Automatic Property</p>
+<p>public Integer cost { get; set; }</p>
+<p>//read-only and write - only Property</p>
+<p>public Integer readOnly { get; private set;}</p>
+<p>public Integer wrtieOnly { private get; set;}</p>
+<h3 id="Methods-Syntax"><a href="#Methods-Syntax" class="headerlink" title=" **Methods Syntax**:"></a><strong> **</strong>Methods Syntax<strong>**:</strong></h3><p>Modifiers returnDataType methodName (inputParameterList) {<br>// method code<br>}</p>
+<p>For example:</p>
+<p>Public Integer getInt() {<br>Return myInt;<br>}</p>
+<p><strong>Method and Attribute Access Modifiers</strong></p>
+<ul>
+<li>Private – Default access modifier, but is not available for top-level classes. It implies that the attribute or method is only available in the class where it is defined.</li>
+<li>Protected – Available only to inner classes</li>
+<li>Public – Can be used by an apex code in the application, org or namespace</li>
+<li><p>Global – Accessible by all Apex everywhere. Note that Apex code cannot be shared between orgs, with the exception of Web Services, which are accessible to everyone.<br><strong>Static Methods and Attributes</strong></p>
+</li>
+<li><p>Static methods are accessed through the class itself and do not depend on an instance of a class</p>
+</li>
+<li><p>Static attributes are used to store data that is used within the class. They can be used to prevent recursive logic by setting flags.<br><strong>Constants</strong></p>
+</li>
+<li><p>Assign a value to a constant only once either at declaration or initialization</p>
+</li>
+<li><p>Define a constant using both the static and final keywords.<br><strong>Instantiating Objects</strong></p>
+</li>
+<li><p>Allows you to work with methods and attributes that are not defined as static</p>
+</li>
+<li><p>After instantiating, you can refer to methods and attributes using the dot notation. For example:<br>TestObject myObject1 = new TextObject();<br>myObject1.myMethod();</p>
+</li>
+<li><p>A constructor is a special method used to create an object of a class. It has the same name as the class and is the first method invoked in the class. It does not have an explicit return type and is available by default in each class as invisible and without parameters. It can be overloaded by defining multiple constructors with different parameters.<br><strong>The “this” Keyword</strong></p>
+</li>
+<li><p>With dot Notation – Used to represent the current instance of the class and can call methods or set attributes that are public or are available.</p>
+</li>
+<li><p>With Constructors – Developers can do constructor chaining by using the this keyword, but the this keyword must be the first statement in the constructor.<br><strong>Apex System-Delivered Classes</strong></p>
+</li>
+<li><p>System Class – Is a static class that contains only static methods. Includes the following:</p>
+<ul>
+<li>Debug()</li>
+<li>Now()</li>
+<li>Today()</li>
+<li>Assert()</li>
+<li>AssertEquals()</li>
+<li>AssertNotEquals()</li>
+</ul>
+</li>
+<li><p>UserInfo Class – Mostly getter methods used to get details. For example:</p>
+<ul>
+<li>getUserId()</li>
+<li>getUserName()</li>
+<li>getUserRoleId()</li>
+<li>getFirstName()</li>
+<li>getLocale()</li>
+<li>getLanguage()<br><strong>Apex Workflow and Approval Processing</strong></li>
+</ul>
+</li>
+<li><p>Apex process classes are used to submit workflow requests and process the results of those requests. The three classes provided are:</p>
+<ul>
+<li>ProcessRequest – Used to process the results from a workflow process</li>
+<li>ProcessSubmitRequest – Used to submit a workflow item for approval</li>
+<li>ProcessWorkItemRequest – Used to process an item after it is submitted</li>
+</ul>
+</li>
+</ul>
+<h2 id="Encapsulation"><a href="#Encapsulation" class="headerlink" title="Encapsulation"></a>Encapsulation</h2><p>When a class is defined it becomes a new data type in Apex</p>
+<p>public class MyClass()</p>
+<p>{</p>
+<p>MyClass c  = new MyClass();</p>
+<p>List&lt;MyClasss&gt; myList = new List&lt;MyClass&gt;();</p>
+<p>myList.add(c);</p>
+<p>}</p>
+<h2 id="Polymorphism-and-Inheritance"><a href="#Polymorphism-and-Inheritance" class="headerlink" title="Polymorphism and Inheritance"></a>Polymorphism and Inheritance</h2><p>Apex supports single inheritance, it allows to extend one other class and implement many interfaces. Interface can also extend multiple interfaces</p>
+<p>Over-riding methods is two step process</p>
+<ul>
+<li>Parent class must provide virtual and abstract keyword on the methods to be over-ridden</li>
+<li>In subclass, the override keyword is used on virtual and abstract methods to replace parent.<br>In Salesforce Non-virtual and non-abstract type cannot be extended<strong>.</strong></li>
+</ul>
+<h2 id="Virtual-Class"><a href="#Virtual-Class" class="headerlink" title="Virtual Class"></a>Virtual Class</h2><p>Virtual classes do not require any methods to be overriden and can be constructed as is without the need of extending.</p>
+<p>// SubClass with Method Override</p>
+<p>public virtual class myParentClass {</p>
+<p>public virtual void dosomething(){</p>
+<p>System.Debug(‘Something’);</p>
+<p>}</p>
+<p>}</p>
+<p>public class myclass extends myParentClass{</p>
+<p>public override void dosomething(){</p>
+<p>super.dosomething();</p>
+<p>System.Debug(‘something else’);</p>
+<p>}</p>
+<p>new myclass().dosomething();</p>
+<p>}</p>
+<h2 id="Abstract-class"><a href="#Abstract-class" class="headerlink" title="Abstract class"></a>Abstract class</h2><p>Abstract classes can contain methods that don’t require an override and methods that do require an override, since it can contain methods that do require and override it must be extended to be constructed.  Useful if you want to share code among several closely related classes that implement a common interface</p>
+<p>public abstract class TestRow {</p>
+<p>public Double value;</p>
+<p>public virtual Double getValue() {</p>
+<p>return value==null ? 0 : value;</p>
+<p>}</p>
+<p>public void setValue(Double value) {</p>
+<p>this.value = value;</p>
+<p>}</p>
+<p>}</p>
+<p>public class SummaryTestRow extends TestRow {</p>
+<p>private list&lt;TestRow&gt; childRows;</p>
+<p>public override Double getValue() {</p>
+<p>Double totalValue = 0;</p>
+<p>for(TestRow childRow : childRows){</p>
+<p>totalValue += childRow.value;</p>
+<p>}</p>
+<p>return totalValue;</p>
+<p>}</p>
+<h2 id=""><a href="#" class="headerlink" title="}"></a>}</h2><p>## </p>
+<h2 id="Interfaces"><a href="#Interfaces" class="headerlink" title="Interfaces"></a>Interfaces</h2><p>Interface as skeletal class definitions containing list of methods with no implementations</p>
+<p>//Declaring and using Interface</p>
+<p>public interface myInterface {</p>
+<p>void doSomething (String thing);</p>
+<p>}</p>
+<p>public class MyClass implements MyInterface {</p>
+<p>public void doSomething(String x);</p>
+<p>}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/salesforce-oo.html" data-id="cji8sg1ux00av40iodxopwuyr" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Salesforce/">Salesforce</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sf-regex-katagana.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          SF中正则表达式：全角カタカナ以外を禁止する
+        
+      </div>
+    </a>
+  
+  
+    <a href="/salesforce-orderby.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Salesforce中Orderby排序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

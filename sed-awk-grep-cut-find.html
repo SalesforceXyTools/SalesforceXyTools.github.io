@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux下sed,awk,grep,cut,find等常用命令介绍 | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Linux文件查找命令find,xargsfind命令的格式：find pathname -options [-print -exec -ok …]find 命令的参数：
+
+-perm
+
+按照文件权限模式查找读权限：r:4 写权限：w:2 执行权限：x:1文件属主具有读、写权限： rw：4+2=6其他用户具有读权限：r:4
+-type
+
+查找的文件类型-type f 文件-type d 目录-ty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下sed,awk,grep,cut,find等常用命令介绍">
+<meta property="og:url" content="http://www.ibmer.info/sed-awk-grep-cut-find.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="Linux文件查找命令find,xargsfind命令的格式：find pathname -options [-print -exec -ok …]find 命令的参数：
+
+-perm
+
+按照文件权限模式查找读权限：r:4 写权限：w:2 执行权限：x:1文件属主具有读、写权限： rw：4+2=6其他用户具有读权限：r:4
+-type
+
+查找的文件类型-type f 文件-type d 目录-ty">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux下sed,awk,grep,cut,find等常用命令介绍">
+<meta name="twitter:description" content="Linux文件查找命令find,xargsfind命令的格式：find pathname -options [-print -exec -ok …]find 命令的参数：
+
+-perm
+
+按照文件权限模式查找读权限：r:4 写权限：w:2 执行权限：x:1文件属主具有读、写权限： rw：4+2=6其他用户具有读权限：r:4
+-type
+
+查找的文件类型-type f 文件-type d 目录-ty">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sed-awk-grep-cut-find" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sed-awk-grep-cut-find.html" class="article-date">
+  <time datetime="2014-10-14T02:20:55.000Z" itemprop="datePublished">2014-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux下sed,awk,grep,cut,find等常用命令介绍
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">Linux文件查找命令find,xargs</div><br><div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">find命令的格式：</div><br><div style="margin: 10px 0px 20px; padding: 6px 8px; border: 1px dashed #788856; font-size: 14px; color: #000000; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 26.600000381469727px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; overflow: auto; background: #f5f5f5;"><br><pre style="font-family: 'Courier New', Courier, monospace; font-size: 12px;">find pathname -options [-print -exec -ok …]</pre><br></div><br><div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">find 命令的参数：</div>
+
+<p><strong>-perm
+</strong></p>
+<p>按照文件权限模式查找<br>读权限：r:4 写权限：w:2 执行权限：x:1<br>文件属主具有读、写权限： rw：4+2=6<br>其他用户具有读权限：r:4</p>
+<p><strong><br>-type
+</strong></p>
+<p>查找的文件类型<br>-type f 文件<br>-type d 目录<br>-type l 符号链接文件</p>
+<p><strong><br>-exec
+</strong></p>
+<p>-exec 参数后面跟的是 command命令<br>command命令的终止，使用 ‘;’ (分号）来判定，在后面必须有一个 ‘;’<br>‘{}’，使用{}来表示文件名，也就是find前面处理过程中过滤出来的文件，用于command命令进行处理<br>对于不同的系统，直接使用分号可能会有不同的意义， 使用转义符 ‘\’在分号前明确说明</p>
+<p><strong><br>xargs
+</strong></p>
+<p>find命令把匹配到的文件传递给xargs命令，而xargs命令每次只获取一部分文件而不是全部，不像-exec选项那样。这样它可以先处理最先获取的一部分文件，然后是下一批，并如此继续下去。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">sed</div><br><div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">sed简介：</div>
+
+<p>sed 是一种在线编辑器，它一次处理一行内容。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有 改变，除非你使用重定向存储输出。Sed主要用来自动编辑一个或多个文件；简化对文件的反复操作；编写转换程序等。</p>
+<p>sed脚本是一个sed的命令清单，启动Sed时以-f选项引导脚本文件名。Sed对于脚本中输入的命令非常挑剔，在命令的末尾不能有任何空白或文本，如果在一行中有多个命令，要用分号分隔。以#开头的行为注释行，且不能跨行。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">关于sed的hold space（内存缓冲区）和pattern space(模式空间)</div>
+
+<p>sed在处理文件的时候，每一行都需要存放在一个叫“模式空间”的临时缓存区。每处理完一行，便清理一次(pattern space)，并把下一行再次放入该临时缓冲区。</p>
+<p>而保留空间(hole space),是当sed用到h命令的时候，把匹配的模式放在一个叫做”hold buffer”的保留缓冲里，但需要使用G(sed的取得命令）的时候，sed 从这个保留空间(hold space)中取得。</p>
+<p>sed 是以行为单位进行读取,读取后的内容存放在pattern space。</p>
+<p>holding space是通过h,H,x,g,G命令和pattern space产生关连,利用这5个特性可以辅助pattern space解决问题。</p>
+<p><strong><br>g
+</strong></p>
+<p>表示行内全面替换,当前处理行进行全局替换。</p>
+<p><strong><br>G
+</strong></p>
+<p>获得内存缓冲区的内容，并追加到当前模板块文本的后面。<br>函数参数G 与g 唯一差别是, sed执行g 时, 数据盖掉(overwrite) pattern space 内原来的数据<br>而G , 数据则是”添加(append)” 在pattern space 原来数据后。</p>
+<p><strong><br>‘;’号
+</strong></p>
+<p>如果在一行中有多个命令，要用分号隔开。</p>
+<p><strong><br>s/re/string
+</strong></p>
+<p>用string替换正则表达式re。</p>
+<p><strong><br>d
+</strong></p>
+<p>从模板块（Pattern space）位置删除行。</p>
+<p>函数参数d 表示删除数据行, 其指令格式如下:<br>[address1[ ,address2]] d</p>
+<p>对上述格式有下面几点说明:<br>函数参数d 最多与两个地址参数配合。</p>
+<p>sed执行删除动作情况如下:<br>将pattern space 内符合地址参数的数据删除。<br>将下一笔资料读进pattern space 。<br>重新执行sedscript。<br><strong>n**</strong><br>**</p>
+<p>读取下一个输入行，用下一个命令处理新的行而不是用第一个命令。</p>
+<p>函数参数n 表示读入下一行资料。<br>其指令格式如下:<br>[address1[ ,address2]] n<br>对上述格式有下面几点说明:<br>函数参数n 最多配合两个地址参数。</p>
+<p>sed执行读入下一行动作的情况如下:<br>输出在pattern space 的数据。<br>将下一笔资料读到pattern space。<br>执行下一个编辑指令。</p>
+<p><strong><br>-n, –quiet, –silent
+</strong></p>
+<p>安静模式，取消默认输出。</p>
+<p><strong><br>x
+</strong></p>
+<p>交换pattern和hold space</p>
+<p><strong><br>p
+</strong></p>
+<p>打印模式空间的行，通常 p 会与参数 sed -n 一起使用</p>
+<p><strong><br>N
+</strong></p>
+<p>追加下一行数据到模式空间，数据行间以换行字符(embedded newline character)分隔。</p>
+<p>函数参数N 表示添加下一笔资料在pattern space 内。<br>其指令格式如下:<br>[address1 ,[address2]] N<br>对上述格式有下面几点说明:<br>函数参数N 最多配合两个地址参数。</p>
+<p>sed执行时, 将下一行数据读入并添加在pattern space 内, 数据行间以换行字符(embedded newline character)分隔。<br>此外, 在替换时, 换行字符可用\n 来match。</p>
+<p><strong><br>**</strong>=<strong>**
+</strong></p>
+<p>打印当前行号</p>
+<p><strong><br>.
+</strong></p>
+<p>匹配一个非换行符的字符</p>
+<p><strong><br>h
+</strong></p>
+<p>拷贝模板块的内容到内存中的缓冲区。</p>
+<p><strong><br>!
+</strong></p>
+<p>表示后面的命令对所有没有被选定的行发生作用。</p>
+<p><strong><br>$
+</strong></p>
+<p>锚定行的结束 如：/sed$/匹配所有以sed结尾的行。也可以表示文件最后一行。</p>
+<p><strong><br>1
+</strong></p>
+<p>表示文件第一行</p>
+<p><strong><br>-e
+</strong></p>
+<p>直接在指令列模式上进行 sed 的动作编辑，允许多台编辑。</p>
+<p><strong><br>:label
+</strong></p>
+<p>表示建立一个标签label</p>
+<p><strong><br>b
+</strong></p>
+<p>跳转命令，这个命令是无条件跳转<br>ba表示跳转到标签a处</p>
+<p><strong><br>q
+</strong></p>
+<p>退出Sed。</p>
+<p><strong><br>D
+</strong></p>
+<p>删除模板块的第一行。</p>
+<p>函数参数D 与d 的比较如下:<br>当pattern space 内只有一数据行时, D 与d 作用相同。<br>当pattern space 内有多行资料行时D 表示只删除pattern space 内第一行资料; d 则全删除。<br>D 表示执行删除后, pattern space 内不添加下一笔数据, 而将剩下的数据重新执行sedscript ; d 则读入下一行后执行sedscript。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">grep</div><br><div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">grep简介：</div>
+
+<p>grep (global search regular expression(RE) and print out the line,全面搜索正则表达式并把行打印出来)是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。Unix的grep家族包括grep、 egrep和fgrep。egrep和fgrep的命令只跟grep有很小不同。egrep是grep的扩展，支持更多的re元字符， fgrep就是 fixed grep或fast grep，它们把所有的字母都看作单词，也就是说，正则表达式中的元字符表示回其自身的字面意义，不再特殊。linux 使用GNU版本的grep。它功能更强，可以通过-G、-E、-F命令行选项来使用egrep和fgrep的功能。</p>
+<p><strong><br>-l
+</strong></p>
+<p>打印匹配模板的文件清单</p>
+<p><strong><br>-r
+</strong></p>
+<p>递归地搜索目录。在缺省情况下，按照到目录的链接。</p>
+<p><strong><br>^
+</strong></p>
+<p>锚定行的开始</p>
+<p><strong><br>[^]
+</strong></p>
+<p>匹配一个不在指定范围内的字符</p>
+<p><strong><br>\w
+</strong></p>
+<p>匹配文字和数字字符，也就是[A-Za-z0-9]</p>
+<p><strong><br>x{m,}
+</strong></p>
+<p>重复字符x,至少m次，如：’o{5,}‘匹配至少有5个o的行。<br>‘\w{3,}‘即是至少有4个字符的已登录用户</p>
+<p><strong><br>$
+</strong></p>
+<p>锚定行的结束 如：/sed$/匹配所有以sed结尾的行。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">awk</div><br><div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">关于awk:</div>
+
+<p>awk是一种用于处理文本的编程语言工具。AWK 实用工具的语言在很多方面类似于 shell 编程语言，尽管 AWK 具有完全属于其本身的语法。在最初创造 AWK 时，其目的是用于文本处理，并且这种语言的基础是，只要在输入数据中有模式匹配，就执行一系列指令。该实用工具扫描文件中的每一行，查找与命令行中所给定 内容相匹配的模式。如果发现匹配内容，则进行下一个编程步骤。如果找不到匹配内容，则继续处理下一行。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">awk命令的语法</div>
+
+<p>awk ‘{pattern + action}’ {filenames}</p>
+<p>其中 pattern 表示 AWK 在数据中查找的内容，而 action 是在找到匹配内容时所执行的一系列命令。花括号 ({}) 不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">$0，关于awk的字段</div>
+
+<p>实用工具将每个输入行分为记录和字段。记录是单行的输入，而每条记录包含若干字段。默认的字段分隔符是空格或制表符，而记录的分隔符是换行。虽然在默认情况下将制表符和空格都看作字段分隔符（多个空格仍然作为一个分隔符），但是可以将分隔符从空格改为任何其它字符。</p>
+<p>当 AWK 读取输入内容时，整条记录被分配给变量 $0。每个字段以字段分隔符分开，被分配给变量 $1、$2、$3 等等。一行在本质上可以包含无数个字段，通过字段号来访问每个字段。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">BEGIN和END</div>
+
+<p>在awk 中两个特别的表达式，BEGIN和END，这两者都可用于pattern中，提供BEGIN和END的作用是给程序赋予初始状态和在程序结束之后执行一些扫尾的工作。任何在BEGIN之后列出的操作（在{}内）将在awk开始扫描输入之前执行，而END之后列出的操作将在扫描完全部的输入之后执行。因此，通常使用BEGIN来显示变量和预置（初始化）变量，使用END来输出最终结果。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">gsub（r，s，t）</div>
+
+<p>在字符串t中用字符串s和正则表达式r匹配的所有字符串。返回值是替换的个数。如果没有给出t，默认是$0。</p>
+<p><strong><br>NR
+</strong></p>
+<p>表示awk开始执行程序后所读取的数据行数.</p>
+<p><strong><br>$0
+</strong></p>
+<p>表示当前处理的整行数据</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">Linux的cut命令</div><br><div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">关于cut命令：</div>
+
+<p>cut命令可以从一个文本文件或者文本流中提取文本列，具体的说就是在文件中负责剪切数据用的。cut是以每一行为一个处理对象的，这种机制和sed是一样的。</p>
+<p>cut -d’分隔字元’ -f fields</p>
+<p>参数∶<br>-d ∶后面接分隔字元。与 -f 一起使用；<br>-f ∶依据 -d 的分隔字元将一段讯息分割成为数段，用 -f 取出第几段的意思；<br>-c ∶以字元 (characters) 的单位取出固定字元区间；</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">Linux的wc命令</div><br><div style="margin: 10px 0px; padding: 0px 0px 0px 10px; border: 1px solid #eff1f1; font-size: 14px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #f6745a; font-weight: bold; line-height: 25px; text-shadow: #f1f1f1 0px 1px 0px; background: #fbfbfb;">关于WC命令：</div>
+
+<p>该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。</p>
+<p><strong><br>该命令各选项含义如下：
+</strong></p>
+<p>wc -m filename：显示一个文件的字符数<br>wc -l filename：显示一个文件的行数<br>wc -L filename：显示一个文件中的最长行的长度<br>wc -w filename：显示一个文件的字数</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">关于ls命令</div>
+
+<p>ls 命令经常要使用，通过使用 ls 命令可以查看linux文件夹包含的文件，查看文件权限(包括目录、文件夹、文件权限)，查看目录信息等等，ls 命令在平常的linux操作中使用很频繁，所以这里介绍下 ls 命令的相关使用方法。</p>
+<p><strong><br>选项说明：
+</strong></p>
+<p>-a 用于显示所有文件和子目录(保罗点文件)。<br>-l 除了文件名之外，还将文件的权限、所有者、文件大小等信息详细列出来。<br>-r 将目录的内容清单以英文字母顺序的逆序显示。<br>-t 按文件修改时间进行排序，而不是按文件名进行排序。</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">关于sort命令</div>
+
+<p>Sort命令的功能是对文件中的各行进行排序。Sort命令有许多非常实用的选项，这些选项最初是用来对数据库格式的文件内容进行各种排序操作的。实际上，Sort命令可以被认为是一个非常强大的数据管理工具，用来管理内容类似数据库记录的文件。<br>-n按照数字方式排序。不加-n参数时排序结果根据最左面的数字开始，等同于字母的比较方式。按算术值对数字字段排序。数字字段可包含前导空格、可选减号、十进制数字、千分位分隔符和可选基数符。对包含任何非数字字符的字段进行数字排序会出现无法预知的结果。</p>
+<p>-r 颠倒指定排序的顺序。<br>-k作用是根据某个列来排序，默认是第1列（从1开始）。<br>-t表示分割符，以：分割，默认情况下以空格分割<br>-nrk 5即是按照数字方式倒序排序，根据文件属性的第5列即是文件大小排序</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">关于tr命令</div>
+
+<p>通过使用 tr，可以非常容易地实现 sed 的许多最基本功能。可以将 tr 看作为 sed 的（极其）简化的变体。使用tr命令可以用一个字符来替换另一个字符，或者可以完全除去一些字符，也可以用它来除去重复字符。</p>
+<p>tr的命令格式为：</p>
+<p>tr -c -d -s [“string1_to_translate_from”] [“string2_to_translate_to”] &lt; input-file</p>
+<p><strong><br>-c
+</strong></p>
+<p>用字符串1中字符集的补集替换此字符集，要求字符集为ASCII。</p>
+<p><strong><br>-d
+</strong></p>
+<p>删除字符串1中所有输入字符。</p>
+<p><strong><br>-s
+</strong></p>
+<p>删除所有重复出现字符序列，只保留第一个；即将重复出现字符串压缩为一个字符串。</p>
+<p><strong><br>string1_to_translate_from
+</strong></p>
+<p>要转换的原字符串</p>
+<p><strong><br>string2_to_translate_to
+</strong></p>
+<p>想要转换成的字符串</p>
+<div style="margin: 10px 0px; padding: 0px 0px 0px 15px; border-width: 0px 0px 1px; border-bottom-style: outset; border-bottom-color: #e8e9e9; font-size: 15px; font-family: 'Courier New', 宋体, Consolas, 'YaHei Consolas Hybrid', 'Microsoft YaHei', Arial, Courier, monospace; font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: #3f3f3f; font-weight: bold; line-height: 30px; text-shadow: #f1f1f1 0px 1px 0px; background: #dedede;">关于mv命令</div>
+
+<p>mv命令来为文件或目录改名或将文件由一个目录移入另一个目录中。该命令等同于DOS系统下的ren和move命令的组合。它的使用权限是所有用户。</p>
+<p>mv [options] 源文件或目录 目标文件或目录。k</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/sed-awk-grep-cut-find.html" data-id="cji8sg1ve00bu40io68wut5pv" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aix/">aix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sed-example.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          sed,awk,grep,cut,find 实例
+        
+      </div>
+    </a>
+  
+  
+    <a href="/hashmap-hashtable.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">HashMap和Hashtable的区别</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

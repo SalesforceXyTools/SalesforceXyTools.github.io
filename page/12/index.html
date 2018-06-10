@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Exia.Huang">
+<meta property="og:url" content="http://www.ibmer.info/page/12/index.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Exia.Huang">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-linux-process" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/linux-process.html" class="article-date">
+  <time datetime="2014-10-13T12:14:55.000Z" itemprop="datePublished">2014-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/linux-process.html">linux下的进程间通信-详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>linux下的进程间通信-详解</p>
+<p>详细的讲述进程间通信在这里绝对是不可能的事情，而且笔者很难有信心说自己对这一部分内容的认识达到了什么样的地步，所以在这一节的开头首先向大家推荐著 名作者Richard Stevens的著名作品：《Advanced Programming in the UNIX Environment》，它的中文译本《UNIX环境高级编程》已有机械工业出版社出版，原文精彩，译文同样地道，如果你的确对在Linux下编程有浓 厚的兴趣，那么赶紧将这本书摆到你的书桌上或计算机旁边来。说这么多实在是难抑心中的景仰之情，言归正传，在这一节里，我们将介绍进程间通信最最初步和最 最简单的一些知识和概念。<br>首先，进程间通信至少可以通过传送打开文件来实现，<span style="color: #993300;">不同的进程通过一个或多个文件来传递信息</span>，事实上，在很多应用系统里，都使用了这种方法。但一般说来， 进程间通信（IPC：InterProcess Communication）不包括这种似乎比较低级的通信方法。Unix系统中实现进程间通信的方法很多，而且不幸的是，极少方法能在所有的Unix系 统中进行移植（唯一一种是半双工的管道，这也是最原始的一种通信方式）。而Linux作为一种新兴的操作系统，几乎支持所有的Unix下常用的进程间通信 方法：管道、<span style="color: #993300;">消息队列</span>、共享内存、<span style="color: #993300;">信号量</span>、套接口等等。下面我们将逐一介绍。</p>
+<p>2.3.1 管道<br>管道是进程间通信中最古老的方式，它包括<span style="color: #993300;">无名管</span>道和<span style="color: #0000ff;">有名管道</span>两种，前者<span style="color: #993300;">用于父进程和子进程间的通信</span>，后者用于<span style="color: #0000ff;">运行于同一台机器上的任意两个进程间的通信</span>。<br>无名管道由pipe（）函数创建：</p>
+<p>#include &lt;unistd.h&gt;<br>int pipe(int filedis[2])；<br>参数filedis返回两个文件描述符：filedes[0]为读而打开，filedes[1]为写而打开。filedes[1]的输出是filedes[0]的输入。下面的例子示范了如何在父进程和子进程间实现通信。</p>
+<p>#define INPUT 0</p>
+<p>#define OUTPUT 1</p>
+<p>void main() {<br>int file_descriptors[2];<br>/<em>定义子进程号 </em>/<br>pid_t pid;<br>char buf[256];<br>int returned_count;<br>/<em>创建无名管道</em>/<br>pipe(file_descriptors);<br>/<em>创建子进程</em>/<br>if((pid = fork()) == -1) {<br>printf(“Error in fork\n”);<br>exit(1);<br>}<br>/<em>执行子进程</em>/<br>if(pid == 0) {<br>printf(“in the spawned (child) process…\n”);<br>/<em>子进程向父进程写数据，关闭管道的读端</em>/<br>close(file_descriptors[INPUT]);<br>write(file_descriptors[OUTPUT], “test da<wbr>ta”, strlen(“test da<wbr>ta”));<br>exit(0);<br>} else {<br>/<em>执行父进程</em>/<br>printf(“in the spawning (parent) process…\n”);<br>/<em>父进程从管道读取子进程写的数据，关闭管道的写端</em>/<br>close(file_descriptors[OUTPUT]);<br>returned_count = read(file_descriptors[INPUT], buf, sizeof(buf));<br>printf(“%d bytes of da<wbr>ta received from spawned process: %s\n”,<br>returned_count, buf);<br>}<br>}<br>在Linux系统下，有名管道可由两种方式创建：<span style="color: #993300;">命令行方式mknod系统调用和函数mkfifo</span>。下面的两种途径都在当前目录下生成了一个名为myfifo的有名管道：<br>方式一：mkfifo(“myfifo”,”rw”);<br>方式二：mknod myfifo p<br><span style="color: #993300;">生成了有名管道后，就可以使用一般的文件I/O函数如open、close、read、write等来对它进行操作</span>。下面即是一个简单的例子，假设我们已经创建了一个名为myfifo的有名管道。<br>/<em> 进程一：读有名管道</em>/</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;unistd.h&gt;<br>void main() {<br>FILE <em> in_file;<br>int count = 1;<br>char buf[80];<br>in_file = fopen(“mypipe”, “r”);<br>if (in_file == NULL) {<br>printf(“Error in fdopen.\n”);<br>exit(1);<br>}<br>while ((count = fread(buf, 1, 80, in_file)) &gt; 0)<br>printf(“received from pipe: %s\n”, buf);<br>fclose(in_file);<br>}<br>/</em> 进程二：写有名管道*/</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;unistd.h&gt;<br>void main() {<br>FILE * out_file;<br>int count = 1;<br>char buf[80];<br>out_file = fopen(“mypipe”, “w”);<br>if (out_file == NULL) {<br>printf(“Error opening pipe.”);<br>exit(1);<br>}<br>sprintf(buf,”this is test da<wbr>ta for the named pipe example\n”);<br>fwrite(buf, 1, 80, out_file);<br>fclose(out_file);<br>}</p>
+<p>2.3.2 消息队列<br>消息队列用于运行于同一台机器上的进程间通信，它和管道很相似，是一个在系统内核中用来保存消息的队列，它在系统内核中是以消息链表的形式出现。消息链表中节点的结构用msg声明。<br>事实上，它是一种<span style="color: #993300;">正逐渐被淘汰</span>的通信方式，我们可以用流管道或者套接口的方式来取代它，所以，我们对此方式也不再解释，也建议读者忽略这种方式。</p>
+<p>2.3.3 共享内存<br>共享内存是运行在同一台机器上的<span style="color: #0000ff;">进程间通信最快的方式</span>，因为数据不需要在不同的进程间复制。通常由一个进程创建一块共享内存区，其余进程对这块内存区进行 读写。得到共享内存有两种方式：<span style="color: #993300;">映射/dev/mem设备</span>和<span style="color: #993300;">内存映像文件</span>。<span style="color: #993300;">前一种方式不给系统带来额外的开销，但在现实中并不常用，因为它控制存取的将是 实际的物理内存</span>，在Linux系统下，这只有通过限制Linux系统存取的内存才可以做到，这当然不太实际。常用的方式是通过shmXXX函数族来实现利 用共享内存进行存储的。<br>首先要用的函数是shmget，它获得一个共享存储标识符。</p>
+<p>#include &lt;sys/types.h&gt;<br><span style="color: #993300;">#include &lt;sys/ipc.h&gt; </span><br><span style="color: #993300;">　　　　 #include &lt;sys/shm.h&gt;</span></p>
+<p>　　　　　 int shmget(key_t key, int size, int flag);<br><span style="color: #ff6600;"> 这个函数有点类似大家熟悉的malloc函数，系统按照请求分配size大小的内存用作共享内存</span>。Linux系统内核中每个IPC结构都有的一个非负整数 的标识符，这样对一个消息队列发送消息时只要引用标识符就可以了。<span style="color: #000080;">这个标识符是内核由IPC结构的关键字得到的，这个关键字，就是上面第一个函数的 key。</span>数据类型key_t是在头文件sys/types.h中定义的，它是一个长整形的数据。在我们后面的章节中，还会碰到这个关键字。</p>
+<p><span style="color: #993300;">当共享内存创建后，其余进程可以调用shmat（）将其连接到自身的地址空间中</span>。<br>void <em>shmat(int shmid, void </em>addr, int flag);<br>shmid为shmget函数返回的共享存储标识符，addr和flag参数决定了以什么方式来确定连接的地址，函数的返回值即是该进程数据段所连接的实际地址，进程可以对此进程进行读写操作。<br>使用共享存储来实现进程间通信的注意点是对数据存取的同步，必须确保当一个进程去读取数据时，它所想要的数据已经写好了。通常，<span style="color: #000080;">信号量被要来实现对共享存 储数据存取的同步</span>，另外，<span style="color: #000080;">可以通过使用shmctl函数设置共享存储内存的某些标志位如</span><span style="font-weight: bold; color: #000080;">SHM_LOCK、SHM_UNLOCK</span><span style="color: #000080;">等来实现</span>。</p>
+<p>2.3.4 信号量<br>信号量又称为信号灯，它是用来协调不同进程间的数据对象的，而最主要的应用是前一节的共享内存方式的进程间通信。本质上，<span style="color: #000080;">信号量是一个计数器，它用来记录对某个资源（如共享内存）的存取状况</span>。一般说来，为了获得共享资源，进程需要执行下列操作：<br>（1） 测试控制该资源的信号量。<br>（2） 若此信号量的值为正，则允许进行使用该资源。<span style="color: #993300;">进程将信号量减1</span>。<br>（3） 若此信号量为0，则该资源目前不可用，进程进入睡眠状态，直至信号量值大于0，进程被唤醒，转入步骤（1）。<br>（4） 当进程不再使用一个信号量控制的资源时，信号量值加1。如果此时有进程正在睡眠等待此信号量，则唤醒此进程。<br><span style="color: #993300;"> 维护信号量状态的是Linux<span style="color: #0000ff;">内核</span>操作系统而不是用户进程</span>。我们可以从头文件/usr/src/linux/include　/linux　/sem.h 中看到内核用来维护信号量状态的各个结构的定义。<span style="color: #993300;">信号量是一个数据集合，用户可以单独使用这一集合的每个元素。</span>要调用的第一个函数是semget，用以获 得一个信号量ID。</p>
+<p>struct sem {<br>short sempid;/<em> pid of last operaton </em>/<br>ushort semval;/<em> current value </em>/<br>ushort semncnt;/<em> num procs awaiting increase in semval </em>/<br>ushort semzcnt;/<em> num procs awaiting semval = 0 </em>/<br>}</p>
+<p>#include &lt;sys/types.h&gt;</p>
+<p>#include &lt;sys/ipc.h&gt;</p>
+<p>#include &lt;sys/sem.h&gt;<br>int semget(key_t key, int nsems, int flag);</p>
+<p><span style="color: #993300;">key是前面讲过的IPC结构的关键字，<span style="color: #000080;"><span style="color: #333333;">flag</span>将来决定是创建新的信号量集合，还是引用一个现有的信号量集合。</span></span>nsems是该集合中的信号量数。如果是创建新 集合（一般在服务器中），则必须指定nsems；如果是引用一个现有的信号量集合（一般在客户机中）则将nsems指定为0。</p>
+<p>semctl函数用来对信号量进行操作。<br>int semctl(int semid, int semnum, int cmd, union semun arg);<br>不同的操作是通过cmd参数来实现的，在头文件sem.h中定义了7种不同的操作，实际编程时可以参照使用。</p>
+<p>semop函数<span style="color: #993300;">自动执行信号量集合上的操作数组</span>。<br>int semop(int semid, struct sembuf semoparray[], size_t nops);<br>semoparray是一个指针，它指向一个信号量操作数组。nops规定该数组中操作的数量。</p>
+<p>下面，我们看一个具体的例子，它创建一个特定的IPC结构的关键字和一个信号量，建立此信号量的索引，修改索引指向的信号量的值，最后我们清除信号量。在下面的代码中，函数ftok生成我们上文所说的唯一的IPC关键字。</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;sys/types.h&gt;</p>
+<p>#include &lt;sys/sem.h&gt;</p>
+<p>#include &lt;sys/ipc.h&gt;<br>void main() {<br>key_t unique_key; /<em> 定义一个IPC关键字</em>/<br>int id;<br>struct sembuf lock_it;<br>union semun options;<br>int i;</p>
+<p>unique_key = ftok(“.”, ‘a’); /<em> 生成关键字，字符’a’是一个随机种子</em>/<br>/<em> 创建一个新的信号量集合</em>/<br>id = semget(unique_key, 1, IPC_CREAT | IPC_EXCL | 0666);<br>printf(“semaphore id=%d\n”, id);<br>options.val = 1; /<em>设置变量值</em>/<br>semctl(id, 0, SETVAL, options); /<em>设置索引0的信号量</em>/</p>
+<p>/<em>打印出信号量的值</em>/<br>i = semctl(id, 0, GETVAL, 0);<br>printf(“value of semaphore at index 0 is %d\n”, i);</p>
+<p>/<em>下面重新设置信号量</em>/<br>lock_it.sem_num = 0; /<em>设置哪个信号量</em>/<br>lock_it.sem_op = -1; /<em>定义操作</em>/<br>lock_it.sem_flg = IPC_NOWAIT; /<em>操作方式</em>/<br>if (semop(id, &amp;lock_it, 1) == -1) {<br>printf(“can not lock semaphore.\n”);<br>exit(1);<br>}</p>
+<p>i = semctl(id, 0, GETVAL, 0);<br>printf(“value of semaphore at index 0 is %d\n”, i);</p>
+<p>/<em>清除信号量</em>/<br>semctl(id, 0, IPC_RMID, 0);<br>}</p>
+<div><center><strong><span style="font-size: small;">semget()</span></strong></center><br>可以使用系统调用semget()创建一个新的信号量集，或者存取一个已经存在的信号量集：<br><div>系统调用：semget();<br>原型：intsemget(key_t key,int nsems,int semflg);<br>返回值：如果成功，则返回信号量集的IPC标识符。如果失败，则返回-1：errno=EACCESS(没有权限)<br>EEXIST(信号量集已经存在，无法创建)<br>EIDRM(信号量集已经删除)<br>ENOENT(信号量集不存在，同时没有使用IPC_CREAT)<br>ENOMEM(没有足够的内存创建新的信号量集)<br>ENOSPC(超出限制)</div><br><div>    系统调用semget()的第一个参数是关键字值（一般是由系统调用ftok()返回的）。系统内核将此值和系统中存在的其他的信号量集的关键字值进行比较。打开和存取操作与参数semflg中的内容相关。IPC_CREAT如果信号量集在系统内核中不存在，则创建信号量集。IPC_EXCL当和 IPC_CREAT一同使用时，如果信号量集已经存在，则调用失败。如果单独使用IPC_CREAT，则semget()要么返回新创建的信号量集的标识符，要么返回系统中已经存在的同样的关键字值的信号量的标识符。如果IPC_EXCL和IPC_CREAT一同使用，则要么返回新创建的信号量集的标识符，要么返回-1。IPC_EXCL单独使用没有意义。参数nsems指出了一个新的信号量集中应该创建的信号量的个数。信号量集中最多的信号量的个数是在linux/sem.h中定义的：</div><br><div>#defineSEMMSL32/<em>&lt;=512maxnumofsemaphoresperid</em>/<br>下面是一个打开和创建信号量集的程序：<br>intopen_semaphore_set(key_t keyval,int numsems)<br>{<br>intsid;<br>if(!numsems)<br>return(-1);<br>if((sid=semget(mykey,numsems,IPC_CREAT|0660))==-1)<br>{<br>return(-1);<br>}<br>return(sid);<br>}<br>};</div><br><div>==============================================================</div><br><center><strong><span style="font-size: small;">semop()</span></strong></center><br>系统调用：semop();<br>调用原型：int semop(int semid,struct sembuf<em>sops,unsign ednsops);<br>返回值：0，如果成功。-1，如果失败：errno=E2BIG(nsops大于最大的ops数目)<br>EACCESS(权限不够)<br>EAGAIN(使用了IPC_NOWAIT，但操作不能继续进行)<br>EFAULT(sops指向的地址无效)<br>EIDRM(信号量集已经删除)<br>EINTR(当睡眠时接收到其他信号)<br>EINVAL(信号量集不存在,或者semid无效)<br>ENOMEM(使用了SEM_UNDO,但无足够的内存创建所需的数据结构)<br>ERANGE(信号量值超出范围)<br><div>    第一个参数是关键字值。第二个参数是指向将要操作的数组的指针。第三个参数是数组中的操作的个数。参数sops指向由sembuf组成的数组。此数组是在linux/sem.h中定义的：</div><br><div>/</div></em>semop systemcall takes an array of these<em>/<br>structsembuf{<br>ushortsem_num;/</em>semaphore index in array<em>/<br>shortsem_op;/</em>semaphore operation<em>/<br>shortsem_flg;/</em>operation flags<em>/<br>sem_num将要处理的信号量的个数。<br>sem_op要执行的操作。<br>sem_flg操作标志。</em></div><br><div>    如果sem_op是负数，那么信号量将减去它的值。这和信号量控制的资源有关。如果没有使用IPC_NOWAIT，那么调用进程将进入睡眠状态，直到信号量控制的资源可以使用为止。如果sem_op是正数，则信号量加上它的值。这也就是进程释放信号量控制的资源。最后，如果sem_op是0，那么调用进程将调用sleep()，直到信号量的值为0。这在一个进程等待完全空闲的资源时使用。</div><br><div>===============================================================</div><br><center><strong><span style="font-size: small;">semctl()</span></strong></center><br>系统调用：semctl();<br>原型：int semctl(int semid,int semnum,int cmd,union semunarg);<br>返回值：如果成功，则为一个正数。<br>如果失败，则为-1：errno=EACCESS(权限不够)<br>EFAULT(arg指向的地址无效)<br>EIDRM(信号量集已经删除)<br>EINVAL(信号量集不存在，或者semid无效)<br>EPERM(EUID没有cmd的权利)<br>ERANGE(信号量值超出范围)<br><div>    系统调用semctl用来执行在信号量集上的控制操作。这和在消息队列中的系统调用msgctl是十分相似的。但这两个系统调用的参数略有不同。因为信号量一般是作为一个信号量集使用的，而不是一个单独的信号量。所以在信号量集的操作中，不但要知道IPC关键字值，也要知道信号量集中的具体的信号量。这两个系统调用都使用了参数cmd，它用来指出要操作的具体命令。两个系统调用中的最后一个参数也不一样。在系统调用msgctl中，最后一个参数是指向内核中使用的数据结构的指针。我们使用此数据结构来取得有关消息队列的一些信息，以及设置或者改变队列的存取权限和使用者。但在信号量中支持额外的可选的命令，这样就要求有一个更为复杂的数据结构。<br>系统调用semctl()的第一个参数是关键字值。第二个参数是信号量数目。</div><br><div>    参数cmd中可以使用的命令如下：<br>·IPC_STAT读取一个信号量集的数据结构semid_ds，并将其存储在semun中的buf参数中。<br>·IPC_SET设置信号量集的数据结构semid_ds中的元素ipc_perm，其值取自semun中的buf参数。<br>·IPC_RMID将信号量集从内存中删除。<br>·GETALL用于读取信号量集中的所有信号量的值。<br>·GETNCNT返回正在等待资源的进程数目。<br>·GETPID返回最后一个执行semop操作的进程的PID。<br>·GETVAL返回信号量集中的一个单个的信号量的值。<br>·GETZCNT返回这在等待完全空闲的资源的进程数目。<br>·SETALL设置信号量集中的所有的信号量的值。<br>·SETVAL设置信号量集中的一个单独的信号量的值。</div><br><div>    参数arg代表一个semun的实例。semun是在linux/sem.h中定义的：<br>/arg for semctl systemcalls.<em>/<br>unionsemun{<br>intval;/</em>value for SETVAL<em>/<br>structsemid_ds</em>buf;/<em>buffer for IPC_STAT&amp;IPC_SET</em>/<br>ushort<em>array;/</em>array for GETALL&amp;SETALL<em>/<br>structseminfo</em><strong>buf;/<em>buffer for IPC_INFO</em>/<br>void*</strong>pad;</div><br><div>    val当执行SETVAL命令时使用。buf在IPC_STAT/IPC_SET命令中使用。代表了内核中使用的信号量的数据结构。array在使用GETALL/SETALL命令时使用的指针。<br>下面的程序返回信号量的值。当使用GETVAL命令时，调用中的最后一个参数被忽略：</div><br><div>intget_sem_val(intsid,intsemnum)<br>{<br>return(semctl(sid,semnum,GETVAL,0));<br>}</div><br><div>    下面是一个实际应用的例子：</div><br><div>#defineMAX_PRINTERS5<br>printer_usage()<br>{<br>int x;<br>for(x=0;x&lt;MAX_PRINTERS;x++)<br>printf(“Printer%d:%d\n\r”,x,get_sem_val(sid,x));<br>}</div><br><div>    下面的程序可以用来初始化一个新的信号量值：</div><br><div>void init_semaphore(int sid,int semnum,int initval)<br>{<br>union semunsemopts;<br>semopts.val=initval;<br>semctl(sid,semnum,SETVAL,semopts);<br>}</div><br><div>    注意系统调用semctl中的最后一个参数是一个联合类型的副本，而不是一个指向联合类型的指针。</div><br>&nbsp;<br>2.3.5 套接口<br>套接口（socket）编程是实现Linux系统和其他大多数操作系统中进程间通信的主要方式之一。我们熟知的WWW服务、FTP服务、TELNET服务 等都是基于套接口编程来实现的。除了在异地的计算机进程间以外，套接口同样适用于本地同一台计算机内部的进程间通信。关于套接口的经典教材同样是 Richard Stevens编著的《Unix网络编程：联网的API和套接字》，清华大学出版社出版了该书的影印版。它同样是Linux程序员的必备书籍之一。<br>关于这一部分的内容，可以参照本文作者的另一篇文章《设计自己的网络蚂蚁》，那里由常用的几个套接口函数的介绍和示例程序。这一部分或许是Linux进程 间通信编程中最须关注和最吸引人的一部分，毕竟，Internet 正在我们身边以不可思议的速度发展着，如果一个程序员在设计编写他下一个程序的时候，根本没有考虑到网络，考虑到Internet，那么，可以说，他的设 计很难成功。<br><br>3 Linux的进程和Win32的进程/线程比较<br>熟悉WIN32编程的人一定知道，WIN32的进程管理方式与Linux上有着很大区别，在UNIX里，只有进程的概念，但在WIN32里却还有一个”线程”的概念，那么Linux和WIN32在这里究竟有着什么区别呢？<br>WIN32里的进程/线程是继承自OS/2的。在WIN32里，”进程”是指一个程序，而”线程”是一个”进程”里的一个执行”线索”。从核心上讲， WIN32的多进程与Linux并无多大的区别，在WIN32里的线程才相当于Linux的进程，是一个实际正在执行的代码。但是，WIN32里同一个进 程里各个线程之间是共享数据段的。这才是与Linux的进程最大的不同。<br>下面这段程序显示了WIN32下一个进程如何启动一个线程。<br><br>int g;<br>DWORD WINAPI ChildProcess( LPVOID lpParameter ){<br>int i;<br>for ( i = 1; i &lt;1000; i ++) {<br>g ++;<br>printf( “This is Child Thread: %d\n”, g );<br>}<br>ExitThread( 0 );<br>};<br><br>void main()<br>{<br>int threadID;<br>int i;<br>g = 0;<br>CreateThread( NULL, 0, ChildProcess, NULL, 0, &amp;threadID );<br>for ( i = 1; i &lt;1000; i ++) {<br>g ++;<br>printf( “This is Parent Thread: %d\n”, g );<br>}<br>}<br><br>在WIN32下，使用CreateThread函数创建线程，与Linux下创建进程不同，WIN32线程不是从创建处开始运行的，而是由 CreateThread指定一个函数，线程就从那个函数处开始运行。此程序同前面的UNIX程序一样，由两个线程各打印1000条信息。 threadID是子线程的线程号，另外，全局变量g是子线程与父线程共享的，这就是与Linux最大的不同之处。大家可以看出，WIN32的进程/线程 要比Linux复杂，在Linux要实现类似WIN32的线程并不难，只要fork以后，让子进程调用ThreadProc函数，并且为全局变量开设共享 数据区就行了，但在WIN32下就无法实现类似fork的功能了。所以现在WIN32下的C语言编译器所提供的库函数虽然已经能兼容大多数 Linux/UNIX的库函数，但却仍无法实现fork。<br>对于多任务系统，共享数据区是必要的，但也是一个容易引起混乱的问题，在WIN32下，一个程序员很容易忘记线程之间的数据是共享的这一情况，一个线程修 改过一个变量后，另一个线程却又修改了它，结果引起程序出问题。但在Linux下，由于变量本来并不共享，而由程序员来显式地指定要共享的数据，使程序变 得更清晰与安全。<br>至于WIN32的”进程”概念，其含义则是”应用程序”，也就是相当于UNIX下的exec了。<br>Linux也有自己的多线程函数pthread，它既不同于Linux的进程，也不同于WIN32下的进程，关于pthread的介绍和如何在Linux环境下编写多线程程序我们将在另一篇文章《Linux下的多线程编程》中讲述。<br><br>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/linux-process.html" data-id="cji8sg1t2007e40io6zqcqh1f" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-process" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/process.html" class="article-date">
+  <time datetime="2014-10-13T12:13:54.000Z" itemprop="datePublished">2014-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/process.html">进程间通信方式及比较</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>进程间的通信方式：</p>
+<p><wbr> <wbr> 1.管道（pipe）及有名管道（named pipe）：</p>
+<p><wbr> <wbr> <wbr> <wbr> <wbr>管道可用于具有亲缘关系进程间的通信，有名管道除了具有管道所具有的功能外，它还允许无亲缘关系进程间的通信。</p>
+<p>2.信号（signal）：</p>
+<p><wbr> <wbr> <wbr> <wbr> 信号是在软件层次上对中断机制的一种模拟，它是比较复杂的通信方式，用于通知进程有某事件发生，一个进程收到一个信号与处理器收到一个中断请求效果上可以说是一致得。</p>
+<p><wbr></p>
+<p><wbr> <wbr> 3.消息队列（message queue）：</p>
+<p><wbr> <wbr> <wbr> <wbr> 消息队列是消息的链接表，它克服了上两种通信方式中信号量有限的缺点，具有写权限得进程可以按照一定得规则向消息队列中添加新信息；对消息队列有读权限得进程则可以从消息队列中读取信息。</p>
+<p>消息缓冲通信技术是由Hansen首先提出的,其基本思想是:根据”生产者-消费者”原理,利用内存中公用消息缓冲区实现进程之间的信息交换.</p>
+<p>内存中开辟了若干消息缓冲区,用以存放消息.每当一个进程向另一个进程发送消息时,便申请一个消息缓冲区,并把已准备好的消息送到缓冲区,然后把该消息缓冲区插入到接收进程的消息队列中,最后通知接收进程.接收进程收到发送里程发来的通知后,从本进程的消息队列中摘下一消息缓冲区,取出所需的信息,然后把消息缓冲区不定期给系统.系统负责管理公用消息缓冲区以及消息的传递.</p>
+<p>一个进程可以给若干个进程发送消息,反之,一个进程可以接收不同进程发来的消息.显然,进程中关于消息队列的操作是临界区.当发送进程正往接收进程的消息队列中添加一条消息时,接收进程不能同时从该消息队列中到出消息:反之也一样.</p>
+<p>消息缓冲区通信机制包含以下列内容:</p>
+<p>(1)           消息缓冲区,这是一个由以下几项组成的数据结构:<br>1、       消息长度<br>2、       消息正文<br>3、       发送者<br>4、       消息队列指针</p>
+<p>（2）消息队列首指针m-q,一般保存在PCB中。<br>（1）   互斥信号量m-mutex,初值为1，用于互斥访问消息队列，在PCB中设置。<br>（2）   同步信号量m-syn,初值为0，用于消息计数，在PCB中设置。<br>（3）   发送消息原语send<br>（4）   接收消息原语receive(a)</p>
+<p><wbr></p>
+<p><wbr> <wbr> 4.共享内存（shared memory）：</p>
+<p><wbr> <wbr> <wbr> <wbr> 可以说这是最有用的进程间通信方式。它使得多个进程可以访问同一块内存空间，不同进程可以及时看到对方进程中对共享内存中数据得更新。这种方式需要依靠某种同步操作，如互斥锁和信号量等。</p>
+<p>这种通信模式需要解决两个问题：第一个问题是怎样提供共享内存；第二个是公共内存的互斥关系则是程序开发人员的责任。   <wbr></p>
+<p><wbr> <wbr> 5.信号量（semaphore）：</p>
+<p><wbr> <wbr> <wbr> <wbr> 主要作为进程之间及同一种进程的不同线程之间得同步和互斥手段。</p>
+<p><wbr></p>
+<p><wbr> <wbr> 6.套接字（socket）；</p>
+<p><wbr> <wbr> <wbr> <wbr> 这是一种更为一般得进程间通信机制，它可用于网络中不同机器之间的进程间通信，应用非常广泛。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/process.html" data-id="cji8sg1tx009b40ioa69446t1" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-synchronization-asynchronous" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/synchronization-asynchronous.html" class="article-date">
+  <time datetime="2014-10-13T12:06:04.000Z" itemprop="datePublished">2014-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/synchronization-asynchronous.html">同步与异步的概念</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>进程同步用来实现程序并发执行时候的可再现性。</p>
+<p>一．进程同步及异步的概念</p>
+<p>1．进程同步：就是在发出一个功能调用时，在没有得到结果之前，该调用就不返回。<strong>也就是必须一件一件事做**</strong>,<strong>**等前一件做完了才能做下一件事</strong>.就像早上起床后,先洗涮,然后才能吃饭,不能在洗涮没有完成时,就开始吃饭.按照这个定义，其实绝大多数函数都是同步调用（例如sin,isdigit等）。但是一般而言，我们在说同步、异步的时候，特指那些需要其他部件协作或者需要一定时间完成的任务。最常见的例子就是</p>
+<p>sendmessage。该函数发送一个消息给某个窗口，在对方处理完消息之前，这个函数不返回。当对方处理完毕以后，该函数才把消息处理函数所返回的lresult值返回给调用者。</p>
+<p>2．异步</p>
+<p>异步的概念和同步相对。当一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者。</p>
+<p>以casycsocket类为例（注意，csocket从casyncsocket派生，但是其功能已经由异步转化为同步），当一个客户端通过调用connect函数发出一个连接请求后，调用者线程立刻可以朝下运行。当连接真正建立起来以后，socket底层会发送一个消息通知该对象。</p>
+<p>这里提到执行部件和调用者通过三种途径返回结果：状态、通知和回调。可以使用哪一种依赖于执行部件的实现，除非执行部件提供多种选择，否则不受调用者控制。如果执行部件用状态来通知，那么调用者就需要每隔一定时间检查一次，效率就很低（有些初学多线程编程的人，总喜欢用一个循环去检查某个变量的值，这其实是一种很严重的错误）。如果是使用通知的方式，效率则很高，因为执行部件几乎不需要做额外的操作。至于回调函数，其实和通知没太多区别。</p>
+<p>进程同步的基本概念</p>
+<p>在计算机系统中，由于资源有限而导致了进程之间的资源竞争和共享，因此，进程的并发执行不仅仅是用户程序的执行开始时间的随机性和提高资源利用率的结果，也是资源有限性导致资源的竞争与共享对进程的执行过程进行制约所造成的。那么，在进程的并发执行过程中存在哪些制约呢？</p>
+<p>二．同步与异步传输：</p>
+<ol>
+<li>异步传输<br>通常，异步传输是以字符为传输单位，每个字符都要附加 1 位起始位和 1 位停止位，以标记一个字符的开始和结束，并以此实现数据传输同步。所谓异步传输是指字符与字符(一个字符结束到下一个字符开始)之间的时间间隔是可变的，并不需要严格地限制它们的时间关系。起始位对应于二进制值0，以低电平表示，占用 1 位宽度。停止位对应于二进制值 1，以高电平表示，占用 1~2 位宽度。一个字符占用 5~8位，具体取决于数据所采用的字符集。例如，电报码字符为 5 位、ASCII码字符为 7 位、汉字码则为8 位。此外，还要附加 1 位奇偶校验位，可以选择奇校验或偶校验方式对该字符实施简单的差错控制。发送端与接收端除了采用相同的数据格式(字符的位数、停止位的位数、有无校验位及校验方式等)外，还应当采用相同的传输速率。典型的速率有：9 600 b/s、19.2kb/s、56kb/s等。</li>
+</ol>
+<p>异步传输又称为起止式异步通信方式，其优点是简单、可靠，适用于面向字符的、低速的异步通信场合。例如，计算机与Modem之间的通信就是采用这种方式。它的缺点是通信开销大，每传输一个字符都要额外附加2～3位，通信效率比较低。例如，在使用Modem上网时，普遍感觉速度很慢，除了传输速率低之外，与通信开销大、通信效率低也密切相关。</p>
+<ol>
+<li>同步传输</li>
+</ol>
+<p>通常，同步传输是以数据块为传输单位。每个数据块的头部和尾部都要附加一个特殊的字符或比特序列，标记一个数据块的开始和结束，一般还要附加一个校验序列 (如16位或32位CRC校验码)，以便对数据块进行差错控制。所谓同步传输是指数据块与数据块之间的时间间隔是固定的，必须严格地规定它们的时间关系。</p>
+<p>三．同步阻塞与异步阻塞：</p>
+<p><strong>同步是阻塞模式，异步是非阻塞模式。 </strong></p>
+<p>我的理解：同步是指两个线程的运行是相关的，其中一个线程要阻塞等待另外一个线程的运行。异步的意思是两个线程毫无相关，自己运行自己的。</p>
+<p>同步是指：发送方发出数据后，等接收方发回响应以后才发下一个数据包的通讯方式。</p>
+<p>异步是指：发送方发出数据后，不等接收方发回响应，接着发送下个数据包的通讯方式。</p>
+<p>举个不太恰当的例子,就像:</p>
+<p>SendMessage(…)</p>
+<p>TRACE0(“just  like  send”);</p>
+<p>PostMessage(…)</p>
+<p>TRACE0(“just  like  WSASend  using  overlapped”);</p>
+<p>SendMessage是调用的时候不返回,等消息响应后才执行TRACE0,这就是同步.</p>
+<p>PostMessage是调用后马上返回,不用消息响应就执行TRACE0,这就是异步.</p>
+<p>四．其它解释：</p>
+<p>同步和异步的区别</p>
+<p>举个例子：<strong>普通B/S模式（同步）AJAX技术（异步）</strong></p>
+<p>同步：提交请求-&gt;等待服务器处理-&gt;处理完毕返回 这个期间客户端浏览器不能干任何事</p>
+<p>异步: 请求通过事件触发-&gt;服务器处理（这是浏览器仍然可以作其他事情）-&gt;处理完毕</p>
+<p>同步就是你叫我去吃饭，我听到了就和你去吃饭；如果没有听到，你就不停的叫，直到我告诉你听到了，才一起去吃饭。</p>
+<p>异步就是你叫我，然后自己去吃饭，我得到消息后可能立即走，也可能等到下班才去吃饭。</p>
+<p>所以，要我请你吃饭就用同步的方法，要请我吃饭就用异步的方法，这样你可以省钱。</p>
+<p>举个例子 打电话时同步 发消息是异步</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/synchronization-asynchronous.html" data-id="cji8sg1w400d740ion014fpru" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-shell-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/shell-mysql.html" class="article-date">
+  <time datetime="2014-09-04T01:48:19.000Z" itemprop="datePublished">2014-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/shell-mysql.html">通过shell执行mysql命令，修改主机宝密码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><pre>#!/bin/bash</pre></p>
+<p> #Author:   ibmer.info</p>
+<p> #Time  :   2014年5月29日</p>
+<p>mysql_version=5.1.73</p>
+<p>FILE=/a/apps/zhujibao/manager/apps/config/mysql.ini<br> res=<code>cat $FILE | head -3 | grep passwd | cut -f2 -d&#39;=&#39; | tr -d &#39;\r&#39;</code></p>
+<p>modity_sql_z=”update zadmin.admin set password=md5(‘$1’) where id=1;”<br> /a/apps/mysql/bin/mysql -u root -p${res} mysql -e “${modity_sql_z}”<br>&nbsp;</p>
+<p>从shell脚本中可以看出，直接读取mysql.ini的密码，然后修改数据库表中的密码。</p>
+<p>当然，知道了主机宝的表zadmin，是保存密码的，直接到数据库就可以编辑修改。</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/shell-mysql.html" data-id="cji8sg1vx00ct40iow8eu8erp" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wordpress-xmlrpc-dos" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wordpress-xmlrpc-dos.html" class="article-date">
+  <time datetime="2014-08-29T02:35:46.000Z" itemprop="datePublished">2014-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wordpress-xmlrpc-dos.html">WordPress存在DoS拒绝服务漏洞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>受影响的版本：</p>
+<p>&nbsp;</p>
+<p>WordPress 3.9.x-3.9.1</p>
+<p>WordPress 3.8.x-3.8.3</p>
+<p>WordPress 3.7.x-3.7.3</p>
+<p>WordPress 3.6.x</p>
+<p>WordPress 3.5.x</p>
+<p>&nbsp;</p>
+<p>漏洞描述：</p>
+<p>&nbsp;</p>
+<p>没有限制xml中的参数数量，导致攻击者可以远程注入恶意xml，对目标服务器直接造成拒绝服务攻击denial of service(dos)</p>
+<p>&nbsp;</p>
+<p>修复方案：</p>
+<p>&nbsp;</p>
+<p>1、删除根目录下的xmlrpc.php（推荐）；</p>
+<p>2、Wordpress升级到最新版本；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/wordpress-xmlrpc-dos.html" data-id="cji8sg1xs00fz40ioak5q1lyt" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php-include-require" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/php-include-require.html" class="article-date">
+  <time datetime="2014-08-20T03:07:13.000Z" itemprop="datePublished">2014-08-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/php-include-require.html">include,include_once,require,require_once的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="article_content" class="article_content"><br><br>include() 、require()语句包含并运行指定文件。这两结构在包含文件上完全一样，唯一的区别是对于错误的处理。require()语句在遇到包含文件不存在，或是出错的时候，就停止即行，并报错。include()则继续即行。<br><br>&nbsp;<br><br>include(‘hello.php’);<br><br>echo ‘include test final!’;//include报错，但是会继续执行，显示：include test final!<br><br>require(‘hello.php’);<br><br>echo ‘require test final!’;//require报错，停止代码的执行。<br><br>&nbsp;<br><br>1、include()<br>include(/path/to/filename)<br><br>include()语句将在其被调用的位置处包含一个文件。包含一个文件与在该语句所在位置复制制定文件的数据具有相同内容的效果。<br><br>使用include()时可以忽略括号。<br><br>可以根据条件来执行include()语句。在条件语句中使用include()有个怪现象，它必须包围在语句块大括号中，或者用其他语句包围符括起来。<br>2、include_once()<br>include_once(filename)<br><br>include_once()函数的作用与include相同，不过它会首先验证是否已经包含了该文件。如果已经包含，则不再执行include_once。否则，则必须包含该文件。除了这一点与include完全相同。<br><br>3、require()<br>require(filename)<br><br>require()在很大程度上与include相同，都是将一个模板文件包含到require调用坐在的位置。<br><br>require和include之间有两点重要的区别。首先，无论require的位置如何，制定文件都将包含到出现require的脚本中。例如，即使require放在计算结果为假的if语句中，依然会包含指定文件。<br><br>第二个重要的区别是：require出错时，脚本将停止运行，而在使用include的情况下，脚本将继续执行。<br><br>4、require_once()<br>require_once(filename)<br><br>随着网站越来越大，可能会出现重复包含某些文件。这也许不是问题，但又是修改了所包含文件的变量后，却由于后面再次包含原来的文件而被覆盖，可能不希望出现这种情况。还可能出现另一个问题，即所包含文件中函数名的冲突。使用require_once就可以解决这些问题。<br><br>require_once函数确保文件只包含一次。在遇到require_once后，后面再试图包含相同的文件时将被忽略。<br><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/php-include-require.html" data-id="cji8sg1tj008g40io8vlkpc3j" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wordpress-cron-schedule" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wordpress-cron-schedule.html" class="article-date">
+  <time datetime="2014-08-17T03:50:50.000Z" itemprop="datePublished">2014-08-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wordpress-cron-schedule.html">WordPress Cron 定时任务</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WP-Cron 效率不高, 但还是很方便好用的</p>
+<p>如果想把某些功能加到WordPress的cron里，可以使用下面的方法。</p>
+<p>首先打开functions.php文件，粘贴入以下代码：</p>
+<blockquote>
+<p>if (!wp_next_scheduled(‘my_task_hook’)) {</p>
+<p>wp_schedule_event( time(), ‘hourly’, ‘my_task_hook’ );</p>
+<p>}</p>
+<p>add_action( ‘my_task_hook’, ‘my_task_function’ );</p>
+<p>function my_task_function() {</p>
+<p>wp_mail(‘you@yoursite.com’, ‘Automatic email’, ‘Hello, this is an automatically scheduled email from ibmer.info.’);</p>
+<p>}<br>注意，在第一行里，我们创建了一个任务，并确认任务名没有重复。然后通过add_action函数把任务加进WordPress的定时任务中。而在任务函数的声明中，我们可以看到这个任务是用来发送邮件的。</p>
+</blockquote>
+<hr>
+<h2 id="函数引用列表"><a href="#函数引用列表" class="headerlink" title="函数引用列表"></a><span style="color: #ff0000;"><strong>函数引用列表</strong></span></h2><h3 id="wp-get-schedule"><a href="#wp-get-schedule" class="headerlink" title="wp_get_schedule"></a>wp_get_schedule</h3><p>通过勾子别名, 获取预定安排的勾子. 成功时返回循环周期类别 (hourly, twicedaily, daily, …), 失败时返回 false.</p>
+<div class="wp_syntax"><br><table><br><tbody><br><tr><br><td class="code"><br><pre class="php"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_get_schedule<span style="color: #009900;">(</span> <span style="color: #000088;">$hook</span><span style="color: #339933;">,</span> <span style="color: #000088;">$args</span> <span style="color: #009900;">)</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre><br></td><br></tr><br></tbody><br></table><br></div><br>$hook: 勾子别名<br>$args: 勾子对应函数的参数数组 (可选)<br><br>### wp_get_schedules<br><br>WordPress 默认支持的循环周期类别有 hourly, twicedaily 和 daily. 通过该函数我们可以获取所有这些循环周期数组.<br><div class="wp_syntax"><br><table><br><tbody><br><tr><br><td class="code"><br><pre class="php"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_get_schedules<span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre><br></td><br></tr><br></tbody><br></table><br></div><br>在默认情况下, 由以上方法获得的数组对象如下.<br><div class="wp_syntax"><br><table><br><tbody><br><tr><br><td class="code"><br><pre class="php"><span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>    <span style="color: #0000ff;">‘hourly’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>        <span style="color: #0000ff;">‘interval’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">3600</span><span style="color: #339933;">,</span><br>        <span style="color: #0000ff;">‘display’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">‘Once Hourly’</span><br>    <span style="color: #009900;">)</span><span style="color: #339933;">,</span><br>    <span style="color: #0000ff;">‘twicedaily’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>        <span style="color: #0000ff;">‘interval’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">43200</span><span style="color: #339933;">,</span><br>        <span style="color: #0000ff;">‘display’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">‘Twice Daily’</span><br>    <span style="color: #009900;">)</span><span style="color: #339933;">,</span><br>    <span style="color: #0000ff;">‘daily’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>        <span style="color: #0000ff;">‘interval’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">86400</span><span style="color: #339933;">,</span><br>        <span style="color: #0000ff;">‘display’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">‘Once Daily’</span><br>    <span style="color: #009900;">)</span><br><span style="color: #009900;">)</span></pre><br></td><br></tr><br></tbody><br></table><br></div><br>我们可以向 cron_schedules 过滤器添加更多的类型. 添加例子如下:<br><div class="wp_syntax"><br><table><br><tbody><br><tr><br><td class="code"><br><pre class="php">add_filter<span style="color: #009900;">(</span><span style="color: #0000ff;">‘cron_schedules’</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">‘cron_add_weekly’</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br><span style="color: #000000; font-weight: bold;">function</span> cron_add_weekly<span style="color: #009900;">(</span> <span style="color: #000088;">$schedules</span> <span style="color: #009900;">)</span><br><span style="color: #009900;">{</span><br>    <span style="color: #666666; font-style: italic;">// Adds once weekly to the existing schedules.</span><br>    <span style="color: #000088;">$schedules</span><span style="color: #009900;">[</span><span style="color: #0000ff;">‘weekly’</span><span style="color: #009900;">]</span> <span style="color: #339933;">=</span> <span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>        <span style="color: #0000ff;">‘interval’</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">604800</span><span style="color: #339933;">,</span> <span style="color: #666666; font-style: italic;">// 1周 = 60秒 <em> 60分钟 </em> 24小时 * 7天</span><br>        <span style="color: #0000ff;">‘display’</span> <span style="color: #339933;">=&gt;</span> __<span style="color: #009900;">(</span><span style="color: #0000ff;">‘Once Weekly’</span><span style="color: #009900;">)</span><br>    <span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>    <span style="color: #b1b100;">return</span> <span style="color: #000088;">$schedules</span><span style="color: #339933;">;</span><br><span style="color: #009900;">}</span></pre><br></td><br></tr><br></tbody><br></table><br></div>
+
+<h3 id="wp-next-scheduled"><a href="#wp-next-scheduled" class="headerlink" title="wp_next_scheduled"></a>wp_next_scheduled</h3><p>通过勾子别名, 获取预定安排的下一个运行时刻, 以整型返回. 常用于判断是否已经做了预定安排.</p>
+<p><div class="wp_syntax"></div></p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="code"></td></p>
+<p><pre class="php"><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #000088;">$timestamp</span> <span style="color: #339933;">=</span> wp_next_scheduled<span style="color: #009900;">(</span> <span style="color: #000088;">$hook</span><span style="color: #339933;">,</span> <span style="color: #000088;">$args</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre><br><br><br><br><br><br>$hook: 勾子别名<br>$args: 勾子对应函数的参数数组 (可选)</p>
+<h3 id="wp-schedule-event"><a href="#wp-schedule-event" class="headerlink" title="wp_schedule_event"></a>wp_schedule_event</h3><p>按周期循环预定安排一个 WordPress 勾子, 在预定时间触发勾子对应的函数.</p>
+<p><div class="wp_syntax"></div></p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="code"></td></p>
+<p><pre class="php"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_schedule_event<span style="color: #009900;">(</span><span style="color: #000088;">$timestamp</span><span style="color: #339933;">,</span> <span style="color: #000088;">$recurrence</span><span style="color: #339933;">,</span> <span style="color: #000088;">$hook</span><span style="color: #339933;">,</span> <span style="color: #000088;">$args</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre><br><br><br><br><br><br>$timestamp: 时间 (整型)<br>$recurrence: 循环周期类别 (hourly, twicedaily, daily, …)<br>$hook: 勾子别名<br>$args: 勾子对应函数的参数数组 (可选)</p>
+<h3 id="wp-reschedule-event"><a href="#wp-reschedule-event" class="headerlink" title="wp_reschedule_event"></a>wp_reschedule_event</h3><p>按周期循环重新预定安排一个 WordPress 勾子. 但我发现这个方法不能正常使用, Codex 写得很草, 如果哪位清楚知道怎么使用, 请告知一下.</p>
+<h3 id="wp-unschedule-event"><a href="#wp-unschedule-event" class="headerlink" title="wp_unschedule_event"></a>wp_unschedule_event</h3><p>通过预定时间和勾子别名, 取消预定的安排.</p>
+<p><div class="wp_syntax"></div></p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="code"></td></p>
+<p><pre class="php"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_unschedule_event<span style="color: #009900;">(</span><span style="color: #000088;">$timestamp</span><span style="color: #339933;">,</span> <span style="color: #000088;">$hook</span><span style="color: #339933;">,</span> <span style="color: #000088;">$args</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre><br><br><br><br><br><br>$timestamp: 时间 (整型)<br>$hook: 勾子别名<br>$args: 勾子对应函数的参数数组 (可选)</p>
+<h3 id="wp-clear-scheduled-hook"><a href="#wp-clear-scheduled-hook" class="headerlink" title="wp_clear_scheduled_hook"></a>wp_clear_scheduled_hook</h3><p>通过勾子别名, 移除预定安排的勾子.</p>
+<p><div class="wp_syntax"></div></p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="code"></td></p>
+<p><pre class="php"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_clear_scheduled_hook<span style="color: #009900;">(</span> <span style="color: #000088;">$hook</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre><br><br><br><br><br><br>$hook: 勾子别名</p>
+<h3 id="wp-schedule-single-event"><a href="#wp-schedule-single-event" class="headerlink" title="wp_schedule_single_event"></a>wp_schedule_single_event</h3><p>预定安排一个 WordPress 勾子, 在预定时间触发勾子对应的函数. 与 wp_schedule_event 不同的是该方法的只安排一次触发, 不存在循环预定.</p>
+<p><div class="wp_syntax"></div></p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="code"></td></p>
+<p><pre class="php"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_schedule_single_event<span style="color: #009900;">(</span><span style="color: #000088;">$timestamp</span><span style="color: #339933;">,</span> <span style="color: #000088;">$hook</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre><br><br><br><br><br><br>$timestamp: 时间 (整型)<br>$args: 勾子对应函数的参数数组 (可选)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/wordpress-cron-schedule.html" data-id="cji8sg1x800fb40iodpowz2ya" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mail-wp-from-name" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/mail-wp-from-name.html" class="article-date">
+  <time datetime="2014-08-15T15:59:41.000Z" itemprop="datePublished">2014-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mail-wp-from-name.html">修改 WordPress 发送邮件的默认邮箱和发件人</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre class="php" style="font-family: monospace;"><span style="color: #000000; font-weight: bold;">默认情况下，WordPress 通过 mail() 函数发送的邮件的发件人是：WordPress &lt; wordpress@xxx.com  &gt;，这样一般是没办法让收件人直接回复的，而且很容易进入垃圾箱。
+其实，我们可以通过  wp_mail_from 和 wp_mail_from_name 来修改 WordPress 发送邮件的默认邮箱和发件人。将下面的代码添加在主题的 functions.php 最后一个 ?&gt; 的前面：
+
+function</span> new_from_name<span style="color: #009900;">(</span><span style="color: #000088;">$email</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span>
+    <span style="color: #000088;">$wp_from_name</span> <span style="color: #339933;">=</span> get_option<span style="color: #009900;">(</span><span style="color: #0000ff;">'blogname'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+    <span style="color: #b1b100;">return</span> <span style="color: #000088;">$wp_from_name</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">}</span>
+
+<span style="color: #000000; font-weight: bold;">function</span> new_from_email<span style="color: #009900;">(</span><span style="color: #000088;">$email</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+    <span style="color: #000088;">$wp_from_email</span> <span style="color: #339933;">=</span> get_option<span style="color: #009900;">(</span><span style="color: #0000ff;">'admin_email'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+    <span style="color: #b1b100;">return</span> <span style="color: #000088;">$wp_from_email</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">}</span>
+
+add_filter<span style="color: #009900;">(</span><span style="color: #0000ff;">'wp_mail_from_name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'new_from_name'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+add_filter<span style="color: #009900;">(</span><span style="color: #0000ff;">'wp_mail_from'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'new_from_email'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/mail-wp-from-name.html" data-id="cji8sg1st007040iocj2ggf4g" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-postfix-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/postfix-config.html" class="article-date">
+  <time datetime="2014-08-15T15:48:31.000Z" itemprop="datePublished">2014-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/postfix-config.html">/etc/postfix/main.cf的配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>myhostname = smtp.bmer.info<br>alias_maps = hash:/etc/aliases<br>alias_database = hash:/etc/aliases<br>myorigin = ibmer.info<br>mydestination = ibmer.info, mail.ibmer.info, localhost.localdomain, localhost<br>relayhost =</p>
+<p>#mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128<br>mynetworks = 外网ip/28,内外ip/8<br>mailbox_size_limit = 0<br>recipient_delimiter = +<br>inet_interfaces = all</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/postfix-config.html" data-id="cji8sg1ue00a740iot9png68m" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ubuntu-postfix-php-mail" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ubuntu-postfix-php-mail.html" class="article-date">
+  <time datetime="2014-08-15T15:42:01.000Z" itemprop="datePublished">2014-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ubuntu-postfix-php-mail.html">ubuntu下，使用postfix实现php发送mail功能。</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、ubuntu 下安装postfix，执行命令：</p>
+<h1 id="apt-get-install-postfix-popa3d"><a href="#apt-get-install-postfix-popa3d" class="headerlink" title="apt-get install postfix popa3d"></a>apt-get install postfix popa3d</h1><p>2、在php.ini配置文件上，设置mail函数：<br>1）打开php.ini配置，下面是我的php.ini路径：</p>
+<h1 id="vi-home-service-web-config-php-lib-php-ini"><a href="#vi-home-service-web-config-php-lib-php-ini" class="headerlink" title="vi /home/service/web/config/php/lib/php.ini"></a>vi /home/service/web/config/php/lib/php.ini</h1><p>2）找到：sendmail_path ，将其设置为:</p>
+<p>sendmail_path = /usr/sbin/sendmail -t</p>
+<p>注意：这里需要先到/usr/sbin/ 目录中，确认是否存在sendmail文件。</p>
+<p>3、启动postfix：</p>
+<h1 id="etc-init-d-postfix-start"><a href="#etc-init-d-postfix-start" class="headerlink" title="/etc/init.d/postfix start"></a>/etc/init.d/postfix start</h1><p>4、重启apache:</p>
+<h1 id="etc-init-d-apache2-restart"><a href="#etc-init-d-apache2-restart" class="headerlink" title="/etc/init.d/apache2 restart"></a>/etc/init.d/apache2 restart</h1><p>5、以上完成。你可以写一个发送email的php文件做测试，如下：</p>
+<p>&lt;?php<br>$text = “This is a test!测试邮件!!”;<br>// 将邮箱地址改成你的<br>$mail = ‘hxy.huang@qq.com’;<br>// 发送邮件<br>mail($mail, “Mail Test,测试邮件!!”, $text);</p>
+<p>if (function<em>exists(‘mail’)) echo “^</em>^ mail()函数可以使用！”;<br>else echo “- -! mail()函数不可以使用！”;</p>
+<p>echo “Message has been sent !”;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/ubuntu-postfix-php-mail.html" data-id="cji8sg1w900dh40iorkmqjasy" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/11/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/13/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

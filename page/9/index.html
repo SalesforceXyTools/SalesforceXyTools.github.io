@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Exia.Huang">
+<meta property="og:url" content="http://www.ibmer.info/page/9/index.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Exia.Huang">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-php-taobao-curl" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/php-taobao-curl.html" class="article-date">
+  <time datetime="2014-11-08T01:58:19.000Z" itemprop="datePublished">2014-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/php-taobao-curl.html">利用PHP从淘宝采集评论和成交数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果不想通过淘宝开放平台API获取数据，那么另外一个很好的办法就是采集了。一般来说，采集一个网页上的内容，只需要用CURL获取源代码，然后用正则表达式取出需要的内容就可以，不过如果这样载入一个淘宝的页面，会发现根本没有评论和成交数据，直接查看源代码可以看到评论的是空的。分析页面后发现，淘宝的评论并不是直接输出在页面中，而是在点击评论和成交的时候，才会跨域获取数据，并用脚本解析显示。</p>
+<p>这样的处理方式使得CURL页面的方式不好使用了，但是实际上获得数据反而更容易：使用CURL还必须考虑装修模板的问题，通用性并不好，而跨域获取的数据多数情况下是一个标准的格式，通过抓取数据包最后发现淘宝的评论数据是从<a href="http://rate.taobao.com/feedRateList.htm?使用URL直接GET方式过来的，并且是标准的JSON格式。" target="_blank" rel="external">http://rate.taobao.com/feedRateList.htm?使用URL直接GET方式过来的，并且是标准的JSON格式。</a></p>
+<p>数据地址：</p>
+<div id="highlighter_79644" class="syntaxhighlighter  " style="color: #323232;"><br><div class="lines"><br><div class="line alt1"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>1</code></td><br><td class="content"><code>http:``//rate.taobao.com/feedRateList.htm?callback=jsonp_reviews_list&amp;amp;userNumId=【掌柜的账号数字ID】&amp;amp;auctionNumId=【商品ID】&amp;amp;currentPageNum=【评论分页页码】</code></td><br></tr><br></tbody><br></table><br></div><br></div><br></div>
+
+<p>其他还有些参数可以不用。【掌柜的账号数字ID】抓包时可获取，商品ID在宝贝页面链接中的id值就是。</p>
+<p>第二步：解析数值。因为淘宝的页面编码是GBK的，而<a href="http://cz1.me/tag/PHP" target="_blank" rel="external">PHP</a>在处理GBK编码的JSON文件时，对其中的中文处理是有问题的，会替换成空值，所以最后JSON数据decode出来的是一个NULL，解决办法是将GBK编码转换为UTF-8。如果你的网站是UTF-8的，那么把从淘宝抓来的JSON直接转成UTF-8然后decode就可用了，如果是GBK的，则转好后再转回GBK就可以。下面以<a href="http://item.taobao.com/item.htm?spm=a1z10.3.w4002-5694395307.29.JAGNX9&amp;id=20972699241" target="_blank" rel="external">http://item.taobao.com/item.htm?id=20972699241</a>为例，UTF-8页面的处理方法：</p>
+<div id="highlighter_417778" class="syntaxhighlighter  " style="color: #323232;"><br><div class="lines"><br><div class="line alt1"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>01</code></td><br><td class="content"><code>$ch</code> <code>= curl_init();``//初始化，创建句柄</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt2"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>02</code></td><br><td class="content"><code>curl_setopt(``$ch``, CURLOPT_URL, ``&quot;[http://rate.taobao.com/feedRateList.htm?callback=jsonp_reviews_list&amp;amp;userNumId=1048567622&amp;amp;auctionNumId=20972699241&amp;amp;currentPageNum=1](http://rate.taobao.com/feedRateList.htm?callback=jsonp_reviews_list&amp;amp;userNumId=1048567622&amp;amp;auctionNumId=20972699241&amp;amp;currentPageNum=1)&quot;``);//设置细节参数</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt1"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>03</code></td><br><td class="content"><code>curl_setopt(``$ch``, CURLOPT_RETURNTRANSFER, 1);</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt2"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>04</code></td><br><td class="content"><code>curl_setopt(``$ch``, CURLOPT_HEADER, 0);</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt1"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>05</code></td><br><td class="content"><code>$str</code> <code>= curl_exec(``$ch``);``//获取内容</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt2"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>06</code></td><br><td class="content"><code>$str</code> <code>= mb_convert_encoding(``$str``,``&#39;UTF-8&#39;``,``&#39;GBK&#39;``);``//转换编码</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt1"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>07</code></td><br><td class="content"><code>$str</code> <code>= ``str_replace``(``&#39;jsonp_reviews_list(&#39;``,``&#39;&#39;``,``$str``);``//去掉多余的字符串</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt2"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>08</code></td><br><td class="content"><code>$str</code> <code>= ``str_replace``(``&#39;)&#39;``,``&#39;&#39;``,``$str``);</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt1"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>09</code></td><br><td class="content"><code>$data</code> <code>= json_decode(``$str``,TRUE);``//得到数据了，第二个参数是转化为数组</code></td><br></tr><br></tbody><br></table><br></div><br><div class="line alt2"><br><table><br><tbody><br><tr><br><td class="number" style="color: #787878 !important;"><code>10</code></td><br><td class="content"><code>print_r(``$data``)``//输出页面查看</code></td><br></tr><br></tbody><br></table><br></div><br></div><br></div>
+
+<p>注意几个细节：<br>1、从淘宝抓来的JSON是GBK编码的；<br>2、PHP的json_decode()<a href="http://cz1.me/tag/%E5%87%BD%E6%95%B0" target="_blank" rel="external">函数</a>处理GBK编码的中文数据是有问题的，需要转换UTF-8后处理；<br>3、iconv()和mb_convert_encoding()函数也各有优劣和BUG，注意处理。<br>4、curl函数的使用；<br>5、如果要采集不止一页评论，总的页面数可以在返回值中的maxpage获取。</p>
+<p>购买记录数据的获取方法大同小异，天猫的评论获取地址也有所不同，不过方法都是一样的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/php-taobao-curl.html" data-id="cji8sg1tr008y40io7l4ocvma" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vba-strconv" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vba-strconv.html" class="article-date">
+  <time datetime="2014-11-05T08:51:41.000Z" itemprop="datePublished">2014-11-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/vba-strconv.html">VBA中StrConv(字格式转换)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>返回按指定类型转换的<span style="font-family: Verdana;"> <strong>Variant</strong> (<strong>String</strong>)。</span></p>
+<p><strong>语法</strong></p>
+<p><strong>StrConv</strong>(<span class="empb"><strong><em>string, conversion, LCID</em></strong></span>)</p>
+<p><strong>StrConv</strong> 函数的语法有下面的命名参数：</p>
+<p><table border="1" frame="below" rules="rows" cellpadding="5"></table></p>
+<p><tbody></tbody></p>
+<p><tr valign="top"></tr></p>
+<p><td class="label" width="18%"><strong>部分</strong></td></p>
+<p><td class="label" width="82%"><strong>说明</strong></td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="18%"><span class="empb"><strong><em>string</em></strong></span></td></p>
+<p><td width="82%">必要参数。要转换的字符串表达式。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="18%"><span class="empb"><strong><em>conversion</em></strong></span></td></p>
+<p><td width="82%">必要参数。Integer。其值的和决定转换的类型。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="18%"><span class="empb"><strong><em>LCID</em></strong></span></td></p>
+<p><td width="82%">可选的。如果与系统LocaleID不同，则为LocaleID（系统LocaleID为缺省值。）</td><br><br><br><br>&nbsp;</p>
+<p><strong>设置值</strong></p>
+<p><span class="empb"><strong><em>conversion</em></strong></span> 参数的设置值为：</p>
+<p><table border="1" frame="below" rules="rows" cellpadding="5"></table></p>
+<p><tbody></tbody></p>
+<p><tr valign="top"></tr></p>
+<p><td class="label" width="25%"><strong>常数</strong></td></p>
+<p><td class="label" width="11%"><strong>值</strong></td></p>
+<p><td class="label" width="64%"><strong>说明</strong></td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="25%"><strong>vbUpperCase</strong></td></p>
+<p><td width="11%">1</td></p>
+<p><td width="64%">将字符串文字转成大写。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="25%"><strong>vbLowerCase</strong></td></p>
+<p><td width="11%">2</td></p>
+<p><td width="64%">将字符串文字转成小写。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="25%"><strong>vbProperCase</strong></td></p>
+<p><td width="11%">3</td></p>
+<p><td width="64%">将字符串中每个字的开头字母转成大写。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="25%"><strong>vbWide*</strong></td></p>
+<p><td width="11%">4*</td></p>
+<p><td width="64%">将字符串中单字节字符转成双字节字符。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="25%"><strong>vbNarrow*</strong></td></p>
+<p><td width="11%">8*</td></p>
+<p><td width="64%">将字符串中双字节字符转成单字节字符。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td width="25%"><strong>vbKatakana**</strong></td></p>
+<p><td width="11%">16**</td></p>
+<p><td width="64%">将字符串中平假名字符转成片假名字符。</td><br><br><br><br>&nbsp;</p>
+<p><table border="1" frame="below" rules="rows" cellpadding="5"></table></p>
+<p><tbody></tbody></p>
+<p><tr valign="top"></tr></p>
+<p><td width="25%"><strong>vbHiragana**</strong></td></p>
+<p><td colspan="2" width="11%">32**</td></p>
+<p><td colspan="2" width="62%">将字符串中片假名字符转成平假名字符。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td colspan="2" width="26%"><strong>vbUnicode</strong></td></p>
+<p><td colspan="2" width="11%">64</td></p>
+<p><td colspan="2" width="63%">根据系统的缺省码页将字符串转成 Unicode。</td><br></p>
+<p><tr valign="top"></tr></p>
+<p><td colspan="2" width="26%"><strong>vbFromUnicode</strong></td></p>
+<p><td colspan="2" width="11%">128</td></p>
+<p><td colspan="2" width="63%">将字符串由 Unicode 转成系统的缺省码页。</td><br><br><br><br>&nbsp;</p>
+<p>*应用到远东国别。</p>
+<p>**仅应用到日本。</p>
+<p><strong><b>注意 </b></strong>这些常数是由 VBA 指定的。可以在程序中使用它们来替换真正的值。其中大部分是可以组合的，例如 <strong>vbUpperCase + vbWide</strong>，互斥的常数不能组合，例如 <strong>vbUnicode + vbFromUnicode</strong>。当在不适用的国别使用常数 <strong>vbWide</strong>、<strong>vbNarrow</strong>、<strong>vbKatakana</strong>，和 <strong>vbHiragana </strong>时，就会导致运行时错误。</p>
+<p>下面是一些一般情况下的有效分界符：Null<span style="font-family: Verdana;"> (<strong>Chr$(</strong>0<strong>)</strong>)，水平制表符 (<span style="font-family: Verdana;"><strong>Chr$(</strong>9<strong>)</strong>)，换行 (<span style="font-family: Verdana;"><strong>Chr$(</strong>10<strong>)</strong>)，垂直制表符 (<span style="font-family: Verdana;"><strong>Chr$(</strong>11<strong>)</strong>)，换页 (<span style="font-family: Verdana;"><strong>Chr$(</strong>12<strong>)</strong>) ，回车 (<span style="font-family: Verdana;"><strong>Chr$(</strong>13<strong>)</strong>)，空白 <span style="font-family: Verdana;">(SBCS) (<strong>Chr$(</strong>32<strong>)</strong>)。在 DBCS中，空白的实际值会随国家/地区而不同。</span></span></span></span></span></span></span></p>
+<p><strong>说明</strong></p>
+<p>在把 ANSI 格式的 <strong>Byte </strong>数组转换为字符串时，您应该使用<span style="font-family: Verdana;"> <strong>StrConv</strong> 函数。当您转换 Unicode 格式的这种数组时，使用赋值语句</span></p>
+<p>&nbsp;</p>
+<p>※Signle Code→以单一位元组(1Byte/8Bit)作为一个字的处理单位的字码。<br>※UniCode→由ISO(国际标准组织)订定的标准字码，以两个位元组(2Byte/16Bit)组成一个字，作为一个字处理单位的字码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/vba-strconv.html" data-id="cji8sg1wc00do40ioigcwprs2" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vba/">vba</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-excel-vba-interior-colorindex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/excel-vba-interior-colorindex.html" class="article-date">
+  <time datetime="2014-11-05T08:49:07.000Z" itemprop="datePublished">2014-11-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/excel-vba-interior-colorindex.html">Excel VBA Interior.ColorIndex 色彩列表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用如下VBA代码取得相应的单元格底色</p>
+<p>[vba]</p>
+<p>Sub a()Sub a()</p>
+<p>Range(“A1”).Select</p>
+<p>For i = 0 To 56 Step 1</p>
+<p>ActiveCell.Interior.ColorIndex = i</p>
+<p>ActiveCell.Offset(0, 1).Value2 = i</p>
+<p>If i Mod 19 = 18 And i &lt;&gt; 0 Then</p>
+<p>ActiveCell.Offset(-18, 2).Select</p>
+<p>Else</p>
+<p>ActiveCell.Offset(1, 0).Select</p>
+<p>End If</p>
+<p>Next</p>
+<p>End Sub</p>
+<p>[/vba]</p>
+<p>结果如下</p>
+<p><a href="/images/wp-uploads/2014/11/color.jpg"><img src="/images/wp-uploads/2014/11/color.jpg" alt="color"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/excel-vba-interior-colorindex.html" data-id="cji8sg1rl004l40iog80njn4d" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vba/">vba</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-websphere-mq-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/websphere-mq-install.html" class="article-date">
+  <time datetime="2014-10-28T07:02:11.000Z" itemprop="datePublished">2014-10-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/websphere-mq-install.html">Websphere MQ安装入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>环境：Red Hat Enterprise Linux Server release 6.4 (Santiago) 32bit</p>
+<p>MQ版本：V7.5.0.2</p>
+<p>[shell]</p>
+<p>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# ./mqlicense.sh -accept</p>
+<p>Licensed Materials - Property of IBM</p>
+<p>5724-H72</p>
+<p>(C) Copyright IBM Corporation 1994, 2013 All rights reserved.</p>
+<p>US Government Users Restricted Rights - Use, duplication or disclosure<br>restricted by GSA ADP Schedule Contract with IBM Corp.</p>
+<p>Agreement accepted:  Proceed with install.</p>
+<p>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesRuntime-7.5.0-2.i386.rpm<br>Preparing…                ########################################### [100%]<br>Creating group mqm<br>Creating user mqm<br>1:MQSeriesRuntime        ########################################### [100%]<br>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesS<br>MQSeriesSamples-7.5.0-2.i386.rpm  MQSeriesServer-7.5.0-2.i386.rpm<br>MQSeriesSDK-7.5.0-2.i386.rpm<br>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesServer-7.5.0-2.i386.rpm<br>Preparing…                ########################################### [100%]<br>1:MQSeriesServer         ########################################### [100%]</p>
+<p>After the installation has completed, run the ‘/opt/mqm/bin/mqconfig’<br>command, using the ‘mqm’ user ID.</p>
+<p>For example, execute the following statement when running as the ‘root’ user:</p>
+<p>su mqm -c “/opt/mqm/bin/mqconfig”</p>
+<p>The ‘mqconfig’ command validates that the system configuration satisfies the<br>requirements for WebSphere MQ, and ensures that the settings for the ‘mqm’<br>user ID are suitably configured.  Other WebSphere MQ administrators in the<br>‘mqm’ group can run this command to ensure their user limits are also<br>properly configured to use WebSphere MQ.</p>
+<p>If ‘mqconfig’ indicates that any of the requirements have not been met,<br>consult the installation section within the WebSphere MQ Information Center<br>for details about how to configure the system and user limits.</p>
+<p>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesSamples-7.5.0-2.i386.rpm<br>Preparing…                ########################################### [100%]<br>1:MQSeriesSamples        ########################################### [100%]<br>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesMsg_ja-7.5.0-2.i386.rpm<br>Preparing…                ########################################### [100%]<br>1:MQSeriesMsg_ja         ########################################### [100%]<br>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesMsg_Zh_CN-7.5.0-2.i386.rpm<br>Preparing…                ########################################### [100%]<br>1:MQSeriesMsg_Zh_CN      ########################################### [100%]<br>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesSDK-7.5.0-2.i386.rpm<br>Preparing…                ########################################### [100%]<br>1:MQSeriesSDK            ########################################### [100%]<br>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]# rpm -ivh MQSeriesJava-7.5.0-2.i386.rpm<br>Preparing…                ########################################### [100%]<br>1:MQSeriesJava           ########################################### [100%]<br>[root@localhost WS_MQ_LINUX_ON_X86_32B_V7.5.0.2]#</p>
+<p>[root@localhost mqm]# su mqm -c “/opt/mqm/bin/mqconfig”<br>mqconfig: Analyzing Red Hat Enterprise Linux Server release 6.4 (Santiago)<br>settings for WebSphere MQ V7.5</p>
+<p>System V Semaphores<br>semmsl     (sem:1)  250 semaphores                     IBM&gt;=500          FAIL<br>semmns     (sem:2)  5 of 32000 semaphores      (0%)    IBM&gt;=256000       FAIL<br>semopm     (sem:3)  32 operations                      IBM&gt;=250          FAIL<br>semmni     (sem:4)  3 of 128 sets              (2%)    IBM&gt;=1024         FAIL</p>
+<p>System V Shared Memory<br>shmmax              4294967295 bytes                   IBM&gt;=268435456    PASS<br>shmmni              1 of 4096 sets             (0%)    IBM&gt;=4096         PASS<br>shmall              2019 of 268435456 pages    (0%)    IBM&gt;=2097152      PASS</p>
+<p>System Settings<br>file-max            8896 of 191597 files       (4%)    IBM&gt;=524288       FAIL<br>tcp_keepalive_time  7200 seconds                       IBM&lt;=300          FAIL</p>
+<p>Current User Limits (mqm)<br>nofile       (-Hn)  4096 files                         IBM&gt;=10240        FAIL<br>nofile       (-Sn)  1024 files                         IBM&gt;=10240        FAIL<br>nproc        (-Hu)  9 of 15033 processes       (0%)    IBM&gt;=4096         PASS<br>nproc        (-Su)  9 of 1024 processes        (0%)    IBM&gt;=4096         FAIL</p>
+<p>-bash-4.1$ pwd<br>/opt/mqm/bin<br>-bash-4.1$ ./strmqm QMGR01<br>AMQ8118: WebSphere MQ 队列管理器不存在。<br>-bash-4.1$ ./crtmqm QMGR01<br>WebSphere MQ 队列管理器已创建。<br>已创建目录“/var/mqm/qmgrs/QMGR01”。<br>队列管理器与安装“Installation1”关联。<br>正在创建或替换队列管理器“QMGR01”的缺省对象。<br>缺省对象统计：74 个已创建。0 个已替换。0 个已失败。<br>正在完成设置。<br>设置完成。<br>-bash-4.1$ ./strmqm QMGR01<br>WebSphere MQ 队列管理器“QMGR01”正在启动。<br>队列管理器与安装“Installation1”关联。<br>在日志重放阶段在队列管理器“QMGR01”上访问了 5 条日志记录。<br>完成队列管理器“QMGR01”的日志重放。<br>为队列管理器“QMGR01”恢复了事务管理器状态。<br>使用 V7.5.0.2 启动了 WebSphere MQ 队列管理器“QMGR01”。<br>-bash-4.1$</p>
+<p>进入队列处理器</p>
+<p>runmqsc CMS_ALARM_QM</p>
+<p>创建通道</p>
+<p>DEFINE CHANNEL (‘CH1’) CHLTYPE(SVRCONN) +<br>TRPTYPE(TCP) +<br>DESCR(‘ ‘) +<br>HBINT(300) +<br>MAXMSGL(4194304) +<br>MCAUSER(‘mqm’) +<br>RCVDATA(‘ ‘) +<br>RCVEXIT(‘ ‘) +<br>SCYDATA(‘ ‘) +<br>SCYEXIT(‘ ‘) +<br>SENDDATA(‘ ‘) +<br>SENDEXIT(‘ ‘) +<br>REPLACE</p>
+<p>[/shell]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/websphere-mq-install.html" data-id="cji8sg1wr00ej40iof21jsky0" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mq/">mq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/websphere/">websphere</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ibm-esb-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ibm-esb-2.html" class="article-date">
+  <time datetime="2014-10-27T05:34:09.000Z" itemprop="datePublished">2014-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ibm-esb-2.html">IBM ESB 产品之间的比较及应用场景: 第 2 部分，实际应用场景</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实际业务场景用-IBM-ESB-产品的实现"><a href="#实际业务场景用-IBM-ESB-产品的实现" class="headerlink" title="实际业务场景用 IBM ESB 产品的实现"></a>实际业务场景用 IBM ESB 产品的实现</h2><h3 id="通用业务场景"><a href="#通用业务场景" class="headerlink" title="通用业务场景"></a>通用业务场景</h3><p>业务场景：（虚拟场景）A 银行最近和 B 银行及 C 银行形成合作关系，合作合同的一项指出，在其中任何一个银行有存款的用户，可以在其他任意两家银行用该存款作为贷款担保来获得一定倍数数量的贷款。如，若 某人张三在 A 银行有 1 万元的存款，则该用户可以用这 1 万元的存款作为担保在 B，C 银行取得 10 倍于 1 万元（10 万元）的贷款。A 需要创新的解决方案，使得这项新的协议在 IT 系统中实现，并服务于他们的客户。如果用户在 B 和 C 之一具有一定的存款，则 A 的解决方案将自动从 B 和 C 取得该客户的存款额，并将该存款额应用到贷款流程中。（在本场景中，为了介绍 ESB 的连接性，我们将问题简单化，并没有考虑以下可能的情况：某客户分别在 B 和 C 都有一定存款，需要用 B 和 C 的存款之和在 A 进行贷款担保的情况。当然这种情况属于业务逻辑，应该在 A 的贷款流程中实现）</p>
+<p>A 银行决定使用 SOA 来个构建这一新的解决方案，利用 IBM SOA Foundation 来构建体系结构模型，用 IBM ESB 作企业服务总线，统一进行服务的注册，查找，路由等，并在 ESB 上运行其他应用程序。前提条件：B 银行和 C 银行都已经向 A 公司提供了各自的获取某用户存款在本公司存款的服务，而且已经定义了良好的接口。</p>
+<p>注：在这篇文章中，我们旨在介绍 IBM 几款 ESB 产品的各自特点，而不介绍开发细节。所以我们花更多笔墨来展示实现过程的一些重要特点，而不去详细介绍实现上述场景的整个过程。</p>
+<h3 id="使用-WESB-实现场景"><a href="#使用-WESB-实现场景" class="headerlink" title="使用 WESB 实现场景"></a>使用 WESB 实现场景</h3><p><strong> 场景描述：</strong></p>
+<ul>
+<li>B、C 银行提供的查询客户存款的服务已通过 Web Service 方式实现；</li>
+<li>并发的请求不会很多；</li>
+<li>A 银行的整合中多个应用都会使用到 B、C 银行提供的查询客户存款的服务。</li>
+<li>我们希望通过 ESB 向整合环境提供统一的、可复用的查询客户存款的服务，该服务自动根据客户的来源，动态路由到 B、C 提供的客户存款的服务。<br>下面我们选择 WESB 作为该场景的 ESB 实现。</li>
+</ul>
+<p>下表描述了 B，C 现有服务定义。</p>
+<p><table class="ibm-data-table" border="0" cellspacing="0" cellpadding="0"></table></p>
+<p><thead></thead></p>
+<p><tr></tr></p>
+<p><th scope="col">服务来源</th></p>
+<p><th scope="col">接口</th></p>
+<p><th scope="col">操作</th></p>
+<p><th scope="col">输入</th></p>
+<p><th scope="col">输出</th><br><br></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td>B 银行</td></p>
+<p><td>BDepositService</td></p>
+<p><td>queryDeposit</td></p>
+<p><td>Customer</td></p>
+<p><td>DepositInfo</td><br></p>
+<p><tr></tr></p>
+<p><td>C 银行</td></p>
+<p><td>CDepositService</td></p>
+<p><td>cxDeposit</td></p>
+<p><td>Client</td></p>
+<p><td>ClientDeposit</td><br><br><br><br>在上面的表格中，我们尽量模拟两个银行提供的数据接口和数据格式是不一样的，因为这样更加符合现实的情况。</p>
+<p><strong> 场景实现：</strong></p>
+<p><strong> 第一步：</strong></p>
+<p>如图 1 所示在 WID（集成开发环境中）将服务的提供者（B 银行 C 银行）引用到开发环境中，每一个服务对应于一个 SCA Import，根据不同的服务提供者选择不同的绑定（Binding）这里由于服务都已 Web Service 方式提供，所以选用 Web Service 绑定。</p>
+<p><strong> 第二步：</strong></p>
+<p>通过一个 Mediation 模块来处理服务的路由，消息格式转换等。</p>
+<p><strong> 第三步：</strong></p>
+<p>将新的统一服务通过 Web Service 的方式 Export 出去，所以使用该 Web Service 的应用都通过该 Export 调用。</p>
+<h5 id="图-1-WESB-上开发的三个步骤"><a href="#图-1-WESB-上开发的三个步骤" class="headerlink" title="图 1. WESB 上开发的三个步骤"></a>图 1. WESB 上开发的三个步骤</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image002.png" alt="WESB 上开发的三个步骤"></p>
+<p>在以上三个步骤中，Mediation 模块是核心 ESB 模块，图 2 和图 3 是针对以上应用场景开发的 Mediation 逻辑。</p>
+<h5 id="图-2-WESB-Mediation-模块的请求消息流"><a href="#图-2-WESB-Mediation-模块的请求消息流" class="headerlink" title="图 2. WESB Mediation 模块的请求消息流"></a>图 2. WESB Mediation 模块的请求消息流</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image005.jpg" alt="WESB Mediation 模块的请求消息流"></p>
+<h5 id="图-3-WESB-Mediation-模块的响应消息流"><a href="#图-3-WESB-Mediation-模块的响应消息流" class="headerlink" title="图 3. WESB Mediation 模块的响应消息流"></a>图 3. WESB Mediation 模块的响应消息流</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image007.jpg" alt="WESB Mediation 模块的响应消息流"></p>
+<p>从上述简要的开发过程来看，我们将来自不同服务提供者的两个服务注册在 WESB 上；由 WESB 提供一个统一的服务；今后，服务请求者不需要去关心具体应该调用由哪个后台服务；整个开发过程不需要写一行代码。</p>
+<p>此外，WESB 基于 WAS J2EE 容器之上，对安全事务处理等方面都有很好的支持，同时 WESB 遵循标准的 SCA/SDO 的规范，使得我们开发的组件可以很容易的和其他应用集成。</p>
+<h3 id="使用-WMB-实现场景"><a href="#使用-WMB-实现场景" class="headerlink" title="使用 WMB 实现场景"></a>使用 WMB 实现场景</h3><p><strong> 场景描述：</strong></p>
+<ul>
+<li>B 银行提供的服务由 Web Service 的方式实现，C 银行提供的服务由 FTP 方式实现，只要把消息放到 C 银行指定的 FTP Server 即可 , 数据格式由 C 银行指定</li>
+<li>对 B.C 服务性能要求较高，需要每秒钟能同时处理 1000 到 10，000 条消息</li>
+<li>B 银行和 C 银行都支持通过 MQ 的方式对其提供的服务进行访问</li>
+<li>利用 ESB 构建一个统一的查询客户存款服务的，该服务通过查询不同的客户来源，动态路由到不同的服务提供银行<br><strong> 场景实现：</strong></li>
+</ul>
+<p>第一步：将开发好的 BBank 提供的 WSDL 导入 WMB 中，我们在 SOAPRequest 节点中可以利用该 WSDL 文件提供对 BBank 的访问。CBank 提供的是某个 FTP 服务，MB 中提供的 FileOutput 节点可以实现对 FTP 的访问。</p>
+<p>第二步：利用 WMB 提供的 Route 节点实现对消息的路由，Route 节点是 MB6.1 的一个新 feature，开发起来和 WESB 中的 Route 节点非常类似。之前的 WMB 版本一般利用 Filter 节点来实现类似的路由功能。</p>
+<p>第三步：提供一个 MQ Input 节点给 A 客户，A 客户可以通过该 MQ 节点发送消息，从而访问 BBank 和 CBank 提供的服务。</p>
+<p>第四步：由于 A 银行支持对 MQ 的访问，故 B，C 银行的返回结果都存放在 MQ 中，A 银行只要访问相应的队列就可以取回结果。本例不介绍 A 银行应用系统对 MQ 的访问</p>
+<h5 id="图-4-使用-Message-Broker-开发-Mediation-消息流"><a href="#图-4-使用-Message-Broker-开发-Mediation-消息流" class="headerlink" title="图 4. 使用 Message Broker 开发 Mediation 消息流"></a>图 4. 使用 Message Broker 开发 Mediation 消息流</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image009.jpg" alt="使用 Message Broker 开发 Mediation 消息流"></p>
+<p>如图 4 所示，我们在 BBank Compute 节点和 MappingToCBank mapping 节点中分别采用了 ESQL 和 mapping 节点实现消息格式的转换。WMB 提供了非常强大的消息 mapping 功能，在已知映射双方消息格式的情况下，我们可以直接利用 mapping 节点进行消息映射。在 BBank 中我们也利用了 WMB 特有的 ESQL 实现到 SOAP 消息的映射。</p>
+<p>在 CBank Compute 节点中我们对存放在 FTP 中的文件名进行了动态赋值，其文件名字根据消息中唯一的 ID 信息来标识。</p>
+<p>图 5 是 Route 节点的主要信息，非常简单，根据消息中的 Bank 的字段路由到不同的服务：</p>
+<h5 id="图-5-Router-规则表"><a href="#图-5-Router-规则表" class="headerlink" title="图 5. Router 规则表"></a>图 5. Router 规则表</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image010.gif" alt="Router 规则表"></p>
+<p>总的来说，WMB 提供了更为丰富的内置节点，支持不同协议间的转换，在本例中我们采用 FTP 作为演示，WMB 还支持 JMS、HTTP、TCP/IP 等其他常用协议。由于和 MQ 天然的内在联系，支持 MQ 访问的应用系统使用 WMB 作为 ESB 将非常自然，和 WESB 相比，WMB 不仅提供了的丰富的消息处理机制，在性能方面也更为优越。</p>
+<h3 id="使用-Datapower-实现场景"><a href="#使用-Datapower-实现场景" class="headerlink" title="使用 Datapower 实现场景"></a>使用 Datapower 实现场景</h3><p><strong> 场景描述：</strong></p>
+<p>在该场景中，服务的注册，路由等功能和前面描述的 WESB 相似，除此之外，还需要以下安全方面的支持：</p>
+<ul>
+<li><p>B,C 提供的服务在服务端已经实现了服务端的安全机制，请求者只有满足相应的机制才能请求服务。</p>
+</li>
+<li><p>要求服务的请求和返回在安全的传输层（SSL）之上传输。</p>
+</li>
+<li>返回的消息是加密的，需要请求者解密消息。</li>
+<li>请求的消息要数字签名，保证消息在请求过程中未被修改。</li>
+<li>防范 XML 攻击（XML 攻击的介绍参见参考文献部分）</li>
+<li>以上这些安全方面的要求在 WESB 中完全可以实现，但是对安全性的增加会导致：1）开发的复杂度；2）系统性能的大幅下降。<br>在这样的高安全要求应用场景下，用 Datapower 来做 ESB 则成为最佳选择。在有的情况下 Datapower 会和 WESB 或者 Message Broker 联合起来使用，参考联合使用章节。这里我们单独介绍 Datapower 单独做 ESB 时所能提供的功能。</li>
+</ul>
+<p><strong> 场景实现：</strong></p>
+<p>在 Datapower 下实现该场景的过程中，我们分两个步骤来实现</p>
+<p>第一步：实现基本的 ESB 服务注册、路由、消息转换等功能。</p>
+<p>第二部：在此基础之上，我们再增加对安全方面的支持，下面我们来看看在 Datapower 上增加安全是如何的便捷及高效。</p>
+<p>实现第一步，我们通过两个 XML Firewall 来封装 B，C 银行提供的服务，图 6 是对 B 服务建立 Firewall 的开发配置界面：</p>
+<h5 id="图-6-封装-B-服务的-Firewall-开发配置界面"><a href="#图-6-封装-B-服务的-Firewall-开发配置界面" class="headerlink" title="图 6. 封装 B 服务的 Firewall 开发配置界面"></a>图 6. 封装 B 服务的 Firewall 开发配置界面</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image012.jpg" alt="封装 B 服务的 Firewall 开发配置界面"></p>
+<p>建立好两个 Firewall 后，我们现在来建立一个新的 Firewall 来实现 ESB 中的路由和消息转换，如图 7：</p>
+<h5 id="图-7-ESB-路由-Firewall"><a href="#图-7-ESB-路由-Firewall" class="headerlink" title="图 7. ESB 路由 Firewall"></a>图 7. ESB 路由 Firewall</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image014.jpg" alt="ESB 路由 Firewall"></p>
+<p>Policy 的定义如图 8：</p>
+<h5 id="图-8-Policy-定义"><a href="#图-8-Policy-定义" class="headerlink" title="图 8. Policy 定义"></a>图 8. Policy 定义</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image016.jpg" alt="Policy 定义"></p>
+<p>我们需要配置请求消息流和返回消息流中的各个节点来完成 ESB 的功能。转换节点中，我们开发 XSL 来进行格式转换；在路由节点中，我们要定义路由表，如图 9 所示，</p>
+<h5 id="图-9-路由规则表"><a href="#图-9-路由规则表" class="headerlink" title="图 9. 路由规则表"></a>图 9. 路由规则表</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image018.jpg" alt="路由规则表"></p>
+<p>下面，我们对上述 ESB 消息流增加安全方面的支持。假定 Datapower 使用在 A 银行的内部网中，那么我们只需要在和 B，C 银行之间的传输中增加安全支持，如图 10 所示。</p>
+<h5 id="图-10-实现场景图中的安全需求"><a href="#图-10-实现场景图中的安全需求" class="headerlink" title="图 10. 实现场景图中的安全需求"></a>图 10. 实现场景图中的安全需求</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image020.jpg" alt="实现场景图中的安全需求"></p>
+<ul>
+<li>加入 SSL<br>SSL 在 Datapower 中是一个独立开发的对象，我们开发好 SSL 的对象后，我们只需要在 XML Firewall 的配置界面上选择该对象即可，如图 11：</li>
+</ul>
+<h5 id="图-11-在-Firewall-中增加-SSL"><a href="#图-11-在-Firewall-中增加-SSL" class="headerlink" title="图 11. 在 Firewall 中增加 SSL"></a>图 11. 在 Firewall 中增加 SSL</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image022.jpg" alt="在 Firewall 中增加 SSL"></p>
+<ul>
+<li>签名和确认<br>B 银行要求传过去的请求消息是带有数字签名，我们需要在 B FirewallService 中加入 Sign（签名）节点来支持此项功能，如图 12 所示：</li>
+</ul>
+<h5 id="图-12-消息流中增加签名"><a href="#图-12-消息流中增加签名" class="headerlink" title="图 12. 消息流中增加签名"></a>图 12. 消息流中增加签名</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image024.jpg" alt="消息流中增加签名"></p>
+<ul>
+<li>加密解密<br>B 银行返回消息是加密的，我们需要在 B FirewallService 的 Firewall Policy 中加入 Decrypt（解密）的节点，如图 13 所示。</li>
+</ul>
+<h5 id="图-13-消息流中增加解密节点"><a href="#图-13-消息流中增加解密节点" class="headerlink" title="图 13. 消息流中增加解密节点"></a>图 13. 消息流中增加解密节点</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image026.jpg" alt="消息流中增加解密节点"></p>
+<p>上面几张图中我们介绍了如何对 B 提供的服务增加安全支持，对 C 的服务业一样处理。至此，我们方便得在 Datapower 和 B,C 银行之间提供安全的服务请求，通过配置的方式即可完成安全的支持，节省了很大的开发成本，此外，Datapower 对 XML 的处理速度达到线速，有兴趣的读者可以参考相关文献。</p>
+<p><a href="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2.html#ibm-pcon" target="_blank" rel="external">回页首</a></p>
+<h2 id="ESB-产品的联合应用的场景介绍"><a href="#ESB-产品的联合应用的场景介绍" class="headerlink" title="ESB 产品的联合应用的场景介绍"></a>ESB 产品的联合应用的场景介绍</h2><p>三款产品并不是独立使用的，在某些环境下可能需要三款产品的联合使用</p>
+<h3 id="WESB-和-WMB-联合使用"><a href="#WESB-和-WMB-联合使用" class="headerlink" title="WESB 和 WMB 联合使用"></a>WESB 和 WMB 联合使用</h3><p>在图 14 的场景中，某跨国公司在世界各地都有分公司，由于时区的原因，每天的信息需要通过异步的方式统一到总公司，由于总公司的业务量大，我们可以使用 WMB 做总公司的 ESB，而在分支机构，业务量小，且都是 J2EE 和 Web Service 的应用，我们可以使用 WESB 作为分公司的 ESB。</p>
+<h5 id="图-14-WMB-和-WESB-联合使用的场景"><a href="#图-14-WMB-和-WESB-联合使用的场景" class="headerlink" title="图 14. WMB 和 WESB 联合使用的场景"></a>图 14. WMB 和 WESB 联合使用的场景</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image028.gif" alt="WMB 和 WESB 联合使用的场景"></p>
+<h3 id="Datapower-和-WESB-联合使用"><a href="#Datapower-和-WESB-联合使用" class="headerlink" title="Datapower 和 WESB 联合使用"></a>Datapower 和 WESB 联合使用</h3><p>如图 15 所示，我们可以在 WPS 上实现负责的业务流程，在企业内部使用 WESB 作为 ESB。在该场景中 WESB 只负责服务的注册、路由和查找功能，而安全方面的处理，以及部分消息格式转换的功能由 Datapower 处理（外部传来的非 XML 格式的数据通过 Datapower 处理成 XML 格式的数据），该场景既利用到 Datapower 在安全和 XML 处理方面的优势，有利用到 WESB 和 WPS 集成的优势。</p>
+<h5 id="图-15-Datapower-和-WESB-联合使用的场景"><a href="#图-15-Datapower-和-WESB-联合使用的场景" class="headerlink" title="图 15. Datapower 和 WESB 联合使用的场景"></a>图 15. Datapower 和 WESB 联合使用的场景</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image030.gif" alt="Datapower 和 WESB 联合使用的场景"></p>
+<h3 id="Datapower-和-WMB-联合使用"><a href="#Datapower-和-WMB-联合使用" class="headerlink" title="Datapower 和 WMB 联合使用"></a>Datapower 和 WMB 联合使用</h3><p>如图 16 所示，Datapower 可以和 WMB 配合使用。WMB 提供了多种多样的消息协议和格式的支持，比如遗留的 EIS 系统，SAP、PeopleSoft 等，也可以充分利用 WMB 的扩展性自定义消息集或者消息节点，以此来满足特殊的应用需求。Datapower 可以提供高性能的 Web Service 安全网关。客户端通过 SOAP over HTTP 可以访问到 Datapower，而 Datapower 用过 MQ 访问 WMB。该场景兼顾了 Datapower 在性能上强大的优势和 WMB 丰富的消息协议与格式支持。</p>
+<h5 id="图-16-Datapower-和-WMB-联合使用的场景"><a href="#图-16-Datapower-和-WMB-联合使用的场景" class="headerlink" title="图 16. Datapower 和 WMB 联合使用的场景"></a>图 16. Datapower 和 WMB 联合使用的场景</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image032.jpg" alt="Datapower 和 WMB 联合使用的场景"></p>
+<p><a href="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2.html#ibm-pcon" target="_blank" rel="external">回页首</a></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>在和客户以及合作伙伴交流的过程中，我们经常会被问到 IBM 的三款 ESB 产品的差别以及如何选择合适的 ESB 产品。在这篇文章中，我们分成两个部分介绍了 ESB 以及 IBM 的三款 ESB 产品的各自特点和适用的场景，并通过一个实际案例基于三款产品的实现来描述其开发部署的差异。至此，希望能帮助读者在选择正确 ESB 产品时起到一定的作用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/ibm-esb-2.html" data-id="cji8sg1s6005o40ioi6u6itij" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IBM/">IBM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOA/">SOA</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ibm-esb-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ibm-esb-1.html" class="article-date">
+  <time datetime="2014-10-27T05:07:00.000Z" itemprop="datePublished">2014-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ibm-esb-1.html">IBM ESB 产品之间的比较及应用场景: 第 1 部分，IBM ESB 产品之间的比较</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a name="1\. 企业服务总线 ESB 的介绍 |outline"></a><span class="atitle"> 企业服务总线 ESB 的介绍 </span></p>
+<p><a name="N100A3"></a><span class="smalltitle"> 企业应用的发展概述 </span></p>
+<p>在介绍企业服务总线之前，有必要花一些笔墨来介绍企业应用架构的发展和变迁。企业级应用架构的发展经历了以下几个阶段：</p>
+<ol>
+<li>独立应用系统</li>
+<li>EAI 阶段</li>
+<li>SOA 阶段<br><strong> 独立应用阶段 </strong></li>
+</ol>
+<p>20 世纪 60 到 70 年代，企业应用处于独立应用系统阶段，当时的企业应用是一种用来替代重复性劳动的简单设计，其目的是用计算机代替孤立的，体力性质的工作环节，将相关联的 企业信息或数据管理起来。这些系统大部分是独立的系统——有独立的数据库、应用服务器、用户界面。因此有时候这类应用也叫“竖井型”的应用。</p>
+<p>但是，随着业务和信息的不断扩展，独立应用系统渐渐不能满足企业对 IT 的需求，表现在大量的信息冗余，因为在建立一个新的应用的时候需要重新建立一套数据库；功能的重新设计，相似的功能存在于多个系统中；例如，客户信息在一 个公司中可能有多个拷贝分别存在于多个数据库中，不同时期建立的应用系统所使用的技术也会不同。对于获取客户资料这样的功能，必然存在于多个系统中，而且 在不同的系统中其实现方式可能是 Java/J2EE、Delphi、C/C++。</p>
+<p><strong>EAI 阶段 </strong></p>
+<p>20 世纪 80 到 90 年代，一些公司或集成商意识到应用集成的价值和必要性。EAI 是一种将多个不同平台、用不同方案建立的异构的应用集成的一种技术和方法。它的目标包括以下几个方面：各个分离的系统间的相互通讯，消除信息孤岛，实现信 息的共享。从功能的角度来看，EAI 包括信息接收、转换、翻译、路由、传播和业务流程管理。从架构上看有两种方式：Hub/Spoke 方式和 Bus 方式。</p>
+<p>图 1 所示的 Hub/Spoke 结构使用一个中心代理（Hub）和多个适配器（Spoke）将 Hub 和应用连接起来。适配器负责将应用的数据格式转换成 Hub 可以理解的格式，Hub 将数据再转换成目标系统可以理解的格式，并执行消息的路由。Hub/Spoke 方式的弊端在于只有一个代理中心，当连接的应用种类增加或者消息量增大时，代理中心的性能将成为整个系统的瓶颈，在可扩展性方面也存在着一定的问题。<br><a name="N100CE"></a><strong> 图 1 . Hub/Spoke 结构的 EAI 集成 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image003.jpg" alt=""></p>
+<p>图 2 所示的 Bus 结构使用一个中心总线，应用程序通过 Adapter 将消息发送给总线，总线负责消息的路由，接受方的应用程序也有自己的 Adapter 来转换接受到的消息。Bus 结构和 Hub/Spoke 结构的最大区别在于在 Bus 结构中，Adapter 位于应用程序中，而 Hub/Spoke 结构中，Adapter 由 Hub 来统一管理。这样在 Bus 结构中，加入一个新的应用变得很简单，可扩展性得到了很大的提高，但是应用程序方的负担加重了。<br><a name="N100DF"></a><strong> 图 2. Bus 结构的 EAI 集成 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image005.gif" alt=""></p>
+<p><strong>SOA 阶段 </strong></p>
+<p>SOA 将应用资源看成一个个独立的，自包含并良好定义的服务，通过这些服务的组装，编排可以产生新的应用。每一个服务可以完成一个独立业务功能，并且不依赖于业 务上下文或者其他服务的状态。服务的定义是标准的且被广泛支持的，比如 Web Service。在 SOA 的架构中，人们都用标准的方式来封装自己的服务，使得任何一个客户端程序都可以容易的和后台系统实施连接。而 ESB 是 SOA 架构中的一个核心基石，在几乎所有的 SOA 架构中，都将 ESB 放在核心的位置。图 3 是 IBM SOA Reference architecture，从中我们可以看出 ESB 在一个 SOA 架构中的地位，对该图的详细解释不在本文介绍范围之内，有兴趣的读者可以参考一下 IBM SOA 专区的相关文章。<br><a name="N100F4"></a><strong> 图 3. IBM 的 SOA 参考架构 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image007.gif" alt=""></p>
+<p>下面我们来介绍一下 ESB。</p>
+<p><a name="N10103"></a><span class="smalltitle"> 什么是 ESB?</span></p>
+<p>什么是 ESB？ESB 严格来说不是某一个产品，而是一种框架，设计模式。不同的提供商对 ESB 的理解也各有不同。</p>
+<p><em>“ESBs are essentially integration systems, not SOA systems. SOA is about tearing down application silos, but integration systems reinforce those silos. […] an ESB is especially good for bridging to legacy applications, and therefore it is a useful component in a services infrastructure”</em></p>
+<p>—-Anne Thomas Manes, Research Director with Burton Group</p>
+<p><em>“An Enterprise Service Bus (ESB) is a distributed middleware system for integrating enterprise IT assets using a service-oriented approach.”</em></p>
+<p>—-Ron Ten-Hove , Sun Microsystems and JBI Spec Lead</p>
+<p><em>“A Web-services-capable infrastructure that supports intelligently directed communication and mediated relationships among loosely coupled and decoupled business components.”</em></p>
+<p>–Gartner</p>
+<p>IBM 对 ESB 是这样描述的：</p>
+<p>“<em>An enterprise service bus (ESB) is a pattern of middleware that unifies and connects services, applications and resources within a business. Put another way, it is the framework within which the capabilities of a business’ applications are made available for reuse by other applications throughout the organization and beyond. The ESB is not a new software product — it’s a new way of looking at how to integrate applications, coordinate resources and manipulate information </em>”</p>
+<p>从 IBM 的立场来说，ESB 不仅仅是一个概念，而是一种中间件模式；它不是某个产品，而是一种全新的集成应用，协调资源和操纵信息的框架。</p>
+<p>下面来介绍 ESB 或可以称为 ESB 的中间件产品保护一些特征，有些是必须的，有些是可选的：</p>
+<ol>
+<li><strong> 连接性 </strong>ESB 必须提供一种支持服务交互的桥梁，它必须支持多协议 (protocol) 之间的连接。不仅要提供对消息和面向事件的中间件的支持，还要提供和现有 EAI 技术的连接。连接性是 ESB 不可缺少的特征之一。</li>
+<li><strong> 服务交互 </strong>服务交互可以理解为 ESB 的一个目的之一，ESB 作为 SOA 架构的核心，必然要支持服务的交互，要在服务的请求者和提供者架起一个坚实的桥梁，让服务的请求者和提供者只需要关心各自的业务逻辑，而不需要在发布和消 费服务的环节花很大力气。服务交互也是 ESB 的必备特征。</li>
+<li><strong> 集成 </strong>集成的概念是对于系统而言的，ESB 不仅要能集成那些很容易封装服务的系统，也要集成不能方便地封装服务的系统，例如 SAP, ERP, CRM, Siebel 等 EAI 系统、遗留系统。集成也是 ESB 的核心特征之一。</li>
+<li><strong> 消息处理 </strong>在集成的过程中，必须要面对的是消息处理，在不同的应用系统中，消息的描述格式是不一样的。在集成环境中，必须要提供一种统一的格式来处理系统间的交互， 从 ASBO(Application Specific Business Object ) 到 GBO(Generic Business Object) 之间的互转是 ESB 的核心特征之一。</li>
+<li><strong> 管理 </strong>对于一个具有 ESB 特征的产品，管理也是一个重要的方面。例如，当一个服务从一个地址切换到另一个地址，在结构等不发生任何改变的时候，ESB 产品应该提供一个方便的途径适应这种改变。</li>
+<li><strong>QoS</strong>对于服务交互来说，QoS 也是一个重要的特征，比如针对不同的服务请求者提供不同质量的服务响应。有些服务的请求需要在事务中完成，有些服务的交互需要保证其可靠性。一个 ESB 产品应该提供给开发者定义 QoS 的接口。</li>
+<li><strong> 安全 </strong>安全的必要性不言而喻，系统和系统之间的交互必然需要认证，授权，加密，签名等安全性。一个优秀的 ESB 产品应该提供可靠的，可灵活配置的安全支持。</li>
+</ol>
+<p><a href="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/#ibm-pcon" target="_blank" rel="external">回页首</a></p>
+<p><a name="2.IBM 的 ESB 产品 |outline"></a><span class="atitle">IBM 的 ESB 产品 </span></p>
+<p>IBM 有三款 ESB 产品：WebSphere ESB (WESB)，WebSphere Message Broker(WMB)，DataPower。这三款 ESB 产品都提供了 ESB 所必备的特征，但是它们各有侧重，WESB 主要构建与 WebSphere Application Server 之上，侧重于对标准协议和消息的支持，更适合于 J2EE，Web-Service 为主要特征的集成环境；WMB 提供了一个高级的 ESB，它构建于 WebSphere Message Queue 之上，提供了百种以上协议的连接和数据格式的转换机制。Datapower 是一款比较新的 ESB 产品，除了提供必备的 ESB 的特性之外，Datapower 更侧重于安全。众所周知，在 XML 的环境中，安全对于性能的影响是巨大的，Datapower 给企业 ESB 提供了强大的安全保障。下面分别介绍这三款 ESB 产品。</p>
+<p><a name="N10174"></a><span class="smalltitle">WebSphere ESB</span></p>
+<p>从图 4 中可以看出 ESB 构建与 WAS ND 之上，它使用了 WAS ND 及 WAS 对于安全，用户注册表，事务，消息引擎的支持，在其之上增加了对服务集成、消息流处理、建模以及 ESB 编程模型的支持等等。从图中还可以看出 WebSphere Process Server 是构建与 WESB 之上，并扩展了服务编排和流程管理方面的支持。<br><a name="N1017F"></a><strong> 图 4. WESB 在 WAS 产品线的位置 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image009.gif" alt=""></p>
+<p>下面介绍在 WESB 上实现一个 SOA ESB 解决方案上的以下九个方面的特点，这九个方面的特点来源于上文中介绍的 ESB 的特性，或者特性的细化：</p>
+<ol>
+<li><strong><a name="OLE_LINK1"></a> 消息转换 </strong>WESB 所处理的消息为 XML 格式的数据，对于非 XML 结构的数据 WESB 不能处理。对于 XML 结构的数据，在 WESB 的消息流中数据以 SMO(IBM 对 SDO 的扩展，参见参考资料部分了解 SDO 的规范 ) 形式存在，WESB 可以对 XML 消息树的内容进行修改，包括改变某个节点的内容，增加新的节点以及删除某个节点等等。</li>
+<li><strong> 支持的协议 </strong>WESB 支持符合 SOA 标准的协议，比如 SOAP/HTTP、SOAP/JMS、WSDL V1.1、UDDI V3.0，WebSphere MQ 等。也就是说 WESB 目前只支持 SOAP 方式来描述服务，传输协议可以是 HTTP、JMS 记忆原生的 WebSphere MQ 的连接。对于多传输协议的基础，建议使用 MB 来做 ESB 的解决方案，参考 MB 的介绍部分。</li>
+<li><strong> 消息路由 </strong>消息的路由在 WESB 中有良好的支持，开发环境 WID 中提供了一个节点专门来负责消息路由，WID 也提供了良好的对路由规则定义的开发支持，开发人员可以很容易的定制负责的路由规则。若要实现动态路由的功能，则需要和一个服务的存储单元中来动态的查找 服务，目前 WSRR 是一款优秀的提供该功能的工具（参见参考资料部分了解 WSRR）。WESB 从 V6.1 开始提供了 Endpoint lookup 节点来支持 WSRR 的集成，简化了开发过程。如果要实现简单的动态服务路由的功能，则可把服务的定义存放在数据库中，在 WESB 中通过 DB lookup 来查找服务的 Endpoint, 然后注入到消息流中，WESB V6.1 之前的版本就已经支持与数据库的集成。</li>
+<li><strong> 对 Web Service 的支持 </strong>WESB 天生运行在 J2EE 的环境里面，对 Web Service 有着天然的支持。</li>
+<li><strong> 事件处理 </strong>在消息流中，我们需要跟踪消息各节点的状态，以满足统计和出错处理的要求，在 WESB 中，通过 CEI 机制来处理消息。（CEI 的介绍请参见参考资料部分）</li>
+<li><strong> 与遗留系统的集成 </strong>WESB 通过 Adapter 与遗留系统进行集成，支持 IBM Websphere Adapter 和 JCA Adapter，通过 JCA 我们就可以将遗留系统里面的服务和数据通过标准（SCA/SDO）的形式整合到集成环境中。</li>
+<li><strong> 安全方面的支持 </strong>WESB 没有对安全做特殊的处理，使用 WAS 的安全支持来实现 ESB 的安全。</li>
+<li><strong> 性能 </strong>WESB 是一个纯 Java 的应用，运行效率上有些限制，同时可以处理的消息流的数量级为几十到几百之间。</li>
+<li><strong> 开发和部署 </strong>开发工具是 WID，一个 ESB 的消息流在 WID 中被称为 Mediation Module，它是一个 J2EE 应用，开发和部署工作无异于普通的企业级应用。<br><a name="N101DD"></a><span class="smalltitle">Message Broker</span></li>
+</ol>
+<p>WMB 是 IBM 的应用整合中间件，是 IBM ESB 架构重要的产品组成部分之一，用于企业应用整合领域。WMB 目前的版本是 6.1.2，它的前身是 MQSeries Integrator。本质上看，WMB 是 MQ 的衍生产品，它使用 MQ 作为内部通信的机制。然后，WMB 提供的接入方式远不止 MQ 一种，包括 JMS、HTTP(S)、SCADA 等常见的新一代接口规范。在消息转化过程中，WMB 能够识别 XML、C 结构、SOAP 等各种自定义的消息格式。</p>
+<p>如图 5 所示，WMB 可以分为开发环境和运行环境两大部分。其中开发环境由开发工具（Toolkit）和调试环境（Rational Agent Controller）组成，运行环境是 WMB 核心，也叫 Broker Domain，由三部分组成，配置管理器（Configuration Manager）、用户名服务器（User Name Server）和代理（Broker）。<br><a name="N101EB"></a><strong> 图 5. WMB 组件 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image011.jpg" alt=""></p>
+<ul>
+<li>代理（Broker）：消息代理是 WMB 的消息处理引擎，它提供 WMB 的所有运行服务，在 Windows 系统上它是一个系统服务，在 Unix 平台上表现为一个后台进程。应用系统利用与 MQ 的连接和队列将消息发送到消息代理。代理与代理之间，代理与配置管理器之间通过普通的 MQ 发生和接受类型的消息通道进行通信。在一个主机上我们可以创建一个或者多个 Broker，每个 Broker 会关联一个数据库，利用数据库存储 Broker 需要和相关的信息，每个 Broker 还需要一个队列管理器，多个 Broker 之间不能共享同一个队列管理器，每个 Broker 必须有自己特定的、唯一的队列管理器。每个 Broker 只能被一个配置管理器控制。</li>
+<li>配置管理器（Configuration Manager）：配置管理器是整个 WMB 运行环境中的控制中心，它维护整个 Broker Domain 的配置信息，配置和管理所有代理，增、删、启动、停止消息流，所有的开发工具也是通过配置管理器来部署编译结果的。配置管理器也负责与用户名服务器联系， 配置和管理各种用户权限。配置管理器和其他各个部件之间的接口是 MQ，所以配置管理器也必须是基于 MQ 队列管理器而运行的。</li>
+<li>用户名服务器（User Name Server）：用户名服务器是 WMB 运行环境中的可选部分，它可以提供应用程序的接入认证以及订阅主题的访问控制服务。用户名服务器本身是不需要数据库，但必须依赖于队列管理器与其他组件通 信。用户名服务器中的用户信息来自认证数据文件。</li>
+<li>开发工具（Toolkit）：开发工具是基于 Eclipse 3.0 的集成开发环境，我们可以在其中开发消息流、消息集、ESQL 代码、Java 代码、映射规则等。通过内置的 MQ Client 与配置管理器连接，并将开发好的执行组件部署到相关的代理中。Eclipse 环境由不同的视图（Perspective）组成，我们在 WMB 中常用的有代理开发视图、代理管理视图等。</li>
+<li>调试工具（Rational Agent Controller）：这是 IBM Rational 开发工具标准的调试工具。一般安装在代理所在的服务器一边，开发工具可以连接 RAC，通过它来控制和调试消息流的运行。需要注意的是，Toolkit 可以并行开发，但是对于同一个执行组不能并行调试，因 RAC 的调试过程是排他的。在 WMB6.0 之后 RAC 不需要再单独安装。<br>下面从九个方面来介绍 WMB 在实现一个 SOA ESB 解决方案上的支持的特点：</li>
+</ul>
+<ol>
+<li><strong> 消息转换 </strong>WMB 在消息处理方面功能非常强大，对 XML 格式的消息或非 XML 格式的消息，如 C Header，COBOL 等都有很好的支持。实际上，通过开发消息对应的消息集（Message Set），可以在消息流中对任意格式的消息进行修改。WMB 提供了内置的 mapping 和 database 节点，用户可以通过图形化的方式方便的实现消息的转换或与数据库的交互。</li>
+<li><strong> 支持的协议 </strong>WMB 支持所有 WESB 支持的传输协议，除了常用的 HTTP、JMS 等，还对 FTP、Socket、Mobile、Telemetry、Biztalk 和 Tuxedo 等有良好的支持。WMB 与 MQ 有着紧密的联系，对 MQ 的支持不在话下。WMB 内置的功能节点对这些协议提供了很好的支持，仅需配置即可，如图 6 所示。</li>
+</ol>
+<p><a name="N10220"></a><strong> 图 6. Message Broker 的内置开发节点 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image015.gif" alt=""></p>
+<ol>
+<li><strong> 消息路由 </strong>WMB 提供了很多功能强大的内置节点支持消息的路由，如 Filter 节点、Label 节点等，在新版本的 WMB 中又引入了 Router 节点，该节点几乎和 WESB 中的 Router 节点一样。若需要实现动态路由，可以使用 WSRR 作为服务的存储，WMB 和 WSRR 有很好的集成，通过 RegistryLookup 和 EndpointLookup 我们可以在消息流中实现动态路由。另外需要指出的是，WMB 可以提供一个消息输入，多个消息输出的功能，可以实现一个消息同时路由到多个输出端。</li>
+<li><strong> 对 Web Service 的支持 </strong>在 WMB 中，消息流可以作为 Web Service 暴露出去供外部调用，也可以作为客户端调用外部提供的 Web Service。WMB 不仅提供了内置的 SOAPRequest、SOAPInput 等节点实现对 Web Service 的支持，而且对 WS 扩展，如 WS-Security 和 WS-Addressing 也有良好的支持。</li>
+</ol>
+<p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image016.gif" alt=""></p>
+<ol>
+<li><strong> 事件处理 </strong>在 WMB 中我们可以通过 Trace Service 来记录所发生的事件。Trace 分两种，一种是 User Trace 记录消息流级别的事件，另一种是 Service Trace，可以记录整个 WMB 的事件，如 Broker 的部署执行。WMB 提供了 Trace 内置节点，可以实时的记录流程中消息内容的变化。</li>
+<li><strong> 与遗留系统的集成 </strong>WMB 对遗留系统有良好的支持。对 SAP，PeopleSoft 等大型的 EIS 系统，直接提供了内置的节点，通过 JCA Adapter 配置的方式和 EIS 系统交互。对于比较特别的遗留系统，如 CICS、VSAM 等，WMB 提供了丰富的 SupportPacs，客户可以下载并安装。</li>
+<li><strong> 安全方面的支持 </strong>WMB 本身提供了两个层次上的安装，一个是部署时安全性，管理部署 bar 文件到 Broker 以及运行 WMB 管理命令的权限控制；另一个是运行时安全，涉及的权限控制包括发送消息到相应的消息流，以及消息流可以访问哪些 MQ 资源和非 MQ 资源，如数据库系统。</li>
+<li><strong> 性能 </strong>WMB 底层是使用 C++ 开发的，在性能上相对于 WESB 有很大的提高。同时可以处理的消息数量级为几千到几万之间。</li>
+<li><strong> 开发和部署 </strong>开发工具是 WMB Toolkit，我们开发的消息流和消息集被打成 bar 文件通过配置管理器部署到 Broker 中。<br>总的来说，WMB 是 IBM 久经考验的一款消息中间件产品，为异构的 IT 环境提供了统一的连接和转化，其优势如下：</li>
+</ol>
+<ul>
+<li>利用 WebSphere MQ 作为企业消息传递主干，提供了很好的并发性和可靠性</li>
+<li>不仅支持各种标准协议，而且支持和 WebSphere 企业应用程序适配器进行集成</li>
+<li>支持多种数据格式之间的转换，包括 XML、遗留系统、行业标准和自定义消息格式</li>
+<li>针对大量数据处理进行了优化，极大提高了处理速度。<br><a name="N10284"></a><span class="smalltitle">Datapower</span></li>
+</ul>
+<p>DataPower 是一个硬件产品，看起来像一个盒子。目前 IBM 有三款 Datapower 产品供用户选择。按照进入市场的先后次序，它们分别是：Datapower Accelerator XA35，Datapower Security Gateway XS40， Datapower Integration Appliance XI50，见图 7。<br><a name="N10290"></a><strong> 图 7. IBM 的 Datapower 产品线 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image017.jpg" alt=""></p>
+<ul>
+<li>XA35 的主要侧重点是 XML 加速，众所周知，在 SOA 的环境中，XML 是应用最广泛的，而对 XML 的解析，加密，解密这些操作让应用服务器来做的话，这是一个很大性能开销，而 XA35 就是要替应用服务器的分担这些 XML 相关的工作，让应用服务器专注于处理业务逻辑；</li>
+<li>XS40 的主要侧重点是安全，即负责提供安全的企业网关，及对 XML 攻击的防范。</li>
+<li>XI50，从名字上看，主要侧重点是集成功能，是一款高级 ESB 产品，提供了多种协议和数据格式的路由和解析的功能。<br>虽然三款产品各有侧重，但是三款产品的功能也具有包含关系，XS40 包含 XA35 的功能，XI50 包含 XS40 的功能。</li>
+</ul>
+<p>我们依然从以下九个方面来介绍 Datapower 在实现 ESB 解决方案中的特点。</p>
+<ol>
+<li><strong> 消息转换 </strong>Datapower 对 XML 消息有强大的支持，但是 Datapower 绝不仅仅支持 XML，我们可以在 Policy 中使用 Transformation 节点来对消息进行任意我们需要的转换，其原理是使用 XSLT 来实现的，开发人员定义自己 XSLT Stylesheet 并在 Transformation 节点中指定，Datapower 负责转换。</li>
+<li><strong> 支持的协议 </strong>Datapower 支持和以下传输协议，HTTP，HTTS，WebSphere MQ<br>WebSphere JMS，TIBICO EMS，FTP Poller, FTP Server, NFS 等等。 Datapower 的 MPGW 就是一个处理不同协议的应用系统的互联的服务对象。</li>
+<li><strong> 消息路由 </strong>Datapower 支持对服务和消息的路由，根据消息流中的上下文连接将消息动态的分发到不同的消息提供者。但是 Datapower 的动态路由和 WESB 以及 MB 的动态路由还是有区别的，Datapower 的动态路由需要由开发者定义路由的 Map，而 WESB 和 MB 支持在消息头的属性里动态的设置 Endpoint 的地址。目前 Datapower 可以和 WSRR 集成来定义 WS-Proxy（Datapower 中的一种服务对象），但不支持直接和 WSRR 联合实现动态访问 Endpoint 的功能。</li>
+<li><strong> 对 Web Service 的支持 </strong>Datapower 的 XMlFirewall 和 WS-Proxy 提供了强大的对 Web Service 的支持，而且 datapower 提供了细粒度的对 Web Service 的控制，可以从服务级 (Service)，端口级 (port)，绑定级 (binding)，操作级 (operation) 来对消息体进行控制。此外，对 WS-Security 也提供了强大的支持。</li>
+<li><strong> 事件处理 </strong>Datapower 中可以通过 Probe 的方式来跟踪消息流的中间状态，在 Probe 中，可以看到消息流的每个节点的消息内容。Probe 一般用于开发调试过程，在生产模式下一般不使用，因为使能 Probe 会牺牲一定的效率。Datapower 不支持与 CEI 类似将消息发送到其他应用系统的机制。</li>
+<li><strong> 与遗留系统的集成 </strong>Datapower 不支持和 Adapter 的连接，若要与遗留系统的集成，则需要通过其他中间件转换在遗留系统和 Datapower 之间做而桥梁来连接。</li>
+<li><strong> 安全方面的支持 </strong>Datapower 的强大之处在于其对安全方面的强有力的支持，它提供对 XML-attack 的原生支持（关于 XML-attack 的知识参见参考资料）；此外，Datapower 可以对 Web Service 提供细粒度的安全支持，包括加密 (Encryption)，解密 (Decryption)，签名 (Sign) 和确认 (Verify)，以及 HTTS 方面的支持。这些支持在 Datapower 上开发起来都异常简单。</li>
+<li><p><strong> 性能 </strong>Datapower 无疑是三款 ESB 产品中性能最高的，对 XML 的处理速度达到线速，下图是一组测试结果。如果去处网络传输在其中的比例，对 XML 的处理性能所提高的倍数可达到上百倍。</p>
+<table class="ibm-data-table" border="0" cellspacing="0" cellpadding="0"><br><tbody><br><tr><br><th colspan="2" scope="col">Software Solution</th><br><th colspan="2" scope="col">DP Solution</th><br></tr><br><tr><br><td>Avg. response time ( TimeP / N )</td><br><td>XML processing time ( TimeX )</td><br><td>Avg. response time ( TimeP / N )</td><br><td>XML processing time ( TimeX )</td><br></tr><br><tr><br><td>106 ms</td><br><td>96 ms</td><br><td>19 ms</td><br><td>11ms</td><br></tr><br></tbody><br></table>
+</li>
+<li><p><strong> 开发和部署 </strong>Datapower 的没有相应的开发工具，但是提供了 Web GUI 的管理控制台和 CLI 方式的管理支持。我们在 Web GUI 下开发消息流，开发即部署。</p>
+</li>
+</ol>
+<p>高速的 XML 处理能力和强大的安全支持，是 Datapower 作为 SOA 应用中的 ESB 的重要特色，这个特点使得 Datapower 成为一款举足轻重的 ESB 产品。</p>
+<p><a href="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/#ibm-pcon" target="_blank" rel="external">回页首</a></p>
+<p><a name="N10332"></a><span class="atitle"> 三款产品的比较 </span></p>
+<p>从上面的介绍我们可以看出，三款产品都提供了 ESB 的必须的功能，但各有侧重：</p>
+<ul>
+<li><p>WESB 是一个轻量级的 ESB，侧重于标准协议，SOAP,JMS 等应用的基础，构建于 WASND 基础之上，提供了和 J2EE 应用很好的集成功能；同时由于 WESB 是一个纯 Java 的应用服务器，在性能上也是相对较差一点的 ESB，可并发执行的 Mediation Flow 的数量级在几十个左右。WESB 适合使用于对性能要求不是很高，且遵循标准协议的 SOA 整合环境中。WESB 的优势是提供了和流程服务器 WPS 以及 J2EE 服务器 WAS 良好的整合。WESB 的应用场景见图 8：<br><a name="N10342"></a><strong> 图 8. WESB 的应用场景 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image019.gif" alt=""></p>
+</li>
+<li><p>WMB 是一款高级的 ESB，提供了比 WESB 多很多的传输协议，数据格式的支持，它所支持几乎大部分常用的数据格式和协议。并且 WMB 提供了良好的扩展功能，开发人员可以在 WMB 基础上开发自己的数据格式解析的节点。WMB 使用 C/C++ 编写，在处理性能上比 ESB 也要高出很多倍，可并发执行的流可以达到上百个或上千个。从图 9 可以看出 WESB 和 WMB 在支持的协议上的区别。<br><a name="N10356"></a><strong> 图 9. WESB 和 WMB 的比较 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image021.gif" alt=""></p>
+</li>
+</ul>
+<p>WMB 应用于对性能要求相对较高，多种复杂协议存在的集成环境中。另外，WMB 构建于 WebSphere Message Queue（WMQ）之上。 WMQ 提供了对异步消息提供了可靠的传送机制，比较适合于信息传输量较大，信息交互频繁的场景中。如图 10 所示：<br><a name="N10368"></a><strong> 图 10. WMB 的使用场景 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image023.gif" alt=""></p>
+<ul>
+<li>Datapower 是 SOA 中的又一重要的 ESB，在 WESB 和 WMB 中都是用软件来实现 XML 解析和安全支持的，而 Datapower 使用硬件的 XML 解析和加速器，在性能上有了很大的提高。在很多 SOA 的环境里，安全和性能是天平的两端，增加安全势必要牺牲性能；而提高性能则需要牺牲安全。所以在安全和性能要求都比较高的环境中，Datapower 是一首选 ESB，因为 Datapower 可以在实现高性能的同时也保证安全。图 11 是一种 Datapower 的应用场景：<br><a name="N1037C"></a><strong> 图 11. Datapower 的使用场景 </strong><br><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/image025.gif" alt=""></li>
+</ul>
+<p><a href="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/#ibm-pcon" target="_blank" rel="external">回页首</a></p>
+<p><a name="N10388"></a><span class="atitle"> 总结 </span></p>
+<p>基于上文对三款产品做了详细的比较，我们可以做如下总结，WESB 适用于 J2EE 环境下，对性能要求不是很高的，标遵循标准协议的 SOA 集成；WMB 应用更复杂的集成环境，表现为数据格式多种，传输协议多样，性能要求很高；而在安全和性能要求都很高的应用场景下，选择 Datapower 无疑是最好的选择。下面的图表再次对文中的描述进行总结。</p>
+<table class="ibm-data-table" border="0" cellspacing="0" cellpadding="0"><br><tbody><br><tr><br><th scope="col">ESB 功能特点</th><br><th scope="col">WESB 的支持</th><br><th scope="col">MB 的支持</th><br><th scope="col">Datapower</th><br></tr><br><tr><br><td><strong> 消息转换 </strong></td><br><td>XML</td><br><td>XML、非 XML</td><br><td>XML、非 XML</td><br></tr><br><tr><br><td><strong> 支持的协议 </strong></td><br><td>HTTP,JMS, WMQ 等</td><br><td>多达上百种</td><br><td>介于前二者之间</td><br></tr><br><tr><br><td><strong> 消息路由 </strong></td><br><td>强大，灵活</td><br><td>功能强大，灵活</td><br><td>灵活度比前二者稍弱</td><br></tr><br><tr><br><td><strong>Web Service</strong></td><br><td>强大的支持</td><br><td>支持 WS 扩展</td><br><td>强大的支持</td><br></tr><br><tr><br><td><strong> 事件处理 </strong></td><br><td>CEI，可以和外部事件消费系统监控</td><br><td>Trace Service</td><br><td>用于调试 Probe</td><br></tr><br><tr><br><td><strong> 遗留系统的集成 </strong></td><br><td>Adapter</td><br><td>丰富的 SupportPac</td><br><td>特定的遗留系统</td><br></tr><br><tr><br><td><strong> 安全 </strong></td><br><td>依赖 WAS 的安全</td><br><td>部署和运行时两个级别的安全</td><br><td>超强的安全支持</td><br></tr><br><tr><br><td><strong> 性能 </strong></td><br><td>几十到几百每秒</td><br><td>几千到几万每秒</td><br><td>达到线速</td><br></tr><br><tr><br><td><strong> 开发和部署 </strong></td><br><td>WID 集成开发环境</td><br><td>WMB Toolkit</td><br><td>WebGUI</td><br></tr><br></tbody><br></table>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/ibm-esb-1.html" data-id="cji8sg1s4005k40ioxmp08ei4" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IBM/">IBM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOA/">SOA</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-websphere-console-user" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/websphere-console-user.html" class="article-date">
+  <time datetime="2014-10-23T07:16:14.000Z" itemprop="datePublished">2014-10-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/websphere-console-user.html">websphere 忘记控制台用户名或是添加删除控制台用户</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在手动创建was的节点后默认是本地系统认证，即用任何的用户名都可以登录</p>
+<p>&nbsp;</p>
+<p>如何取消was的控制台认证：</p>
+<p>在was  node的安装目录下面</p>
+<p>$WAS_Profile_HOME\config\cells</p>
+<p>有个安全文件security.xml</p>
+<p><span style="white-space: pre;"><a href="/images/wp-uploads/2014/10/wasconsole.jpg"><img src="/images/wp-uploads/2014/10/wasconsole.jpg" alt="wasconsole"></a></span></p>
+<p><span style="white-space: pre;">将其</span>改为是false重新启动server</p>
+<p>./stopServer server1</p>
+<p>./startServer server1</p>
+<p>再次访问既可以清除密码</p>
+<p>也可以查找这个用户名和密码</p>
+<p>&nbsp;</p>
+<p>也可以更改$WAS_Profile_HOME\config\cells\security.xml这个文件</p>
+<p>将false改为是true</p>
+<p><span style="white-space: pre;">”&lt;authDataEntries xmi:id=”JAASAuthData_1238489272531″ alias=”myNode01/oracleDBA” userId=”oraadmin” password=”{xor}bm1sa2pp”/&gt;”，就是存放认证别名为oracleDBA的用户名和密码。</span></p>
+<p><span style="white-space: pre;">可以看到在这里密码被重新编码（encode）了，编码的方式是 XOR（eXclusive OR异或），很明显这种并不是一种强加密的算法，仅仅是一种编码而已，所以准确来说WebSphere为了避免密码被明文记录，只是很简单地“编码” （encode）而不是“加密”（encrypt）。</span></p>
+<p><span style="white-space: pre;">WebSphere</span>采用的<span style="white-space: pre;">这 种只是编码而不是加密的存放密码形式，就帮助了你了。当然如果你想干坏事的话，WebSphere也算是给自己留下了一个“后门”了 -_-b。嘿嘿嘿，不要以为IBM那帮老爷子就是这么懒，如果阁下真的是要对存放在WebSphere配置文件里面的密码要加密的话（对于广大客户肯定是 有这个诉求的），其实IBM也提供了一种自定义加密算法的插件形式去解决这个问题的</span></p>
+<p>&nbsp;</p>
+<p>WAS 6.0的编码：</p>
+<p>&gt; cd $WAS_INSTALL_DIR/lib</p>
+<p>&gt; ../java/bin/java -cp securityimpl.jar:iwsorb.jar::ras.jar:wsexception.jar:bootstrap.jar:emf.jar:ffdc.jar com.ibm.ws.security.util.PasswordEncoder 123456</p>
+<p>WAS 6.0的反编码：</p>
+<p>&gt; cd $WAS_INSTALL_DIR/lib</p>
+<p>&gt; ../java/bin/java -cp securityimpl.jar:iwsorb.jar::ras.jar:wsexception.jar:bootstrap.jar:emf.jar:ffdc.jar com.ibm.ws.security.util.PasswordDecoder {xor}bm1sa2pp</p>
+<p>WAS 6.1的编码：</p>
+<p>&gt; cd $WAS_INSTALL_DIR/bin\ProfileManagement\plugins\com.ibm.websphere.v61_6.1.200</p>
+<p>&gt; java -cp ws_runtime.jar com.ibm.ws.security.util.PasswordEncoder 123456</p>
+<p>WAS 6.1的反编码：</p>
+<p>&gt; cd $WAS_INSTALL_DIR/bin\ProfileManagement\plugins\com.ibm.websphere.v61_6.1.200</p>
+<p>&gt; java -cp ws_runtime.jar com.ibm.ws.security.util.PasswordDecoder {xor}bm1sa2pp</p>
+<p>&nbsp;</p>
+<p>添加was的控制台认证</p>
+<p>在控制台中添加认证<br><span style="white-space: pre;"></span></p>
+<p><span style="white-space: pre;"><img src="http://hi.csdn.net/attachment/201202/14/0_1329190917bDmC.gif" alt=""></span></p>
+<p><span style="white-space: pre;">添加</span>联合存储库进行设置</p>
+<p><img src="http://hi.csdn.net/attachment/201202/14/0_1329190989Erv8.gif" alt=""></p>
+<p>添加用户名和密码</p>
+<p><img src="http://hi.csdn.net/attachment/201202/14/0_13291926257z39.gif" alt=""></p>
+<p>重启server既可以</p>
+<p>也可以选择本地的系统用户，这是我们需要在</p>
+<p>本地的系统上面添加用户组和相应的用户名</p>
+<p>groupadd -g 1002 wasadmin</p>
+<p>useradd -g wasadmin wasadmin</p>
+<p>passwd wasadmin设置密码</p>
+<p>在上面选择联合存储库的时候我们选择本地的系统，</p>
+<p>在<img src="http://hi.csdn.net/attachment/201202/14/0_1329193656i4NX.gif" alt=""></p>
+<p>添加相应的组和角色</p>
+<p>重新启动，再次访问即可。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/websphere-console-user.html" data-id="cji8sg1wo00ec40ioohs9clf1" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/was/">was</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-it-test2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/it-test2.html" class="article-date">
+  <time datetime="2014-10-23T05:04:28.000Z" itemprop="datePublished">2014-10-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/it-test2.html">精选面试题之二（线程、数据库、JDBC） </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="font-size: 14px;"><span style="font-size: 24px; color: #e53333;"> —— </span><span style="color: #e53333; font-size: 24px;">线程编程、数据库理论和Jdbc部分内容 ——</span><br></span></p>
+<p><span style="font-size: 14px;"><strong> 数据库的开发应用想必是我们日常所碰到最多的知识点了，大致可分为：oracle、MySQL、SQL Server、Hadoop、</strong></span></p>
+<p><span style="font-size: 14px;"><strong>NoSQL、云计算等主流数据库，但随着科技水平的进步和日益紧张的技术追分，人们的节奏逐渐的走向大数据处理的当今时代，Hadoop和NoSQL等大数据的应用已经成为大企业从业人员必备的专业知识之一，Big Data的储备已必不可少。 </strong></span></p>
+<p><span style="font-size: 14px;"> 本章主要分析 ：<span style="color: #e53333;"> 线程编程 、 数据库理论知识 和 JDBC 的简要内容</span><br></span></p>
+<p><span style="font-size: 14px;"> 每天学一点，日积月累，四个月后的今天，你一定会有很大的收获！</span></p>
+<p><span style="font-size: 14px;"><span style="color: #ee33ee;">线程编程部分 ★★★★★</span>：单独讲解线程概念、同异步实现方法及关系、线程锁等；</span></p>
+<p><span style="font-size: 14px;"><span style="color: #ee33ee;">数据库理论归纳 ★★★★</span>： 总结PL/SQL语句，使用方法，归纳基本公式，深层次内容有待开发。</span></p>
+<p><span style="font-size: 14px;"><span style="color: #ee33ee;">JDBC和XML部分 ★★★ </span>： 重点分析XML的技术构成、应用方面的形式和区别。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"> </span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 24px; font-family: verdana; color: #00d5ff;">线程编程方面:</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">1</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">sleep() </span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">和</span><span style="font-weight: bold; font-size: 14px; font-family: arial;"> wait() </span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">有什么区别</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">? </span><span style="font-weight: bold; font-size: 13px; font-family: arial;"><span style="font-size: 14px;"><span style="color: #ee33ee;">★★</span></span><br></span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">答：</span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">sleep</span><span style="font-size: 14px;">是线程类（</span><span style="font-size: 14px;">Thread</span><span style="font-size: 14px;">）的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，但是监控状态依然保持，</span></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">到时后会自动恢复。</span></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">调用</span><span style="font-size: 14px;">sleep</span><span style="font-size: 14px;">不会释放对象锁。</span></span><span style="font-size: 13px; font-family: 'times new roman';"><br></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">wait</span><span style="font-size: 14px;">是</span><span style="font-size: 14px;">Object</span><span style="font-size: 14px;">类的方法，对此对象调用</span><span style="font-size: 14px;">wait</span><span style="font-size: 14px;">方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，</span></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">只有针对此对象发出</span><span style="font-size: 14px;">notify</span><span style="font-size: 14px;">方法（或</span><span style="font-size: 14px;">notifyAll</span><span style="font-size: 14px;">）后本线程才进入对象锁定池准备获得对象锁进入运行状态。</span></span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">2</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、同步和异步有何异同，在什么情况下分别使用他们？举例说明。</span><span style="font-weight: bold; font-size: 12px; font-family: 'times new roman';"><br></span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">答：</span><span style="font-size: 13px; font-family: 'times new roman';"><br></span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';">如果数据将在线程间共享。例如正在写的数据以后可能被另一个线程读到，或者正在读的数据可能已经被另一个线程写过了，</span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';">那么这些数据就是共享数据，必须进行同步存取。</span><span style="font-size: 12px; font-family: 'times new roman';"><br></span><span style="font-size: 14px; font-family: 'times new roman';">当应用程序在对象上调用了一个需要花费很长时间来执行的方法，并且不希望让程序等待方法的返回时，就应该使用异步编程，</span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';">在很多情况下采用异步途径往往更有效率。</span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">3</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、启动一个线程是用</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">run()</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">还是</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">start()?</span><span style="font-weight: bold; font-size: 13px; font-family: arial;"><span style="font-size: 14px;"><span style="color: #ee33ee;">★★</span></span><span style="font-size: 14px;"><span style="color: #ee33ee;">★</span></span><br></span><span style="font-weight: bold; font-size: 14px; font-family: arial;">答：</span><span style="font-size: 13px; font-family: 'times new roman';"><br></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">启动一个线程是调用</span><span style="font-size: 14px;">start()</span><span style="font-size: 14px;">方法，使线程所代表的虚拟处理机处于可运行状态，这意味着它可以由</span><span style="font-size: 14px;">JVM</span><span style="font-size: 14px;">调度并执行。</span></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">这并不意味着线程就会立即运行。</span><span style="font-size: 14px;">run()</span><span style="font-size: 14px;">方法可以产生必须退出的标志来停止一个线程。</span></span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">4</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、当一个线程进入一个对象的一个</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">synchronized</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">方法后，其它线程是否可进入此对象的其它方法</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">?</span><span style="font-weight: bold; font-size: 13px; font-family: arial;"><br></span><span style="font-weight: bold; font-size: 14px; font-family: arial;">答：</span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">不能，一个对象的一个</span><span style="font-size: 14px;">synchronized</span><span style="font-size: 14px;">方法只能由一个线程访问。</span></span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">5</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、请说出你所知道的线程同步的方法。</span><span style="font-weight: bold; font-size: 12px; font-family: 'times new roman';"><br></span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">答：</span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">wait():</span><span style="font-size: 14px;">使一个线程处于等待状态，并且释放所持有的对象的</span><span style="font-size: 14px;">lock</span><span style="font-size: 14px;">。</span></span><span style="font-size: 13px; font-family: 'times new roman';"><br></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">sleep():</span><span style="font-size: 14px;">使一个正在运行的线程处于睡眠状态，是一个静态方法，</span></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;"> 调用此方法要捕捉</span><span style="font-size: 14px;">InterruptedException</span><span style="font-size: 14px;">异常。</span></span><span style="font-size: 13px; font-family: 'times new roman';"><br></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">notify():</span><span style="font-size: 14px;">唤醒一个处于等待状态的线程，注意的是在调用此方法的时候，</span></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;"> 并不能确切的唤醒某一个等待状态的线程，而是由</span><span style="font-size: 14px;">JVM</span><span style="font-size: 14px;">确定唤醒哪个线程，且不是按优先级。</span></span><span style="font-size: 13px; font-family: 'times new roman';"><br></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">Allnotity():</span><span style="font-size: 14px;">唤醒所有处入等待状态的线程，注意并不是给所有唤醒线程一个对象的锁，而是让它们竞争。</span></span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">6</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、多线程有几种实现方法</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">,</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">都是什么</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">?</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">同步有几种实现方法</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">,</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">都是什么</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">? </span><span style="font-weight: bold; font-size: 13px; font-family: arial;"><br></span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">答：</span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">多线程有两种实现方法，分别是继承</span><span style="font-size: 14px;">Thread</span><span style="font-size: 14px;">类与实现</span><span style="font-size: 14px;">Runnable</span><span style="font-size: 14px;">接口</span></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">。</span><br></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">同步的实现方面有两种，分别是</span><span style="font-size: 14px;">synchronized,wait</span><span style="font-size: 14px;">与</span><span style="font-size: 14px;">notify</span></span><span style="font-size: 14px;"> 。</span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">7</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、线程的基本概念、线程的基本状态以及状态之间的关系</span><span style="font-weight: bold; font-size: 12px; font-family: arial;"><span style="font-size: 14px;"><span style="color: #ee33ee;">★★</span></span><span style="font-size: 14px;"><span style="color: #ee33ee;">★★</span></span><br></span><span style="font-weight: bold; font-size: 14px; font-family: arial;">答：</span><span style="font-size: 13px; font-family: 'times new roman';"><br></span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';">线程指在程序执行过程中，能够执行程序代码的一个执行单位，每个程序至少都有一个线程，也就是程序本身。</span><span style="font-size: 12px; font-family: arial;"><br></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">Java</span><span style="font-size: 14px;">中的线程有五种状态分别是：创建、运行、就绪、阻塞、结束</span></span><span style="font-size: 14px; font-family: 'times new roman';">。</span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: arial;">8</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">、简述</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">synchronized</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">和</span><span style="font-weight: bold; font-size: 14px; font-family: arial;">java.util.concurrent.locks.Lock</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">的异同</span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">？</span><span style="font-weight: bold; font-size: 12px; font-family: arial;"><br></span><span style="font-weight: bold; font-size: 14px; font-family: 'times new roman';">答：</span><span style="font-size: 13px; font-family: 'times new roman';"><br></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">主要相同点：</span><span style="font-size: 14px;">Lock</span><span style="font-size: 14px;">能完成</span><span style="font-size: 14px;">synchronized</span><span style="font-size: 14px;">所实现的所有功能</span></span><span style="font-size: 13px; font-family: 'times new roman';"><br></span><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">主要不同点：</span><span style="font-size: 14px;">Lock</span><span style="font-size: 14px;">有比</span><span style="font-size: 14px;">synchronized</span><span style="font-size: 14px;">更精确的线程语义和更好的性能。</span><span style="font-size: 14px;">synchronized</span><span style="font-size: 14px;">会自动释放锁，</span></span></p>
+<p><span style="font-size: 13px; font-family: 'times new roman';"><span style="font-size: 14px;">而</span><span style="font-size: 14px;">Lock</span><span style="font-size: 14px;">一定要求程序员手工释放，并且必须在</span><span style="font-size: 14px;">finally</span><span style="font-size: 14px;">从句中释放。</span></span><span style="color: #333333; font-size: 14px;"><br></span></p>
+<p><span style="font-size: 14px;"><strong>9、java中有几种方法可以实现一个线程？用什么关键字修饰同步方法? stop()和suspend()方法为何不推荐使用？</strong></span></p>
+<p><span style="font-size: 14px;">答：有两种实现方法，分别是继承Thread类与实现Runnable接口；<br></span></p>
+<p><span style="font-size: 14px;">用synchronized关键字修饰同步方法； 反对使用stop()，是因为它不安全。它会解除由线程获取的所有锁定，而且如果对象处于一种不连贯状态，那么其他线程能在那种状态下检查和修改它们。结果很难检查出真正的问题所在；</span></p>
+<p>&nbsp;</p>
+<p><span style="color: #00d5ff; font-size: 24px; font-family: '宋体';"><span style="font-family: verdana;">数据库理论归纳：</span></span></p>
+<p><span style="font-size: 14px;"><strong>执行顺序：</strong></span></p>
+<p><pre class="hide sh_java snippet-formatted sh_sourceCode">  select… from… where… group by… having …order by…的执行顺序<br></pre><br>（from）（where）（group by）（having）（select）（order by）</p>
+<p>增、删、改、建 :</p>
+<p>建：create table tabname(col1 , col2 …);</p>
+<p>增：insert into tabname values (values);</p>
+<p>改：update tabname set colname = values , colname = values where colname = values;</p>
+<p>(注意，修改多列值的时候，要用 逗号 隔开，不可以用 and 连接)</p>
+<p>删：delete from tabname where condition … delete tabname .</p>
+<p>日期函数转换：</p>
+<p>to_char 数值转换字符</p>
+<p>to_number 字符转换数值</p>
+<p>to_date 转换日期格式</p>
+<p>非关联子查询： select … from …where ..in + (select语句</p>
+<p>如：select id from account where …);</p>
+<p>关联子查询 ： select … from …where …exists + (select语句</p>
+<p>如：select 1 from account where …);</p>
+<p>交叉连接 ： cross join 每个记录相互连接得出匹配和不匹配问题</p>
+<p>内连接 ： (inner) join 解决匹配问题。</p>
+<p>外连接 : (outer) join 解决不匹配问题。</p>
+<p>拓展-&gt; 左连接 右连接 : left join ; right join 区分匹配表、驱动表的关系</p>
+<p>集合运算符：</p>
+<p>union/ union all 并集 （集合不重复／集合存在重复）</p>
+<p>intersect 交集 (取两个表共同存在的集合元素)</p>
+<p>minus 差值 (一个表是另一个表的子集)</p>
+<p>排名分页 :</p>
+<p>rownum 解决对结果集进行编号排列</p>
+<p>(rowid) 通常和 index 索引 相提</p>
+<p>约束（constraint）:</p>
+<p>主键 : primary key 约束名可不写，不可为null和重复值</p>
+<p>唯一键：unique key 理解联合唯一与联合主键的写法, 可为null值 外键 ：references …(表级约束)</p>
+<p>列级约束：foreign key … references …</p>
+<p>检查 ：check 理解联合检查的写法</p>
+<p>非空 ：not null 只有列级约束的形式</p>
+<p>事务： transaction</p>
+<p>数据定义语言： Data Definition Language</p>
+<p>数据操作语言： Data Manipulation Language</p>
+<p>事务控制语言： Transaction Control Language</p>
+<p>数据查询语言： Data Query Language</p>
+<p>数据控制语言： Data Control Languageon</p>
+<p>delete cascade 级联删除</p>
+<p>on delete set null 删除值 置空</p>
+<p><span style="font-size: 14px;"><strong>视图 </strong>：</span></p>
+<p><span style="font-size: 14px;"> 创建： create or replace view view_name as/is + select 语句</span></p>
+<p><span style="font-size: 14px;"> 视图恢复：alter view view_name compile</span></p>
+<p><span style="font-size: 14px;"> 删除： drop view view_name</span></p>
+<p><span style="font-size: 14px;">with check option 检查插入记录是否符合where条件</span></p>
+<p><span style="font-size: 14px;">with read only 只能查询，不能做DML操作</span></p>
+<p><span style="font-size: 14px;"><strong>索引</strong> ： create index ind_name on tabname(colname…).</span></p>
+<p><span style="font-size: 14px;">对视图可以做 desc 和 select 操作 ,对索引则不可以。</span></p>
+<p><span style="font-size: 14px;"> </span></p>
+<p><span style="font-size: 14px;"><strong>序列号</strong>: create sequence seq_name</span></p>
+<p><span style="font-size: 14px;"> start with …起始值 increment by …递增规则</span></p>
+<p><span style="font-size: 14px;"> maxvalue …循环最大值 minvalue …循环最小值 </span></p>
+<p><span style="font-size: 14px;"> cycle..循环 cache 20 数据缓冲数.</span></p>
+<p><span style="font-size: 14px;">序列号循环的最后一个： select seq_name.currval from dual.</span></p>
+<p><span style="font-size: 14px;">查询的下一个 ： select seq_name.nextval from dual.</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><strong>事务： <span style="color: #ee33ee;">★★</span><span style="color: #ee33ee;">★★</span></strong><br></span></p>
+<p><span style="font-size: 14px;"> 四个特性：atomic(原子性) consitent(一致性) insulation(隔离性) duration(持久性)<br></span></p>
+<p><span style="font-size: 14px;"> 理解 ：commit 提交 rollback 回滚 savepoint 保留点<br></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><strong>PL/SQL</strong></span></p>
+<p><span style="font-size: 14px;">打印格式： dbms_output.put_line(一个参数，类型为 字符);</span></p>
+<p><span style="font-size: 14px;">set serveroutput on (在一个session里有效，重新连接需要重新设置）</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><strong>数据库上的并发连接</strong></span></p>
+<p><span style="font-size: 14px;">统计server process (username) 的个数</span></p>
+<p><span style="font-size: 14px;">1、 ps -ef|grep username|wc -l (在telnet/oracle环境下运行)</span></p>
+<p><span style="font-size: 14px;">2、select count(*) from v$session where username is null. (在SQL环境下执行)</span></p>
+<p><span style="font-size: 14px;"><strong>PL/SQL 书写格式<span style="color: #ee33ee;">★★</span><span style="color: #ee33ee;">★★</span></strong></span></p>
+<p><span style="font-size: 14px;">declare 变量声明</span></p>
+<p><span style="font-size: 14px;">… …</span></p>
+<p><span style="font-size: 14px;">begin 执行部分</span></p>
+<p><span style="font-size: 14px;">… …</span></p>
+<p><span style="font-size: 14px;">exception 异常处理</span></p>
+<p><span style="font-size: 14px;">… …</span></p>
+<p><span style="font-size: 14px;">end; 结束块</span></p>
+<p><span style="font-size: 14px;">理解 loop循环 if循环 while循环的写法</span></p>
+<p><span style="font-size: 14px;">DDL语句 只能用本地动态SQL执行 execute immediate</span></p>
+<p><span style="font-size: 14px;">DML语句 可静态写法和动态写法 （相对而言 静态写法效率更高）</span></p>
+<p><span style="font-size: 14px;"> </span></p>
+<p><span style="font-size: 14px;"><strong>游标</strong> : cursor cur_name is …</span></p>
+<p><span style="font-size: 14px;">书写处理： declare(声明游标)… open(打开游标)… fetch(提取游标)… 判断部分… close(关闭游标)</span></p>
+<p><span style="font-size: 14px;">关联记录; type type_name is record (… …)</span></p>
+<p><span style="font-size: 14px;">关联数组： type type_name is table of element_type&lt;not null&gt; index by &lt;binary_integer / pls_integer / varchar2&gt;</span></p>
+<p><span style="font-size: 14px;"><strong>过程</strong> procedure : 本身没有返回值 ／ 调用过程，一条语句</span></p>
+<p><span style="font-size: 14px;">create or replace procedure XX…</span></p>
+<p><span style="font-size: 14px;"><strong>函数</strong> function : 本身有返回值 ／ 调用函数，写表达式</span></p>
+<p><span style="font-size: 14px;">create or replace function XX… return values </span></p>
+<p><span style="font-size: 14px;"><strong>包和包体</strong> package / package body</span></p>
+<p><span style="font-size: 14px;">create or replace package / package body XX…</span></p>
+<p><span style="font-size: 14px;"> </span></p>
+<p><span style="font-size: 14px;"><strong>异常部分</strong>： 预定义异常、非预定义异常 和 自定义异常</span></p>
+<p><span style="font-size: 14px;">dbms_output.put_line(sqlcode) : 查询异常编号</span></p>
+<p><span style="font-size: 14px;">dbms_output.put_line(sqlerrm) : 查询异常信息</span></p>
+<p><span style="font-size: 12px; font-family: '宋体';"><span style="font-size: 14px;">在</span><span style="font-size: 14px;">ORACLE</span><span style="font-size: 14px;">大数据量下的分页解决方法。一般用截取</span><span style="font-size: 14px;">ID</span><span style="font-size: 14px;">方法，还有是三层嵌套方法。 </span></span><span style="font-size: 12px; font-family: '宋体';"><br></span><span style="font-size: 12px; font-family: '宋体';"><span style="font-size: 14px;">答</span><span style="font-size: 14px;">:</span><span style="font-size: 14px;">一种分页方法 </span></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="color: #00d5ff; font-size: 24px; font-family: '宋体';"><span style="font-family: verdana;">JDBC/XML知识：</span></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><strong>mysql数据库使用命令：<span style="color: #ee33ee;">★★</span><span style="color: #ee33ee;">★</span></strong></span></p>
+<p><span style="font-size: 14px;">登录mysql数据库： mysql -uroot;</span></p>
+<p><span style="font-size: 14px;">查询但前数据库信息： show databases;</span></p>
+<p><span style="font-size: 14px;">创新新的数据库： create database 库名 default character set utf8;</span></p>
+<p><span style="font-size: 14px;">使用数据库： use 库名；</span></p>
+<p><span style="font-size: 14px;"><strong>注意： 必须要先敲 mysql -uroot 后 use 库名 方能执行接下来的命令，否则你会看到一系列的报错信息。</strong><br></span></p>
+<p><span style="font-size: 14px;">查看当前数据库存在的表： show tables;</span></p>
+<p><span style="font-size: 14px;">建表 : create table (<strong>c1…auto_increment**</strong> ,c2 …, c3…**) type = innodb;<br></span></p>
+<p><span style="font-size: 14px;"> (type = innodb 支持事务 auto_increment 自增长列)</span></p>
+<p><span style="font-size: 14px;">查询表 : 用户和oracle一样 select * from tabname ;</span></p>
+<p><span style="font-size: 14px;">插入 : 用户和oracle一样 insert into tabname<strong>(c2…, c3…**</strong>)<strong> values(</strong>… …<strong>**)</strong>;<br></span></p>
+<p><span style="font-size: 14px;"><strong>注：auto_increment **</strong>表明的列无须输入。**</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><strong>1、JDBC：如何控制事务？</strong></span></p>
+<p><span style="font-size: 14px;"><strong>A： conn.setAutoCommit(false);</strong></span></p>
+<p><span style="font-size: 14px;"> 当值为false时，表示禁止自动提交。 在默认情况下，JDBC驱动程序会在每一个更新操作语句之后</span></p>
+<p><span style="font-size: 14px;">自动添加commit语句，如果调用了setAutoCommit(false),则驱动程序不再添加commit语句了。</span></p>
+<p><span style="font-size: 14px;"><strong> B： conn.commit();
+</strong></span></p>
+<p><span style="font-size: 14px;">提交事务。即驱动程序会向数据库发送一个commit语句。</span></p>
+<p><span style="font-size: 14px;"><strong>C： conn.rollback();</strong></span></p>
+<p><span style="font-size: 14px;"> 回滚事务。即驱动程序会向数据库发送一个rollback语句。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: verdana;">2</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">、</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">Class.forName</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">的作用</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">?</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';"><span style="font-family: 'times new roman';"><strong>如何使用jdbc的三个对象</strong></span></span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">?</span><span style="font-weight: bold; font-size: 12px; font-family: verdana;"><br></span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">答：</span><span style="font-size: 14px; font-family: 'times new roman';"><br></span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';">调用该访问返回一个以字符串指定类名的类的对象。</span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';">Connection: 负责建立连接，获得连接.(java程序与数据库之间的连接)<br>Statement:负责发送sql给数据库，创建statement.（子接口：preparedStatement）<br>ResultSet: 负责封装数据库返回的查询的结果. <strong>
+</strong></span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';"> </span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: verdana;">3</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">、</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">Jdo</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">是什么</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">? </span><span style="font-weight: bold; font-size: 13px; font-family: verdana;"><br></span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">答：</span><span style="font-size: 13px; font-family: arial;"><br></span></p>
+<p><span style="font-size: 14px; font-family: arial;">JDO</span><span style="font-size: 14px; font-family: 'times new roman';">是</span><span style="font-size: 14px; font-family: arial;">Java</span><span style="font-size: 14px; font-family: 'times new roman';">对象持久化的新的规范，为</span><span style="font-size: 14px; font-family: arial;">java data object</span><span style="font-size: 14px; font-family: 'times new roman';">的简称</span><span style="font-size: 14px; font-family: arial;">,</span><span style="font-size: 14px; font-family: 'times new roman';">也是一个用于存取某种数据仓库中的对象的标准化</span><span style="font-size: 14px; font-family: arial;">API</span><span style="font-size: 14px; font-family: 'times new roman';">。</span></p>
+<p><span style="font-size: 14px; font-family: arial;">JDO</span><span style="font-size: 14px; font-family: 'times new roman';">提供了透明的对象存储，因此对开发人员来说，存储数据对象完全不需要额外的代码（如</span><span style="font-size: 14px; font-family: arial;">JDBC API</span><span style="font-size: 14px; font-family: 'times new roman';">的使用）。</span><span style="font-size: 13px; font-family: 'times new roman';"><br></span></p>
+<p><span style="font-size: 14px; font-family: 'times new roman';">另外，</span><span style="font-size: 14px; font-family: arial;">JDO</span><span style="font-size: 14px; font-family: 'times new roman';">很灵活，因为它可以在任何数据底层上运行。</span></p>
+<p><span style="font-size: 14px; font-family: arial;">JDBC</span><span style="font-size: 14px; font-family: 'times new roman';">只是面向关系数据库（</span><span style="font-size: 14px; font-family: arial;">RDBMS</span><span style="font-size: 14px; font-family: 'times new roman';">）</span><span style="font-size: 14px; font-family: arial;">JDO</span><span style="font-size: 14px; font-family: 'times new roman';">更通用，提供到任何数据底层的存储功能，比如关系数据库、文件、</span><span style="font-size: 14px; font-family: arial;">XML</span><span style="font-size: 14px; font-family: 'times new roman';">以及对象数据库（</span><span style="font-size: 14px; font-family: arial;">ODBMS</span><span style="font-size: 14px; font-family: 'times new roman';">）等等，使得应用可移植性更强。</span></p>
+<p><span style="color: #e53333;"><strong>课上讲解XML技术知识的很少，但是对于企业面试过程中这一方面的运用是很广泛的，大家一定要重视XML文本的运用操作。</strong></span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: verdana;">4</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">、</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">xml</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">有哪些解析技术</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">?</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">区别是什么</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">?</span><span style="font-weight: bold; font-size: 12px; font-family: verdana;"><span style="font-size: 14px;"><span style="color: #ee33ee;">★★</span></span><br></span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">答：</span><span style="font-size: 13px; font-family: '宋体';"><br></span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">有</span><span style="font-size: 14px; font-family: verdana;">DOM,SAX,STAX</span><span style="font-size: 14px; font-family: '宋体';">等</span><span style="font-size: 12px; font-family: verdana;"><br></span><span style="font-size: 14px; font-family: verdana;">DOM:</span><span style="font-size: 14px; font-family: '宋体';">处理大型文件时其性能下降的非常厉害。这个问题是由</span><span style="font-size: 14px; font-family: verdana;">DOM</span><span style="font-size: 14px; font-family: '宋体';">的树结构所造成的，这种结构占用的内存较多，</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">而且</span><span style="font-size: 14px; font-family: verdana;">DOM</span><span style="font-size: 14px; font-family: '宋体';">必须在解析文件之前把整个文档装入内存</span><span style="font-size: 14px; font-family: verdana;">,</span><span style="font-size: 14px; font-family: '宋体';">适合对</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">的随机访问</span><span style="font-size: 14px; font-family: verdana;">SAX:</span><span style="font-size: 14px; font-family: '宋体';">不现于</span><span style="font-size: 14px; font-family: verdana;">DOM,SAX</span><span style="font-size: 14px; font-family: '宋体';">是事件驱动型的</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">解析方式。</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">它顺序读取</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">文件，不需要一次全部装载整个文件。</span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: verdana;">5</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">、你在项目中用到了</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">xml</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">技术的哪些方面</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">?</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">如何实现的</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">?</span><span style="font-weight: bold; font-size: 12px; font-family: verdana;"><br></span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">答：</span><span style="font-size: 13px; font-family: '宋体';"><br></span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">用到了数据存贮，信息配置两方面。</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">在做数据交换平台时，将不能数据源的数据组装成</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">文件，然后将</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">文件压缩打包加密后通过网络传送给接收者，</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">接收解密与解压缩后再同</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">文件中还原相关信息进行处理。在做软件配置时，利用</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">可以很方便的进行，</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">软件的各种配置参数都存贮在</span><span style="font-size: 14px; font-family: verdana;">XML</span><span style="font-size: 14px; font-family: '宋体';">文件中。</span></p>
+<p><span style="font-size: 12px; font-family: verdana;"> </span></p>
+<p><span style="font-weight: bold; font-size: 14px; font-family: verdana;">6</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">、</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">XML</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">文档定义有几种形式？它们之间有何本质区别？解析</span><span style="font-weight: bold; font-size: 14px; font-family: verdana;">XML</span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">文档有哪几种方式？</span><span style="font-weight: bold; font-size: 13px; font-family: verdana;"><span style="font-size: 14px;"><span style="color: #ee33ee;">★★</span></span><span style="font-size: 14px;"><span style="color: #ee33ee;">★★</span></span><br></span><span style="font-weight: bold; font-size: 14px; font-family: '宋体';">答：</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">两种形式</span><span style="font-size: 14px; font-family: arial;"> ：dtd schema</span><span style="font-size: 14px; font-family: '宋体';">。</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">本质区别 </span><span style="font-size: 14px; font-family: arial;">：schema</span><span style="font-size: 14px; font-family: '宋体';">本身是</span><span style="font-size: 14px; font-family: arial;">xml</span><span style="font-size: 14px; font-family: '宋体';">的，可以被</span><span style="font-size: 14px; font-family: arial;">XML</span><span style="font-size: 14px; font-family: '宋体';">解析器解析</span><span style="font-size: 14px; font-family: arial;">(</span><span style="font-size: 14px; font-family: '宋体';">这也是从</span><span style="font-size: 14px; font-family: arial;">DTD</span><span style="font-size: 14px; font-family: '宋体';">上发展</span><span style="font-size: 14px; font-family: arial;">schema</span><span style="font-size: 14px; font-family: '宋体';">的根本目的</span><span style="font-size: 14px; font-family: arial;">)</span><span style="font-size: 14px; font-family: '宋体';">。</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">解析文档方式：有</span><span style="font-size: 14px; font-family: arial;">DOM,SAX,STAX</span><span style="font-size: 14px; font-family: '宋体';">等</span><span style="font-size: 13px; font-family: arial;"><span style="font-size: 14px;">。</span><br></span><span style="font-size: 14px; font-family: arial;">DOM:</span><span style="font-size: 14px; font-family: '宋体';">处理大型文件时其性能下降的非常厉害。这个问题是由</span><span style="font-size: 14px; font-family: arial;">DOM</span><span style="font-size: 14px; font-family: '宋体';">的树结构所造成的，这种结构占用的内存较多，</span></p>
+<p><span style="font-size: 14px; font-family: '宋体';">而且</span><span style="font-size: 14px; font-family: arial;">DOM</span><span style="font-size: 14px; font-family: '宋体';">必须在解析文件之前把整个文档装入内存</span><span style="font-size: 14px; font-family: arial;">,</span><span style="font-size: 14px; font-family: '宋体';">适合对</span><span style="font-size: 14px; font-family: arial;">XML</span><span style="font-size: 14px; font-family: '宋体';">的随机访问</span><span style="font-size: 12px; font-family: arial;"><span style="font-size: 14px;">。</span><br></span><span style="font-size: 14px; font-family: arial;">SAX:</span><span style="font-size: 14px; font-family: '宋体';">不现于</span><span style="font-size: 14px; font-family: arial;">DOM,SAX</span><span style="font-size: 14px; font-family: '宋体';">是事件驱动型的</span><span style="font-size: 14px; font-family: arial;">XML</span><span style="font-size: 14px; font-family: '宋体';">解析方式。它顺序读取</span><span style="font-size: 14px; font-family: arial;">XML</span><span style="font-size: 14px; font-family: '宋体';">文件，不需要一次全部装载整个文件。</span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/it-test2.html" data-id="cji8sg1sf006940iovi7usovz" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-web-system-architecture" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/web-system-architecture.html" class="article-date">
+  <time datetime="2014-10-23T04:53:12.000Z" itemprop="datePublished">2014-10-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/web-system-architecture.html">解读大型网站系统架构的演化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>前言</strong></p>
+<p>一个成熟的大型网站（如淘宝、京东等）的系统架构并不是开始设计就具备完整的高性能、高可用、安全等特性，它总是随着用户量的增加，业务功能的扩展 逐渐演变完善的，在这个过程中，开发模式、技术架构、设计思想也发生了很大的变化，就连技术人员也从几个人发展到一个部门甚至一条产品线。所以成熟的系统 架构是随业务扩展而完善出来的，并不是一蹴而就；不同业务特征的系统，会有各自的侧重点，例如淘宝，要解决海量的商品信息的搜索、下单、支付，例如腾讯， 要解决数亿的用户实时消息传输，百度它要处理海量的搜索请求，他们都有各自的业务特性，系统架构也有所不同。尽管如此我们也可以从这些不同的网站背景下， 找出其中共用的技术，这些技术和手段可以广泛运行在大型网站系统的架构中，下面就通过介绍大型网站系统的演化过程，来认识这些技术和手段。</p>
+<p><strong>一、最开始的网站架构</strong></p>
+<p>最初的架构，应用程序、数据库、文件都部署在一台服务器上，如图：</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/251844417179867.png" target="_blank" rel="external"><img src="http://s4.51cto.com/wyfs02/M02/4A/68/wKioL1QkyIWjxDo1AAAugwWJ8no127.jpg" alt="image" title="image"></a></p>
+<p><strong>二、应用、数据、文件分离</strong></p>
+<p>随着业务的扩展，一台服务器已经不能满足性能需求，故将应用程序、数据库、文件各自部署在独立的服务器上，并且根据服务器的用途配置不同的硬件，达到最佳的性能效果。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/251844429987826.png" target="_blank" rel="external"><img src="http://s2.51cto.com/wyfs02/M02/4A/67/wKiom1QkyGDRk94oAABCAhRoNtU753.jpg" alt="image" title="image"></a></p>
+<p><strong>三、利用缓存改善网站性能</strong></p>
+<p>在硬件优化性能的同时，同时也通过软件进行性能优化，在大部分的网站系统中，都会利用缓存技术改善系统的性能，使用缓存主要源于热点数据的存在，大 部分网站访问都遵循28原则（即80%的访问请求，最终落在20%的数据上），所以我们可以对热点数据进行缓存，减少这些数据的访问路径，提高用户体验。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/251844453265971.png" target="_blank" rel="external"><img src="http://s1.51cto.com/wyfs02/M00/4A/69/wKioL1QkyIXyP2K7AABwYv1TtBs474.jpg" alt="image" title="image"></a></p>
+<p>缓存实现常见的方式是本地缓存、分布式缓存。当然还有CDN、反向代理等，这个后面再讲。本地缓存，顾名思义是将数据缓存在应用服务器本地，可以存 在内存中，也可以存在文件，OSCache就是常用的本地缓存组件。本地缓存的特点是速度快，但因为本地空间有限所以缓存数据量也有限。分布式缓存的特点 是，可以缓存海量的数据，并且扩展非常容易，在门户类网站中常常被使用，速度按理没有本地缓存快，常用的分布式缓存是Membercache、 Redis。</p>
+<p><strong>四、使用集群改善应用服务器性能</strong></p>
+<p>应用服务器作为网站的入口，会承担大量的请求，我们往往通过应用服务器集群来分担请求数。应用服务器前面部署负载均衡服务器调度用户请求，根据分发策略将请求分发到多个应用服务器节点。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/251844466543242.png" target="_blank" rel="external"><img src="http://s3.51cto.com/wyfs02/M00/4A/69/wKioL1QkyIaR7C8XAACLfahuTnI156.jpg" alt="架构4" title="架构4"></a></p>
+<p>常用的负载均衡技术硬件的有F5，价格比较贵，软件的有LVS、Nginx、HAProxy。LVS是四层负载均衡，根据目标地址和端口选择内部服 务器，Nginx和HAProxy是七层负载均衡，可以根据报文内容选择内部服务器，因此LVS分发路径优于Nginx和HAProxy，性能要高些，而 Nginx和HAProxy则更具配置性，如可以用来做动静分离（根据请求报文特征，选择静态资源服务器还是应用服务器）。</p>
+<p><strong>五、数据库读写分离和分库分表</strong></p>
+<p>随着用户量的增加，数据库成为最大的瓶颈，改善数据库性能常用的手段是进行读写分离以及分表，读写分离顾名思义就是将数据库分为读库和写库，通过主 备功能实现数据同步。分库分表则分为水平切分和垂直切分，水平切换则是对一个数据库特大的表进行拆分，例如用户表。垂直切分则是根据业务不同来切换，如用 户业务、商品业务相关的表放在不同的数据库中。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/260851195604361.png" target="_blank" rel="external"><img src="http://s6.51cto.com/wyfs02/M00/4A/67/wKiom1QkyGHwlv7QAABpN1zl2tQ141.jpg" alt="架构3" title="架构3"></a></p>
+<p><strong>六、使用CDN和反向代理提高网站性能</strong></p>
+<p>假如我们的服务器都部署在成都的机房，对于四川的用户来说访问是较快的，而对于北京的用户访问是较慢的，这是由于四川和北京分别属于电信和联通的不 同发达地区，北京用户访问需要通过互联路由器经过较长的路径才能访问到成都的服务器，返回路径也一样，所以数据传输时间比较长。对于这种情况，常常使用 CDN解决，CDN将数据内容缓存到运营商的机房，用户访问时先从最近的运营商获取数据，这样大大减少了网络访问的路径。比较专业的CDN运营商有蓝汛、 网宿。</p>
+<p>而反向代理，则是部署在网站的机房，当用户请求达到时首先访问反向代理服务器，反向代理服务器将缓存的数据返回给用户，如果没有没有缓存数据才会继续走应用服务器获取，也减少了获取数据的成本。反向代理有Squid，Nginx。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/260851235298806.png" target="_blank" rel="external"><img src="http://s4.51cto.com/wyfs02/M00/4A/67/wKiom1QkyGHTCuGlAABuWG8awrE443.jpg" alt="架构5" title="架构5"></a></p>
+<p><strong>七、使用分布式文件系统</strong></p>
+<p>用户一天天增加，业务量越来越大，产生的文件越来越多，单台的文件服务器已经不能满足需求。需要分布式的文件系统支撑。常用的分布式文件系统有NFS。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/260851267487324.png" target="_blank" rel="external"><img src="http://s8.51cto.com/wyfs02/M01/4A/69/wKioL1QkyIaQzgI5AABsg8M1ffA790.jpg" alt="架构5.5" title="架构5.5"></a></p>
+<p><strong>八、使用NoSql和搜索引擎</strong></p>
+<p>对于海量数据的查询，我们使用nosql数据库加上搜索引擎可以达到更好的性能。并不是所有的数据都要放在关系型数据中。常用的NOSQL有mongodb和redis，搜索引擎有lucene。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/260851300927412.png" target="_blank" rel="external"><img src="http://s1.51cto.com/wyfs02/M01/4A/69/wKioL1QkyIfAbMbWAAB_Voh59gU232.jpg" alt="架构6" title="架构6"></a></p>
+<p><strong>九、将应用服务器进行业务拆分</strong></p>
+<p>随着业务进一步扩展，应用程序变得非常臃肿，这时我们需要将应用程序进行业务拆分，如百度分为新闻、网页、图片等业务。每个业务应用负责相对独立的业务运作。业务之间通过消息进行通信或者同享数据库来实现。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/260851337179286.png" target="_blank" rel="external"><img src="http://s9.51cto.com/wyfs02/M01/4A/67/wKiom1QkyGLxD04-AACPlogzq2o857.jpg" alt="架构7" title="架构7"></a></p>
+<p><strong>十、搭建分布式服务</strong></p>
+<p>这时我们发现各个业务应用都会使用到一些基本的业务服务，例如用户服务、订单服务、支付服务、安全服务，这些服务是支撑各业务应用的基本要素。我们将这些服务抽取出来利用分部式服务框架搭建分布式服务。淘宝的Dubbo是一个不错的选择。</p>
+<p><a href="http://images.cnitblog.com/blog/352511/201409/260851374351189.png" target="_blank" rel="external"><img src="http://s2.51cto.com/wyfs02/M01/4A/67/wKiom1QkyGLBSovRAACiShSfWr8188.jpg" alt="架构8" title="架构8"></a></p>
+<p><strong>小结</strong></p>
+<p>大型网站的架构是根据业务需求不断完善的，根据不同的业务特征会做特定的设计和考虑，本文只是讲述一个常规大型网站会涉及的一些技术和手段。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/web-system-architecture.html" data-id="cji8sg1wn00e940ioxonu14k1" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java-web-concurrent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/java-web-concurrent.html" class="article-date">
+  <time datetime="2014-10-22T06:13:43.000Z" itemprop="datePublished">2014-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-web-concurrent.html">java web开发 高并发处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ava处理高并发高负载类网站中数据库的设计方法（java教程,java处理大量数据，java高负载数据）</p>
+<p><span style="color: #ff0000;"><strong>一：高并发高负载类网站关注点之数据库</strong> </span></p>
+<p>没错,首先是数据库,这是大多数应用所面临的首个SPOF。尤其是Web2.0的应用，数据库的响应是首先要解决的。<br>一般来说MySQL是最常用的，可能最初是一个mysql主机，当数据增加到100万以上，那么，MySQL的效能急剧下降。常用的优化措施是 M-S（主-从）方式进行同步复制，将查询和操作和分别在不同的服务器上进行操作。我推荐的是M-M-Slaves方式，2个主Mysql，多个 Slaves，需要注意的是，虽然有2个Master，但是同时只有1个是Active，我们可以在一定时候切换。之所以用2个M，是保证M不会又成为系 统的SPOF。<br>Slaves可以进一步负载均衡，可以结合LVS,从而将select操作适当的平衡到不同的slaves上。<br>以上架构可以抗衡到一定量的负载，但是随着用户进一步增加，你的用户表数据超过1千万，这时那个M变成了SPOF。你不能任意扩充Slaves， 否则复制同步的开销将直线上升，怎么办？我的方法是表分区，从业务层面上进行分区。最简单的，以用户数据为例。根据一定的切分方式，比如id，切分到不同 的数据库集群去。</p>
+<p>全局数据库用于meta数据的查询。缺点是每次查询，会增加一次，比如你要查一个用户nightsailer,你首先要到全局数据库群找到nightsailer对应的cluster id，然后再到指定的cluster找到nightsailer的实际数据。<br>每个cluster可以用m-m方式，或者m-m-slaves方式。这是一个可以扩展的结构，随着负载的增加，你可以简单的增加新的mysql cluster进去。</p>
+<p>需要注意的是：<br>1、禁用全部auto_increment的字段<br>2、id需要采用通用的算法集中分配<br>3、要具有比较好的方法来监控mysql主机的负载和服务的运行状态。如果你有30台以上的mysql数据库在跑就明白我的意思了。<br>4、不要使用持久性链接（不要用pconnect）,相反，使用sqlrelay这种第三方的数据库链接池，或者干脆自己做，因为php4中mysql的链接池经常出问题。</p>
+<p><span style="color: #ff0000;"><strong>二：高并发高负载网站的系统架构之HTML静态化</strong> </span></p>
+<p>其实大家都知道，效率最高、消耗最小的就是纯静态化 的html页面，所以我们尽可能使我们的网站上的页面采 用静态页面来实现，这个最简单的方法其实也是 最有效的方法。但是对于大量内容并且频繁更新的网站，我们无法全部手动去挨个实现，于是出现了我们常见的信息发布系统CMS，像我们常访问的各个门户站点 的新闻频道，甚至他们的其他频道，都是通过信息发布系统来管理和实现的，信息发布系统可以实现最简单的信息录入自动生成静态页面，还能具备频道管理、权限 管理、自动抓取等功能，对于一个大型网站来说，拥有一套高效、可管理的CMS是必不可少的。</p>
+<p>除了门户和信息发布类型的网站，对于交互性要求很高的社区类型网站来说，尽可能的静态化也是提高性能的必要手段，将社区内的帖子、文章进行实时的静态化，有更新的时候再重新静态化也是大量使用的策略，像Mop的大杂烩就是使用了这样的策略，网易社区等也是如此。</p>
+<p>同时，html静态化也是某些缓存策略使用的手段，对于系统中频繁使用数据库查询但是内容更新很小的应用，可以考虑使用html静态化来实现，比如论坛 中论坛的公用设置信息，这些信息目前的主流论坛都可以进行后台管理并且存储再数据库中，这些信息其实大量被前台程序调用，但是更新频率很小，可以考虑将这 部分内容进行后台更新的时候进行静态化，这样避免了大量的数据库访问请求高并发。</p>
+<p>网站HTML静态化解决方案<br>当一个Servlet资源请求到达WEB服务器之后我们会填充指定的JSP页面来响应请求:</p>
+<p>HTTP请求—Web服务器—Servlet–业务逻辑处理–访问数据–填充JSP–响应请求</p>
+<p>HTML静态化之后:</p>
+<p>HTTP请求—Web服务器—Servlet–HTML–响应请求</p>
+<p>静态访求如下</p>
+<p>Servlet:</p>
+<p>[java]<br>public void doGet(HttpServletRequest request, HttpServletResponse response)<br>throws ServletException, IOException {<br>if(request.getParameter(“chapterId”) != null){<br>String chapterFileName = “bookChapterRead_”+request.getParameter(“chapterId”)+”.html”;<br>String chapterFilePath = getServletContext().getRealPath(“/“) + chapterFileName;<br>File chapterFile = new File(chapterFilePath);<br>if(chapterFile.exists()){response.sendRedirect(chapterFileName);return;}//如果有这个文件就告诉浏览器转向<br>INovelChapterBiz novelChapterBiz = new NovelChapterBizImpl();<br>NovelChapter novelChapter = novelChapterBiz.searchNovelChapterById(Integer.parseInt(request.getParameter(“chapterId”)));// 章节信息<br>int lastPageId = novelChapterBiz.searchLastCHapterId(novelChapter.getNovelId().getId(), novelChapter.getId());<br>int nextPageId = novelChapterBiz.searchNextChapterId(novelChapter.getNovelId().getId(), novelChapter.getId());<br>request.setAttribute(“novelChapter”, novelChapter);<br>request.setAttribute(“lastPageId”, lastPageId);<br>request.setAttribute(“nextPageId”, nextPageId);<br>new CreateStaticHTMLPage().createStaticHTMLPage(request, response, getServletContext(),<br>chapterFileName, chapterFilePath, “/bookRead.jsp”);<br>}<br>}</p>
+<p>[/java]<br>生成HTML静态页面的类:</p>
+<p>[java]<br>package com.jb.y2t034.thefifth.web.servlet;<br>import java.io.ByteArrayOutputStream;<br>import java.io.FileOutputStream;<br>import java.io.IOException;<br>import java.io.OutputStreamWriter;<br>import java.io.PrintWriter;<br>import javax.servlet.RequestDispatcher;<br>import javax.servlet.ServletContext;<br>import javax.servlet.ServletException;<br>import javax.servlet.ServletOutputStream;<br>import javax.servlet.http.HttpServletRequest;<br>import javax.servlet.http.HttpServletResponse;<br>import javax.servlet.http.HttpServletResponseWrapper;<br>/**</p>
+<ul>
+<li>创建HTML静态页面</li>
+<li>功能：创建HTML静态页面</li>
+<li>时间：2009年1011日</li>
+<li>地点：home</li>
+<li>@author mavk<br><em>
+</em>/<br>public class CreateStaticHTMLPage {<br>/**</li>
+<li>生成静态HTML页面的方法</li>
+<li>@param request 请求对象</li>
+<li>@param response 响应对象</li>
+<li>@param servletContext Servlet上下文</li>
+<li>@param fileName 文件名称</li>
+<li>@param fileFullPath 文件完整路径</li>
+<li>@param jspPath 需要生成静态文件的JSP路径(相对即可)</li>
+<li>@throws IOException</li>
+<li>@throws ServletException<br>*/<br>public void createStaticHTMLPage(HttpServletRequest request, HttpServletResponse response,ServletContext servletContext,String fileName,String fileFullPath,String jspPath) throws ServletException, IOException{<br>response.setContentType(“text/html;charset=gb2312”);//设置HTML结果流编码(即HTML文件编码)<br>RequestDispatcher rd = servletContext.getRequestDispatcher(jspPath);//得到JSP资源<br>final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();//用于从ServletOutputStream中接收资源<br>final ServletOutputStream servletOuputStream = new ServletOutputStream(){//用于从HttpServletResponse中接收资源<br>public void write(byte[] b, int off,int len){<br>byteArrayOutputStream.write(b, off, len);<br>}<br>public void write(int b){<br>byteArrayOutputStream.write(b);<br>}<br>};<br>final PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(byteArrayOutputStream));//把转换字节流转换成字符流<br>HttpServletResponse httpServletResponse = new HttpServletResponseWrapper(response){//用于从response获取结果流资源(重写了两个方法)<br>public ServletOutputStream getOutputStream(){<br>return servletOuputStream;<br>}<br>public PrintWriter getWriter(){<br>return printWriter;<br>}<br>};<br>rd.include(request, httpServletResponse);//发送结果流<br>printWriter.flush();//刷新缓冲区，把缓冲区的数据输出<br>FileOutputStream fileOutputStream = new FileOutputStream(fileFullPath);<br>byteArrayOutputStream.writeTo(fileOutputStream);//把byteArrayOuputStream中的资源全部写入到fileOuputStream中<br>fileOutputStream.close();//关闭输出流，并释放相关资源<br>response.sendRedirect(fileName);//发送指定文件流到客户端<br>}<br>}<br>[/java]</li>
+</ul>
+<p><span style="color: #ff0000;"><strong>三：高并发高负载类网站关注点之缓存、负载均衡、存储</strong> </span></p>
+<p>缓存是另一个大问题，我一般用memcached来做缓存集群，一般来说部署10台左右就差不多（10g内存池）。需要注意一点，千万不能用使用<br>swap，最好关闭linux的swap。</p>
+<p>负载均衡/加速</p>
+<p>可能上面说缓存的时候，有人第一想的是页面静态化，所谓的静态html，我认为这是常识，不属于要点了。页面的静态化随之带来的是静态服务的<br>负载均衡和加速。我认为Lighttped+Squid是最好的方式了。<br>LVS &lt;——-&gt;lighttped====&gt;squid(s) ====lighttpd</p>
+<p>上面是我经常用的。注意，我没有用apache，除非特定的需求，否则我不部署apache，因为我一般用php-fastcgi配合lighttpd,<br>性能比apache+mod_php要强很多。</p>
+<p>squid的使用可以解决文件的同步等等问题，但是需要注意，你要很好的监控缓存的命中率，尽可能的提高的90%以上。<br>squid和lighttped也有很多的话题要讨论，这里不赘述。</p>
+<p>存储<br>存储也是一个大问题，一种是小文件的存储，比如图片这类。另一种是大文件的存储，比如搜索引擎的索引，一般单文件都超过2g以上。<br>小文件的存储最简单的方法是结合lighttpd来进行分布。或者干脆使用Redhat的GFS，优点是应用透明，缺点是费用较高。我是指<br>你购买盘阵的问题。我的项目中，存储量是2-10Tb，我采用了分布式存储。这里要解决文件的复制和冗余。<br>这样每个文件有不同的冗余，这方面可以参考google的gfs的论文。<br>大文件的存储，可以参考nutch的方案，现在已经独立为hadoop子项目。(你可以google it)</p>
+<p>其他：<br>此外，passport等也是考虑的，不过都属于比较简单的了。<br>四：高并发高负载网站的系统架构之图片服务器分离<br>大家知道，对于Web 服务器来说，不管是Apache、IIS还是其他容器，图片是最消耗资源的，于是我们有必要将图片与页面进行分离，这是基本上大型网站都会采用的策略，他 们都有独立的图片服务器，甚至很多台图片服务器。这样的架构可以降低提供页面访问请求的服务器系统压力，并且可以保证系统不会因为图片问题而崩溃，在应用 服务器和图片服务器上，可以进行不同的配置优化，比如apache在配置ContentType的时候可以尽量少支持，尽可能少的LoadModule， 保证更高的系统消耗和执行效率。</p>
+<p><span style="color: #ff0000;"><strong>利用Apache实现图片服务器的分离</strong> </span><br>缘由：<br>起步阶段的应用，都可能部署在一台服务器上（费用上的原因）<br>第一个优先分离的，肯定是数据库和应用服务器。<br>第二个分离的，会是什么呢？各有各的考虑，我所在的项目组重点考虑的节约带宽，服务器性能再好，带宽再高，并发来了，也容易撑不住。因此，我这篇文章的重点在这里。这里重点是介绍实践，不一定符合所有情况，供看者参考吧，<br>环境介绍：<br>WEB应用服务器：4CPU双核2G, 内存4G<br>部署：Win2003/Apache Http Server 2.1/Tomcat6<br>数据库服务器：4CPU双核2G, 内存4G<br>部署：Win2003/MSSQL2000<br>步骤：<br>步骤一：增加2台配置为：2CPU双核2G，内存2G普通服务器，做资源服务器<br>部署：Tomcat6，跑了一个图片上传的简单应用，（记得指定web.xml的&lt;distributable/&gt;），并指定域名为res1.<strong><em>.com,res2.</em></strong>.com，采用ajp协议<br>步骤二：修改Apache httpd.conf配置<br>原来应用的文件上传功能网址为：<br>1、/fileupload.html<br>2、/otherupload.html<br>在httpd.conf中增加如下配置</p>
+<p>&lt;VirtualHost <em>:80&gt;<br>ServerAdmin webmaster@**</em>.com<br>ProxyPass /fileupload.html balancer://rescluster/fileupload lbmethod=byrequests stickysession=JSESSIONID nofailover=Off timeout=5 maxattempts=3<br>ProxyPass /otherupload.html balancer://rescluster/otherupload.html lbmethod=byrequests stickysession=JSESSIONID nofailover=Off timeout=5 maxattempts=3</p>
+<p>#&lt;!–负载均衡–&gt;<br>&lt;Proxy balancer://rescluster/&gt;<br>BalancerMember ajp://res1.<strong><em>.com:8009 smax=5 max=500 ttl=120 retry=300 loadfactor=100 route=tomcat1<br>BalancerMember ajp://res2.</em></strong>.com:8009 smax=5 max=500 ttl=120 retry=300 loadfactor=100 route=tomcat2<br>&lt;/Proxy&gt;</p>
+<p>&lt;/VirtualHost&gt;<br>步骤三，修改业务逻辑：<br>所有上传文件在数据库中均采用全url的方式保存，例如产品图片路径存成：<a href="http://res1.***.com/upload/20090101/product120302005.jpg" target="_blank" rel="external">http://res1.***.com/upload/20090101/product120302005.jpg</a></p>
+<p>现在，你可以高枕无忧了，带宽不够时，增加个几十台图片服务器，只需要稍微修改一下apache的配置文件，即可。</p>
+<p><strong><span style="color: #ff0000;">五：高并发高负载网站的系统架构之数据库集群和库表散列</span> </strong></p>
+<p>大型网站都有复杂的应用，这些应用必须使用数据库，那么在面对大量访问的时候，数据库的瓶颈很快就能显现出来，这时一台数据库将很快无法满足应用，于是我们需要使用数据库集群或者库表散列。</p>
+<p>在数据库集群方面，很多数据库都有自己的解决方案，Oracle、Sybase等都有很好的方案，常用的MySQL提供的Master/Slave也是类似的方案，您使用了什么样的DB，就参考相应的解决方案来实施即可。</p>
+<p>上面提到的数据库集群由于在架构、成本、扩张性方面都会受到所采用DB类型的限制，于是我们需要从应用程序的角度来考虑改善系统架构，库表散列是常用并 且最有效的解决方案。我们在应用程序中安装业务和应用或者功能模块将数据库进行分离，不同的模块对应不同的数据库或者表，再按照一定的策略对某个页面或者 功能进行更小的数据库散列，比如用户表，按照用户ID进行表散列，这样就能够低成本的提升系统的性能并且有很好的扩展性。sohu的论坛就是采用了这样的 架构，将论坛的用户、设置、帖子等信息进行数据库分离，然后对帖子、用户按照板块和ID进行散列数据库和表，最终可以在配置文件中进行简单的配置便能让系 统随时增加一台低成本的数据库进来补充系统性能。</p>
+<p>集群软件的分类：<br>一般来讲，集群软件根据侧重的方向和试图解决的问题，分为三大类：高性能集群（High performance cluster，HPC）、负载均衡集群（Load balance cluster， LBC），高可用性集群（High availability cluster，HAC）。<br>高性能集群（High performance cluster，HPC），它是利用一个集群中的多台机器共同完成同一件任务，使得完成任务的速度和可靠性都远远高于单机运行的效果。弥补了单机性能上的 不足。该集群在天气预报、环境监控等数据量大，计算复杂的环境中应用比较多；<br>负载均衡集群（Load balance cluster， LBC），它是利用一个集群中的多台单机，完成许多并行的小的工作。一般情况下，如果一个应用使用的人多了，那么用户请求的响应时间就会增大，机器的性能 也会受到影响，如果使用负载均衡集群，那么集群中任意一台机器都能响应用户的请求，这样集群就会在用户发出服务请求之后，选择当时负载最小，能够提供最好 的服务的这台机器来接受请求并相应，这样就可用用集群来增加系统的可用性和稳定性。这类集群在网站中使用较多；<br>高可用性集群（High availability cluster，HAC），它是利用集群中系统 的冗余，当系统中某台机器发生损坏的时候，其他后备的机器可以迅速的接替它来启动服务，等待故障机的维修和返回。最大限度的保证集群中服务的可用性。这类 系统一般在银行，电信服务这类对系统可靠性有高的要求的领域有着广泛的应用。<br>2 数据库集群的现状<br>数据库集群是将计算机集群技术引入到数据库中来实现的，尽管各厂商宣称自己的架构如何的完美，但是始终不能改变Oracle当先，大家追逐的事 实，在集群的解决方案上Oracle RAC还是领先于包括微软在内的其它数据库厂商，它能满足客户高可用性、高性能、数据库负载均衡和方便扩展的需求。<br>Oracle’s Real Application Cluster (RAC)<br>Microsoft SQL Cluster Server (MSCS)<br>IBM’s DB2 UDB High Availability Cluster(UDB)<br>Sybase ASE High Availability Cluster (ASE)<br>MySQL High Availability Cluster (MySQL CS)<br>基于IO的第三方HA(高可用性)集群<br>当前主要的数据库集群技术有以上六大类，有数据库厂商自己开发的；也有第三方的集群公司开发的；还有数据库厂商与第三方集群公司合作开发的，各类集群实现的功能及架构也不尽相同。<br>RAC（Real Application Cluster，真正应用集群）是Oracle9i数据库中采用的一项新技术，也是Oracle数据库支持网格计算环境的核心技术。它的出现解决了传统数 据库应用中面临的一个重要问题：高性能、高可伸缩性与低价格之间的矛盾。在很长一段时间里，甲骨文都以其实时应用集群技术(Real Application Cluster，RAC)统治着集群数据库市场</p>
+<p><strong><span style="color: #ff0000;">六：高并发高负载网站的系统架构之缓存</span> </strong></p>
+<p>缓存一词搞技术的都接触过，很多地方用到缓存。网站架构和网站开发中的缓存也是非常重要。这里先讲述最基本的两种缓存。高级和分布式的缓存在后面讲述。<br>架构方面的缓存，对Apache比较熟悉的人都能知道Apache提供了自己的缓存模块，也可以使用外加的Squid模块进行缓存，这两种方式均可以有效的提高Apache的访问响应能力。<br>网站程序开发方面的缓存，Linux上提供的Memory Cache是常用的缓存接口，可以在web开发中使用，比如用Java开发的时候就可以调用MemoryCache对一些数据进行缓存和通讯共享，一些大 型社区使用了这样的架构。另外，在使用web语言开发的时候，各种语言基本都有自己的缓存模块和方法，PHP有Pear的Cache模块，Java就更多 了，.net不是很熟悉，相信也肯定有。</p>
+<p>Java开源缓存框架<br>JBossCache/TreeCache JBossCache是一个复制的事务处理缓存，它允许你缓存企业级应用数据来更好的改善性能。缓存数据被自动复制，让你轻松进行Jboss服务器之间的 集群工作。JBossCache能够通过Jboss应用服务或其他J2EE容器来运行一个Mbean服务，当然，它也能独立运行。 JBossCache包括两个模块：TreeCache和TreeCacheAOP。 TreeCache –是一个树形结构复制的事务处理缓存。 TreeCacheAOP –是一个“面向对象”缓存，它使用AOP来动态管理POJO<br>OSCache OSCache标记库由OpenSymphony设计，它是一种开创性的JSP定制标记应用，提供了在现有JSP页面之内实现快速内存缓冲的功能。 OSCache是个一个广泛采用的高性能的J2EE缓存框架，OSCache能用于任何Java应用程序的普通的缓存解决方案。OSCache有以下特 点：缓存任何对象，你可以不受限制的缓存部分jsp页面或HTTP请求，任何java对象都可以缓存。 拥有全面的API–OSCache API给你全面的程序来控制所有的OSCache特性。 永久缓存–缓存能随意的写入硬盘，因此允许昂贵的创建（expensive-to-create）数据来保持缓存，甚至能让应用重启。 支持集群–集群缓存数据能被单个的进行参数配置，不需要修改代码。 缓存记录的过期–你可以有最大限度的控制缓存对象的过期，包括可插入式的刷新策略（如果默认性能不需要时）。<br>JCACHE JCACHE是一种即将公布的标准规范（JSR 107），说明了一种对Java对象临时在内存中进行缓存的方法，包括对象的创建、共享访问、假脱机（spooling）、失效、各JVM的一致性等。它 可被用于缓存JSP内最经常读取的数据，如产品目录和价格列表。利用JCACHE，多数查询的反应时间会因为有缓存的数据而加快（内部测试表明反应时间大 约快15倍）。<br>Ehcache Ehcache出自Hibernate，在Hibernate中使用它作为数据缓存的解决方案。<br>Java Caching System JCS是Jakarta的项目Turbine的子项目。它是一个复合式的缓冲工具。可以将对象缓冲到内存、硬盘。具有缓冲对象时间过期设定。还可以通过 JCS构建具有缓冲的分布式构架，以实现高性能的应用。 对于一些需要频繁访问而每访问一次都非常消耗资源的对象，可以临时存放在缓冲区中，这样可以提高服务的性能。而JCS正是一个很好的缓冲工具。缓冲工具对 于读操作远远多于写操作的应用性能提高非常显著。<br>SwarmCache SwarmCache是一个简单而功能强大的分布式缓存机制。它使用IP组播来有效地在缓存的实例之间进行通信。它是快速提高集群式Web应用程序的性能的理想选择。<br>ShiftOne ShiftOne Object Cache这个Java库提供了基本的对象缓存能力。实现的策略有先进先出（FIFO），最近使用（LRU），最不常使用（LFU）。所有的策略可以最大化元素的大小，最大化其生存时间。<br>WhirlyCache Whirlycache是一个快速的、可配置的、存在于内存中的对象的缓存。它能够通过缓存对象来加快网站或应用程序的速度，否则就必须通过查询数据库或其他代价较高的处理程序来建立。<br>Jofti Jofti可对在缓存层中(支持EHCache，JBossCache和OSCache)的对象或在支持Map接口的存储结构中的对象进行索引与搜索。这个框架还为对象在索引中的增删改提供透明的功能同样也为搜索提供易于使用的查询功能。<br>cache4j cache4j是一个有简单API与实现快速的Java对象缓存。它的特性包括：在内存中进行缓存，设计用于多线程环境，两种实现：同步与阻塞，多种缓存 清除策略：LFU, LRU, FIFO，可使用强引用(strong reference)与软引用(soft reference)存储对象。<br>Open Terracotta 一个JVM级的开源群集框架，提供：HTTP Session复制，分布式缓存，POJO群集，跨越群集的JVM来实现分布式应用程序协调(采用代码注入的方式，所以你不需要修改任何)。<br>sccache SHOP.COM使用的对象缓存系统。sccache是一个in-process cache和二级、共享缓存。它将缓存对象存储到磁盘上。支持关联Key，任意大小的Key和任意大小的数据。能够自动进行垃圾收集。<br>Shoal Shoal是一个基于Java可扩展的动态集群框架，能够为构建容错、可靠和可用的Java应用程序提供了基础架构支持。这个框架还可以集成到不希望绑定 到特定通信协议，但需要集群和分布式系统支持的任何Java产品中。Shoal是GlassFish和JonAS应用服务器的集群引擎。<br>Simple-Spring-Memcached Simple-Spring-Memcached，它封装了对MemCached的调用，使MemCached的客户端开发变得超乎寻常的简单。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/java-web-concurrent.html" data-id="cji8sg1si006f40ior2z1mf85" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/8/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/10/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

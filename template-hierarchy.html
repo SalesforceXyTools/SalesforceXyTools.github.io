@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>WordPress的主题文件优先级层次图 | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="// 先介绍重要的
+│ index.php // 主题的引导文件，也是默认的首页的模板
+│ header.php
+// 这个文件包含 HTML 的 &amp;lt;head&amp;gt; 部分（不显示在网页上，但是通过查看网页源文件就能看到）， // 同时还可能包含一部分正文（HTML的 &amp;lt;body&amp;gt; 标签内的东西）； // get_header() 就是调用它的。 // 比如水景一页下面整个浅灰">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WordPress的主题文件优先级层次图">
+<meta property="og:url" content="http://www.ibmer.info/template-hierarchy.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="// 先介绍重要的
+│ index.php // 主题的引导文件，也是默认的首页的模板
+│ header.php
+// 这个文件包含 HTML 的 &amp;lt;head&amp;gt; 部分（不显示在网页上，但是通过查看网页源文件就能看到）， // 同时还可能包含一部分正文（HTML的 &amp;lt;body&amp;gt; 标签内的东西）； // get_header() 就是调用它的。 // 比如水景一页下面整个浅灰">
+<meta property="og:image" content="http://developer.wordpress.org/files/2014/10/template-hierarchy-1024x640.png">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WordPress的主题文件优先级层次图">
+<meta name="twitter:description" content="// 先介绍重要的
+│ index.php // 主题的引导文件，也是默认的首页的模板
+│ header.php
+// 这个文件包含 HTML 的 &amp;lt;head&amp;gt; 部分（不显示在网页上，但是通过查看网页源文件就能看到）， // 同时还可能包含一部分正文（HTML的 &amp;lt;body&amp;gt; 标签内的东西）； // get_header() 就是调用它的。 // 比如水景一页下面整个浅灰">
+<meta name="twitter:image" content="http://developer.wordpress.org/files/2014/10/template-hierarchy-1024x640.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-template-hierarchy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/template-hierarchy.html" class="article-date">
+  <time datetime="2016-06-08T02:35:51.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WordPress的主题文件优先级层次图
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre>
+// 先介绍重要的
+│ index.php // 主题的引导文件，也是默认的首页的模板
+│ header.php
+// 这个文件包含 HTML 的 &lt;head&gt; 部分（不显示在网页上，但是通过查看网页源文件就能看到）， // 同时还可能包含一部分正文（HTML的 &lt;body&gt; 标签内的东西）； // get_header() 就是调用它的。 // 比如水景一页下面整个浅灰色色背景的部分都是在这个文件中处理的
+│ footer.php
+// 用于显示页面下面的内容，包含 &lt;/body&gt; 标签 // 比如水景一页上面整个黑色背景的部分都是在这个文件中处理的
+
+// 下面 9 个文件都是页面模板，都调用了 get_header() 和 get_footer() // 并且一般都会调用 comments.php 以处理评论列表和评论框
+│ 404.php // 用于显示自定义 404 错误网页的页面模板
+│ archive.php // 用于显示文章存档网页的页面模板，比如按日期存档等页面
+│ author.php // 作者文章存档页面模板（显示该作者所有文章列表网页）
+│ category.php // 分类页面模板
+│ image.php // 用于显示图片附件，页面模板
+│ page.php
+ // 用于显示静态页面（page）的页面模板，通过 get_template_part( &#39;content&#39;, &#39;page&#39; ) 调用了 content-page.php
+│ tag.php // 标签页面模板
+│ single.php // 单一文章（post）页面，这是标准形式的 post，调用了 content-single.php
+│ showcase.php // 特色文章页面模板；用这个模板来做首页其实挺不错的
+
+// 下面这一组 11 个以 content 开头的文件，都只是某个页面的一部分，类似于上面的 comments.php 文件 // Twenty Ten 主题中用的是 loop 开头
+│ content-aside.php
+│ content-featured.php
+│ content-gallery.php
+│ content-image.php
+│ content-intro.php
+│ content-link.php
+│ content-page.php
+│ content-quote.php
+│ content-single.php
+│ content-status.php
+│ content.php
+// 以上 11 个文件是用来处理网页主体部分的； // 包含正文内容，包括文章（post）、静态页面（page），也就是我们通常所说的文章内容； // 2011 主题内置了几种文章形式（[post format](http://codex.wordpress.org/Post_Formats)），可针对不同的文章形式使用不同的模板； // 当然如果你乐意，使用同一个模板也没有问题
+
+│ comments.php
+// 评论模板；这个不是一个单独的页面，需要在别的页面中调用此模板 // 使用 comments_template( &#39;&#39;, true ) 来调用
+│ searchform.php // 搜索框模板
+│ search.php // &ldquo;搜索&rdquo;页面模板，还会调用 searchform.php 来显示搜索框，这是个页面模板
+│ sidebar-footer.php
+│ sidebar-page.php
+│ sidebar.php // get_sidebar() 会调用此文件
+// 这三个是用于显示网页上 WordPress 边栏的模板 // sidebar.php 会根据情况调用 sidebar-page.php 或者 sidebar-footer.php 或者同时调用两个
+│ functions.php
+// 主题自定义的一些功能函数，如果有的话可以覆盖 WordPress 内建函数
+│ rtl.css
+│ style.css
+// 这两个是主题的样式表文件，其中 rtl 只用于显示从右到左写法的语言
+│ editor-style-rtl.css
+│ editor-style.css
+// 这两个是主题提供给后台的编辑器样式文件，一般不修改
+│ screenshot.jpg
+│ screenshot.png
+// 这两个是主题的缩略图
+│ readme.txt // 主题的说明文档
+│ license.txt // 主题的许可证内容
+├─colors // 文件夹，包含选择黑色风格时需要调用的样式文件（省略其下的文件）
+│
+├─images // 文件夹，包含主题网页上用到的图片（省略其下的文件）
+│ │
+│ └─headers // 文件夹，包含顶部背景图片（省略其下的文件）
+│
+├─inc // 文件夹一些内部函数，基本不会自己修改（省略其下的文件）
+│ │
+│ └─images // 文件夹，包含一些图片（省略其下的文件）
+│
+├─js // 文件夹，包含主题自己的 JavaScript 文件（省略其下的文件）
+│
+└─languages // 文件夹，包含语言文件的文件夹（省略其下的文件）</pre>
+
+<pre><code>&amp;nbsp;
+</code></pre><p>###<br>    Examples&nbsp;</p>
+<pre><code>If your blog is at&amp;nbsp;`http://example.com/blog/`&amp;nbsp;and a visitor clicks on a link to a category page such as&amp;nbsp;`http://example.com/blog/category/your-cat/`, WordPress looks for a template file in the current theme&amp;rsquo;s directory that matches the category&amp;rsquo;s ID to generate the correct page. More specifically, WordPress follows this procedure:
+</code></pre><ol>
+<li>Looks for a template file in the current theme&rsquo;s directory that matches the category&rsquo;s slug. If the category slug is &ldquo;unicorns,&rdquo; then WordPress looks for a template file named&nbsp;<code>category-unicorns.php</code>.</li>
+<li>If&nbsp;<code>category-unicorns.php</code>&nbsp;is missing and the category&rsquo;s ID is 4, WordPress looks for a template file named&nbsp;<code>category-4.php</code>.</li>
+<li>If&nbsp;<code>category-4.php</code>&nbsp;is missing, WordPress will look for a generic category template file,&nbsp;<code>category.php</code>.</li>
+<li>If&nbsp;<code>category.php</code>&nbsp;does not exist, WordPress will look for a generic archive template,&nbsp;<code>archive.php</code>.</li>
+<li><p>If&nbsp;<code>archive.php</code>&nbsp;is also missing, WordPress will fall back to&nbsp;the main theme template file,&nbsp;<code>index.php</code>.</p>
+<p><a href="http://developer.wordpress.org/files/2014/10/template-hierarchy.png" target="_blank" rel="external"><img src="http://developer.wordpress.org/files/2014/10/template-hierarchy-1024x640.png" alt=""></a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/template-hierarchy.html" data-id="cji8sg1w600da40io804vfp1y" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sf-disabled-lookup.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          sf-disabled-lookup
+        
+      </div>
+    </a>
+  
+  
+    <a href="/jp-tax.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">日本所得税计算</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

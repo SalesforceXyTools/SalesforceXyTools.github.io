@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【Salesforce】地理位置情報項目を使って周辺検索 GMaps | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="apex
+
+&amp;lt;apex:page standardController=”Account” extensions=”GoogleMapCtrl”&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script type=”text/javascript” src=”//maps.google.com/maps/api/js?sensor=false”&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Salesforce】地理位置情報項目を使って周辺検索 GMaps">
+<meta property="og:url" content="http://www.ibmer.info/Salesforce-GMaps.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="apex
+
+&amp;lt;apex:page standardController=”Account” extensions=”GoogleMapCtrl”&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script type=”text/javascript” src=”//maps.google.com/maps/api/js?sensor=false”&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;s">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Salesforce】地理位置情報項目を使って周辺検索 GMaps">
+<meta name="twitter:description" content="apex
+
+&amp;lt;apex:page standardController=”Account” extensions=”GoogleMapCtrl”&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script type=”text/javascript” src=”//maps.google.com/maps/api/js?sensor=false”&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;s">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Salesforce-GMaps" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Salesforce-GMaps.html" class="article-date">
+  <time datetime="2016-09-29T05:25:47.000Z" itemprop="datePublished">2016-09-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Salesforce/">Salesforce</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【Salesforce】地理位置情報項目を使って周辺検索 GMaps
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>apex</p>
+<blockquote>
+<p>&lt;apex:page standardController=”Account” extensions=”GoogleMapCtrl”&gt;</p>
+<p>&lt;head&gt;</p>
+<p>&lt;script type=”text/javascript” src=”//maps.google.com/maps/api/js?sensor=false”&gt;&lt;/script&gt;</p>
+<p>&lt;script type=”text/javascript” src=”<a href="https://hpneo.github.io/gmaps/gmaps.js&quot;&gt;&lt;/script&amp;gt" target="_blank" rel="external">https://hpneo.github.io/gmaps/gmaps.js&quot;&gt;&lt;/script&amp;gt</a>;</p>
+<p>&lt;script type=”text/javascript” src=”<a href="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;&gt;&lt;/script&amp;gt" target="_blank" rel="external">https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;&gt;&lt;/script&amp;gt</a>;</p>
+<p>&lt;script type=”text/javascript”&gt;</p>
+<p>var map;</p>
+<p>$(document).ready(function(){</p>
+<p>createMap();</p>
+<p>});</p>
+<p>function createMap(){</p>
+<p>map = new GMaps({</p>
+<p>div: “#map-02”,</p>
+<p>lat: “{!Account.BillingLatitude}”,</p>
+<p>lng: “{!Account.BillingLongitude}”,</p>
+<p>zoom: 11</p>
+<p>});</p>
+<p>var marks = {!jsonStr};</p>
+<p>for (var i in marks) {</p>
+<p>addMarker(map,marks[i]);</p>
+<p>}</p>
+<p>// 対象住所</p>
+<p>map.addMarker({</p>
+<p>lat: “{!Account.BillingLatitude}”,</p>
+<p>lng: “{!Account.BillingLongitude}”,</p>
+<p>icon: “{!$Resource.marker_green}”,</p>
+<p>title: “{!Account.Name}”,</p>
+<p>infoWindow: {</p>
+<p>content: “{!Account.BillingState}{!Account.BillingCity}{!Account.BillingStreet}”</p>
+<p>}</p>
+<p>});</p>
+<p>}</p>
+<p>function addMarker( map,mark){</p>
+<p>map.addMarker({</p>
+<p>lat: mark.lat,</p>
+<p>lng: mark.lng,</p>
+<p>title: mark.title,</p>
+<p>infoWindow: {</p>
+<p>content: mark.content</p>
+<p>}</p>
+<p>});</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<p>&lt;/head&gt;</p>
+<p>&lt;apex:form id=”frm”&gt;</p>
+<p>&lt;apex:pageBlock &gt;</p>
+<p>&lt;apex:outputpanel &gt;</p>
+<p>&lt;apex:pageBlockSection &gt;</p>
+<p>&lt;apex:pageBlockSectionItem &gt;</p>
+<p>&lt;div class=”gmaps”&gt;</p>
+<p>&lt;div id=”map-02” style=”width: 990px;height: 400px”&gt;&lt;/div&gt;</p>
+<p>&lt;/div&gt;</p>
+<p>&lt;/apex:pageBlockSectionItem&gt;</p>
+<p>&lt;/apex:pageBlockSection&gt;</p>
+<p>&lt;apex:pageBlockSection &gt;</p>
+<p>&lt;apex:pageBlockSectionItem labelStyle=”text-align:left”&gt;</p>
+<p>&lt;apex:outputpanel &gt;</p>
+<p>&lt;apex:commandButton action=”{!doZoomPuls}” value=”+” id=”pulsButton” style=”width:40px; font-weight:bold” /&gt;</p>
+<p>&lt;apex:commandButton action=”{!doZoomMinus}” value=”-“ id=”minusButton” style=”width:40px;font-weight:bold”/&gt;</p>
+<p>&lt;apex:outputText value=”検索範囲： “ /&gt;</p>
+<p>&lt;apex:inputText id=”dist” value=”{!findDistance}” style=”width:40px;” /&gt;</p>
+<p>&lt;apex:outputText value=” (km)” /&gt;</p>
+<p>&lt;apex:commandButton action=”{!getMapsInfos}” value=”検索” id=”searchBtn” style=”width:40px;”/&gt;</p>
+<p>&lt;/apex:outputpanel&gt;</p>
+<p>&lt;/apex:pageBlockSectionItem&gt;</p>
+<p>&lt;/apex:pageBlockSection&gt;</p>
+<p>&lt;/apex:outputpanel&gt;</p>
+<p>&lt;apex:outputpanel &gt;</p>
+<p>&lt;apex:pageBlockSection &gt;</p>
+<p>&lt;apex:pageBlockSectionItem &gt;</p>
+<p>&lt;apex:pageBlockTable value=”{!mapDtoList}” var=”rec”&gt;</p>
+<p>&lt;apex:column Style=”width:700px”&gt;</p>
+<p>&lt;apex:facet name=”header”&gt;隣接住所&lt;/apex:facet&gt;</p>
+<p>&lt;apex:outputlink value=”/{!rec.id}” target=”_blank”&gt;</p>
+<p>&lt;apex:outputLabel value=”{!rec.content}”/&gt;</p>
+<p>&lt;/apex:outputlink&gt;</p>
+<p>&lt;/apex:column&gt;</p>
+<p>&lt;apex:column Style=”width:100px”&gt;</p>
+<p>&lt;apex:facet name=”header”&gt;距離(km)&lt;/apex:facet&gt;</p>
+<p>&lt;apex:outputText value=”{!rec.calcDist}”/&gt;</p>
+<p>&lt;/apex:column&gt;</p>
+<p>&lt;/apex:pageBlockTable&gt;</p>
+<p>&lt;/apex:pageBlockSectionItem&gt;</p>
+<p>&lt;/apex:pageBlockSection&gt;</p>
+<p>&lt;/apex:outputpanel&gt;</p>
+<p>&lt;/apex:pageBlock&gt;</p>
+<p>&lt;/apex:form&gt;</p>
+<p>&lt;/apex:page&gt;<br>apex</p>
+<div id="LC1" class="line">public class GoogleMapCtrl {</div>
+
+<div id="LC2" class="line"></div>
+
+<div id="LC3" class="line">public Account acc;</div>
+
+<div id="LC4" class="line">// 検索範囲</div>
+
+<div id="LC5" class="line">public decimal findDistance {get;set;}</div>
+
+<div id="LC6" class="line">public decimal zoom {get;set;}</div>
+
+<div id="LC7" class="line">public string jsonStr {get;set;}</div>
+
+<div id="LC8" class="line">public list&lt;mapDto&gt; mapDtoList {get; set;}</div>
+
+<div id="LC9" class="line"></div>
+
+<div id="LC10" class="line">public GoogleMapCtrl(ApexPages.StandardController controller) {</div>
+
+<div id="LC11" class="line">if(findDistance == null){</div>
+
+<div id="LC12" class="line">this.findDistance = 10;</div>
+
+<div id="LC13" class="line">}</div>
+
+<div id="LC14" class="line">if(zoom == null){</div>
+
+<div id="LC15" class="line">zoom = 12;</div>
+
+<div id="LC16" class="line">}</div>
+
+<div id="LC17" class="line">list&lt;string&gt; field = new list&lt;string&gt;();</div>
+
+<div id="LC18" class="line">field.add(‘BillingLatitude’);</div>
+
+<div id="LC19" class="line">field.add(‘BillingLongitude’);</div>
+
+<div id="LC20" class="line">controller.addFields(field);</div>
+
+<div id="LC21" class="line">this.acc = (Account)controller.getRecord();</div>
+
+<div id="LC22" class="line">getMapsInfos();</div>
+
+<div id="LC23" class="line">}</div>
+
+<div id="LC24" class="line"></div>
+
+<div id="LC25" class="line">/*</div>
+
+<div id="LC26" class="line">*マップ情報を取得</div>
+
+<div id="LC27" class="line">*/</div>
+
+<div id="LC28" class="line">public PageReference getMapsInfos(){</div>
+
+<div id="LC29" class="line">system.debug(‘========findDistance===========’+findDistance);</div>
+
+<div id="LC30" class="line">decimal lat = acc.BillingLatitude;</div>
+
+<div id="LC31" class="line">decimal lng = acc.BillingLongitude;</div>
+
+<div id="LC32" class="line">string query = ‘’;</div>
+
+<div id="LC33" class="line">query = ‘SELECT ‘;</div>
+
+<div id="LC34" class="line">query += ‘id’;</div>
+
+<div id="LC35" class="line">query += ‘,Name’;</div>
+
+<div id="LC36" class="line">query += ‘,BillingLatitude’;</div>
+
+<div id="LC37" class="line">query += ‘,BillingLongitude’;</div>
+
+<div id="LC38" class="line">query += ‘,BillingStreet’;</div>
+
+<div id="LC39" class="line">query += ‘,BillingPostalCode’;</div>
+
+<div id="LC40" class="line">query += ‘,BillingCity’;</div>
+
+<div id="LC41" class="line">query += ‘,BillingState’;</div>
+
+<div id="LC42" class="line">query += ‘,BillingCountry’;</div>
+
+<div id="LC43" class="line">query += ‘,BillingAddress’;</div>
+
+<div id="LC44" class="line">query += ‘,DISTANCE( BillingAddress, GEOLOCATION(‘+lat+’,’+lng+’), ‘+ ‘\’’ +’km’ +’\’’ +’) DIC ‘;</div>
+
+<div id="LC45" class="line">query += ‘FROM ‘;</div>
+
+<div id="LC46" class="line">query += ‘Account ‘;</div>
+
+<div id="LC47" class="line">query += ‘WHERE ‘;</div>
+
+<div id="LC48" class="line">query += ‘DISTANCE( BillingAddress, GEOLOCATION(‘+lat+’,’+lng+’), ‘+ ‘\’’ +’km’ + ‘\’’+’) &lt;’ + string.valueof(findDistance);</div>
+
+<div id="LC49" class="line">query += ‘ and BillingLongitude !=null and BillingLatitude != null and BillingState !=null’;</div>
+
+<div id="LC50" class="line">query += ‘ and id !=’ + ‘\’’ + acc.id +’\’’;</div>
+
+<div id="LC51" class="line">query += ‘ Order by ‘;</div>
+
+<div id="LC52" class="line">query += ‘ Distance(BillingAddress, GEOLOCATION(‘+lat +’,’ + lng +’),’ + ‘\’’+’km’+’\’’+’)’;</div>
+
+<div id="LC53" class="line">system.debug(‘======query========’+query);</div>
+
+<div id="LC54" class="line">List&lt;Account&gt; nearAccountList = DataBase.query(query);</div>
+
+<div id="LC55" class="line"></div>
+
+<div id="LC56" class="line">/*</div>
+
+<div id="LC57" class="line">List&lt;Account&gt; nearAccountList = [SELECT</div>
+
+<div id="LC58" class="line">id,</div>
+
+<div id="LC59" class="line">Name,</div>
+
+<div id="LC60" class="line">BillingLatitude,</div>
+
+<div id="LC61" class="line">BillingLongitude,</div>
+
+<div id="LC62" class="line">BillingStreet,</div>
+
+<div id="LC63" class="line">BillingPostalCode,</div>
+
+<div id="LC64" class="line">BillingCity,</div>
+
+<div id="LC65" class="line">BillingState,</div>
+
+<div id="LC66" class="line">BillingCountry ,</div>
+
+<div id="LC67" class="line">BillingAddress,</div>
+
+<div id="LC68" class="line">DISTANCE( BillingAddress, GEOLOCATION(:lat, :lng), ‘km’ ) DIC</div>
+
+<div id="LC69" class="line">FROM</div>
+
+<div id="LC70" class="line">Account</div>
+
+<div id="LC71" class="line">WHERE</div>
+
+<div id="LC72" class="line">Distance(BillingAddress, GEOLOCATION(:lat, :lng), ‘km’) &lt; :findDistance</div>
+
+<div id="LC73" class="line">and BillingLongitude !=null and BillingLatitude != null and BillingState !=null</div>
+
+<div id="LC74" class="line">and id != :acc.id</div>
+
+<div id="LC75" class="line">Order by</div>
+
+<div id="LC76" class="line">Distance(BillingAddress, GEOLOCATION(:lat, :lng), ‘km’)</div>
+
+<div id="LC77" class="line">];</div>
+
+<div id="LC78" class="line">*/</div>
+
+<div id="LC79" class="line"></div>
+
+<div id="LC80" class="line">this.mapDtoList = new list&lt;mapDto&gt;();</div>
+
+<div id="LC81" class="line">for(Account item : nearAccountList){</div>
+
+<div id="LC82" class="line">mapDto dto = new mapDto();</div>
+
+<div id="LC83" class="line">dto.id = item.id;</div>
+
+<div id="LC84" class="line">dto.title = item.Name;</div>
+
+<div id="LC85" class="line">dto.lat = item.BillingLatitude;</div>
+
+<div id="LC86" class="line">dto.lng = item.BillingLongitude;</div>
+
+<div id="LC87" class="line">dto.BillingState = item.BillingState;</div>
+
+<div id="LC88" class="line">dto.BillingCity = item.BillingCity;</div>
+
+<div id="LC89" class="line">dto.BillingStreet = item.BillingStreet;</div>
+
+<div id="LC90" class="line">dto.content = dto.getContent();</div>
+
+<div id="LC91" class="line">dto.calcDist = roundNumber((decimal)item.get(‘DIC’ ),2);</div>
+
+<div id="LC92" class="line">this.mapDtoList.add(dto);</div>
+
+<div id="LC93" class="line">}</div>
+
+<div id="LC94" class="line"></div>
+
+<div id="LC95" class="line">this.jsonStr = JSON.serialize(this.mapDtoList);</div>
+
+<div id="LC96" class="line">system.debug(‘======jsonStr========’+jsonStr);</div>
+
+<div id="LC97" class="line">return null;</div>
+
+<div id="LC98" class="line">}</div>
+
+<div id="LC99" class="line"></div>
+
+<div id="LC100" class="line">public void doZoomPuls(){</div>
+
+<div id="LC101" class="line">this.findDistance +=0.5;</div>
+
+<div id="LC102" class="line">getMapsInfos();</div>
+
+<div id="LC103" class="line">}</div>
+
+<div id="LC104" class="line"></div>
+
+<div id="LC105" class="line">public void doZoomMinus(){</div>
+
+<div id="LC106" class="line">this.findDistance -=0.5;</div>
+
+<div id="LC107" class="line">getMapsInfos();</div>
+
+<div id="LC108" class="line">}</div>
+
+<div id="LC109" class="line"></div>
+
+<div id="LC110" class="line">public class mapDto{</div>
+
+<div id="LC111" class="line">public String title {get;set;}</div>
+
+<div id="LC112" class="line">public String content {get;set;}</div>
+
+<div id="LC113" class="line">public decimal lat {get;set;}</div>
+
+<div id="LC114" class="line">public decimal lng {get;set;}</div>
+
+<div id="LC115" class="line">public decimal calcDist {get;set;}</div>
+
+<div id="LC116" class="line"></div>
+
+<div id="LC117" class="line">public string BillingState {get;set;}</div>
+
+<div id="LC118" class="line">public string BillingCity {get;set;}</div>
+
+<div id="LC119" class="line">public string BillingStreet {get;set;}</div>
+
+<div id="LC120" class="line">public string id {get;set;}</div>
+
+<div id="LC121" class="line"></div>
+
+<div id="LC122" class="line">public mapDto(){</div>
+
+<div id="LC123" class="line">this.id =’’;</div>
+
+<div id="LC124" class="line">this.title = ‘’;</div>
+
+<div id="LC125" class="line">this.content = ‘’;</div>
+
+<div id="LC126" class="line">this.lat = 0;</div>
+
+<div id="LC127" class="line">this.lng = 0;</div>
+
+<div id="LC128" class="line">this.BillingState = ‘’;</div>
+
+<div id="LC129" class="line">this.BillingCity = ‘’;</div>
+
+<div id="LC130" class="line">this.BillingStreet = ‘’;</div>
+
+<div id="LC131" class="line">this.calcDist =0;</div>
+
+<div id="LC132" class="line"></div>
+
+<div id="LC133" class="line">}</div>
+
+<div id="LC134" class="line"></div>
+
+<div id="LC135" class="line">public string getContent(){</div>
+
+<div id="LC136" class="line">return this.content = this.BillingState + this.BillingCity + this.BillingStreet;</div>
+
+<div id="LC137" class="line">}</div>
+
+<div id="LC138" class="line">}</div>
+
+<div id="LC139" class="line"></div>
+
+<div id="LC140" class="line">//四捨五入</div>
+
+<div id="LC141" class="line">public Decimal roundNumber(Decimal roundNumber , Integer decimalPlace)</div>
+
+<div id="LC142" class="line">{</div>
+
+<div id="LC143" class="line">if(roundNumber != null)</div>
+
+<div id="LC144" class="line">{</div>
+
+<div id="LC145" class="line">return roundNumber.setScale(decimalPlace, RoundingMode.HALF_UP);</div>
+
+<div id="LC146" class="line">}</div>
+
+<div id="LC147" class="line">else</div>
+
+<div id="LC148" class="line">{</div>
+
+<div id="LC149" class="line">return 0 ;</div>
+
+<div id="LC150" class="line">}</div>
+
+<div id="LC151" class="line">}</div>
+
+<div id="LC152" class="line"></div>
+
+<p><div id="LC153" class="line">}</div><br><a id="more"></a></p>
+</blockquote>
+<p>参考</p>
+<p><a href="https://upward.jp/weblog/howtousegeolocation/" target="_blank" rel="external">https://upward.jp/weblog/howtousegeolocation/</a></p>
+<p><a href="https://developer.salesforce.com/forums/?id=906F0000000AnNsIAK" target="_blank" rel="external">https://developer.salesforce.com/forums/?id=906F0000000AnNsIAK</a></p>
+<p><a href="http://tyoshikawa1106.hatenablog.com/entry/2013/06/05/014128" target="_blank" rel="external">http://tyoshikawa1106.hatenablog.com/entry/2013/06/05/014128</a></p>
+<p><a href="https://developer.salesforce.com/docs/atlas.ja-jp.202.0.pages.meta/pages/pages_maps.htm" target="_blank" rel="external">https://developer.salesforce.com/docs/atlas.ja-jp.202.0.pages.meta/pages/pages_maps.htm</a></p>
+<p><a href="http://www.terrasky.co.jp/blog/2015/150212_001401.php" target="_blank" rel="external">http://www.terrasky.co.jp/blog/2015/150212_001401.php</a></p>
+<p><a href="https://www.synergy-marketing.co.jp/cloud/synergylead/support/faq-salesforce-google-maps/" target="_blank" rel="external">https://www.synergy-marketing.co.jp/cloud/synergylead/support/faq-salesforce-google-maps/</a></p>
+<p><a href="https://developer.salesforce.com/docs/atlas.ja-jp.202.0.apexcode.meta/apexcode/apex_class_system_Address.htm" target="_blank" rel="external">https://developer.salesforce.com/docs/atlas.ja-jp.202.0.apexcode.meta/apexcode/apex_class_system_Address.htm</a></p>
+<p><a href="http://blogjp.sforce.com/2011/01/google-maps-jav.html" target="_blank" rel="external">http://blogjp.sforce.com/2011/01/google-maps-jav.html</a></p>
+<p><a href="https://code-de.co/google-maps-api-multi-markers/" target="_blank" rel="external">https://code-de.co/google-maps-api-multi-markers/</a></p>
+<p><a href="http://skyblues.org/arts/2777" target="_blank" rel="external">http://skyblues.org/arts/2777</a></p>
+<p>住所やランドマーク名から経度、緯度を検索</p>
+<p><a href="http://www.geocoding.jp/" target="_blank" rel="external">http://www.geocoding.jp/</a></p>
+<p>google map 中marker图标集合</p>
+<p><a href="http://www.verydemo.com/demo_c407_i2585.html" target="_blank" rel="external">http://www.verydemo.com/demo_c407_i2585.html</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/Salesforce-GMaps.html" data-id="cji8sg1ou000740ioijmb1qe3" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Salesforce/">Salesforce</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/https.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          跨域请求Https
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sf-obj-prefixkey.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Salesforce标准Object和Prefixkey</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

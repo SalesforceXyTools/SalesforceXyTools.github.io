@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>IBM ESB 产品之间的比较及应用场景: 第 2 部分，实际应用场景 | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实际业务场景用 IBM ESB 产品的实现通用业务场景业务场景：（虚拟场景）A 银行最近和 B 银行及 C 银行形成合作关系，合作合同的一项指出，在其中任何一个银行有存款的用户，可以在其他任意两家银行用该存款作为贷款担保来获得一定倍数数量的贷款。如，若 某人张三在 A 银行有 1 万元的存款，则该用户可以用这 1 万元的存款作为担保在 B，C 银行取得 10 倍于 1 万元（10 万元）的贷款。A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IBM ESB 产品之间的比较及应用场景: 第 2 部分，实际应用场景">
+<meta property="og:url" content="http://www.ibmer.info/ibm-esb-2.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="实际业务场景用 IBM ESB 产品的实现通用业务场景业务场景：（虚拟场景）A 银行最近和 B 银行及 C 银行形成合作关系，合作合同的一项指出，在其中任何一个银行有存款的用户，可以在其他任意两家银行用该存款作为贷款担保来获得一定倍数数量的贷款。如，若 某人张三在 A 银行有 1 万元的存款，则该用户可以用这 1 万元的存款作为担保在 B，C 银行取得 10 倍于 1 万元（10 万元）的贷款。A">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image002.png">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image005.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image007.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image009.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image010.gif">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image012.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image014.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image016.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image018.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image020.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image022.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image024.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image026.jpg">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image028.gif">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image030.gif">
+<meta property="og:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image032.jpg">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IBM ESB 产品之间的比较及应用场景: 第 2 部分，实际应用场景">
+<meta name="twitter:description" content="实际业务场景用 IBM ESB 产品的实现通用业务场景业务场景：（虚拟场景）A 银行最近和 B 银行及 C 银行形成合作关系，合作合同的一项指出，在其中任何一个银行有存款的用户，可以在其他任意两家银行用该存款作为贷款担保来获得一定倍数数量的贷款。如，若 某人张三在 A 银行有 1 万元的存款，则该用户可以用这 1 万元的存款作为担保在 B，C 银行取得 10 倍于 1 万元（10 万元）的贷款。A">
+<meta name="twitter:image" content="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image002.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ibm-esb-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ibm-esb-2.html" class="article-date">
+  <time datetime="2014-10-27T05:34:09.000Z" itemprop="datePublished">2014-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MiddleWare/">MiddleWare</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      IBM ESB 产品之间的比较及应用场景: 第 2 部分，实际应用场景
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实际业务场景用-IBM-ESB-产品的实现"><a href="#实际业务场景用-IBM-ESB-产品的实现" class="headerlink" title="实际业务场景用 IBM ESB 产品的实现"></a>实际业务场景用 IBM ESB 产品的实现</h2><h3 id="通用业务场景"><a href="#通用业务场景" class="headerlink" title="通用业务场景"></a>通用业务场景</h3><p>业务场景：（虚拟场景）A 银行最近和 B 银行及 C 银行形成合作关系，合作合同的一项指出，在其中任何一个银行有存款的用户，可以在其他任意两家银行用该存款作为贷款担保来获得一定倍数数量的贷款。如，若 某人张三在 A 银行有 1 万元的存款，则该用户可以用这 1 万元的存款作为担保在 B，C 银行取得 10 倍于 1 万元（10 万元）的贷款。A 需要创新的解决方案，使得这项新的协议在 IT 系统中实现，并服务于他们的客户。如果用户在 B 和 C 之一具有一定的存款，则 A 的解决方案将自动从 B 和 C 取得该客户的存款额，并将该存款额应用到贷款流程中。（在本场景中，为了介绍 ESB 的连接性，我们将问题简单化，并没有考虑以下可能的情况：某客户分别在 B 和 C 都有一定存款，需要用 B 和 C 的存款之和在 A 进行贷款担保的情况。当然这种情况属于业务逻辑，应该在 A 的贷款流程中实现）</p>
+<p>A 银行决定使用 SOA 来个构建这一新的解决方案，利用 IBM SOA Foundation 来构建体系结构模型，用 IBM ESB 作企业服务总线，统一进行服务的注册，查找，路由等，并在 ESB 上运行其他应用程序。前提条件：B 银行和 C 银行都已经向 A 公司提供了各自的获取某用户存款在本公司存款的服务，而且已经定义了良好的接口。</p>
+<p>注：在这篇文章中，我们旨在介绍 IBM 几款 ESB 产品的各自特点，而不介绍开发细节。所以我们花更多笔墨来展示实现过程的一些重要特点，而不去详细介绍实现上述场景的整个过程。</p>
+<h3 id="使用-WESB-实现场景"><a href="#使用-WESB-实现场景" class="headerlink" title="使用 WESB 实现场景"></a>使用 WESB 实现场景</h3><p><strong> 场景描述：</strong></p>
+<ul>
+<li>B、C 银行提供的查询客户存款的服务已通过 Web Service 方式实现；</li>
+<li>并发的请求不会很多；</li>
+<li>A 银行的整合中多个应用都会使用到 B、C 银行提供的查询客户存款的服务。</li>
+<li>我们希望通过 ESB 向整合环境提供统一的、可复用的查询客户存款的服务，该服务自动根据客户的来源，动态路由到 B、C 提供的客户存款的服务。<br>下面我们选择 WESB 作为该场景的 ESB 实现。</li>
+</ul>
+<p>下表描述了 B，C 现有服务定义。</p>
+<p><table class="ibm-data-table" border="0" cellspacing="0" cellpadding="0"></table></p>
+<p><thead></thead></p>
+<p><tr></tr></p>
+<p><th scope="col">服务来源</th></p>
+<p><th scope="col">接口</th></p>
+<p><th scope="col">操作</th></p>
+<p><th scope="col">输入</th></p>
+<p><th scope="col">输出</th><br><br></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td>B 银行</td></p>
+<p><td>BDepositService</td></p>
+<p><td>queryDeposit</td></p>
+<p><td>Customer</td></p>
+<p><td>DepositInfo</td><br></p>
+<p><tr></tr></p>
+<p><td>C 银行</td></p>
+<p><td>CDepositService</td></p>
+<p><td>cxDeposit</td></p>
+<p><td>Client</td></p>
+<p><td>ClientDeposit</td><br><br><br><br>在上面的表格中，我们尽量模拟两个银行提供的数据接口和数据格式是不一样的，因为这样更加符合现实的情况。</p>
+<p><strong> 场景实现：</strong></p>
+<p><strong> 第一步：</strong></p>
+<p>如图 1 所示在 WID（集成开发环境中）将服务的提供者（B 银行 C 银行）引用到开发环境中，每一个服务对应于一个 SCA Import，根据不同的服务提供者选择不同的绑定（Binding）这里由于服务都已 Web Service 方式提供，所以选用 Web Service 绑定。</p>
+<p><strong> 第二步：</strong></p>
+<p>通过一个 Mediation 模块来处理服务的路由，消息格式转换等。</p>
+<p><strong> 第三步：</strong></p>
+<p>将新的统一服务通过 Web Service 的方式 Export 出去，所以使用该 Web Service 的应用都通过该 Export 调用。</p>
+<h5 id="图-1-WESB-上开发的三个步骤"><a href="#图-1-WESB-上开发的三个步骤" class="headerlink" title="图 1. WESB 上开发的三个步骤"></a>图 1. WESB 上开发的三个步骤</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image002.png" alt="WESB 上开发的三个步骤"></p>
+<p>在以上三个步骤中，Mediation 模块是核心 ESB 模块，图 2 和图 3 是针对以上应用场景开发的 Mediation 逻辑。</p>
+<h5 id="图-2-WESB-Mediation-模块的请求消息流"><a href="#图-2-WESB-Mediation-模块的请求消息流" class="headerlink" title="图 2. WESB Mediation 模块的请求消息流"></a>图 2. WESB Mediation 模块的请求消息流</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image005.jpg" alt="WESB Mediation 模块的请求消息流"></p>
+<h5 id="图-3-WESB-Mediation-模块的响应消息流"><a href="#图-3-WESB-Mediation-模块的响应消息流" class="headerlink" title="图 3. WESB Mediation 模块的响应消息流"></a>图 3. WESB Mediation 模块的响应消息流</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image007.jpg" alt="WESB Mediation 模块的响应消息流"></p>
+<p>从上述简要的开发过程来看，我们将来自不同服务提供者的两个服务注册在 WESB 上；由 WESB 提供一个统一的服务；今后，服务请求者不需要去关心具体应该调用由哪个后台服务；整个开发过程不需要写一行代码。</p>
+<p>此外，WESB 基于 WAS J2EE 容器之上，对安全事务处理等方面都有很好的支持，同时 WESB 遵循标准的 SCA/SDO 的规范，使得我们开发的组件可以很容易的和其他应用集成。</p>
+<h3 id="使用-WMB-实现场景"><a href="#使用-WMB-实现场景" class="headerlink" title="使用 WMB 实现场景"></a>使用 WMB 实现场景</h3><p><strong> 场景描述：</strong></p>
+<ul>
+<li>B 银行提供的服务由 Web Service 的方式实现，C 银行提供的服务由 FTP 方式实现，只要把消息放到 C 银行指定的 FTP Server 即可 , 数据格式由 C 银行指定</li>
+<li>对 B.C 服务性能要求较高，需要每秒钟能同时处理 1000 到 10，000 条消息</li>
+<li>B 银行和 C 银行都支持通过 MQ 的方式对其提供的服务进行访问</li>
+<li>利用 ESB 构建一个统一的查询客户存款服务的，该服务通过查询不同的客户来源，动态路由到不同的服务提供银行<br><strong> 场景实现：</strong></li>
+</ul>
+<p>第一步：将开发好的 BBank 提供的 WSDL 导入 WMB 中，我们在 SOAPRequest 节点中可以利用该 WSDL 文件提供对 BBank 的访问。CBank 提供的是某个 FTP 服务，MB 中提供的 FileOutput 节点可以实现对 FTP 的访问。</p>
+<p>第二步：利用 WMB 提供的 Route 节点实现对消息的路由，Route 节点是 MB6.1 的一个新 feature，开发起来和 WESB 中的 Route 节点非常类似。之前的 WMB 版本一般利用 Filter 节点来实现类似的路由功能。</p>
+<p>第三步：提供一个 MQ Input 节点给 A 客户，A 客户可以通过该 MQ 节点发送消息，从而访问 BBank 和 CBank 提供的服务。</p>
+<p>第四步：由于 A 银行支持对 MQ 的访问，故 B，C 银行的返回结果都存放在 MQ 中，A 银行只要访问相应的队列就可以取回结果。本例不介绍 A 银行应用系统对 MQ 的访问</p>
+<h5 id="图-4-使用-Message-Broker-开发-Mediation-消息流"><a href="#图-4-使用-Message-Broker-开发-Mediation-消息流" class="headerlink" title="图 4. 使用 Message Broker 开发 Mediation 消息流"></a>图 4. 使用 Message Broker 开发 Mediation 消息流</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image009.jpg" alt="使用 Message Broker 开发 Mediation 消息流"></p>
+<p>如图 4 所示，我们在 BBank Compute 节点和 MappingToCBank mapping 节点中分别采用了 ESQL 和 mapping 节点实现消息格式的转换。WMB 提供了非常强大的消息 mapping 功能，在已知映射双方消息格式的情况下，我们可以直接利用 mapping 节点进行消息映射。在 BBank 中我们也利用了 WMB 特有的 ESQL 实现到 SOAP 消息的映射。</p>
+<p>在 CBank Compute 节点中我们对存放在 FTP 中的文件名进行了动态赋值，其文件名字根据消息中唯一的 ID 信息来标识。</p>
+<p>图 5 是 Route 节点的主要信息，非常简单，根据消息中的 Bank 的字段路由到不同的服务：</p>
+<h5 id="图-5-Router-规则表"><a href="#图-5-Router-规则表" class="headerlink" title="图 5. Router 规则表"></a>图 5. Router 规则表</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image010.gif" alt="Router 规则表"></p>
+<p>总的来说，WMB 提供了更为丰富的内置节点，支持不同协议间的转换，在本例中我们采用 FTP 作为演示，WMB 还支持 JMS、HTTP、TCP/IP 等其他常用协议。由于和 MQ 天然的内在联系，支持 MQ 访问的应用系统使用 WMB 作为 ESB 将非常自然，和 WESB 相比，WMB 不仅提供了的丰富的消息处理机制，在性能方面也更为优越。</p>
+<h3 id="使用-Datapower-实现场景"><a href="#使用-Datapower-实现场景" class="headerlink" title="使用 Datapower 实现场景"></a>使用 Datapower 实现场景</h3><p><strong> 场景描述：</strong></p>
+<p>在该场景中，服务的注册，路由等功能和前面描述的 WESB 相似，除此之外，还需要以下安全方面的支持：</p>
+<ul>
+<li><p>B,C 提供的服务在服务端已经实现了服务端的安全机制，请求者只有满足相应的机制才能请求服务。</p>
+</li>
+<li><p>要求服务的请求和返回在安全的传输层（SSL）之上传输。</p>
+</li>
+<li>返回的消息是加密的，需要请求者解密消息。</li>
+<li>请求的消息要数字签名，保证消息在请求过程中未被修改。</li>
+<li>防范 XML 攻击（XML 攻击的介绍参见参考文献部分）</li>
+<li>以上这些安全方面的要求在 WESB 中完全可以实现，但是对安全性的增加会导致：1）开发的复杂度；2）系统性能的大幅下降。<br>在这样的高安全要求应用场景下，用 Datapower 来做 ESB 则成为最佳选择。在有的情况下 Datapower 会和 WESB 或者 Message Broker 联合起来使用，参考联合使用章节。这里我们单独介绍 Datapower 单独做 ESB 时所能提供的功能。</li>
+</ul>
+<p><strong> 场景实现：</strong></p>
+<p>在 Datapower 下实现该场景的过程中，我们分两个步骤来实现</p>
+<p>第一步：实现基本的 ESB 服务注册、路由、消息转换等功能。</p>
+<p>第二部：在此基础之上，我们再增加对安全方面的支持，下面我们来看看在 Datapower 上增加安全是如何的便捷及高效。</p>
+<p>实现第一步，我们通过两个 XML Firewall 来封装 B，C 银行提供的服务，图 6 是对 B 服务建立 Firewall 的开发配置界面：</p>
+<h5 id="图-6-封装-B-服务的-Firewall-开发配置界面"><a href="#图-6-封装-B-服务的-Firewall-开发配置界面" class="headerlink" title="图 6. 封装 B 服务的 Firewall 开发配置界面"></a>图 6. 封装 B 服务的 Firewall 开发配置界面</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image012.jpg" alt="封装 B 服务的 Firewall 开发配置界面"></p>
+<p>建立好两个 Firewall 后，我们现在来建立一个新的 Firewall 来实现 ESB 中的路由和消息转换，如图 7：</p>
+<h5 id="图-7-ESB-路由-Firewall"><a href="#图-7-ESB-路由-Firewall" class="headerlink" title="图 7. ESB 路由 Firewall"></a>图 7. ESB 路由 Firewall</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image014.jpg" alt="ESB 路由 Firewall"></p>
+<p>Policy 的定义如图 8：</p>
+<h5 id="图-8-Policy-定义"><a href="#图-8-Policy-定义" class="headerlink" title="图 8. Policy 定义"></a>图 8. Policy 定义</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image016.jpg" alt="Policy 定义"></p>
+<p>我们需要配置请求消息流和返回消息流中的各个节点来完成 ESB 的功能。转换节点中，我们开发 XSL 来进行格式转换；在路由节点中，我们要定义路由表，如图 9 所示，</p>
+<h5 id="图-9-路由规则表"><a href="#图-9-路由规则表" class="headerlink" title="图 9. 路由规则表"></a>图 9. 路由规则表</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image018.jpg" alt="路由规则表"></p>
+<p>下面，我们对上述 ESB 消息流增加安全方面的支持。假定 Datapower 使用在 A 银行的内部网中，那么我们只需要在和 B，C 银行之间的传输中增加安全支持，如图 10 所示。</p>
+<h5 id="图-10-实现场景图中的安全需求"><a href="#图-10-实现场景图中的安全需求" class="headerlink" title="图 10. 实现场景图中的安全需求"></a>图 10. 实现场景图中的安全需求</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image020.jpg" alt="实现场景图中的安全需求"></p>
+<ul>
+<li>加入 SSL<br>SSL 在 Datapower 中是一个独立开发的对象，我们开发好 SSL 的对象后，我们只需要在 XML Firewall 的配置界面上选择该对象即可，如图 11：</li>
+</ul>
+<h5 id="图-11-在-Firewall-中增加-SSL"><a href="#图-11-在-Firewall-中增加-SSL" class="headerlink" title="图 11. 在 Firewall 中增加 SSL"></a>图 11. 在 Firewall 中增加 SSL</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image022.jpg" alt="在 Firewall 中增加 SSL"></p>
+<ul>
+<li>签名和确认<br>B 银行要求传过去的请求消息是带有数字签名，我们需要在 B FirewallService 中加入 Sign（签名）节点来支持此项功能，如图 12 所示：</li>
+</ul>
+<h5 id="图-12-消息流中增加签名"><a href="#图-12-消息流中增加签名" class="headerlink" title="图 12. 消息流中增加签名"></a>图 12. 消息流中增加签名</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image024.jpg" alt="消息流中增加签名"></p>
+<ul>
+<li>加密解密<br>B 银行返回消息是加密的，我们需要在 B FirewallService 的 Firewall Policy 中加入 Decrypt（解密）的节点，如图 13 所示。</li>
+</ul>
+<h5 id="图-13-消息流中增加解密节点"><a href="#图-13-消息流中增加解密节点" class="headerlink" title="图 13. 消息流中增加解密节点"></a>图 13. 消息流中增加解密节点</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image026.jpg" alt="消息流中增加解密节点"></p>
+<p>上面几张图中我们介绍了如何对 B 提供的服务增加安全支持，对 C 的服务业一样处理。至此，我们方便得在 Datapower 和 B,C 银行之间提供安全的服务请求，通过配置的方式即可完成安全的支持，节省了很大的开发成本，此外，Datapower 对 XML 的处理速度达到线速，有兴趣的读者可以参考相关文献。</p>
+<p><a href="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2.html#ibm-pcon" target="_blank" rel="external">回页首</a></p>
+<h2 id="ESB-产品的联合应用的场景介绍"><a href="#ESB-产品的联合应用的场景介绍" class="headerlink" title="ESB 产品的联合应用的场景介绍"></a>ESB 产品的联合应用的场景介绍</h2><p>三款产品并不是独立使用的，在某些环境下可能需要三款产品的联合使用</p>
+<h3 id="WESB-和-WMB-联合使用"><a href="#WESB-和-WMB-联合使用" class="headerlink" title="WESB 和 WMB 联合使用"></a>WESB 和 WMB 联合使用</h3><p>在图 14 的场景中，某跨国公司在世界各地都有分公司，由于时区的原因，每天的信息需要通过异步的方式统一到总公司，由于总公司的业务量大，我们可以使用 WMB 做总公司的 ESB，而在分支机构，业务量小，且都是 J2EE 和 Web Service 的应用，我们可以使用 WESB 作为分公司的 ESB。</p>
+<h5 id="图-14-WMB-和-WESB-联合使用的场景"><a href="#图-14-WMB-和-WESB-联合使用的场景" class="headerlink" title="图 14. WMB 和 WESB 联合使用的场景"></a>图 14. WMB 和 WESB 联合使用的场景</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image028.gif" alt="WMB 和 WESB 联合使用的场景"></p>
+<h3 id="Datapower-和-WESB-联合使用"><a href="#Datapower-和-WESB-联合使用" class="headerlink" title="Datapower 和 WESB 联合使用"></a>Datapower 和 WESB 联合使用</h3><p>如图 15 所示，我们可以在 WPS 上实现负责的业务流程，在企业内部使用 WESB 作为 ESB。在该场景中 WESB 只负责服务的注册、路由和查找功能，而安全方面的处理，以及部分消息格式转换的功能由 Datapower 处理（外部传来的非 XML 格式的数据通过 Datapower 处理成 XML 格式的数据），该场景既利用到 Datapower 在安全和 XML 处理方面的优势，有利用到 WESB 和 WPS 集成的优势。</p>
+<h5 id="图-15-Datapower-和-WESB-联合使用的场景"><a href="#图-15-Datapower-和-WESB-联合使用的场景" class="headerlink" title="图 15. Datapower 和 WESB 联合使用的场景"></a>图 15. Datapower 和 WESB 联合使用的场景</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image030.gif" alt="Datapower 和 WESB 联合使用的场景"></p>
+<h3 id="Datapower-和-WMB-联合使用"><a href="#Datapower-和-WMB-联合使用" class="headerlink" title="Datapower 和 WMB 联合使用"></a>Datapower 和 WMB 联合使用</h3><p>如图 16 所示，Datapower 可以和 WMB 配合使用。WMB 提供了多种多样的消息协议和格式的支持，比如遗留的 EIS 系统，SAP、PeopleSoft 等，也可以充分利用 WMB 的扩展性自定义消息集或者消息节点，以此来满足特殊的应用需求。Datapower 可以提供高性能的 Web Service 安全网关。客户端通过 SOAP over HTTP 可以访问到 Datapower，而 Datapower 用过 MQ 访问 WMB。该场景兼顾了 Datapower 在性能上强大的优势和 WMB 丰富的消息协议与格式支持。</p>
+<h5 id="图-16-Datapower-和-WMB-联合使用的场景"><a href="#图-16-Datapower-和-WMB-联合使用的场景" class="headerlink" title="图 16. Datapower 和 WMB 联合使用的场景"></a>图 16. Datapower 和 WMB 联合使用的场景</h5><p><img src="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2-image032.jpg" alt="Datapower 和 WMB 联合使用的场景"></p>
+<p><a href="http://www.ibm.com/developerworks/cn/webservices/0811_magy_esb/2.html#ibm-pcon" target="_blank" rel="external">回页首</a></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>在和客户以及合作伙伴交流的过程中，我们经常会被问到 IBM 的三款 ESB 产品的差别以及如何选择合适的 ESB 产品。在这篇文章中，我们分成两个部分介绍了 ESB 以及 IBM 的三款 ESB 产品的各自特点和适用的场景，并通过一个实际案例基于三款产品的实现来描述其开发部署的差异。至此，希望能帮助读者在选择正确 ESB 产品时起到一定的作用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/ibm-esb-2.html" data-id="cji8sg1s6005o40ioi6u6itij" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IBM/">IBM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOA/">SOA</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/websphere-mq-install.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          Websphere MQ安装入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ibm-esb-1.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">IBM ESB 产品之间的比较及应用场景: 第 1 部分，IBM ESB 产品之间的比较</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

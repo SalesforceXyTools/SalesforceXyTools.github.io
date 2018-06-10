@@ -1,0 +1,1004 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Exia.Huang</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.ibmer.info/"/>
+  <updated>2017-03-26T13:30:17.979Z</updated>
+  <id>http://www.ibmer.info/</id>
+  
+  <author>
+    <name>Exia.Huang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://www.ibmer.info/hello-world.html"/>
+    <id>http://www.ibmer.info/hello-world.html</id>
+    <published>2017-03-26T13:30:17.978Z</published>
+    <updated>2017-03-26T13:30:17.979Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SalesforceXyTools Sublime ApexCreator</title>
+    <link href="http://www.ibmer.info/SalesforceXyTools-Sublime-ApexCreator.html"/>
+    <id>http://www.ibmer.info/SalesforceXyTools-Sublime-ApexCreator.html</id>
+    <published>2017-03-24T09:08:34.000Z</published>
+    <updated>2017-03-26T13:30:17.758Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><h1 id="SalesforceXyTools"><a href="#SalesforceXyTools" class="headerlink" title="SalesforceXyTools"></a>SalesforceXyTools</h1><ul>
+<li><a href="http://www.ibmer.info/salesforcexytools.html">SalesforceXyTools Introduce</a></li>
+<li><a href="http://www.ibmer.info/salesforcexytools-install.html">SalesforceXyTools Install</a></li>
+<li><a href="http://www.ibmer.info/auto-create-sfdc-code.html">SalesforceXyTools Auto Create VF-Controller-DTO-DAO-Code</a></li>
+<li><a href="http://www.ibmer.info/export-sobject-excel.html">SalesforceXyTools: Export Sobject To Excel</a></li>
+<li><a href="https://packagecontrol.io/packages/SalesforceXyTools" target="_blank" rel="external">SalesforceXyTools Sublime Package</a></li>
+</ul>
+<h2 id="Auto-Create-VF-Controller-DTO-DAO-Code"><a href="#Auto-Create-VF-Controller-DTO-DAO-Code" class="headerlink" title="Auto Create VF-Controller-DTO-DAO-Code"></a>Auto Create VF-Controller-DTO-DAO-Code</h2><p>Hello,I am Exia.huang.<br>Today I will show you how to create VisualForce/Apex quickly by using SalesforceXyTools.</p>
+<h2 id="There-are-5-steps"><a href="#There-are-5-steps" class="headerlink" title="There are 5 steps."></a>There are 5 steps.</h2><ol>
+<li><p>Find the menu below.<br>[SFDC-XY]-&gt;[SFDC Code Creator]-&gt;[Create VisualForce/Controller/DTO/DAO Code]</p>
+
+</li>
+<li><p>Select your Sobject.<br>I will select Blog__c.</p>
+
+</li>
+<li><p>Select Custom Fields Or All Fields.</p>
+<ul>
+<li><p>I will select custom fields-Include Validate.</p>
+
+</li>
+<li><p>The sobject of Blog__c is as below:</p>
+
+</li>
+</ul>
+</li>
+<li><p>It will automatically create code like below</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">+---sfdc-xy</div><div class="line">|   \---code-creator</div><div class="line">|           Blog.page</div><div class="line">|           BlogController.cls</div><div class="line">|           BlogDao.cls</div><div class="line">|           BlogDto.cls</div><div class="line">|           BlogList.page</div><div class="line">|           BlogListController.cls</div><div class="line">|           SfdcXyController.cls</div></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<ol>
+<li><p>Upload these code and enjoy yourself.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   https://ap2.salesforce.com/apex/BlogList</div><div class="line">   https://ap2.salesforce.com/apex/Blog</div></pre></td></tr></table></figure>
+<ul>
+<li><p>Edit list of Blog__c.(Source code is BlogList.page.)</p>
+
+</li>
+<li><p>View list of Blog__c.(Source code is BlogList.page.)</p>
+
+</li>
+<li><p>Search Blog__c Data.(Source code is BlogList.page.)</p>
+
+</li>
+<li><p>New a Blog__c Data.(Source code is Blog.page.)</p>
+
+</li>
+<li><p>New a Blog__c Data.(Source code is Blog.page.)</p>
+
+</li>
+<li><p>Edit a Blog__c Data.(Source code is Blog.page.)</p>
+
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot; title=&quot;概要&quot;&gt;&lt;/a&gt;概要&lt;/h1&gt;&lt;h1 id=&quot;SalesforceXyTools&quot;&gt;&lt;a href=&quot;#SalesforceXyTools&quot; class=&quot;headerlink
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SFDC" scheme="http://www.ibmer.info/tags/SFDC/"/>
+    
+      <category term="Apex" scheme="http://www.ibmer.info/tags/Apex/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SalesforceXyTools Sublime Export SObject To Excel</title>
+    <link href="http://www.ibmer.info/SalesforceXyTools-Sublime-ExportToExcel.html"/>
+    <id>http://www.ibmer.info/SalesforceXyTools-Sublime-ExportToExcel.html</id>
+    <published>2017-03-24T09:07:34.000Z</published>
+    <updated>2017-03-26T13:30:17.865Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>SalesforceXyTools Sublimeを使ってSobjectをエクセルファイルにエクスポート</p>
+<h1 id="SalesforceXyTools"><a href="#SalesforceXyTools" class="headerlink" title="SalesforceXyTools"></a>SalesforceXyTools</h1><ul>
+<li><a href="http://www.ibmer.info/salesforcexytools.html">SalesforceXyTools Introduce</a></li>
+<li><a href="http://www.ibmer.info/salesforcexytools-install.html">SalesforceXyTools Install</a></li>
+<li><a href="http://www.ibmer.info/auto-create-sfdc-code.html">SalesforceXyTools Auto Create VF-Controller-DTO-DAO-Code</a></li>
+<li><a href="http://www.ibmer.info/export-sobject-excel.html">SalesforceXyTools: Export Sobject To Excel</a></li>
+<li><a href="https://packagecontrol.io/packages/SalesforceXyTools" target="_blank" rel="external">SalesforceXyTools Sublime Package</a></li>
+</ul>
+<h1 id="SalesforceXyTools-Export-Soject-To-Excel"><a href="#SalesforceXyTools-Export-Soject-To-Excel" class="headerlink" title="SalesforceXyTools Export Soject To Excel"></a>SalesforceXyTools Export Soject To Excel</h1><p>Hello,I am Exia.huang.<br>Today I will show you how to export soject to excel.</p>
+<h2 id="There-are-3-steps"><a href="#There-are-3-steps" class="headerlink" title="There are 3 steps."></a>There are 3 steps.</h2><ol>
+<li><p>Find the menu below.<br>[SFDC-XY]-&gt;[SFDC Object]-&gt;[Save SFDC Object List AS Excel]</p>
+
+</li>
+<li><p>Input your save path and xlsx file name.</p>
+
+
+</li>
+<li><p>Open the excel file, and enjoy yourself.</p>
+
+
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot; title=&quot;概要&quot;&gt;&lt;/a&gt;概要&lt;/h1&gt;&lt;p&gt;SalesforceXyTools Sublimeを使ってSobjectをエクセルファイルにエクスポート&lt;/p&gt;
+&lt;h1 id=&quot;Sales
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SFDC" scheme="http://www.ibmer.info/tags/SFDC/"/>
+    
+      <category term="Apex" scheme="http://www.ibmer.info/tags/Apex/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SalesforceXyTools Sublime Test Code Creator</title>
+    <link href="http://www.ibmer.info/SalesforceXyTools-Sublime-TestCodeCreator.html"/>
+    <id>http://www.ibmer.info/SalesforceXyTools-Sublime-TestCodeCreator.html</id>
+    <published>2017-03-24T09:06:34.000Z</published>
+    <updated>2017-03-26T13:30:17.928Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SalesforceXyTools"><a href="#SalesforceXyTools" class="headerlink" title="SalesforceXyTools"></a>SalesforceXyTools</h1><ul>
+<li><a href="http://www.ibmer.info/salesforcexytools.html">SalesforceXyTools Introduce</a></li>
+<li><a href="http://www.ibmer.info/salesforcexytools-install.html">SalesforceXyTools Install</a></li>
+<li><a href="http://www.ibmer.info/auto-create-sfdc-code.html">SalesforceXyTools Auto Create VF-Controller-DTO-DAO-Code</a></li>
+<li><a href="http://www.ibmer.info/export-sobject-excel.html">SalesforceXyTools: Export Sobject To Excel</a></li>
+<li><a href="http://www.ibmer.info/create-test-class.html">SalesforceXyTools: Create test class </a></li>
+<li><a href="https://packagecontrol.io/packages/SalesforceXyTools" target="_blank" rel="external">SalesforceXyTools Sublime Package</a></li>
+</ul>
+<h2 id="Auto-Create-VF-Controller-DTO-DAO-Code"><a href="#Auto-Create-VF-Controller-DTO-DAO-Code" class="headerlink" title="Auto Create VF-Controller-DTO-DAO-Code"></a>Auto Create VF-Controller-DTO-DAO-Code</h2><p>Hello,I am Exia.huang.<br>Today I will show you how to create testclass quickly by using SalesforceXyTools.<br>And how to create to create test data quickly.</p>
+<p>## </p>
+<ol>
+<li><p>Open the apex code, and find the menu below.<br>[SFDC-XY]-&gt;[SFDC Code Creator]-&gt;[Create Test Code]</p>
+
+
+<ul>
+<li>The class code which I have selected is like below.<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* <span class="doctag">@author</span> huangxy</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> with sharing <span class="class"><span class="keyword">class</span> <span class="title">BlogController</span> <span class="keyword">extends</span> <span class="title">SfdcXyController</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// DTO Bean</span></div><div class="line">        <span class="keyword">public</span> BlogDto blogDto &#123;get;set;&#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">BlogController</span><span class="params">()</span> </span>&#123;</div><div class="line">            search();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">search</span><span class="params">()</span></span>&#123;</div><div class="line">            String id = ApexPages.currentPage().getParameters().get(<span class="string">'id'</span>);</div><div class="line">            <span class="keyword">if</span>(String.isBlank(id))&#123;</div><div class="line">                <span class="keyword">this</span>.blogDto = <span class="keyword">new</span> BlogDto();</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">this</span>.blogDto = <span class="keyword">new</span> BlogDto(BlogDao.getBlogById(id));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * upsert Dto</div><div class="line">         */</div><div class="line">        <span class="function"><span class="keyword">public</span> PageReference <span class="title">doSave</span><span class="params">()</span> </span>&#123;</div><div class="line">            Boolean result;</div><div class="line"></div><div class="line">            Savepoint sp = Database.setSavepoint();</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                upsert blogDto.getSobject();</div><div class="line">                result = <span class="keyword">true</span>;</div><div class="line">            &#125; <span class="keyword">catch</span>(DMLException e) &#123;</div><div class="line">                Database.rollback(sp);</div><div class="line">                System.debug(<span class="string">'saveDto DMLException:'</span> + e.getMessage());</div><div class="line">                result = <span class="keyword">false</span>;</div><div class="line">            &#125; <span class="keyword">catch</span>(Exception e) &#123;</div><div class="line">                Database.rollback(sp);</div><div class="line">                System.debug(<span class="string">'saveDto Exception:'</span> + e.getMessage());</div><div class="line">                result = <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * Go Next</div><div class="line">         */</div><div class="line">        <span class="function"><span class="keyword">public</span> override PageReference <span class="title">doNext</span><span class="params">()</span> </span>&#123;</div><div class="line">            Boolean result = doCheck();</div><div class="line">            setNextMode(result);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * Go Back</div><div class="line">         */</div><div class="line">        <span class="function"><span class="keyword">public</span> override PageReference <span class="title">doBack</span><span class="params">()</span> </span>&#123;</div><div class="line">            Boolean result = <span class="keyword">true</span>; </div><div class="line">            setBackMode(result);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * do Check</div><div class="line">         */</div><div class="line">        <span class="function"><span class="keyword">public</span> override Boolean <span class="title">doCheck</span><span class="params">()</span> </span>&#123;</div><div class="line">            Boolean result = <span class="keyword">true</span>;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> result;</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">  </div><div class="line">  * Select [Create Test Code], the test code will be created automatically like below.</div><div class="line">  ```java</div><div class="line"><span class="comment">/**</span></div><div class="line">* <span class="doctag">@author</span> huangxy</div><div class="line">*/</div><div class="line"><span class="meta">@isTest</span></div><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">BlogControllerTest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * This is a test method for BlogController</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> testMethod <span class="keyword">void</span> <span class="title">test_BlogController</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// PageReference pageRef = Page.Blog;</span></div><div class="line">        <span class="comment">// Test.setCurrentPage(pageRef);</span></div><div class="line">        <span class="comment">// pageRef.getParameters().put('param1', 'param1');</span></div><div class="line"></div><div class="line">        Test.startTest();</div><div class="line"></div><div class="line">    BlogController blogController = <span class="keyword">new</span> BlogController();</div><div class="line"></div><div class="line"></div><div class="line">        Test.stopTest();</div><div class="line"></div><div class="line">        <span class="comment">// Check</span></div><div class="line">        <span class="comment">// System.assert(ApexPages.hasMessages());</span></div><div class="line">        <span class="comment">// for(ApexPages.Message msg : ApexPages.getMessages()) &#123;</span></div><div class="line">        <span class="comment">//     System.assertEquals('Upload file is NULL', msg.getSummary());</span></div><div class="line">        <span class="comment">//     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * This is a test method for doSave</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> testMethod <span class="keyword">void</span> <span class="title">test_doSave</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// PageReference pageRef = Page.Blog;</span></div><div class="line">        <span class="comment">// Test.setCurrentPage(pageRef);</span></div><div class="line">        <span class="comment">// pageRef.getParameters().put('param1', 'param1');</span></div><div class="line"></div><div class="line">        Test.startTest();</div><div class="line"></div><div class="line">    BlogController blogController = <span class="keyword">new</span> BlogController();</div><div class="line">    PageReference resultDoSave = blogController.doSave();</div><div class="line"></div><div class="line"></div><div class="line">        Test.stopTest();</div><div class="line"></div><div class="line">        <span class="comment">// Check</span></div><div class="line">        <span class="comment">// System.assert(ApexPages.hasMessages());</span></div><div class="line">        <span class="comment">// for(ApexPages.Message msg : ApexPages.getMessages()) &#123;</span></div><div class="line">        <span class="comment">//     System.assertEquals('Upload file is NULL', msg.getSummary());</span></div><div class="line">        <span class="comment">//     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * This is a test method for doNext</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> testMethod <span class="keyword">void</span> <span class="title">test_doNext</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// PageReference pageRef = Page.Blog;</span></div><div class="line">        <span class="comment">// Test.setCurrentPage(pageRef);</span></div><div class="line">        <span class="comment">// pageRef.getParameters().put('param1', 'param1');</span></div><div class="line"></div><div class="line">        Test.startTest();</div><div class="line"></div><div class="line">    BlogController blogController = <span class="keyword">new</span> BlogController();</div><div class="line">    PageReference resultDoNext = blogController.doNext();</div><div class="line"></div><div class="line"></div><div class="line">        Test.stopTest();</div><div class="line"></div><div class="line">        <span class="comment">// Check</span></div><div class="line">        <span class="comment">// System.assert(ApexPages.hasMessages());</span></div><div class="line">        <span class="comment">// for(ApexPages.Message msg : ApexPages.getMessages()) &#123;</span></div><div class="line">        <span class="comment">//     System.assertEquals('Upload file is NULL', msg.getSummary());</span></div><div class="line">        <span class="comment">//     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * This is a test method for doBack</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> testMethod <span class="keyword">void</span> <span class="title">test_doBack</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// PageReference pageRef = Page.Blog;</span></div><div class="line">        <span class="comment">// Test.setCurrentPage(pageRef);</span></div><div class="line">        <span class="comment">// pageRef.getParameters().put('param1', 'param1');</span></div><div class="line"></div><div class="line">        Test.startTest();</div><div class="line"></div><div class="line">    BlogController blogController = <span class="keyword">new</span> BlogController();</div><div class="line">    PageReference resultDoBack = blogController.doBack();</div><div class="line"></div><div class="line"></div><div class="line">        Test.stopTest();</div><div class="line"></div><div class="line">        <span class="comment">// Check</span></div><div class="line">        <span class="comment">// System.assert(ApexPages.hasMessages());</span></div><div class="line">        <span class="comment">// for(ApexPages.Message msg : ApexPages.getMessages()) &#123;</span></div><div class="line">        <span class="comment">//     System.assertEquals('Upload file is NULL', msg.getSummary());</span></div><div class="line">        <span class="comment">//     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * This is a test method for doCheck</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> testMethod <span class="keyword">void</span> <span class="title">test_doCheck</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// PageReference pageRef = Page.Blog;</span></div><div class="line">        <span class="comment">// Test.setCurrentPage(pageRef);</span></div><div class="line">        <span class="comment">// pageRef.getParameters().put('param1', 'param1');</span></div><div class="line"></div><div class="line">        Test.startTest();</div><div class="line"></div><div class="line">    BlogController blogController = <span class="keyword">new</span> BlogController();</div><div class="line">    Boolean resultDoCheck = blogController.doCheck();</div><div class="line"></div><div class="line"></div><div class="line">        Test.stopTest();</div><div class="line"></div><div class="line">        <span class="comment">// Check</span></div><div class="line">        <span class="comment">// System.assert(ApexPages.hasMessages());</span></div><div class="line">        <span class="comment">// for(ApexPages.Message msg : ApexPages.getMessages()) &#123;</span></div><div class="line">        <span class="comment">//     System.assertEquals('Upload file is NULL', msg.getSummary());</span></div><div class="line">        <span class="comment">//     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * This is a test method for all</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> testMethod <span class="keyword">void</span> <span class="title">test_all</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// PageReference pageRef = Page.Blog;</span></div><div class="line">        <span class="comment">// Test.setCurrentPage(pageRef);</span></div><div class="line">        <span class="comment">// pageRef.getParameters().put('param1', 'param1');</span></div><div class="line"></div><div class="line">        Test.startTest();</div><div class="line"></div><div class="line">    <span class="comment">//  test BlogController</span></div><div class="line">    BlogController blogController = <span class="keyword">new</span> BlogController();</div><div class="line"></div><div class="line">    <span class="comment">//  test doSave</span></div><div class="line">    PageReference resultDoSave = blogController.doSave();</div><div class="line"></div><div class="line">    <span class="comment">//  test doNext</span></div><div class="line">    PageReference resultDoNext = blogController.doNext();</div><div class="line"></div><div class="line">    <span class="comment">//  test doBack</span></div><div class="line">    PageReference resultDoBack = blogController.doBack();</div><div class="line"></div><div class="line">    <span class="comment">//  test doCheck</span></div><div class="line">    Boolean resultDoCheck = blogController.doCheck();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        Test.stopTest();</div><div class="line"></div><div class="line">        <span class="comment">// Check</span></div><div class="line">        <span class="comment">// System.assert(ApexPages.hasMessages());</span></div><div class="line">        <span class="comment">// for(ApexPages.Message msg : ApexPages.getMessages()) &#123;</span></div><div class="line">        <span class="comment">//     System.assertEquals('Upload file is NULL', msg.getSummary());</span></div><div class="line">        <span class="comment">//     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Insert Test Data(All Field)<br>I will select Blog__c.</p>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  List&lt;Blog__c&gt; blogList = <span class="keyword">new</span> List&lt;Blog__c&gt;();</div><div class="line"><span class="keyword">for</span>(Integer i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</div><div class="line">    Blog__c blog = <span class="keyword">new</span> Blog__c();</div><div class="line">    blog.comment__c = <span class="string">'CoaM5Vy'</span> + string.valueof(i) ;    <span class="comment">//評価</span></div><div class="line">    blog.comment_status__c = <span class="string">'spam'</span>;    <span class="comment">//評価ステータス</span></div><div class="line">    blog.content__c = <span class="string">'biKtXlF'</span> + string.valueof(i) ;    <span class="comment">//内容</span></div><div class="line">    blog.excerpt__c = <span class="string">'QVbhcE8'</span> + string.valueof(i) ;    <span class="comment">//概要</span></div><div class="line">    blog.status__c = <span class="string">'Draft'</span>;    <span class="comment">//ステータス</span></div><div class="line">    blog.title__c = <span class="string">'52lF1IP'</span> + string.valueof(i) ;    <span class="comment">//タイトル</span></div><div class="line">    blogList.add(blog);</div><div class="line">&#125;</div><div class="line">insert blogList;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Insert Test Data(From SOQL) </p>
+
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>,comment__c,content__c <span class="keyword">from</span> Blog__c <span class="keyword">limit</span> <span class="number">2</span></div></pre></td></tr></table></figure>
+<ul>
+<li>Select [Insert Test Data(From SOQL) ] Menu, the sql will be change to apex code like below.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">List&lt;Blog__c&gt; blogList = <span class="keyword">new</span> List&lt;Blog__c&gt;();</div><div class="line">Blog__c blog0 = <span class="keyword">new</span> Blog__c();</div><div class="line"><span class="comment">// blog0.id = 'a096F00001yVNHWQA4';    // カスタムオブジェクト ID</span></div><div class="line">blog0.name = <span class="string">'ID-0004'</span>;   <span class="comment">// ブログNo</span></div><div class="line">blog0.comment__c = <span class="string">'評価'</span>;   <span class="comment">// 評価</span></div><div class="line">blog0.content__c = <span class="string">'評価'</span>;   <span class="comment">// 内容</span></div><div class="line">blogList.add(blog0);</div><div class="line"></div><div class="line">Blog__c blog1 = <span class="keyword">new</span> Blog__c();</div><div class="line"><span class="comment">// blog1.id = 'a096F00001yVNHRQA4';    // カスタムオブジェクト ID</span></div><div class="line">blog1.name = <span class="string">'ID-0003'</span>;   <span class="comment">// ブログNo</span></div><div class="line">blog1.comment__c = <span class="string">'評価1e'</span>;   <span class="comment">// 評価</span></div><div class="line">blog1.content__c = <span class="string">'内容'</span>;   <span class="comment">// 内容</span></div><div class="line">blogList.add(blog1);</div><div class="line"></div><div class="line">upsert blogList;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;SalesforceXyTools&quot;&gt;&lt;a href=&quot;#SalesforceXyTools&quot; class=&quot;headerlink&quot; title=&quot;SalesforceXyTools&quot;&gt;&lt;/a&gt;SalesforceXyTools&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a h
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SFDC" scheme="http://www.ibmer.info/tags/SFDC/"/>
+    
+      <category term="Apex" scheme="http://www.ibmer.info/tags/Apex/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SalesforceXyTools Sublime Install Help</title>
+    <link href="http://www.ibmer.info/SalesforceXyTools-Sublime-Install.html"/>
+    <id>http://www.ibmer.info/SalesforceXyTools-Sublime-Install.html</id>
+    <published>2017-03-24T09:02:34.000Z</published>
+    <updated>2017-03-26T13:30:17.895Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SalesforceXyTools"><a href="#SalesforceXyTools" class="headerlink" title="SalesforceXyTools"></a>SalesforceXyTools</h1><ul>
+<li><a href="http://www.ibmer.info/salesforcexytools.html">SalesforceXyTools Introduce</a></li>
+<li><a href="http://www.ibmer.info/salesforcexytools-install.html">SalesforceXyTools Install</a></li>
+<li><a href="http://www.ibmer.info/auto-create-sfdc-code.html">SalesforceXyTools Auto Create VF-Controller-DTO-DAO-Code</a></li>
+<li><a href="http://www.ibmer.info/export-sobject-excel.html">SalesforceXyTools: Export Sobject To Excel</a></li>
+<li><a href="https://packagecontrol.io/packages/SalesforceXyTools" target="_blank" rel="external">SalesforceXyTools Sublime Package</a></li>
+</ul>
+<h1 id="SalesforceXyTools-Install-Help"><a href="#SalesforceXyTools-Install-Help" class="headerlink" title="SalesforceXyTools Install Help"></a>SalesforceXyTools Install Help</h1><h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><ul>
+<li>Sublime Text 3 <a href="http://www.sublimetext.com/3" target="_blank" rel="external">http://www.sublimetext.com/3</a></li>
+<li>Sublime Text Package Control <a href="https://packagecontrol.io/installation" target="_blank" rel="external">https://packagecontrol.io/installation</a></li>
+</ul>
+<h3 id="Plugin-Installation-Use-Package-Control-to-Install"><a href="#Plugin-Installation-Use-Package-Control-to-Install" class="headerlink" title="Plugin Installation(Use Package Control to Install)"></a>Plugin Installation(Use Package Control to Install)</h3><ol>
+<li>Open Sublime Text 3</li>
+<li><p>Run <code>Package Control: Install Package</code> command</p>
+<ul>
+<li><a href="http://docs.sublimetext.info/en/latest/extensibility/command_palette.html" target="_blank" rel="external">Running commands from Sublime Text</a>
+</li>
+</ul>
+</li>
+<li><p>Search for <code>SalesforceXyTools</code></p>
+
+</li>
+<li><p>Hit <code>Enter</code>, That is all.</p>
+
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;SalesforceXyTools&quot;&gt;&lt;a href=&quot;#SalesforceXyTools&quot; class=&quot;headerlink&quot; title=&quot;SalesforceXyTools&quot;&gt;&lt;/a&gt;SalesforceXyTools&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a h
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SFDC" scheme="http://www.ibmer.info/tags/SFDC/"/>
+    
+      <category term="Apex" scheme="http://www.ibmer.info/tags/Apex/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SalesforceXyTools Sublime Mavensmate Setup</title>
+    <link href="http://www.ibmer.info/SalesforceXyTools-Sublime-Mavensmate-Setup.html"/>
+    <id>http://www.ibmer.info/SalesforceXyTools-Sublime-Mavensmate-Setup.html</id>
+    <published>2017-03-24T09:02:34.000Z</published>
+    <updated>2017-03-26T13:30:17.912Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Use-Mavensmate-Session"><a href="#Use-Mavensmate-Session" class="headerlink" title="Use Mavensmate Session"></a>Use <a href="https://github.com/joeferraro/MavensMate-SublimeText" target="_blank" rel="external">Mavensmate</a> Session</h2><ul>
+<li>If you like to use mavensmate’s setting, you can set <code>authentication</code> mavensmate.</li>
+<li>mavensmate-destop v0.0.10 or below, please set mm_use_keyring true.</li>
+<li>mavensmate-destop v0.0.11-beta.2 to v0.0.11-beta.7, please set mm_use_keyring false.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;authentication&quot;:&quot;mavensmate&quot;,</div></pre></td></tr></table></figure>
+<p>mavensmate-destop v0.0.10 or below, please set mm_use_keyring <code>true</code>.<br>please re-auth again, Or Create project again!<br><code>This is the default value of mavensmate-destop!!!</code><br>  </p>
+<p>mavensmate-destop v0.0.11-beta.2 to v0.0.11-beta.7, please set mm_use_keyring <code>false</code>.<br>please re-auth again, Or Create project again!<br>  </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Use-Mavensmate-Session&quot;&gt;&lt;a href=&quot;#Use-Mavensmate-Session&quot; class=&quot;headerlink&quot; title=&quot;Use Mavensmate Session&quot;&gt;&lt;/a&gt;Use &lt;a href=&quot;https:/
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SFDC" scheme="http://www.ibmer.info/tags/SFDC/"/>
+    
+      <category term="Apex" scheme="http://www.ibmer.info/tags/Apex/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SalesforceXyTools Sublime Install Help Old Manual</title>
+    <link href="http://www.ibmer.info/SalesforceXyTools-Sublime-Install-Old-Manual.html"/>
+    <id>http://www.ibmer.info/SalesforceXyTools-Sublime-Install-Old-Manual.html</id>
+    <published>2017-03-24T09:01:34.000Z</published>
+    <updated>2017-03-26T13:30:17.895Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="This-is-an-old-manual-please-use-the-new-one-blow"><a href="#This-is-an-old-manual-please-use-the-new-one-blow" class="headerlink" title="This is an old manual, please use the new one blow."></a>This is an old manual, please use the new one blow.</h1><a href="/SalesforceXyTools-Sublime-Install.html" title="SalesforceXyTools Sublime Install Help">SalesforceXyTools Sublime Install Help</a>
+<p>#Github下载链接  SalesforceXyTools.sublime-package<br><a href="https://github.com/exiahuang/SalesforceXyTools/releases" target="_blank" rel="external">https://github.com/exiahuang/SalesforceXyTools/releases</a></p>
+<p>#Ibmer.Info地址<br><a href="http://www.ibmer.info/salesforcexytools.html">http://www.ibmer.info/salesforcexytools.html</a></p>
+<p>#GitHub地址<br><a href="https://github.com/exiahuang/SalesforceXyTools" target="_blank" rel="external">https://github.com/exiahuang/SalesforceXyTools</a></p>
+<h1 id="install-SalesforceXyTools-sublime-package"><a href="#install-SalesforceXyTools-sublime-package" class="headerlink" title="install SalesforceXyTools.sublime-package"></a>install SalesforceXyTools.sublime-package</h1><ol>
+<li>Open sublime Text, Click the Preferences &gt; Browse Packages… menu</li>
+<li>Browse up a folder and then into the Installed Packages/ folder</li>
+<li>Download Package <a href="https://github.com/exiahuang/SalesforceXyTools/releases" target="_blank" rel="external">SalesforceXyTools.sublime-package</a> and copy it into the Installed Packages/ directory</li>
+<li>Restart Sublime Text</li>
+</ol>
+<p>*Download SalesforceXyTools.sublime-packag<br><img src="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/download.jpg?raw=true" alt="download.jpg"></p>
+<p>*Setup SalesforceXyTools.sublime-packag<br><img src="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/setup.jpg?raw=true" alt="setup.jpg"></p>
+<p>#about mavensmate version </p>
+<ul>
+<li>support for <a href="https://github.com/joeferraro/MavensMate-Desktop/releases/tag/v0.0.10" target="_blank" rel="external">mavensmate v0.0.10</a>*</li>
+<li>not support for v0.0.11-beta.2 above*<br><img src="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/MavensMate-Version.JPG?raw=true" alt="MavensMate-Version.JPG"></li>
+</ul>
+<p>#安装配置<br>1.打开Sublime安装路径下的 \Data\Installed Packages 目录，复制SalesforceXyTools.sublime-package到该目录下。<br> {Sublime Text安装路径}\Data\Installed Packages。</p>
+<p>2运行Sublime， [SFDC-XY]-&gt;[Settings]-&gt;[Settings Default]复制所有内容，</p>
+<p>3.打开 [SFDC-XY]-&gt;[Settings]-&gt;[Settings User]，粘贴2所复制的内容。</p>
+<p>4.如果你使用mavensmate开发salesforce，那么请用默认配置即可。</p>
+<p>如果你不使用mavensmate开发salesforce，那么设置”use_mavensmate_setting”:false,然后设置你的default_project and projects。</p>
+<ul>
+<li>请使用mavensmate v0.0.10一下版本，v0.0.11-beta.2到v0.0.11-beta.7版本暂时不支持*</li>
+<li><a href="https://github.com/joeferraro/MavensMate-Desktop/releases/tag/v0.0.10" target="_blank" rel="external">mavensmate v0.0.10</a>*</li>
+</ul>
+<p>#インストール手順書(日本語)</p>
+<p>１.SalesforceXyTools.sublime-packageをダウンロードしてください。</p>
+<p><a href="https://github.com/exiahuang/SalesforceXyTools/releases" target="_blank" rel="external">https://github.com/exiahuang/SalesforceXyTools/releases</a></p>
+<p>２.Sublime Text3を起動します。</p>
+<p>３．メニューの「Preferences」→「Browse Packages…」を選択します。</p>
+<p>「Packages」というフォルダが開かれます。<br>「Packages」の親フォルダの中に「Installed Packages」というフォルダが有ります。</p>
+<p><em>パス確認{Sublime Textのインストールパス}\Data\Installed Packages。</em></p>
+<p>４．「Installed Packages」フォルダの中に、先ほどダウンロードした「SalesforceXyTools.sublime-package」ファイルを入れます。</p>
+<p>５．Sublime Text3を再起動すれば、SalesforceXyToolsが動作しています。</p>
+<p>６．設定について、もしmavensmateを使っている場合、<code>use_mavensmate_setting</code>をTrueに設定してください。<br>　　mavensmateを使っていない場合、<code>use_mavensmate_setting</code>をFalseに設定してください。</p>
+<ul>
+<li><a href="https://github.com/joeferraro/MavensMate-Desktop/releases/tag/v0.0.10" target="_blank" rel="external">mavensmate v0.0.10</a>をサポートしますが、*</li>
+<li>v0.0.11-beta.2 から v0.0.11-beta.7までのバージョンばしばらくサポートしません。*</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;This-is-an-old-manual-please-use-the-new-one-blow&quot;&gt;&lt;a href=&quot;#This-is-an-old-manual-please-use-the-new-one-blow&quot; class=&quot;headerlink&quot; t
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SFDC" scheme="http://www.ibmer.info/tags/SFDC/"/>
+    
+      <category term="Apex" scheme="http://www.ibmer.info/tags/Apex/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Salesforce apex updateあるいはdeleteしたらDmlExceptionが出た</title>
+    <link href="http://www.ibmer.info/sfdc-ENTITY_IS_DELETED.html"/>
+    <id>http://www.ibmer.info/sfdc-ENTITY_IS_DELETED.html</id>
+    <published>2017-03-24T08:08:00.000Z</published>
+    <updated>2017-03-26T13:30:17.981Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Salesforce-apex-updateあるいはdeleteしたらDmlExceptionが出た"><a href="#Salesforce-apex-updateあるいはdeleteしたらDmlExceptionが出た" class="headerlink" title="Salesforce apex updateあるいはdeleteしたらDmlExceptionが出た"></a>Salesforce apex updateあるいはdeleteしたらDmlExceptionが出た</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">First error: Update failed.</div><div class="line">First exception on row 0 with id a08xxxxxxxxxxxxxxx; </div><div class="line">first error: ENTITY_IS_DELETED, entity is deleted: []</div></pre></td></tr></table></figure>
+<p>削除したオブジェクトは参照でできないから。</p>
+<h4 id="「ENTITY-IS-DELETED」なのどコードの意味は？"><a href="#「ENTITY-IS-DELETED」なのどコードの意味は？" class="headerlink" title="「ENTITY_IS_DELETED」なのどコードの意味は？"></a>「ENTITY_IS_DELETED」なのどコードの意味は？</h4><p><a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_concepts_core_data_objects.htm" target="_blank" rel="external">SFDC Developer Guide</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">You can’t reference an object that has been deleted. </div><div class="line">This status code occurs only in API version 10.0 and later. </div><div class="line">Previous releases of the API use INVALID_ID_FIELD for this error.</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Salesforce-apex-updateあるいはdeleteしたらDmlExceptionが出た&quot;&gt;&lt;a href=&quot;#Salesforce-apex-updateあるいはdeleteしたらDmlExceptionが出た&quot; class=&quot;headerlink&quot;
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SFDC" scheme="http://www.ibmer.info/tags/SFDC/"/>
+    
+      <category term="Apex" scheme="http://www.ibmer.info/tags/Apex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>regex expression</title>
+    <link href="http://www.ibmer.info/regex-expression.html"/>
+    <id>http://www.ibmer.info/regex-expression.html</id>
+    <published>2017-03-24T05:54:39.000Z</published>
+    <updated>2017-03-26T13:30:17.980Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Sublime-正则表达式-Regex-Exrpression"><a href="#Sublime-正则表达式-Regex-Exrpression" class="headerlink" title="Sublime 正则表达式, Regex Exrpression"></a>Sublime 正则表达式, Regex Exrpression</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img([^</span>&gt;</span>])*&gt;</div><div class="line"><span class="tag">&lt;<span class="name">img$1</span> /&gt;</span></div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Sublime-正则表达式-Regex-Exrpression&quot;&gt;&lt;a href=&quot;#Sublime-正则表达式-Regex-Exrpression&quot; class=&quot;headerlink&quot; title=&quot;Sublime 正则表达式, Regex Exrpressi
+    
+    </summary>
+    
+      <category term="Program" scheme="http://www.ibmer.info/categories/Program/"/>
+    
+    
+      <category term="windows" scheme="http://www.ibmer.info/tags/windows/"/>
+    
+      <category term="IT" scheme="http://www.ibmer.info/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>dos comment</title>
+    <link href="http://www.ibmer.info/dos-comment.html"/>
+    <id>http://www.ibmer.info/dos-comment.html</id>
+    <published>2017-03-24T05:44:39.000Z</published>
+    <updated>2017-03-26T13:30:17.977Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Dos-BAT-Comment"><a href="#Dos-BAT-Comment" class="headerlink" title="Dos BAT Comment"></a>Dos BAT Comment</h3><ol>
+<li>:: 注释内容（第一个冒号后也可以跟任何一个非字母数字的字符）</li>
+<li>rem 注释内容（不能出现重定向符号和管道符号）</li>
+<li>echo 注释内容（不能出现重定向符号和管道符号）〉nul</li>
+<li>if not exist nul 注释内容（不能出现重定向符号和管道符号）</li>
+<li>:注释内容（注释文本不能与已有标签重名）</li>
+<li>%注释内容%（可以用作行间注释，不能出现重定向符号和管道符号）</li>
+<li>goto 标签 注释内容（可以用作说明goto的条件和执行内容）</li>
+<li>:标签 注释内容（可以用作标签下方段的执行内容）</li>
+</ol>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> on</div><div class="line">rem this is a comment.</div><div class="line"><span class="built_in">echo</span> this is a comment.</div><div class="line">:: this is a comment too.</div><div class="line"><span class="built_in">echo</span> this is a comment too.</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Dos-BAT-Comment&quot;&gt;&lt;a href=&quot;#Dos-BAT-Comment&quot; class=&quot;headerlink&quot; title=&quot;Dos BAT Comment&quot;&gt;&lt;/a&gt;Dos BAT Comment&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;:: 注释内容（第一个冒
+    
+    </summary>
+    
+      <category term="Program" scheme="http://www.ibmer.info/categories/Program/"/>
+    
+    
+      <category term="windows" scheme="http://www.ibmer.info/tags/windows/"/>
+    
+      <category term="IT" scheme="http://www.ibmer.info/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>My New Post</title>
+    <link href="http://www.ibmer.info/My-New-Post.html"/>
+    <id>http://www.ibmer.info/My-New-Post.html</id>
+    <published>2017-03-24T05:10:49.000Z</published>
+    <updated>2017-03-26T13:30:17.758Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Git Help</title>
+    <link href="http://www.ibmer.info/Git-Help.html"/>
+    <id>http://www.ibmer.info/Git-Help.html</id>
+    <published>2017-03-24T03:33:23.000Z</published>
+    <updated>2017-03-26T13:30:17.757Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>1分でわかるreturn false; preventDefault(); stopPropagation() の違い</title>
+    <link href="http://www.ibmer.info/return-false-preventdefault-stoppropagation.html"/>
+    <id>http://www.ibmer.info/return-false-preventdefault-stoppropagation.html</id>
+    <published>2017-02-02T08:49:58.000Z</published>
+    <updated>2017-06-07T03:42:20.500Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="クリックイベントのサンプル"><a href="#クリックイベントのサンプル" class="headerlink" title="クリックイベントのサンプル"></a>クリックイベントのサンプル</h1><p>.innerを子、.outerを親にしてそれぞれにクリックイベントのサンプルを作成した。リンクをクリックするとalertの”.inner”, “.outer”が表示されてからiwb.jpに遷移する。</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>$(“.inner”).click(function(){<br>    alert(“.inner”);<br>});</p>
+<p>$(“.outer”).click(function(){<br>    alert(“.outer”);<br>});<br>alertの”.inner”, “.outer”が表示されてからiwb.jpに遷移するサンプル</p>
+<p>preventDefault()</p>
+<p>preventDefault()を使用するとリンクの遷移などのイベントを無効にできる。</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>$(“.inner”).click(function(e){<br>    e.preventDefault();<br>    alert(“.inner”);<br>});</p>
+<p>$(“.outer”).click(function(){<br>    alert(“.outer”);<br>});<br>preventDefault()のサンプル</p>
+<p>stopPropagation()</p>
+<p>stopPropagation()を使用するとイベント伝播をキャンセルできる。alertの”.inner”は表示されるが”.outer”は表示されない。リンク遷移は有効。</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>$(“.inner”).click(function(e){<br>    e.stopPropagation();<br>    alert(“.inner”);<br>});</p>
+<p>$(“.outer”).click(function(){<br>    alert(“.outer”);<br>});<br>stopPropagation()のサンプル</p>
+<p>preventDefault()+stopPropagation()</p>
+<p>preventDefault()とstopPropagation()は併用可能。この場合alertで”.inner”は表示されるが”.outer”は表示されずリンクの遷移も発生しない。</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>$(“.inner”).click(function(e){<br>    e.preventDefault();<br>    e.stopPropagation();<br>    alert(“.inner”);<br>});</p>
+<p>$(“.outer”).click(function(){<br>    alert(“.outer”);<br>});<br>preventDefault()+stopPropagation()のサンプル</p>
+<p>return false</p>
+<p>return falseはそれが記述された箇所を読み込んだ時点で以降の処理がすべてなくなる。イベント伝播（バブリング）も発生しない。よって.innerをクリックした場合は”.inner”と”.outer”の両方が表示されずリンクの遷移も発生しない。</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>$(“.inner”).click(function(){<br>    return false;<br>    alert(“.inner”);<br>});</p>
+<p>$(“.outer”).click(function(){<br>    alert(“.outer”);<br>});<br>return falseのサンプル</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;クリックイベントのサンプル&quot;&gt;&lt;a href=&quot;#クリックイベントのサンプル&quot; class=&quot;headerlink&quot; title=&quot;クリックイベントのサンプル&quot;&gt;&lt;/a&gt;クリックイベントのサンプル&lt;/h1&gt;&lt;p&gt;.innerを子、.outerを親にしてそれぞれにク
+    
+    </summary>
+    
+      <category term="Program" scheme="http://www.ibmer.info/categories/Program/"/>
+    
+    
+      <category term="javascript" scheme="http://www.ibmer.info/tags/javascript/"/>
+    
+      <category term="js" scheme="http://www.ibmer.info/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Salesforce Sites Profile ゲストプロファイル</title>
+    <link href="http://www.ibmer.info/salesforce-sites-profile.html"/>
+    <id>http://www.ibmer.info/salesforce-sites-profile.html</id>
+    <published>2017-02-01T05:04:05.000Z</published>
+    <updated>2017-06-07T03:42:20.516Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Salesforce-Sites-Profile-ゲストプロファイル"><a href="#Salesforce-Sites-Profile-ゲストプロファイル" class="headerlink" title="Salesforce Sites Profile ゲストプロファイル"></a>Salesforce Sites Profile ゲストプロファイル</h1><p>Force.com Sitesを外部から閲覧するユーザにはSites用のゲストプロファイルが適用されて、その権限が細かく設定できるとのこと。[設定]→［開発］→［サイト］→サイト選択→［公開アクセス設定］の中で、今回設定したいのは、標準オブジェクト権限とカスタムオブジェクト権限の部分です。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Salesforce-Sites-Profile-ゲストプロファイル&quot;&gt;&lt;a href=&quot;#Salesforce-Sites-Profile-ゲストプロファイル&quot; class=&quot;headerlink&quot; title=&quot;Salesforce Sites Profile
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mavensmate-Oauth2-Url</title>
+    <link href="http://www.ibmer.info/mavensmate-oauth2-url.html"/>
+    <id>http://www.ibmer.info/mavensmate-oauth2-url.html</id>
+    <published>2017-01-25T02:58:05.000Z</published>
+    <updated>2017-06-07T03:42:20.516Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Mavensmate-Oauth2-Url"><a href="#Mavensmate-Oauth2-Url" class="headerlink" title="Mavensmate-Oauth2-Url"></a>Mavensmate-Oauth2-Url</h1><h2 id="oauth2-url-is-like-below"><a href="#oauth2-url-is-like-below" class="headerlink" title="oauth2 url is like below"></a>oauth2 url is like below</h2><pre><code>https://login.salesforce.com//services/oauth2/authorize?client_id=3MVG9uudbyLbNPZP7kLgoRiWVRqiN8gFcKwdAlztVnjgbj9shSk1vMXJNmV7W0ciFbeYiaP9D4tLfBBD06l_7&amp;amp;redirect_uri=https%3A%2F%2Flocalhost%3A56248%2Fsfdc%2Fauth%2Fcallback&amp;amp;response_type=token&amp;amp;display=popup&amp;amp;prompt=login&amp;amp;state=%7B%22callback%22%3A%22%2Fapp%2Fproject%2Fauth%2Ffinish%22%7D
+`&lt;/pre&gt;
+
+## oauth2 url is like below
+
+&lt;pre&gt;`https://login.salesforce.com//services/oauth2/authorize?
+client_id=3MVG9uudbyLbNPZP7kLgoRiWVRqiN8gFcKwdAlztVnjgbj9shSk1vMXJNmV7W0ciFbeYiaP9D4tLfBBD06l_7&amp;amp;
+redirect_uri=https://localhost:56248/sfdc/auth/callback&amp;amp;
+response_type=token&amp;amp;
+display=popup&amp;amp;
+prompt=login&amp;amp;
+state={&quot;callback&quot;:&quot;/app/project/auth/finish&quot;}
+</code></pre><h2 id="more-help-link"><a href="#more-help-link" class="headerlink" title="more help link"></a>more help link</h2><p><a href="https://developer.salesforce.com/blogs/developer-relations/2014/01/python-and-the-force-com-rest-api-simple-simple-salesforce-example.html" target="_blank" rel="external">python-and-the-force-com-rest-api-simple-simple-salesforce-example</a><br><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/quickstart_oauth.htm" target="_blank" rel="external">salesforce quickstart_oauth</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Mavensmate-Oauth2-Url&quot;&gt;&lt;a href=&quot;#Mavensmate-Oauth2-Url&quot; class=&quot;headerlink&quot; title=&quot;Mavensmate-Oauth2-Url&quot;&gt;&lt;/a&gt;Mavensmate-Oauth2-Url&lt;/
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ASCII和URL对照表</title>
+    <link href="http://www.ibmer.info/ascii-url-code.html"/>
+    <id>http://www.ibmer.info/ascii-url-code.html</id>
+    <published>2017-01-24T07:26:06.000Z</published>
+    <updated>2017-06-07T03:42:20.516Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>CHAR    CODE
+SPACE   %20
+!   %21
+&quot;   %22
+#  %23
+$   %24
+%   %25
+&amp;amp;   %26
+&apos;   %27
+(   %28
+)   %29
+*   %2A
++   %2B
+,   %2C
+/   %2F
+:   %3A
+;   %3B
+&amp;lt;   %3C
+=   %3D
+&amp;gt;   %3E
+?   %3F
+@   %40
+[   %5B
+%5C
+]   %5D
+^   %5E
+`   %60
+{   %7B
+|   %7C
+}   %7D
+~   %7E
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;CHAR    CODE
+SPACE   %20
+!   %21
+&amp;quot;   %22
+#  %23
+$   %24
+%   %25
+&amp;amp;amp;   %26
+&amp;apos;   %27
+(   %28
+)   %29
+*   %2A
++   %2B
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>apex datatime format</title>
+    <link href="http://www.ibmer.info/apex-datatime-format.html"/>
+    <id>http://www.ibmer.info/apex-datatime-format.html</id>
+    <published>2017-01-24T04:09:26.000Z</published>
+    <updated>2017-06-07T03:42:20.516Z</updated>
+    
+    <content type="html"><![CDATA[<p>salesforce apex datatime format</p>
+<pre><code>testDateStr = testDatetime__c.format(&apos;yyyy年M月d日&apos;);
+testWeekStr = testDatetime__c.format(&apos;E&apos;);
+testTimeStr = testDatetime__c.format(&apos;H:mm&apos;);
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;salesforce apex datatime format&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;testDateStr = testDatetime__c.format(&amp;apos;yyyy年M月d日&amp;apos;);
+testWeekStr = testDatetime__c
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Create test class using SalesforceXyTools</title>
+    <link href="http://www.ibmer.info/create-test-class.html"/>
+    <id>http://www.ibmer.info/create-test-class.html</id>
+    <published>2017-01-20T07:30:37.000Z</published>
+    <updated>2017-06-07T03:42:20.516Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SalesforceXyTools"><a href="#SalesforceXyTools" class="headerlink" title="SalesforceXyTools"></a>SalesforceXyTools</h1><ul>
+<li><a href="http://www.ibmer.info/salesforcexytools.html">SalesforceXyTools Introduce</a></li>
+<li><a href="http://www.ibmer.info/salesforcexytools-install.html">SalesforceXyTools Install</a></li>
+<li><a href="http://www.ibmer.info/auto-create-sfdc-code.html">SalesforceXyTools Auto Create VF-Controller-DTO-DAO-Code</a></li>
+<li><a href="http://www.ibmer.info/export-sobject-excel.html">SalesforceXyTools: Export Sobject To Excel</a></li>
+<li><a href="https://packagecontrol.io/packages/SalesforceXyTools" target="_blank" rel="external">SalesforceXyTools Sublime Package</a></li>
+</ul>
+<h2 id="Auto-Create-VF-Controller-DTO-DAO-Code"><a href="#Auto-Create-VF-Controller-DTO-DAO-Code" class="headerlink" title="Auto Create VF-Controller-DTO-DAO-Code"></a><a href="https://github.com/exiahuang/SalesforceXyTools/wiki/Create-test-class-using-SalesforceXyTools#auto-create-vf-controller-dto-dao-code" target="_blank" rel="external"></a>Auto Create VF-Controller-DTO-DAO-Code</h2><p>Hello,I am Exia.huang. Today I will show you how to create testclass quickly by using SalesforceXyTools. And how to create to create test data quickly.</p>
+<p>## </p>
+<ol>
+<li><p>Open the apex code, and find the menu below. [SFDC-XY]-&gt;[SFDC Code Creator]-&gt;[Create Test Code] <img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20001.jpg?raw=true" alt="SOS"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20002.jpg?raw=true" alt="SOS"></p>
+<ul>
+<li>The class code which I have selected is like below.<br><div class="highlight highlight-source-java"><br><pre><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"><em> @author huangxy</em></span><br><span class="pl-c"><span class="pl-c">/</span></span><br><span class="pl-k">public</span> with sharing <span class="pl-k">class</span> <span class="pl-en">BlogController</span> <span class="pl-k">extends</span> <span class="pl-e">SfdcXyController</span> {</pre></div></li>
+</ul>
+<p><span class="pl-c"><span class="pl-c">//</span> DTO Bean</span><br><span class="pl-k">public</span> <span class="pl-smi">BlogDto</span> blogDto {get;set;}</p>
+<p><span class="pl-k">public</span> <span class="pl-en">BlogController</span>() {</p>
+<pre><code>search();
+</code></pre><p>}</p>
+<p><span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">search</span>(){</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;String&lt;/span&gt; id &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-smi&quot;&gt;ApexPages&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;currentPage()&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;getParameters()&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;get(&lt;span class=&quot;pl-s&quot;&gt;&lt;span class=&quot;pl-pds&quot;&gt;&apos;&lt;/span&gt;id&lt;span class=&quot;pl-pds&quot;&gt;&apos;&lt;/span&gt;&lt;/span&gt;);
+&lt;span class=&quot;pl-k&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;pl-smi&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;isBlank(id)){
+    &lt;span class=&quot;pl-c1&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;blogDto &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;pl-smi&quot;&gt;BlogDto&lt;/span&gt;();
+}&lt;span class=&quot;pl-k&quot;&gt;else&lt;/span&gt;{
+    &lt;span class=&quot;pl-c1&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;blogDto &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;pl-smi&quot;&gt;BlogDto&lt;/span&gt;(&lt;span class=&quot;pl-smi&quot;&gt;BlogDao&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;getBlogById(id));
+}
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c">     <em> upsert Dto</em></span><br><span class="pl-c">     <span class="pl-c">/</span></span><br><span class="pl-k">public</span> <span class="pl-smi">PageReference</span> <span class="pl-en">doSave</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Boolean&lt;/span&gt; result;
+
+&lt;span class=&quot;pl-smi&quot;&gt;Savepoint&lt;/span&gt; sp &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-smi&quot;&gt;Database&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;setSavepoint();
+&lt;span class=&quot;pl-k&quot;&gt;try&lt;/span&gt; {
+    upsert blogDto&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;getSobject();
+    result &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;true&lt;/span&gt;;
+} &lt;span class=&quot;pl-k&quot;&gt;catch&lt;/span&gt;(&lt;span class=&quot;pl-smi&quot;&gt;DMLException&lt;/span&gt; e) {
+    &lt;span class=&quot;pl-smi&quot;&gt;Database&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;rollback(sp);
+    &lt;span class=&quot;pl-smi&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;debug(&lt;span class=&quot;pl-s&quot;&gt;&lt;span class=&quot;pl-pds&quot;&gt;&apos;&lt;/span&gt;saveDto DMLException:&lt;span class=&quot;pl-pds&quot;&gt;&apos;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot;&gt;+&lt;/span&gt; e&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;getMessage());
+    result &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;false&lt;/span&gt;;
+} &lt;span class=&quot;pl-k&quot;&gt;catch&lt;/span&gt;(&lt;span class=&quot;pl-smi&quot;&gt;Exception&lt;/span&gt; e) {
+    &lt;span class=&quot;pl-smi&quot;&gt;Database&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;rollback(sp);
+    &lt;span class=&quot;pl-smi&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;debug(&lt;span class=&quot;pl-s&quot;&gt;&lt;span class=&quot;pl-pds&quot;&gt;&apos;&lt;/span&gt;saveDto Exception:&lt;span class=&quot;pl-pds&quot;&gt;&apos;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot;&gt;+&lt;/span&gt; e&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;getMessage());
+    result &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;false&lt;/span&gt;;
+}
+&lt;span class=&quot;pl-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;null&lt;/span&gt;;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c">     <em> Go Next</em></span><br><span class="pl-c">     <span class="pl-c">/</span></span><br><span class="pl-k">public</span> override <span class="pl-smi">PageReference</span> <span class="pl-en">doNext</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Boolean&lt;/span&gt; result &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; doCheck();
+setNextMode(result);
+&lt;span class=&quot;pl-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;null&lt;/span&gt;;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c">     <em> Go Back</em></span><br><span class="pl-c">     <span class="pl-c">/</span></span><br><span class="pl-k">public</span> override <span class="pl-smi">PageReference</span> <span class="pl-en">doBack</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Boolean&lt;/span&gt; result &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;true&lt;/span&gt;; 
+setBackMode(result);
+&lt;span class=&quot;pl-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;null&lt;/span&gt;;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c">     <em> do Check</em></span><br><span class="pl-c">     <span class="pl-c">/</span></span><br><span class="pl-k">public</span> override <span class="pl-smi">Boolean</span> <span class="pl-en">doCheck</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Boolean&lt;/span&gt; result &lt;span class=&quot;pl-k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;true&lt;/span&gt;;
+
+&lt;span class=&quot;pl-k&quot;&gt;return&lt;/span&gt; result;
+</code></pre><p>}<br>}<br></p>
+<ul>
+<li>Select [Create Test Code], the test code will be created automatically like below.<br><div class="highlight highlight-source-java"><br><pre><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"><em> @author huangxy</em></span><br><span class="pl-c"><span class="pl-c">/</span></span><br><span class="pl-k">@isTest</span><br><span class="pl-k">private</span> <span class="pl-k">class</span> <span class="pl-en">BlogControllerTest</span> {</pre></div></li>
+</ul>
+</li>
+</ol>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"> <em> This is a test method for BlogController</em></span><br><span class="pl-c"> <span class="pl-c">/</span></span><br><span class="pl-k">static</span> testMethod <span class="pl-k">void</span> <span class="pl-en">test_BlogController</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; PageReference pageRef = Page.Blog;&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Test.setCurrentPage(pageRef);&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; pageRef.getParameters().put(&apos;param1&apos;, &apos;param1&apos;);&lt;/span&gt;
+
+&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;startTest();
+</code></pre><p><span class="pl-smi">BlogController</span> blogController <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">BlogController</span>();</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;stopTest();
+
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Check&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; System.assert(ApexPages.hasMessages());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; for(ApexPages.Message msg : ApexPages.getMessages()) {&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(&apos;Upload file is NULL&apos;, msg.getSummary());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; }&lt;/span&gt;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"> <em> This is a test method for doSave</em></span><br><span class="pl-c"> <span class="pl-c">/</span></span><br><span class="pl-k">static</span> testMethod <span class="pl-k">void</span> <span class="pl-en">test_doSave</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; PageReference pageRef = Page.Blog;&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Test.setCurrentPage(pageRef);&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; pageRef.getParameters().put(&apos;param1&apos;, &apos;param1&apos;);&lt;/span&gt;
+
+&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;startTest();
+</code></pre><p><span class="pl-smi">BlogController</span> blogController <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">BlogController</span>();<br><span class="pl-smi">PageReference</span> resultDoSave <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doSave();</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;stopTest();
+
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Check&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; System.assert(ApexPages.hasMessages());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; for(ApexPages.Message msg : ApexPages.getMessages()) {&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(&apos;Upload file is NULL&apos;, msg.getSummary());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; }&lt;/span&gt;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"> <em> This is a test method for doNext</em></span><br><span class="pl-c"> <span class="pl-c">/</span></span><br><span class="pl-k">static</span> testMethod <span class="pl-k">void</span> <span class="pl-en">test_doNext</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; PageReference pageRef = Page.Blog;&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Test.setCurrentPage(pageRef);&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; pageRef.getParameters().put(&apos;param1&apos;, &apos;param1&apos;);&lt;/span&gt;
+
+&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;startTest();
+</code></pre><p><span class="pl-smi">BlogController</span> blogController <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">BlogController</span>();<br><span class="pl-smi">PageReference</span> resultDoNext <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doNext();</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;stopTest();
+
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Check&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; System.assert(ApexPages.hasMessages());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; for(ApexPages.Message msg : ApexPages.getMessages()) {&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(&apos;Upload file is NULL&apos;, msg.getSummary());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; }&lt;/span&gt;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"> <em> This is a test method for doBack</em></span><br><span class="pl-c"> <span class="pl-c">/</span></span><br><span class="pl-k">static</span> testMethod <span class="pl-k">void</span> <span class="pl-en">test_doBack</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; PageReference pageRef = Page.Blog;&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Test.setCurrentPage(pageRef);&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; pageRef.getParameters().put(&apos;param1&apos;, &apos;param1&apos;);&lt;/span&gt;
+
+&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;startTest();
+</code></pre><p><span class="pl-smi">BlogController</span> blogController <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">BlogController</span>();<br><span class="pl-smi">PageReference</span> resultDoBack <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doBack();</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;stopTest();
+
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Check&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; System.assert(ApexPages.hasMessages());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; for(ApexPages.Message msg : ApexPages.getMessages()) {&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(&apos;Upload file is NULL&apos;, msg.getSummary());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; }&lt;/span&gt;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"> <em> This is a test method for doCheck</em></span><br><span class="pl-c"> <span class="pl-c">/</span></span><br><span class="pl-k">static</span> testMethod <span class="pl-k">void</span> <span class="pl-en">test_doCheck</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; PageReference pageRef = Page.Blog;&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Test.setCurrentPage(pageRef);&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; pageRef.getParameters().put(&apos;param1&apos;, &apos;param1&apos;);&lt;/span&gt;
+
+&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;startTest();
+</code></pre><p><span class="pl-smi">BlogController</span> blogController <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">BlogController</span>();<br><span class="pl-smi">Boolean</span> resultDoCheck <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doCheck();</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;stopTest();
+
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Check&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; System.assert(ApexPages.hasMessages());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; for(ApexPages.Message msg : ApexPages.getMessages()) {&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(&apos;Upload file is NULL&apos;, msg.getSummary());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; }&lt;/span&gt;
+</code></pre><p>}</p>
+<p><span class="pl-c"><span class="pl-c">/<em></em></span></span><br><span class="pl-c"> <em> This is a test method for all</em></span><br><span class="pl-c"> <span class="pl-c">/</span></span><br><span class="pl-k">static</span> testMethod <span class="pl-k">void</span> <span class="pl-en">test_all</span>() {</p>
+<pre><code>&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; PageReference pageRef = Page.Blog;&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Test.setCurrentPage(pageRef);&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; pageRef.getParameters().put(&apos;param1&apos;, &apos;param1&apos;);&lt;/span&gt;
+
+&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;startTest();
+</code></pre><p><span class="pl-c"><span class="pl-c">//</span>  test BlogController</span><br><span class="pl-smi">BlogController</span> blogController <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">BlogController</span>();</p>
+<p><span class="pl-c"><span class="pl-c">//</span>  test doSave</span><br><span class="pl-smi">PageReference</span> resultDoSave <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doSave();</p>
+<p><span class="pl-c"><span class="pl-c">//</span>  test doNext</span><br><span class="pl-smi">PageReference</span> resultDoNext <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doNext();</p>
+<p><span class="pl-c"><span class="pl-c">//</span>  test doBack</span><br><span class="pl-smi">PageReference</span> resultDoBack <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doBack();</p>
+<p><span class="pl-c"><span class="pl-c">//</span>  test doCheck</span><br><span class="pl-smi">Boolean</span> resultDoCheck <span class="pl-k">=</span> blogController<span class="pl-k">.</span>doCheck();</p>
+<pre><code>&lt;span class=&quot;pl-smi&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;pl-k&quot;&gt;.&lt;/span&gt;stopTest();
+
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; Check&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; System.assert(ApexPages.hasMessages());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; for(ApexPages.Message msg : ApexPages.getMessages()) {&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(&apos;Upload file is NULL&apos;, msg.getSummary());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt;     System.assertEquals(ApexPages.Severity.ERROR, msg.getSeverity());&lt;/span&gt;
+&lt;span class=&quot;pl-c&quot;&gt;&lt;span class=&quot;pl-c&quot;&gt;//&lt;/span&gt; }&lt;/span&gt;
+</code></pre><p>}</p>
+<p>}<br></p>
+<ol>
+<li>Insert Test Data(All Field) I will select Blog__c. <img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20003.jpg?raw=true" alt="SOS"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20004.jpg?raw=true" alt="SOS"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20005.jpg?raw=true" alt="SOS"><div class="highlight highlight-source-java"><br><pre><span class="pl-k">List&lt;<span class="pl-smi">Blog<strong>c</strong></span>&gt;</span> blogList <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">List&lt;<span class="pl-smi">Blogc</span>&gt;</span>();<br><span class="pl-k">for</span>(<span class="pl-smi">Integer</span> i<span class="pl-k">=</span><span class="pl-c1">0</span>; i<span class="pl-k">&lt;</span><span class="pl-c1">5</span>; i<span class="pl-k">++</span>){<br><span class="pl-smi">Blog<strong>c</strong></span> blog <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Blogc</span>();<br>blog<span class="pl-k">.</span>comment<strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>CoaM5Vy<span class="pl-pds">‘</span></span> <span class="pl-k">+</span> string<span class="pl-k">.</span>valueof(i) ;    <span class="pl-c"><span class="pl-c">//</span>評価</span><br>blog<span class="pl-k">.</span>comment_status</strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>spam<span class="pl-pds">‘</span></span>;    <span class="pl-c"><span class="pl-c">//</span>評価ステータス</span><br>blog<span class="pl-k">.</span>content<strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>biKtXlF<span class="pl-pds">‘</span></span> <span class="pl-k">+</span> string<span class="pl-k">.</span>valueof(i) ;    <span class="pl-c"><span class="pl-c">//</span>内容</span><br>blog<span class="pl-k">.</span>excerpt</strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>QVbhcE8<span class="pl-pds">‘</span></span> <span class="pl-k">+</span> string<span class="pl-k">.</span>valueof(i) ;    <span class="pl-c"><span class="pl-c">//</span>概要</span><br>blog<span class="pl-k">.</span>status<strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>Draft<span class="pl-pds">‘</span></span>;    <span class="pl-c"><span class="pl-c">//</span>ステータス</span><br>blog<span class="pl-k">.</span>title</strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>52lF1IP<span class="pl-pds">‘</span></span> <span class="pl-k">+</span> string<span class="pl-k">.</span>valueof(i) ;    <span class="pl-c"><span class="pl-c">//</span>タイトル</span><br>blogList<span class="pl-k">.</span>add(blog);<br>}<br>insert blogList;</pre><br></div></li>
+<li><p>Insert Test Data(From SOQL)<img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20006.jpg?raw=true" alt="SOS"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20007.jpg?raw=true" alt="SOS"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/testcode/Image%20008.jpg?raw=true" alt="SOS"></p>
+<div class="highlight highlight-source-sql"><br><pre><span class="pl-k">select</span> id,name,comment<strong>c,content</strong>c <span class="pl-k">from</span> Blog__c <span class="pl-k">limit</span> <span class="pl-c1">2</span></pre><br></div>
+
+<ul>
+<li>Select [Insert Test Data(From SOQL) ] Menu, the sql will be change to apex code like below.<br><div class="highlight highlight-source-java"><br><pre>  <span class="pl-k">List&lt;<span class="pl-smi">Blog<strong>c</strong></span>&gt;</span> blogList <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">List&lt;<span class="pl-smi">Blogc</span>&gt;</span>();<br><span class="pl-smi">Blog<strong>c</strong></span> blog0 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Blogc</span>();<br><span class="pl-c"><span class="pl-c">//</span> blog0.id = ‘a096F00001yVNHWQA4’;    // カスタムオブジェクト ID</span><br>blog0<span class="pl-k">.</span>name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>ID-0004<span class="pl-pds">‘</span></span>;   <span class="pl-c"><span class="pl-c">//</span> ブログNo</span><br>blog0<span class="pl-k">.</span>comment<strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>評価<span class="pl-pds">‘</span></span>;   <span class="pl-c"><span class="pl-c">//</span> 評価</span><br>blog0<span class="pl-k">.</span>content</strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>評価<span class="pl-pds">‘</span></span>;   <span class="pl-c"><span class="pl-c">//</span> 内容</span><br>blogList<span class="pl-k">.</span>add(blog0);</pre></div></li>
+</ul>
+<p><span class="pl-smi">Blog<strong>c</strong></span> blog1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Blogc</span>();<br><span class="pl-c"><span class="pl-c">//</span> blog1.id = ‘a096F00001yVNHRQA4’;    // カスタムオブジェクト ID</span><br>blog1<span class="pl-k">.</span>name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>ID-0003<span class="pl-pds">‘</span></span>;   <span class="pl-c"><span class="pl-c">//</span> ブログNo</span><br>blog1<span class="pl-k">.</span>comment<strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>評価1e<span class="pl-pds">‘</span></span>;   <span class="pl-c"><span class="pl-c">//</span> 評価</span><br>blog1<span class="pl-k">.</span>content</strong>c <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">‘</span>内容<span class="pl-pds">‘</span></span>;   <span class="pl-c"><span class="pl-c">//</span> 内容</span><br>blogList<span class="pl-k">.</span>add(blog1);</p>
+<p>upsert blogList;<br></p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;SalesforceXyTools&quot;&gt;&lt;a href=&quot;#SalesforceXyTools&quot; class=&quot;headerlink&quot; title=&quot;SalesforceXyTools&quot;&gt;&lt;/a&gt;SalesforceXyTools&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a h
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Export Sobject To Excel By Using SalesforceXyTools</title>
+    <link href="http://www.ibmer.info/export-sobject-excel.html"/>
+    <id>http://www.ibmer.info/export-sobject-excel.html</id>
+    <published>2017-01-20T01:53:36.000Z</published>
+    <updated>2017-06-07T03:42:20.516Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SalesforceXyTools"><a href="#SalesforceXyTools" class="headerlink" title="SalesforceXyTools"></a>SalesforceXyTools</h1><ul>
+<li><a href="http://www.ibmer.info/salesforcexytools.html">SalesforceXyTools Introduce</a></li>
+<li><a href="http://www.ibmer.info/salesforcexytools-install.html">SalesforceXyTools Install</a></li>
+<li><a href="http://www.ibmer.info/auto-create-sfdc-code.html">SalesforceXyTools Auto Create VF-Controller-DTO-DAO-Code</a></li>
+<li><a href="http://www.ibmer.info/export-sobject-excel.html">SalesforceXyTools: Export Sobject To Excel</a></li>
+<li><a href="https://packagecontrol.io/packages/SalesforceXyTools" target="_blank" rel="external">SalesforceXyTools Sublime Package</a></li>
+</ul>
+<h1 id="SalesforceXyTools-Export-Soject-To-Excel"><a href="#SalesforceXyTools-Export-Soject-To-Excel" class="headerlink" title="SalesforceXyTools Export Soject To Excel"></a><a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Readme.md#salesforcexytools-export-soject-to-excel" target="_blank" rel="external"></a>SalesforceXyTools Export Soject To Excel</h1><p>Hello,I am Exia.huang. Today I will show you how to export soject to excel.</p>
+<h2 id="There-are-3-steps"><a href="#There-are-3-steps" class="headerlink" title="There are 3 steps."></a><a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Readme.md#there-are-3-steps" target="_blank" rel="external"></a>There are 3 steps.</h2><ol>
+<li>Find the menu below. [SFDC-XY]-&gt;[SFDC Object]-&gt;[Save SFDC Object List AS Excel] <a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Image%20001.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/ExportToExcel/Image%20001.jpg?raw=true" alt="SOS"></a></li>
+<li>Input your save path and xlsx file name. <a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Image%20002.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/ExportToExcel/Image%20002.jpg?raw=true" alt="SOS"></a></li>
+</ol>
+<p><a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Image%20003.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/ExportToExcel/Image%20003.jpg?raw=true" alt="SOS"></a></p>
+<ol>
+<li>Open the excel file, and enjoy yourself. <a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Image%20004.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/ExportToExcel/Image%20004.jpg?raw=true" alt="SOS"></a><a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Image%20005.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/ExportToExcel/Image%20005.jpg?raw=true" alt="SOS"></a> <a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/ExportToExcel/Image%20006.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/ExportToExcel/Image%20006.jpg?raw=true" alt="SOS"></a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;SalesforceXyTools&quot;&gt;&lt;a href=&quot;#SalesforceXyTools&quot; class=&quot;headerlink&quot; title=&quot;SalesforceXyTools&quot;&gt;&lt;/a&gt;SalesforceXyTools&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a h
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SalesforceXyTools-install</title>
+    <link href="http://www.ibmer.info/salesforcexytools-install.html"/>
+    <id>http://www.ibmer.info/salesforcexytools-install.html</id>
+    <published>2017-01-20T01:27:20.000Z</published>
+    <updated>2017-06-07T03:42:20.516Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SalesforceXyTools"><a href="#SalesforceXyTools" class="headerlink" title="SalesforceXyTools"></a>SalesforceXyTools</h1><ul>
+<li><a href="http://www.ibmer.info/salesforcexytools.html">SalesforceXyTools Introduce</a></li>
+<li><a href="http://www.ibmer.info/salesforcexytools-install.html">SalesforceXyTools Install</a></li>
+<li><a href="http://www.ibmer.info/auto-create-sfdc-code.html">SalesforceXyTools Auto Create VF-Controller-DTO-DAO-Code</a></li>
+<li><a href="http://www.ibmer.info/export-sobject-excel.html">SalesforceXyTools: Export Sobject To Excel</a></li>
+<li><a href="https://packagecontrol.io/packages/SalesforceXyTools" target="_blank" rel="external">SalesforceXyTools Sublime Package</a></li>
+</ul>
+<h1 id="SalesforceXyTools-Install-Help"><a href="#SalesforceXyTools-Install-Help" class="headerlink" title="SalesforceXyTools Install Help"></a><a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/InstallHelp/Readme.md#salesforcexytools-install-help" target="_blank" rel="external"></a>SalesforceXyTools Install Help</h1><h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a><a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/InstallHelp/Readme.md#prerequisites" target="_blank" rel="external"></a>Prerequisites</h3><ul>
+<li>Sublime Text 3 <a href="http://www.sublimetext.com/3" target="_blank" rel="external">http://www.sublimetext.com/3</a></li>
+<li>Sublime Text Package Control <a href="https://packagecontrol.io/installation" target="_blank" rel="external">https://packagecontrol.io/installation</a></li>
+</ul>
+<h3 id="Plugin-Installation-Use-Package-Control-to-Install"><a href="#Plugin-Installation-Use-Package-Control-to-Install" class="headerlink" title="Plugin Installation(Use Package Control to Install)"></a><a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/InstallHelp/Readme.md#plugin-installationuse-package-control-to-install" target="_blank" rel="external"></a>Plugin Installation(Use Package Control to Install)</h3><ol>
+<li>Open Sublime Text 3</li>
+<li><p>Run <code>Package Control: Install Package</code> command</p>
+<ul>
+<li><a href="http://docs.sublimetext.info/en/latest/extensibility/command_palette.html" target="_blank" rel="external">Running commands from Sublime Text</a> <a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/InstallHelp/Image%20001.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/InstallHelp/Image%20001.jpg?raw=true" alt="SOS"></a></li>
+</ul>
+</li>
+<li><p>Search for <code>SalesforceXyTools</code> <a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/InstallHelp/Image%20002.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/InstallHelp/Image%20002.jpg?raw=true" alt="SOS"></a></p>
+</li>
+<li>Hit <code>Enter</code>, That is all. <a href="https://github.com/exiahuang/XyHelp/blob/master/SalesforceXyTools/InstallHelp/Image%20003.jpg?raw=true" target="_blank" rel="external"><img src="https://github.com/exiahuang/XyHelp/raw/master/SalesforceXyTools/InstallHelp/Image%20003.jpg?raw=true" alt="SOS"></a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;SalesforceXyTools&quot;&gt;&lt;a href=&quot;#SalesforceXyTools&quot; class=&quot;headerlink&quot; title=&quot;SalesforceXyTools&quot;&gt;&lt;/a&gt;SalesforceXyTools&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a h
+    
+    </summary>
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/categories/Salesforce/"/>
+    
+    
+      <category term="Salesforce" scheme="http://www.ibmer.info/tags/Salesforce/"/>
+    
+      <category term="SalesforceXyTools" scheme="http://www.ibmer.info/tags/SalesforceXyTools/"/>
+    
+  </entry>
+  
+</feed>

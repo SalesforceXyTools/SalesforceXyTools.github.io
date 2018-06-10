@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>java内存分配 常量池详解(Constant Pool) | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在class文件中，“常量池”是最复杂也最值得关注的内容。
+Java是一种动态连接的语言，常量池的作用非常重要，常量池中除了包含代码中所定义的各种基本类型（如int、long等等）和对象型（如String及数组）的常量值还，还包含一些以文本形式出现的符号引用，比如：
+类和接口的全限定名；
+字段的名称和描述符；
+方法和名称和描述符。
+在C语言中，如果一个程序要调用其它库中的函数，在连接时，该函数在库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java内存分配 常量池详解(Constant Pool)">
+<meta property="og:url" content="http://www.ibmer.info/java-constant-pool.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="在class文件中，“常量池”是最复杂也最值得关注的内容。
+Java是一种动态连接的语言，常量池的作用非常重要，常量池中除了包含代码中所定义的各种基本类型（如int、long等等）和对象型（如String及数组）的常量值还，还包含一些以文本形式出现的符号引用，比如：
+类和接口的全限定名；
+字段的名称和描述符；
+方法和名称和描述符。
+在C语言中，如果一个程序要调用其它库中的函数，在连接时，该函数在库">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java内存分配 常量池详解(Constant Pool)">
+<meta name="twitter:description" content="在class文件中，“常量池”是最复杂也最值得关注的内容。
+Java是一种动态连接的语言，常量池的作用非常重要，常量池中除了包含代码中所定义的各种基本类型（如int、long等等）和对象型（如String及数组）的常量值还，还包含一些以文本形式出现的符号引用，比如：
+类和接口的全限定名；
+字段的名称和描述符；
+方法和名称和描述符。
+在C语言中，如果一个程序要调用其它库中的函数，在连接时，该函数在库">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java-constant-pool" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/java-constant-pool.html" class="article-date">
+  <time datetime="2014-10-21T12:31:42.000Z" itemprop="datePublished">2014-10-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java内存分配 常量池详解(Constant Pool)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在class文件中，“常量池”是最复杂也最值得关注的内容。</p>
+<p>Java是一种动态连接的语言，常量池的作用非常重要，常量池中除了包含代码中所定义的各种基本类型（如int、long等等）和对象型（如String及数组）的常量值还，还包含一些以文本形式出现的符号引用，比如：</p>
+<p>类和接口的全限定名；</p>
+<p>字段的名称和描述符；</p>
+<p>方法和名称和描述符。</p>
+<p>在C语言中，如果一个程序要调用其它库中的函数，在连接时，该函数在库中的位置（即相对于库文件开头的偏移量）会被写在程序中，在运行时，直接去这个地址调用函数；</p>
+<p>而在Java语言中不是这样，一切都是动态的。编译时，如果发现对其它类方法的调用或者对其它类字段的引用的话，记录进class文件中的，只能是一个文本形式的符号引用，在连接过程中，虚拟机根据这个文本信息去查找对应的方法或字段。</p>
+<p>所以，与Java语言中的所谓“常量”不同，class文件中的“常量”内容很非富，这些常量集中在class中的一个区域存放，一个紧接着一个，这里就称为“常量池”。</p>
+<p>转: <a href="http://hi.baidu.com/rickmeteor/blog/item/f0be11dff578ba1662279848.html" target="_blank" rel="external">http://hi.baidu.com/rickmeteor/blog/item/f0be11dff578ba1662279848.html</a></p>
+<p>java中的常量池技术，是为了方便快捷地创建某些对象而出现的，当需要一个对象时，就可以从池中取一个出来（如果池中没有则创建一个），则在需要重复重复创建相等变量时节省了很多时间。常量池其实也就是一个内存空间，不同于使用new关键字创建的对象所在的堆空间。本文只从java使用者的角度来探讨java常量池技术，并不涉及常量池的原理及实现方法。个人认为，如果是真的专注java,就必须对这些细节方面有一定的了解。但知道它的原理和具体的实现方法则不是必须的。</p>
+<p>1,常量池中对象和堆中的对象</p>
+<p>[java]</p>
+<p>public class Test{</p>
+<p>Integer i1=new Integer(1);<br>Integer i2=new Integer(1);<br>//i1,i2分别位于堆中不同的内存空间</p>
+<p>System.out.println(i1==i2);//输出false<br>Integer i3=1;<br>Integer i4=1;<br>//i3,i4指向常量池中同一个内存空间</p>
+<p>System.out.println(i3==i4);//输出true</p>
+<p>//很显然，i1,i3位于不同的内存空间</p>
+<p>System.out.println(i1==i3);//输出false</p>
+<p>}</p>
+<p>[/java]</p>
+<p>2，8种基本类型的包装类和对象池</p>
+<p>java中基本类型的包装类的大部分都实现了常量池技术，这些类是Byte,Short,Integer,Long,Character,Boolean,<span style="color: #ff0000;"><strong>另外两种浮点数类型的包装类则没有实现。</strong></span>另外Byte,Short,Integer,Long,Character这5种整型的包装类也只是在<span style="color: #ff0000;"><strong>对应值小于等于127时才可使用对象池，也即对象不负责创建和管理大于127的这些类的对象</strong></span>。以下是一些对应的测试代码：</p>
+<p>[java]</p>
+<p>public class Test{</p>
+<p>public static void main(String[] args){</p>
+<p>//5种整形的包装类Byte,Short,Integer,Long,Character的对象，</p>
+<p>//在值小于127时可以使用常量池</p>
+<p>Integer i1=127;</p>
+<p>Integer i2=127;</p>
+<p>System.out.println(i1==i2)//输出true</p>
+<p>//值大于127时，不会从常量池中取对象</p>
+<p>Integer i3=128;</p>
+<p>Integer i4=128;</p>
+<p>System.out.println(i3==i4)//输出false</p>
+<p>//Boolean类也实现了常量池技术</p>
+<p>Boolean bool1=true;</p>
+<p>Boolean bool2=true;</p>
+<p>System.out.println(bool1==bool2);//输出true</p>
+<p>//浮点类型的包装类没有实现常量池技术</p>
+<p>Double d1=1.0;</p>
+<p>Double d2=1.0;</p>
+<p>System.out.println(d1==d2)//输出false</p>
+<p>&nbsp;</p>
+<p>}</p>
+<p>}</p>
+<p>[/java]</p>
+<p>3,String也实现了常量池技术</p>
+<p>String类也是java中用得多的类，同样为了创建String对象的方便，也实现了常量池的技术,测试代码如下:</p>
+<p>[java]</p>
+<p>public class Test{</p>
+<p>public static void main(String[] args){</p>
+<p>//s1,s2分别位于堆中不同空间</p>
+<p>String s1=new String(“hello”);</p>
+<p>String s2=new String(“hello”);</p>
+<p>System.out.println(s1==s2)//输出false</p>
+<p>//s3,s4位于池中同一空间</p>
+<p>String s3=”hello”;</p>
+<p>String s4=”hello”;</p>
+<p>System.out.println(s3==s4);//输出true</p>
+<p>}</p>
+<p>}</p>
+<p>[/java]</p>
+<p>最后:</p>
+<p>细节决定成败，写代码更是如此。</p>
+<p>对Integer对象的补充:<a href="http://hi.baidu.com/fandywang_jlu/blog/item/c5590b4eae053cc3d1c86a13.html" target="_blank" rel="external">http://hi.baidu.com/fandywang_jlu/blog/item/c5590b4eae053cc3d1c86a13.html</a></p>
+<p>Integer的封装吧：</p>
+<p>[java]</p>
+<p>public static Integer valueOf(int i) {</p>
+<p>final int offset = 128;</p>
+<p>if (i &gt;= -128 &amp;&amp; i &lt;= 127) { // must cache</p>
+<p>return IntegerCache.cache[i + offset];</p>
+<p>}</p>
+<p>return new Integer(i);<br>}</p>
+<p>[/java]<br>当你直接给一个Integer对象一个int值的时候，其实它调用了valueOf方法，然后你赋的这个值很特别，是128，那么没有进行cache方法，相当于new了两个新对象。所以问题中定义a、b的两句代码就类似于：</p>
+<pre><code>Integer a = new Integer(128);
+
+Integer b = new Integer(128);
+</code></pre><p>这个时候再问你，输出结果是什么？你就知道是false了。如果把这个数换成127，再执行：</p>
+<pre><code>Integer a = 127;
+
+Integer b = 127;
+
+System.out.println(a == b);
+</code></pre><p>结果就是：true</p>
+<p>由上可知，我们进行对象比较时最好还是使用equals，便于按照自己的目的进行控制。</p>
+<p>————————————————–补充———————————————————————–</p>
+<p>   我们看一下IntegerCache这个类里面的内容：</p>
+<p>[java]</p>
+<p>private static class IntegerCache {</p>
+<p>private IntegerCache() {</p>
+<p>}</p>
+<p>static final Integer cache[] = new Integer[-(-128) + 127 + 1];</p>
+<p>static {</p>
+<p>for (int i = 0; i &lt; cache.length; i++)</p>
+<p>cache[i] = new Integer(i - 128);</p>
+<p>}</p>
+<p>}</p>
+<p>[java]</p>
+<p>由于cache[]在IntegerCache类中是静态数组，也就是只需要初始化一次，即static｛……｝部分，所以，如果Integer对象初始化时是-128~127的范围，就不需要再重新定义申请空间，都是同一个对象—在IntegerCache.cache中，这样可以在一定程度上提高效率。</p>
+<p>//////////////////////////////////////////////////////////对String方面的补充///////////////////////////////////////////////////////////</p>
+<p>来自SUN官方文档:</p>
+<p>3.10.5 String Literals</p>
+<p>A string literal consists of zero or more characters enclosed in double quotes. Each character may be represented by an escape sequence.</p>
+<p>A string literal is always of type String (<a href="http://java.sun.com/docs/books/jls/second_edition/html/typesValues.doc.html#26992" target="_blank" rel="external">§4.3.3</a>. A string literal always refers to the same instance <a href="http://java.sun.com/docs/books/jls/second_edition/html/typesValues.doc.html#12028" target="_blank" rel="external">(§4.3.1)</a> of class String.</p>
+<p>StringLiteral:</p>
+<p> “ StringCharacters<sub>opt</sub> “</p>
+<p>StringCharacters:</p>
+<p> StringCharacter</p>
+<p> StringCharacters StringCharacter</p>
+<p>StringCharacter:</p>
+<p> InputCharacter but not “ or \</p>
+<p> EscapeSequence</p>
+<p>The escape sequences are described in <a href="http://java.sun.com/docs/books/jls/second_edition/html/lexical.doc.html#101089" target="_blank" rel="external">§3.10.6</a>.</p>
+<p>As specified in <a href="http://java.sun.com/docs/books/jls/second_edition/html/lexical.doc.html#231571" target="_blank" rel="external">§3.4</a>, neither of the characters CR and LF is ever considered to be an InputCharacter; each is recognized as constituting a LineTerminator.</p>
+<p>It is a compile-time error for a line terminator to appear after the opening “ and before the closing matching “. A long string literal can always be broken up into shorter pieces and written as a (possibly parenthesized) expression using the string concatenation operator + <a href="http://java.sun.com/docs/books/jls/second_edition/html/expressions.doc.html#39990" target="_blank" rel="external">(§15.18.1)</a>.</p>
+<p>The following are examples of string literals:</p>
+<p>“”    // the empty string</p>
+<p>“\””    // a string containing “ alone</p>
+<p>“This is a string”  // a string containing 16 characters</p>
+<p>“This is a “ +   // actually a string-valued constant expression,</p>
+<p> “two-line string” //  formed from two string literals</p>
+<p>Because Unicode escapes are processed very early, it is not correct to write “\u000a” for a string literal containing a single linefeed (LF); the Unicode escape \u000a is transformed into an actual linefeed in translation step 1 <a href="http://java.sun.com/docs/books/jls/second_edition/html/lexical.doc.html#100850" target="_blank" rel="external">(§3.3)</a> and the linefeed becomes a LineTerminator in step 2 <a href="http://java.sun.com/docs/books/jls/second_edition/html/lexical.doc.html#231571" target="_blank" rel="external">(§3.4)</a>, and so the string literal is not valid in step 3. Instead, one should write “\n” <a href="http://java.sun.com/docs/books/jls/second_edition/html/lexical.doc.html#101089" target="_blank" rel="external">(§3.10.6)</a>. Similarly, it is not correct to write “\u000d” for a string literal containing a single carriage return (CR). Instead use “\r”.</p>
+<p>Each string literal is a reference <a href="http://java.sun.com/docs/books/jls/second_edition/html/typesValues.doc.html#9317" target="_blank" rel="external">(§4.3)</a> to an instance (<a href="http://java.sun.com/docs/books/jls/second_edition/html/typesValues.doc.html#12028" target="_blank" rel="external">§4.3.1</a>, <a href="http://java.sun.com/docs/books/jls/second_edition/html/execution.doc.html#44670" target="_blank" rel="external">§12.5</a>) of class String (<a href="http://java.sun.com/docs/books/jls/second_edition/html/typesValues.doc.html#26992" target="_blank" rel="external">§4.3.3</a>). String objects have a constant value. String literals-or, more generally, strings that are the values of constant expressions <a href="http://java.sun.com/docs/books/jls/second_edition/html/expressions.doc.html#5313" target="_blank" rel="external">(§15.28)</a>-are “interned” so as to share unique instances, using the method String.intern.</p>
+<p>Thus, the test program consisting of the compilation unit <a href="http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#40031" target="_blank" rel="external">(§7.3)</a>:</p>
+<p>package testPackage;</p>
+<p>class Test {</p>
+<p> public static void main(String[] args) {</p>
+<p>  String hello = “Hello”, lo = “lo”;</p>
+<p>  System.out.print((hello == “Hello”) + “ “);</p>
+<p>  System.out.print((Other.hello == hello) + “ “);</p>
+<p>  System.out.print((other.Other.hello == hello) + “ “);</p>
+<p>  System.out.print((hello == (“Hel”+”lo”)) + “ “);</p>
+<p>  System.out.print((hello == (“Hel”+lo)) + “ “);</p>
+<p>  System.out.println(hello == (“Hel”+lo).intern());</p>
+<p> }</p>
+<p>}</p>
+<p>class Other { static String hello = “Hello”; }</p>
+<p>and the compilation unit:</p>
+<p>package other;</p>
+<p>public class Other { static String hello = “Hello”; }</p>
+<p>produces the output:</p>
+<p>true true true true false true</p>
+<p>This example illustrates six points:</p>
+<ul>
+<li>Literal strings within the same class <a href="http://java.sun.com/docs/books/jls/second_edition/html/classes.doc.html#3857" target="_blank" rel="external">(§8)</a> in the same package <a href="http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#34412" target="_blank" rel="external">(§7)</a> represent references to the same String object <a href="http://java.sun.com/docs/books/jls/second_edition/html/typesValues.doc.html#12028" target="_blank" rel="external">(§4.3.1)</a>.</li>
+</ul>
+<p><span style="text-decoration: underline;">在同包同类下,引用自同一String对象.</span></p>
+<ul>
+<li>Literal strings within different classes in the same package represent references to the same String object.</li>
+</ul>
+<p><span style="text-decoration: underline;">在同包不同类下,引用自同一String对象.</span></p>
+<ul>
+<li>Literal strings within different classes in different packages likewise represent references to the same String object.</li>
+</ul>
+<p><span style="text-decoration: underline;">在不同包不同类下,依然引用自同一String对象.</span></p>
+<ul>
+<li>Strings computed by constant expressions <a href="http://java.sun.com/docs/books/jls/second_edition/html/expressions.doc.html#5313" target="_blank" rel="external">(§15.28)</a> are computed at compile time and then treated as if they were literals.</li>
+</ul>
+<p><span style="text-decoration: underline;">在编译成.class时能够识别为同一字符串的,自动优化成常量,所以也引用自同一String对象.</span></p>
+<ul>
+<li>Strings computed at run time are newly created and therefore distinct.</li>
+</ul>
+<p><span style="text-decoration: underline;">在运行时创建的字符串具有独立的内存地址,所以不引用自同一String对象.</span></p>
+<ul>
+<li>The result of explicitly interning a computed string is the same string as any pre-existing literal string with the same contents.</li>
+</ul>
+<p><span style="text-decoration: underline;">String的intern()方法会查找在常量池中是否存在一份equal相等的字符串,</span></p>
+<p><span style="text-decoration: underline;">如果有则返回一个引用,没有则添加自己的字符串进进入常量池,</span></p>
+<p><span style="text-decoration: underline;">注意,只是字符串部分,</span></p>
+<p><span style="text-decoration: underline;">所以这时会存在2份拷贝,常量池的部分被String类私有持有并管理,自己的那份按对象生命周期继续使用.</span></p>
+<p>API解释:</p>
+<p>返回字符串对象的规范化表示形式。</p>
+<p>一个初始时为空的字符串池，它由类 String 私有地维护。</p>
+<p>当调用 intern 方法时，如果池已经包含一个等于此 String 对象的字符串（该对象由 <a href="mk:@MSITStore:F:%20API%20jdk150.ZH_cn.chm::/jdk150/api/java/lang/String.html#equals(java.lang.Object" target="_blank" rel="external">equals(Object)</a>) 方法确定），则返回池中的字符串。否则，将此 String 对象添加到池中，并且返回此 String 对象的引用。</p>
+<p>它遵循对于任何两个字符串 s 和 t，当且仅当 s.equals(t) 为 true 时，s.intern() == t.intern() 才为 true。</p>
+<p>所有字面值字符串和字符串赋值常量表达式都是内部的。字符串字面值在《<a href="http://java.sun.com/docs/books/jls/html/" target="_blank" rel="external">Java Language Specification</a>》的 §3.10.5 中已定义。</p>
+<p>————————————代码演示补充————————————-</p>
+<p>   String s0= “java”;</p>
+<p>   String s1=new String(“java”);</p>
+<p>   String s2=new String(“java”);</p>
+<p>   s1.intern();</p>
+<p>   s2=s2.intern(); //把常量池中“kvill”的引用赋给s2</p>
+<p>   System.out.println( s0==s1);//false intern返回的引用没有引用变量接收~    s1.intern();等于废代码.</p>
+<p>   System.out.println( s0==s1.intern() );//true</p>
+<p>   System.out.println( s0==s2 );//true</p>
+<p>————————————代码演示补充————————————-</p>
+<p>   String s1=new String(“java”);<br>String s2=s1.intern();//s1 检查常量池 发现没有 就拷贝自己的字符串进去</p>
+<p>//s2 引用该字符串常量池的地址</p>
+<p>   System.out.println(s2 == s1);//false<br>System.out.println( s2==s1.intern());//true<br>System.out.println( s1==s1.intern());// false</p>
+<p>最后引出equals()和==的故事</p>
+<p>对于字符串比较,一定要切记使用equals,勿用==</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/java-constant-pool.html" data-id="cji8sg1sd006540iow41hnthb" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/jvm-memory.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          JVM基础：JVM内存组成及分配
+        
+      </div>
+    </a>
+  
+  
+    <a href="/was-mq-2009error.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">WAS连接MQ错误</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

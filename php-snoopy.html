@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>PHP采集利器：Snoopy | Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="下载地址:http://sourceforge.net/projects/snoopy/
+Snoopy是一个php类，用来模拟浏览器的功能，可以获取网页内容，发送表单。Snoopy正确运行需要你的服务器的PHP版本在4以上，并且支持PCRE（Perl Compatible Regular Expressions），基本的LAMP服务都支持。
+一、Snoopy的一些特点:
+　　1.抓取网页的内容 f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP采集利器：Snoopy">
+<meta property="og:url" content="http://www.ibmer.info/php-snoopy.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta property="og:description" content="下载地址:http://sourceforge.net/projects/snoopy/
+Snoopy是一个php类，用来模拟浏览器的功能，可以获取网页内容，发送表单。Snoopy正确运行需要你的服务器的PHP版本在4以上，并且支持PCRE（Perl Compatible Regular Expressions），基本的LAMP服务都支持。
+一、Snoopy的一些特点:
+　　1.抓取网页的内容 f">
+<meta property="og:updated_time" content="2017-06-07T03:42:20.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP采集利器：Snoopy">
+<meta name="twitter:description" content="下载地址:http://sourceforge.net/projects/snoopy/
+Snoopy是一个php类，用来模拟浏览器的功能，可以获取网页内容，发送表单。Snoopy正确运行需要你的服务器的PHP版本在4以上，并且支持PCRE（Perl Compatible Regular Expressions），基本的LAMP服务都支持。
+一、Snoopy的一些特点:
+　　1.抓取网页的内容 f">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-php-snoopy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/php-snoopy.html" class="article-date">
+  <time datetime="2014-07-07T07:59:03.000Z" itemprop="datePublished">2014-07-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP采集利器：Snoopy
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下载地址:<a href="http://sourceforge.net/projects/snoopy/" target="_blank" rel="external">http://sourceforge.net/projects/snoopy/</a></p>
+<p>Snoopy是一个php类，用来模拟浏览器的功能，可以获取网页内容，发送表单。Snoopy正确运行需要你的服务器的PHP版本在4以上，并且支持PCRE（Perl Compatible Regular Expressions），基本的LAMP服务都支持。</p>
+<p>一、Snoopy的一些特点:</p>
+<p>　　1.抓取网页的内容 fetch</p>
+<p>　　2.抓取网页的文本内容 (去除HTML标签) fetchtext</p>
+<p>　　3.抓取网页的链接，表单 fetchlinks fetchform</p>
+<p>　　4.支持代理主机</p>
+<p>　　5.支持基本的用户名/密码验证</p>
+<p>　　6.支持设置user_agent, referer(来路), cookies和header content(头文件)</p>
+<p>　　7.支持浏览器重定向，并能控制重定向深度</p>
+<p>　　8.能把网页中的链接扩展成高质量的url(默认)</p>
+<p>　　9.提交数据并且获取返回值</p>
+<p>　　10.支持跟踪HTML框架</p>
+<p>　　11.支持重定向的时候传递cookies，要求php4以上就可以了，由于本身是php一个类，无需扩支持，服务器不支持curl时候的最好选择。</p>
+<p>二、类方法:</p>
+<p>fetch($URI)<br>———–</p>
+<p>　　这是为了抓取网页的内容而使用的方法。$URI参数是被抓取网页的URL地址。抓取的结果被存储在 $this-&gt;results 中。如果你正在抓取的是一个框架，Snoopy将会将每个框架追踪后存入数组中，然后存入 $this-&gt;results。</p>
+<p>fetchtext($URI)<br>—————</p>
+<p>　　本方法类似于fetch()，唯一不同的就是本方法会去除HTML标签和其他的无关数据，只返回网页中的文字内容。</p>
+<p>fetchform($URI)<br>—————</p>
+<p>　　本方法类似于fetch()，唯一不同的就是本方法会去除HTML标签和其他的无关数据，只返回网页中表单内容(form)。</p>
+<p>fetchlinks($URI)<br>—————-</p>
+<p>　　本方法类似于fetch()，唯一不同的就是本方法会去除HTML标签和其他的无关数据，只返回网页中链接(link)。<br>默认情况下，相对链接将自动补全，转换成完整的URL。</p>
+<p>submit($URI,$formvars)<br>———————-</p>
+<p>　　本方法向$URL指定的链接地址发送确认表单。$formvars是一个存储表单参数的数组。</p>
+<p>submittext($URI,$formvars)<br>————————–</p>
+<p>　　本方法类似于submit()，唯一不同的就是本方法会去除HTML标签和其他的无关数据，只返回登陆后网页中的文字内容。</p>
+<p>submitlinks($URI)<br>—————-</p>
+<p>　　本方法类似于submit()，唯一不同的就是本方法会去除HTML标签和其他的无关数据，只返回网页中链接(link)。<br>默认情况下，相对链接将自动补全，转换成完整的URL。</p>
+<p>三、类属性: (缺省值在括号里)</p>
+<p>$host 连接的主机<br>$port 连接的端口<br>$proxy_host 使用的代理主机，如果有的话<br>$proxy_port 使用的代理主机端口，如果有的话<br>$agent 用户代理伪装 (Snoopy v0.1)<br>$referer 来路信息，如果有的话<br>$cookies cookies， 如果有的话<br>$rawheaders 其他的头信息, 如果有的话<br>$maxredirs 最大重定向次数， 0=不允许 (5)<br>$offsiteok whether or not to allow redirects off-site. (true)<br>$expandlinks 是否将链接都补全为完整地址 (true)<br>$user 认证用户名, 如果有的话<br>$pass 认证用户名, 如果有的话<br>$accept http 接受类型 (image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, <em>/</em>)<br>$error 哪里报错, 如果有的话<br>$response_code 从服务器返回的响应代码<br>$headers 从服务器返回的头信息<br>$maxlength 最长返回数据长度<br>$read_timeout 读取操作超时 (requires PHP 4 Beta 4+)<br>设置为0为没有超时<br>$timed_out 如果一次读取操作超时了，本属性返回 true (requires PHP 4 Beta 4+)<br>$maxframes 允许追踪的框架最大数量<br>$status 抓取的http的状态<br>$temp_dir 网页服务器能够写入的临时文件目录 (/tmp)<br>$curl_path cURL binary 的目录, 如果没有cURL binary就设置为 false</p>
+<p>四、以下是demo</p>
+<div class="cnblogs_Highlighter" style="color: #000000;"><br><div id="highlighter_800217" class="syntaxhighlighter nogutter  php"><br>[php]&lt;/div&gt;<br>&lt;div class=&quot;syntaxhighlighter nogutter  php&quot;&gt;include &quot;Snoopy.class.php&quot;;<br>$snoopy = new Snoopy;<br><br>$snoopy-&gt;proxy_host = &quot;www.baidu.com&quot;;<br>$snoopy-&gt;proxy_port = &quot;8080&quot;;<br><br>$snoopy-&gt;agent = &quot;(compatible; MSIE 4.01; MSN 2.5; AOL 4.0; Windows 98)&quot;;<br>$snoopy-&gt;referer = &quot;<a href="http://www.baidu.com/&amp;quot" target="_blank" rel="external">http://www.baidu.com/&amp;quot</a>;;<br><br>$snoopy-&gt;cookies[&quot;SessionID&quot;] = 238472834723489l;<br>$snoopy-&gt;cookies[&quot;favoriteColor&quot;] = &quot;RED&quot;;<br><br>$snoopy-&gt;rawheaders[&quot;Pragma&quot;] = &quot;no-cache&quot;;<br><br>$snoopy-&gt;maxredirs = 2;<br>$snoopy-&gt;offsiteok = false;<br>$snoopy-&gt;expandlinks = false;<br><br>$snoopy-&gt;user = &quot;joe&quot;;<br>$snoopy-&gt;pass = &quot;bloe&quot;;<br><br>if($snoopy-&gt;fetchtext(&quot;<a href="http://www.baidu.com&amp;quot" target="_blank" rel="external">http://www.baidu.com&amp;quot</a>;))<br>{<br>echo &quot; &lt;PRE&gt;&quot;.htmlspecialchars($snoopy-&gt;results).&quot; &lt;/PRE&gt;\n&quot;; &lt;BR&gt;<br>} &lt;BR&gt;<br>else &lt;BR&gt;<br>echo &quot;error fetching document: &quot;.$snoopy-&gt;error.&quot;\n&quot;;<br><br>snoopy采集phpchina示例<br>&lt;?php<br>//采集phpchina<br>set_time_limit(0);<br>require_once(&quot;Snoopy.class.php&quot;);<br>$snoopy=new Snoopy();<br>//登陆论坛<br>$submit_url = &quot;<a href="http://www.phpchina.com/bbs/logging.php?action=login&amp;quot" target="_blank" rel="external">http://www.phpchina.com/bbs/logging.php?action=login&amp;quot</a>;;<br>$submit_vars[&quot;loginmode&quot;] = &quot;normal&quot;;<br>$submit_vars[&quot;styleid&quot;] = &quot;1&quot;;<br>$submit_vars[&quot;cookietime&quot;] = &quot;315360000&quot;;<br>$submit_vars[&quot;loginfield&quot;] = &quot;username&quot;;<br>$submit_vars[&quot;username&quot;] = &quot;<strong><em>&quot;; //你的用户名<br>$submit_vars[&quot;password&quot;] = &quot;**</em></strong>&quot;; //你的密码<br>$submit_vars[&quot;questionid&quot;] = &quot;0&quot;;<br>$submit_vars[&quot;answer&quot;] = &quot;&quot;;<br>$submit_vars[&quot;loginsubmit&quot;] = &quot;提 交&quot;;<br>$snoopy-&gt;submit($submit_url,$submit_vars);<br>if ($snoopy-&gt;results)<br>{<br>//获取连接地址<br>$snoopy-&gt;fetchlinks(&quot;<a href="http://www.phpchina.com/bbs&amp;quot" target="_blank" rel="external">http://www.phpchina.com/bbs&amp;quot</a>;);<br>$url=array();<br>$url=$snoopy-&gt;results;<br>//print_r($url);<br>foreach ($url as $key=&gt;$value)<br>{<br>//匹配<a href="http://www.phpchina.com/bbs/forumdisplay.php?fid=156&amp;sid=VfcqTR地址即论坛板块地址" target="_blank" rel="external">http://www.phpchina.com/bbs/forumdisplay.php?fid=156&amp;sid=VfcqTR地址即论坛板块地址</a><br>if (!preg_match(&quot;/^(http:\/\/www.phpchina.com\/bbs\/forumdisplay.php\?fid=)[0-9]<em>&amp;sid=[a-zA-Z]{6}/i&quot;,$value))<br>{<br>unset($url[$key]);<br>}<br>}<br>//print_r($url);<br>//获取到板块数组$url，循环访问，此处获取第一个模块第一页的数据<br>$i=0;<br>foreach ($url as $key=&gt;$value)<br>{<br>if ($i&gt;=1)<br>{<br>//测试限制<br>break;<br>}<br>else<br>{<br>//访问该模块，提取帖子的连接地址，正式访问里需要提取帖子分页的数据，然后根据分页数据提取帖子数据<br>$snoopy=new Snoopy();<br>$snoopy-&gt;fetchlinks($value);<br>$tie=array();<br>$tie[$i]=$snoopy-&gt;results;<br>//print_r($tie);<br>//转换数组<br>foreach ($tie[$i] as $key=&gt;$value)<br>{<br>//匹配<a href="http://www.phpchina.com/bbs/viewthread.php?tid=68127&amp;amp" target="_blank" rel="external">http://www.phpchina.com/bbs/viewthread.php?tid=68127&amp;amp</a>; extra=page%3D1&amp;page=1&amp;sid=iBLZfK<br>if (!preg_match(&quot;/^(http:\/\/www.phpchina.com\/bbs\/viewthread.php\?tid=)[0-9]</em>&amp;extra=page\%3D1&amp;page=[0-9]<em>&amp;sid=[a-zA-Z]{6}/i&quot;,$value))<br>{<br>unset($tie[$i][$key]);<br>}<br>}<br>//print_r($tie[$i]);<br>//归类数组，将同一个帖子不同页面的内容放一个数组里<br>$left=’’;//连接左边公用地址<br>$j=0;<br>$page=array();<br>foreach ($tie[$i] as $key=&gt;$value)<br>{<br>$left=substr($value,0,52);<br>$m=0;<br>foreach ($tie[$i] as $pkey=&gt;$pvalue)<br>{<br>//重组数组<br>if (substr($pvalue,0,52)==$left)<br>{<br>$page[$j][$m]=$pvalue;<br>$m++;<br>}<br>}<br>$j++;<br>}<br>//去除重复项开始<br>//$page=array_unique($page);只能用于一维数组<br>$paget[0]=$page[0];<br>$nums=count($page);<br>for ($n=1;$n &lt;$nums;$n++)<br>{<br>$paget[$n]=array_diff($page[$n],$page[$n-1]);<br>}<br>//去除多维数组重复值结束<br>//去除数组空值<br>unset($page);<br>$page=array();//重新定义page数组<br>$page=array_filter($paget);<br>//print_r($page);<br>$u=0;<br>$title=array();<br>$content=array();<br>$temp=’’;<br>$tt=array();<br>foreach ($page as $key=&gt;$value)<br>{<br>//外围循环，针对一个帖子<br>if (is_array($value))<br>{<br>foreach ($value as $k1=&gt;$v1)<br>{<br>//页内循环，针对一个帖子的N页<br>$snoopy=new Snoopy();<br>$snoopy-&gt;fetch($v1);<br>$temp=$snoopy-&gt;results;<br>//读取标题<br>if (!preg_match_all(&quot;/ &lt;h2&gt;(.</em>) &lt;\/h2&gt;/i&quot;,$temp,$tt))<br>{<br>echo &quot;no title&quot;;<br>exit;<br>}<br>else<br>{<br>$title[$u]=$tt[1][1];<br>}<br>unset($tt);<br>//读取内容<br>if (!preg_match<em>all(&quot;/ &lt;div id=\&quot;postmessage</em>[0-9]{1,8}\&quot; class=\&quot;t_msgfont\&quot;&gt;(.<em>) &lt;\/div&gt;/i&quot;,$temp,$tt))<br>{<br>print_r($tt);<br>echo &quot;no content1&quot;;<br>exit;<br>}<br>else<br>{<br>foreach ($tt[1] as $c=&gt;$c2)<br>{<br>$content[$u].=$c2;<br>}<br>}<br>}<br>}<br>else<br>{<br>//直接取页内容<br>$snoopy=new Snoopy();<br>$snoopy-&gt;fetch($value);<br>$temp=$snoopy-&gt;results;<br>//读取标题<br>if (!preg_match_all(&quot;/ &lt;h2&gt;(.</em>) &lt;\/h2&gt;/i&quot;,$temp,$tt))<br>{<br>echo &quot;no title&quot;;<br>exit;<br>}<br>else<br>{<br>$title[$u]=$tt[1][1];<br>}<br>unset($tt);<br>//读取内容<br>if (!preg_match<em>all(&quot;/ &lt;div id=\&quot;postmessage</em>[0-9]<em>\&quot; class=\&quot;t_msgfont\&quot;&gt;(.</em>) &lt;\/div&gt;/i&quot;,$temp,$tt))<br>{<br>echo &quot;no content2&quot;;<br>exit;<br>}<br>else<br>{<br>foreach ($tt[1] as $c=&gt;$c2)<br>{<br>$content[$u].=$c2;<br>}<br>}<br>}<br>$u++;<br>}<br>print_r($content);<br>}<br>$i++;<br>}<br>}<br>else<br>{<br>echo &quot;login failed&quot;;<br>exit;<br>}<br>?&gt;&lt;/div&gt;<br>&lt;div class=&quot;syntaxhighlighter nogutter  php&quot;&gt;[/php]<br></div><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/php-snoopy.html" data-id="cji8sg1tm008n40iovi5n6zht" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/php-js-json.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          PHP解析键值没有双引号的json数组,js json string 转php json
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ftplet.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Ftplet</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

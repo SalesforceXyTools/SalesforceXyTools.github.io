@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Exia.Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Exia.Huang">
+<meta property="og:url" content="http://www.ibmer.info/page/7/index.html">
+<meta property="og:site_name" content="Exia.Huang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Exia.Huang">
+  
+    <link rel="alternate" href="/atom.xml" title="Exia.Huang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exia.Huang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ibmer.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-template-hierarchy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/template-hierarchy.html" class="article-date">
+  <time datetime="2016-06-08T02:35:51.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/template-hierarchy.html">WordPress的主题文件优先级层次图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre>
+// 先介绍重要的
+│ index.php // 主题的引导文件，也是默认的首页的模板
+│ header.php
+// 这个文件包含 HTML 的 &lt;head&gt; 部分（不显示在网页上，但是通过查看网页源文件就能看到）， // 同时还可能包含一部分正文（HTML的 &lt;body&gt; 标签内的东西）； // get_header() 就是调用它的。 // 比如水景一页下面整个浅灰色色背景的部分都是在这个文件中处理的
+│ footer.php
+// 用于显示页面下面的内容，包含 &lt;/body&gt; 标签 // 比如水景一页上面整个黑色背景的部分都是在这个文件中处理的
+
+// 下面 9 个文件都是页面模板，都调用了 get_header() 和 get_footer() // 并且一般都会调用 comments.php 以处理评论列表和评论框
+│ 404.php // 用于显示自定义 404 错误网页的页面模板
+│ archive.php // 用于显示文章存档网页的页面模板，比如按日期存档等页面
+│ author.php // 作者文章存档页面模板（显示该作者所有文章列表网页）
+│ category.php // 分类页面模板
+│ image.php // 用于显示图片附件，页面模板
+│ page.php
+ // 用于显示静态页面（page）的页面模板，通过 get_template_part( &#39;content&#39;, &#39;page&#39; ) 调用了 content-page.php
+│ tag.php // 标签页面模板
+│ single.php // 单一文章（post）页面，这是标准形式的 post，调用了 content-single.php
+│ showcase.php // 特色文章页面模板；用这个模板来做首页其实挺不错的
+
+// 下面这一组 11 个以 content 开头的文件，都只是某个页面的一部分，类似于上面的 comments.php 文件 // Twenty Ten 主题中用的是 loop 开头
+│ content-aside.php
+│ content-featured.php
+│ content-gallery.php
+│ content-image.php
+│ content-intro.php
+│ content-link.php
+│ content-page.php
+│ content-quote.php
+│ content-single.php
+│ content-status.php
+│ content.php
+// 以上 11 个文件是用来处理网页主体部分的； // 包含正文内容，包括文章（post）、静态页面（page），也就是我们通常所说的文章内容； // 2011 主题内置了几种文章形式（[post format](http://codex.wordpress.org/Post_Formats)），可针对不同的文章形式使用不同的模板； // 当然如果你乐意，使用同一个模板也没有问题
+
+│ comments.php
+// 评论模板；这个不是一个单独的页面，需要在别的页面中调用此模板 // 使用 comments_template( &#39;&#39;, true ) 来调用
+│ searchform.php // 搜索框模板
+│ search.php // &ldquo;搜索&rdquo;页面模板，还会调用 searchform.php 来显示搜索框，这是个页面模板
+│ sidebar-footer.php
+│ sidebar-page.php
+│ sidebar.php // get_sidebar() 会调用此文件
+// 这三个是用于显示网页上 WordPress 边栏的模板 // sidebar.php 会根据情况调用 sidebar-page.php 或者 sidebar-footer.php 或者同时调用两个
+│ functions.php
+// 主题自定义的一些功能函数，如果有的话可以覆盖 WordPress 内建函数
+│ rtl.css
+│ style.css
+// 这两个是主题的样式表文件，其中 rtl 只用于显示从右到左写法的语言
+│ editor-style-rtl.css
+│ editor-style.css
+// 这两个是主题提供给后台的编辑器样式文件，一般不修改
+│ screenshot.jpg
+│ screenshot.png
+// 这两个是主题的缩略图
+│ readme.txt // 主题的说明文档
+│ license.txt // 主题的许可证内容
+├─colors // 文件夹，包含选择黑色风格时需要调用的样式文件（省略其下的文件）
+│
+├─images // 文件夹，包含主题网页上用到的图片（省略其下的文件）
+│ │
+│ └─headers // 文件夹，包含顶部背景图片（省略其下的文件）
+│
+├─inc // 文件夹一些内部函数，基本不会自己修改（省略其下的文件）
+│ │
+│ └─images // 文件夹，包含一些图片（省略其下的文件）
+│
+├─js // 文件夹，包含主题自己的 JavaScript 文件（省略其下的文件）
+│
+└─languages // 文件夹，包含语言文件的文件夹（省略其下的文件）</pre>
+
+<pre><code>&amp;nbsp;
+</code></pre><p>###<br>    Examples&nbsp;</p>
+<pre><code>If your blog is at&amp;nbsp;`http://example.com/blog/`&amp;nbsp;and a visitor clicks on a link to a category page such as&amp;nbsp;`http://example.com/blog/category/your-cat/`, WordPress looks for a template file in the current theme&amp;rsquo;s directory that matches the category&amp;rsquo;s ID to generate the correct page. More specifically, WordPress follows this procedure:
+</code></pre><ol>
+<li>Looks for a template file in the current theme&rsquo;s directory that matches the category&rsquo;s slug. If the category slug is &ldquo;unicorns,&rdquo; then WordPress looks for a template file named&nbsp;<code>category-unicorns.php</code>.</li>
+<li>If&nbsp;<code>category-unicorns.php</code>&nbsp;is missing and the category&rsquo;s ID is 4, WordPress looks for a template file named&nbsp;<code>category-4.php</code>.</li>
+<li>If&nbsp;<code>category-4.php</code>&nbsp;is missing, WordPress will look for a generic category template file,&nbsp;<code>category.php</code>.</li>
+<li>If&nbsp;<code>category.php</code>&nbsp;does not exist, WordPress will look for a generic archive template,&nbsp;<code>archive.php</code>.</li>
+<li><p>If&nbsp;<code>archive.php</code>&nbsp;is also missing, WordPress will fall back to&nbsp;the main theme template file,&nbsp;<code>index.php</code>.</p>
+<p><a href="http://developer.wordpress.org/files/2014/10/template-hierarchy.png" target="_blank" rel="external"><img src="http://developer.wordpress.org/files/2014/10/template-hierarchy-1024x640.png" alt=""></a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/template-hierarchy.html" data-id="cji8sg1w600da40io804vfp1y" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jp-tax" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/jp-tax.html" class="article-date">
+  <time datetime="2016-06-06T10:20:18.000Z" itemprop="datePublished">2016-06-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日本/">日本</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jp-tax.html">日本所得税计算</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <font size="7"><strong>日本所得税</strong></font>
+
+<pre><code>[&lt;font size=&quot;7&quot;&gt;**日本所得税计算器**&lt;/font&gt;](http://www.ibmer.info/calculate-income-tax)
+
+------------------------------------------------------------
+
+所得税计算公式 正规版
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Blue&quot;&gt;**&lt;font color=&quot;Black&quot;&gt;所得税纳税金额＝&lt;/font&gt;&amp;nbsp;**&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**_&lt;u&gt;課税される所得金額&lt;/u&gt;_**&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Blue&quot;&gt;**&lt;font color=&quot;Black&quot;&gt;&lt;font color=&quot;Red&quot;&gt;&amp;nbsp;&amp;nbsp;X 所得税率&lt;/font&gt;&lt;/font&gt;**&lt;/font&gt;&lt;/font&gt;
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**_&lt;u&gt;課税される所得金額&lt;/u&gt;_＝&lt;font color=&quot;Blue&quot;&gt;【税前给与支払額】－【所得控除】&lt;/font&gt;**&lt;/font&gt;&lt;/font&gt;
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Blue&quot;&gt;**【税前给与支払額】＝工作单位向劳动者支付的&lt;font size=&quot;6&quot;&gt;&lt;u&gt;税前&lt;/u&gt;&lt;/font&gt;薪资总额**&lt;/font&gt;&lt;/font&gt;
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Blue&quot;&gt;**【所得控除】＝税法规定的控除项目和控除金额**&lt;/font&gt;&lt;/font&gt;
+
+-------------------------------------------------------
+
+所得税计算公式 白话版
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Black&quot;&gt;**所得税纳税金额＝ 纯所得（課税される所得金額）X 所得税率**
+
+**纯所得（課税される所得金額）＝收入（税前給与支払額） - 费用（所得控除）**&lt;/font&gt;&lt;/font&gt;
+
+-------------------------------------------------------
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**所得税率**&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;
+
+[http://www.nta.go.jp/taxanswer/shotoku/2260.htm](http://www.nta.go.jp/taxanswer/shotoku/2260.htm)
+</code></pre><table cellspacing="0"><br>    <tbody><br>        <tr><br>            <td width="62%"><br>                課税される所得金額<br>            </td><br>            <td width="13%"><br>                税率<br>            </td><br>            <td width="25%"><br>                控除額<br>            </td><br>        </tr><br>        <tr><br>            <td><br><br>                    195万円以下<br><br>            </td><br>            <td><br><br>                    5％<br><br>            </td><br>            <td><br><br>                    0円<br><br>            </td><br>        </tr><br>        <tr><br>            <td><br><br>                    195万円を超え　330万円以下<br><br>            </td><br>            <td><br><br>                    10％<br><br>            </td><br>            <td><br><br>                    97,500円<br><br>            </td><br>        </tr><br>        <tr><br>            <td><br><br>                    330万円を超え　695万円以下<br><br>            </td><br>            <td><br><br>                    20％<br><br>            </td><br>            <td><br><br>                    427,500円<br><br>            </td><br>        </tr><br>        <tr><br>            <td><br><br>                    695万円を超え　900万円以下<br><br>            </td><br>            <td><br><br>                    23％<br><br>            </td><br>            <td><br><br>                    636,000円<br><br>            </td><br>        </tr><br>        <tr><br>            <td><br><br>                    900万円を超え　1,800万円以下<br><br>            </td><br>            <td><br><br>                    33％<br><br>            </td><br>            <td><br><br>                    1,536,000円<br><br>            </td><br>        </tr><br>        <tr><br>            <td><br><br>                    1,800万円超<br><br>            </td><br>            <td><br><br>                    40％<br><br>            </td><br>            <td><br><br>                    2,796,000円<br><br>            </td><br>        </tr><br>    </tbody><br></table>
+
+<pre><code>从上面的税率表当中，可以看到
+
+所得税的税率，是根据【課税される所得金額】的高低而定的
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**課税される所得金額**&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;
+
+-------------------------------------------------------
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**【課税される所得金額】＝&lt;font color=&quot;Blue&quot;&gt;【&lt;/font&gt;**&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**&lt;font color=&quot;Blue&quot;&gt;税前给与支払額&lt;/font&gt;**&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**&lt;font color=&quot;Blue&quot;&gt;】－【所得控除】&lt;/font&gt;**&lt;/font&gt;&lt;/font&gt;
+
+-------------------------------------------------------
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;&lt;font color=&quot;Blue&quot;&gt;**【**&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**&lt;font color=&quot;Blue&quot;&gt;税前给与支払額&lt;/font&gt;**&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;&lt;font color=&quot;Blue&quot;&gt;**】**&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;
+
+【税前給与支払額】，就是工作单位向劳动者支付的工资、薪水、报酬的税前合计金额
+
+（&lt;font color=&quot;Blue&quot;&gt;&lt;font color=&quot;Black&quot;&gt;**【**&lt;/font&gt;&lt;/font&gt;&lt;font color=&quot;Blue&quot;&gt;&lt;font color=&quot;Black&quot;&gt;**税前給与支払額**&lt;/font&gt;&lt;/font&gt;&lt;font color=&quot;Blue&quot;&gt;&lt;font color=&quot;Black&quot;&gt;**】并没有扣除各种税金、保险**&lt;/font&gt;&lt;/font&gt;）
+
+（**年度奖金或ボーナス****的****课税算法不同，这里不讨论奖金的课税问题**）
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;&lt;font color=&quot;Blue&quot;&gt;**【所得控除】**&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;
+
+税法为了保护纳税人享有最基本的生存能力和经济负担能力
+
+在征收所得税之前，允许纳税人从【税前給与支払額】当中扣除一些特定的费用或开销
+
+这些特定的费用或开销，在税法上叫做【所得控除】
+
+从【税前给与支払額】当中扣除了法定的【所得控除】项目之后，剩余的部分，就成为了【課税される所得金額】
+
+【課税される所得金額】＝【税前给与支払額】 － 【所得控除】
+
+【所得控除】的项目比较复杂，参考日本国税厅的官方解释：
+
+[http://www.nta.go.jp/taxanswer/shotoku/shoto320.htm](http://www.nta.go.jp/taxanswer/shotoku/shoto320.htm)
+
+对于留学生来说，最常见的【所得控除】是以下几种：
+
+①**基础控除**38万日元（全员适用）
+
+[http://www.nta.go.jp/taxanswer/shotoku/1199.htm](http://www.nta.go.jp/taxanswer/shotoku/1199.htm)
+
+②**给与所得控除**（最低控除额从65万日元起步，全员适用）
+
+[http://www.nta.go.jp/taxanswer/shotoku/1410.htm](http://www.nta.go.jp/taxanswer/shotoku/1410.htm)
+
+③**配偶者控除**27万日元（仅限于&lt;font color=&quot;Blue&quot;&gt;**已婚世代主1人适用，并且世代主的配偶者的**&lt;/font&gt;&lt;font color=&quot;Blue&quot;&gt;**税前给与支払額**&lt;/font&gt;&lt;font color=&quot;Blue&quot;&gt;**在103万日元以内**&lt;/font&gt;）
+
+[http://www.nta.go.jp/taxanswer/shotoku/1191.htm](http://www.nta.go.jp/taxanswer/shotoku/1191.htm)
+
+（如果世代主的配偶者的税前给与支払額超过103万但不超过141万的情况下，可以适用于[配偶者特别控除](http://www.nta.go.jp/taxanswer/shotoku/1195.htm)）
+
+④**抚养控除**（仅限于家中有孩子或者老人需要纳税人抚养的前提下适用。控除额最低38万、最高63万）
+
+[http://www.nta.go.jp/taxanswer/shotoku/1180.htm](http://www.nta.go.jp/taxanswer/shotoku/1180.htm)
+
+⑤**勤劳学生控除**27万日元（仅限于&lt;font color=&quot;Blue&quot;&gt;**税前给与支払額**&lt;/font&gt;&lt;font color=&quot;Blue&quot;&gt;**在130万日元以内的在校学生**&lt;/font&gt;适用）
+
+[http://www.nta.go.jp/taxanswer/shotoku/1175.htm](http://www.nta.go.jp/taxanswer/shotoku/1175.htm)
+
+关于所得税的基础知识就是这些
+
+在这里举3个例子，来看一下所得税的基本计算方法：
+
+**事例1**
+
+留学生A，单身，在某年1月1日-12月31日之间
+
+工作单位向A支付的薪水总额是150万
+
+【税前给与支払額】＝150万
+
+【所得控除】＝基础控除38万＋给与所得控除65万＝103万
+
+（由于留学生A的税前给与支払額为150万，超过了勤劳学生控除的130万限制，因此不适用勤劳学生控除）
+
+（由于留学生A是单身，不适用配偶者控除）
+
+【課税される所得金額】＝【税前给与支払額】-【所得控除】＝150万-103万＝47万
+
+根据税率表当中的规定，47万小于195万，属于第1档税率，税率为5%
+
+所得税纳税金额＝【課税される所得金額】X 所得税率
+
+所以留学生A的所得税纳税金额＝47万 X 5%＝23500
+
+**事例2**
+
+日企正社员B，已婚，与妻子在日本同居
+
+妻子是家庭主妇，平时打零工，税前给与支払額不超过103万
+
+在某年1月1日-12月31日之间
+
+工作单位向B支付的薪水总额是400万
+
+【税前给与支払額】＝400万
+
+【所得控除】＝基础控除38万＋给与所得控除65万＋配偶者控除27万＝130万
+
+【課税される所得金額】＝【税前给与支払額】-【所得控除】＝400万-130万＝270万
+
+根据税率表当中的规定，270万大于195万，但小于330万，属于第2档税率，税率为10%
+
+所得税纳税金额＝【課税される所得金額】X 所得税率
+
+所以正社员B的所得税纳税金额＝270万 X 10%＝27万
+
+最后再减掉税率表右侧的附加控除额97500
+
+正社员B的所得税纳税金额＝27万-97500＝172500
+
+**事例3**
+
+留学生C，单身，在某年1月1日-12月31日之间
+
+工作单位向C支付的薪水总额是130万
+
+【税前给与支払額】＝130万
+
+【所得控除】＝基础控除38万＋给与所得控除65万＋勤劳学生控除27万＝130万
+
+【課税される所得金額】＝【税前给与支払額】-【所得控除】＝130万 -130万＝0
+
+所得税纳税金额＝【課税される所得金額】X 所得税率
+
+所以留学生C的所得税纳税金额＝0 X 所得税率＝0
+
+也就是说，留学生每年打工的【税前给与支払額】不超过130万的话，不需要缴纳所得税
+
+&lt;font size=&quot;5&quot;&gt;&lt;font color=&quot;Red&quot;&gt;**所得税常见问题答疑：**&lt;/font&gt;&lt;/font&gt;
+
+**①我每年到底赚多少钱不需要交所得税？**
+
+一般人是【税前给与支払額】不超过103万，不需要交所得税
+
+（理由：【課税される所得金額】＝税前给与支払額103万 - 基础控除38万 - 给与所得控除65万 ＝ 0）
+
+留学生是【税前给与支払額】不超过130万，不需要交所得税（因为留学生可以适用于勤劳学生控除）
+
+（理由：【課税される所得金額】＝税前给与支払額130万 - 基础控除38万 - 给与所得控除65万 - 勤劳学生控除27万 ＝ 0）
+
+**②我的【****税前给与支払額****】符合①的标准，为什么每个月的工资仍然会被工作单位扣缴所得税？**
+
+不论您的【税前给与支払額】高或者低，根据日本税法的规定，工作单位在有些情况下，必须从劳动者的薪水当中代扣代缴一定比例的所得税。这个强制性的规定，在日本税法上叫做【&lt;font color=&quot;Red&quot;&gt;**源泉征收**&lt;/font&gt;】。劳动者获取【税前给与支払額】的瞬间，相当于纳税义务的发生源泉。所以在税法上把工作单位代扣代缴所得税的行为，命名为【源泉征收】。
+
+工作单位在当年度最后1次向劳动者支付薪水之前，会进行一个【&lt;font color=&quot;Red&quot;&gt;**年末调整**&lt;/font&gt;】的精算手续。【年末调整】将最终确定劳动者在当年度所获取的【税前给与支払額】实际金额，并以此为依据重新计算劳动者的所得税和其他社会保险税的准确纳税金额，多退少补。如果在【年末调整】中判定劳动者的【税前给与支払額】不发生所得税的纳税义务，工作单位会把这一年当中多扣多缴的所得税全部退还给劳动者本人。
+
+简单点说，就是根据【源泉征收】的规定先代扣代缴所得税，【年末调整】的时候再把不应该扣缴的所得税返还给劳动者本人。
+
+**③我怎么才能知道自己这一年的【****税前给与支払額****】？我怎么才能知道工作单位代扣代缴了多少所得税？**
+
+正规的工作单位，在每年12月或1月前后，会向劳动者发行一张《&lt;font color=&quot;Red&quot;&gt;**源泉征收票**&lt;/font&gt;》
+
+这个《源泉征收票》上：
+
+记录了工作单位在这一年当中累计向您支付的薪水总额（【税前给与支払額】）
+
+记录了工作单位在这一年当中累计从您的薪水当中代扣代缴的所得税总额（【源泉征收】）
+
+**④我换了新的工作单位，旧的工作单位还能给我《源泉征收票》吗？**
+
+在每年的12月或1月前后，正规的工作单位会把《源泉征收票》邮寄给已经离职的劳动者
+
+如果您的旧工作单位没有给您邮寄《源泉征收票》，您可以打电话向旧工作单位索取《源泉征收票》
+
+如果您搬家了，请务必把最新的住址告知旧工作单位，以便收取《源泉征收票》
+
+**⑤我同时在2个以上的工作单位打工，是否都能得到《源泉征收票》？**
+
+正规的工作单位都会发行《源泉征收票》
+
+劳动者在几个工作单位兼职，就应该会得到几张《源泉征收票》
+
+**⑥我同时在2个以上的工作单位打工，是不是也适用于第②个问题当中的那个【年末调整】退税的规定？**
+
+&lt;font color=&quot;Blue&quot;&gt;**同时在2个以上工作单位兼职的劳动者，不适用【年末调整】的规定**&lt;/font&gt;
+
+必须在每年年初（1月-3月前后）的时候，携带全部工作单位的《源泉征收票》
+
+主动去区役所或税务署办理【&lt;font color=&quot;Red&quot;&gt;**确定申告**&lt;/font&gt;】手续
+
+【确定申告】手续与【年末调整】的作用是一样的
+
+可以准确的计算您的【税前给与支払額】，以及各种税金的纳税金额
+
+多退少补，多扣多缴的所得税，在【确定申告】之后会退还给劳动者本人
+
+**⑦中国籍留学生免除所得税的手续怎样办理？**
+
+根据日本政府和中国政府签署的《日中租税条约》的规定
+
+[http://www.nta.go.jp/tetsuzuki/shinsei/annai/joyaku/annai/1648_46.htm](http://www.nta.go.jp/tetsuzuki/shinsei/annai/joyaku/annai/1648_46.htm)
+
+同时符合以下3个条件的中国籍留学生，可以全额免除所得税
+
+（在此之前符合免税条件但已经被扣缴的所得税，也可以依据《日中租税条约》办理退税申请）
+
+&lt;font color=&quot;Red&quot;&gt;**①中国大陆护照**&lt;/font&gt;
+
+&lt;font color=&quot;Red&quot;&gt;**②留学签证**&lt;/font&gt;
+
+&lt;font color=&quot;Red&quot;&gt;**③日本正规的大学学部或大学院的正式在籍留学生**&lt;/font&gt;
+
+（&lt;font color=&quot;Blue&quot;&gt;**语言学校、专门学校、日本语别科、预科研究生不符合免税资格**&lt;/font&gt;）
+
+免除手续：
+
+①在税务署或网上获取免税申请表
+
+下载地址（PDF文档）：
+
+[http://www.nta.go.jp/shiraberu/zeiho-kaishaku/tsutatsu/kobetsu/hojin/010705/pdf/228.pdf](http://www.nta.go.jp/shiraberu/zeiho-kaishaku/tsutatsu/kobetsu/hojin/010705/pdf/228.pdf)
+
+②将免税申请表交付工作单位，根据税务署的规定完成后续申请手续
+
+**⑧我看自己的工资单每个月都被扣了所得税，这个工资单里的纳税金额就是准确的纳税金额吗？**
+
+您现在每个月拿到的工资单里记载的所得税纳税金额，并不是准确的纳税金额
+
+在当年度最后1次发工资之前，您的工作单位将会进行一个叫做【年末调整】的精算手续
+
+在【年末调整】之后，当年度的【税前給与支払額】，以及所得税纳税金额，才会最终确定
+
+按着【年末调整】算出来的最终纳税金额，您的所得税和其他社会保险将会多退少补
+
+多扣多缴的部分都会退还给您
+
+如果您的工作单位没有做【年末调整】
+
+您可以自己去区役所办理【确定申告】
+
+把多扣多缴的税都退回来
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/jp-tax.html" data-id="cji8sg1sl006m40iojvqxdna9" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-about-sf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/about-sf.html" class="article-date">
+  <time datetime="2016-06-06T06:41:23.000Z" itemprop="datePublished">2016-06-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Salesforce/">Salesforce</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/about-sf.html">关于Salesforce</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&nbsp;</p>
+<pre><code>简介
+
+Salesforce是创建于1999年3月的一家客户关系管理(CRM)软件服务提供商，总部设于美国旧金山，可提供随需应用的客户关系管理平台。Salesforce允许客户与独立软件供应商定制并整合其产品，同时建立他们各自所需的应用软件。对于用户而言，则可以避免购买硬件、开发软件等前期投资以及复杂的后台管理问题。因其口号&amp;ldquo;软件的终结&amp;rdquo;，故在业内常被称作&amp;ldquo;软件终结者&amp;rdquo;。Marc Benioff 和Magdalena Yesil是最初的投资者和董事会成员，其他早期投资者还包括Larry Ellison、Halsey Minor、 Stewart Henderson、Mark Iscaro、Igor Sill和Nancy Pelosi，Marc Benioff是现任董事会主席兼CEO。2004年6月，该公司在纽约证券交易所成功上市，股票代号CRM，筹资1.1亿美元。2004年的收入就已达到1.75亿美元，拥有13,900家企业客户，注册用户达到227,000名。2012年收入突破20亿，达到22.6亿美元。在《福布斯》全球最具创新力企业排行榜上Salesforce名列首位，而且连续第四年稳居宝座。[1]&amp;nbsp;&amp;nbsp;在《财富》杂志公布的2013年全球100个最佳雇主排名中Salesforce排名第19位，在同时上榜的科技公司中仅次于Google、SAS和Qualcomm。[2]&amp;nbsp;
+
+Salesforce又译作软件营销部队或软营，是全球按需 CRM 解决方案的领导者。因引：它拥有业界无可比拟的客户成功率。当前，全球有150,000多家公司正使用 Salesforce 的强大功能分享客户信息，以及开发具有更高收益的客户关系。
+
+Salesforce.com提供按需定制的软件服务，用户每个月需要支付类似租金的费用来使用网站上的各种服务，这些服务涉及客户关系管理的各个方面，从普通的联系人管理，产品目录到订单管理，机会管理，销售管理等。他提供一个平台，使得客户无需拥有自己的软件，也无需花费大量资金和人力用于记录的维护，储存和管理，所有的记录和数据都储存在Salesforce.com上面。同时和普通的自己购买的软件不一样，用户随时可以根据需要去增加新的功能或者去除一些不必要的功能，真正地实时了按需使用。
+
+创始人
+
+Salesforce的创始人是俄罗斯裔美国人Marc Benioff。Marc Benioff在美国也是一个具有传奇色彩的人物。他创立Salesforce之前是Oracle（甲骨文）高级副总裁，当时才27岁，是Oracle历史上最年轻的高级副总裁。上个世纪末，互联网的发展出现了一个高潮。当时，他预见到，随着互联网的发展和宽带的普及，会有越来越多的企业通过互联网得到一些软件的服务。于是，他离开了Oracle，并在1999年成立了Salesforce公司，当时他仅37岁，就开始对SaaS业务模式进行探索，此后Marc Benioff被誉为&amp;ldquo;软件终结者&amp;rdquo;。提出云计算和软件即服务 (SaaS) 的理念。开创了新的里程碑。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/about-sf.html" data-id="cji8sg1pd000w40iolqno782a" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Salesforce/">Salesforce</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wp-php-page" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wp-php-page.html" class="article-date">
+  <time datetime="2016-06-06T05:59:06.000Z" itemprop="datePublished">2016-06-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wp-php-page.html">WordPress中创建自定义PHP页面的两种方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WordPress 现在是非常流行的一个网页内容管理平台，维护方便，可扩展性强，并且有着强大的社区支持。但 WordPress 默认的文章和页面只支持很有限的很基本的 HTML 代码。而很多时候我们想要设计一些更加个性的页面，比如在博客上收集表单，并且使得表单页的风格与主题一致；或者针对某些特定的标签页使用主题的衍变风格来个性化我们自己的 WordPress，这些自定义的需求没有 PHP 的支持就解决不了了。但是，如果我们直接用 PHP 来做，就会与全站的主题非常不协调，这时候我们可以：1. 制作页面模板；2. 调用 WordPress 的 API. 来解决这个问题。具体实现如下：</p>
+<p>###<br>    方案一：制作页面模板</p>
+<pre><code>制作页面模板是一个最简单、方便的解决方案，但功能也有一定的局限性。要创建页面模板：
+</code></pre><ol>
+<li>在当前启用的主题文件夹（wp-content/themes/your_theme_name）下创建一个 sample-template.php 的 PHP 文件；</li>
+<li>将 page.php 的内容复制到刚才创建的文件中；</li>
+<li>增加自定义的 PHP 代码；</li>
+<li><p>在文件的最顶端增加一段注释：</p>
+<pre><code>&lt;pre&gt;
+</code></pre><p><code>&amp;lt;?php
+/*
+Template Name: Sample Template
+*/
+?&amp;gt;</code></p>
+<p>接下来进入 WordPress 后台，新建页面后就能找到&ldquo;Sample Template&rdquo;这个模板来使用了，这个方法比较简单，网上能够百度谷歌的资料也很多，因此只是简略地说一下。</p>
+</li>
+</ol>
+<p>###<br>    方案二：调用 WordPress 的 API</p>
+<pre><code>这种方法的自由度较高，并且可以创建非WordPress格式的URL，非常有用。比如我们要把 example.com/some-custom-url-request 转交给主题文件夹下的 /custom/some-custom-url-request.php 来处理，就可以用这种方式来处理。这种方法用到 template redirect 钩子，template redirect 是 WordPress 在预处理好所有参数设置之后决定调用主题模板的时候调用的。
+
+我们只需在主题的 function.php 文件的尾部加上：
+</code></pre><pre>
+`function loadCustomTemplate($template) {
+    global $wp_query;
+    if(!file_exists($template))return;
+    $wp_query-&gt;is_page = true;
+    $wp_query-&gt;is_single = false;
+    $wp_query-&gt;is_home = false;
+    $wp_query-&gt;comments = false;
+    // if we have a 404 status
+    if ($wp_query-&gt;is_404) {
+    // set status of 404 to false
+        unset($wp_query-&gt;query["error"]);
+        $wp_query-&gt;query_vars["error"]=&quot;&quot;;
+        $wp_query-&gt;is_404=false;
+    }
+    // change the header to 200 OK
+    header(&quot;HTTP/1.1 200 OK&quot;);
+    //load our template
+    include($template);
+    exit;
+}
+
+function templateRedirect() {
+    $basename = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+    loadCustomTemplate(TEMPLATEPATH.&#39;/custom/&#39;.&quot;/$basename.php&quot;);
+}
+
+add_action(&#39;template_redirect&#39;, &#39;templateRedirect&#39;);`</pre>
+
+<pre><code>这样就实现了 WordPress 查找 /custom 文件夹下的 php 文件，并且将相匹配的 URL 请求转交给对应的 php 文件来处理的效果，与此同时，这个 php 文件还保持了对 WordPress API 的调用，因此留给我们的空间非常大。
+
+例如如果我们在 /custom 文件夹下创建一个 hello.php 的文件如下：
+</code></pre><pre>
+`&lt;?php get_header();?&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;content&quot;&gt;
+        &lt;div id=&quot;post-999&quot; class=&quot;page type-page status-publish hentry&quot;&gt;
+            &lt;h2 class=&quot;post-title&quot;&gt;My custom page&lt;/h2&gt;
+            &lt;div class=&quot;post-content&quot;&gt;
+                &lt;?php echo &quot;Hello World&quot;; ?&gt;
+                &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;&lt;!-- END .post-content --&gt;
+            &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;&lt;!-- #post-## --&gt;
+    &lt;/div&gt;&lt;!-- END #content --&gt;
+    &lt;?php get_sidebar(); ?&gt;
+    &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;!-- END #main --&gt;
+&lt;?php get_footer(); ?&gt;`</pre>
+
+<pre><code>那么只要输入 example.com/hello 就能显示 Hello World，并且具有主题的框架和 CSS 样式，非常方便好用。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/wp-php-page.html" data-id="cji8sg1xv00g340io0d6mis5g" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-awk-grep-sed-xml" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/awk-grep-sed-xml.html" class="article-date">
+  <time datetime="2015-03-04T06:55:05.000Z" itemprop="datePublished">2015-03-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/awk-grep-sed-xml.html">awk, grep, sed处理一段xml</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>awk, grep, sed处理一段xml</p>
+<p>[root@DISS010 shell]# cat test1<br>&lt;parameter name=”PortMappingEnabled” access=”readWrite” type=”xsd:boolean”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”PortMappingLeaseDuration” access=”readWrite” activeNotify=”canDeny” type=”xsd:unsignedInt”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”RemoteHost” access=”readWrite”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”ExternalPort” access=”readWrite” type=”xsd:unsignedInt”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”ExternalPortEndRange” access=”readWrite” type=”xsd:unsignedInt”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”InternalPort” access=”readWrite” type=”xsd:unsignedInt”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”PortMappingProtocol” access=”readWrite”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”InternalClient” access=”readWrite”&gt;&lt;/parameter&gt;<br>&lt;parameter name=”PortMappingDescription” access=”readWrite”&gt;&lt;/parameter&gt;<br>[root@DISS010 shell]#</p>
+<p>[root@DISS010 shell]# awk -F “\”” ‘{print $2}’ test1<br>PortMappingEnabled<br>PortMappingLeaseDuration<br>RemoteHost<br>ExternalPort<br>ExternalPortEndRange<br>InternalPort<br>PortMappingProtocol<br>InternalClient<br>PortMappingDescription</p>
+<p>[root@DISS010 shell]# grep -Po ‘name=”\K[^”]*’ test1<br>PortMappingEnabled<br>PortMappingLeaseDuration<br>RemoteHost<br>ExternalPort<br>ExternalPortEndRange<br>InternalPort<br>PortMappingProtocol<br>InternalClient<br>PortMappingDescription</p>
+<p>[root@DISS010 shell]# sed ‘s/[^”]<em>“([^”]</em>).*/\1/‘ test1<br>PortMappingEnabled<br>PortMappingLeaseDuration<br>RemoteHost<br>ExternalPort<br>ExternalPortEndRange<br>InternalPort<br>PortMappingProtocol<br>InternalClient<br>PortMappingDescription</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/awk-grep-sed-xml.html" data-id="cji8sg1qg002540iooz351npm" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-bash-read-file" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/bash-read-file.html" class="article-date">
+  <time datetime="2015-03-04T06:13:58.000Z" itemprop="datePublished">2015-03-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/bash-read-file.html">Bash脚本：怎样一行行地读文件(转)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用bash脚本读文件的方法有很多。请看第一部分，我使用了while循环及其后的管道命令（|）(cat $FILE | while read line; do … )，并在循环当中递增 i 的值，最后，我得到了非我所想的 i 。主要的原因是，管道命令会发起子shell来读取文件，而任何在（子shell的）while循环中的操作（例如 i ++），都会随着子shell的结束而丢失。</p>
+<p>而第二种，也是最坏的一种，其最明显的错误就是在读文件的过程中使用了for循环(for fileline in $(cat $FILE);do ..)，这样每打印一个单词就换一次行，因为for循环使用空格作为默认的IFS。</p>
+<p>完美的方法，即第三种的while循环(while read line;do …. done &lt; $FILE) 是最合适且最简单的一行行地读文件的方法。请看以下例子。</p>
+<p>Input: $ cat sample.txt<br>This is sample file<br>This is normal text file</p>
+<p>Source: $ cat readfile.sh</p>
+<p>#!/bin/bash</p>
+<p>i=1;<br>FILE=sample.txt</p>
+<h1 id="Wrong-way-to-read-the-file"><a href="#Wrong-way-to-read-the-file" class="headerlink" title="Wrong way to read the file."></a>Wrong way to read the file.</h1><h1 id="This-may-cause-problem-check-the-value-of-‘i’-at-the-end-of-the-loop"><a href="#This-may-cause-problem-check-the-value-of-‘i’-at-the-end-of-the-loop" class="headerlink" title="This may cause problem, check the value of ‘i’ at the end of the loop"></a>This may cause problem, check the value of ‘i’ at the end of the loop</h1><p>echo “###############################”<br>cat $FILE | while read line; do<br>echo “Line # $i: $line”<br>((i++))<br>done<br>echo “Total number of lines in file: $i”</p>
+<h1 id="The-worst-way-to-read-file"><a href="#The-worst-way-to-read-file" class="headerlink" title="The worst way to read file."></a>The worst way to read file.</h1><p>echo “###############################”<br>for fileline in $(cat $FILE);do<br>echo $fileline<br>done</p>
+<h1 id="This-is-correct-way-to-read-file"><a href="#This-is-correct-way-to-read-file" class="headerlink" title="This is correct way to read file."></a>This is correct way to read file.</h1><p>echo “################################”<br>k=1<br>while read line;do<br>echo “Line # $k: $line”<br>((k++))<br>done &lt; $FILE<br>echo “Total number of lines in file: $k”</p>
+<p>Output: $ ./readfile.sh</p>
+<p>###############################<br>Line # 1: This is sample file<br>Line # 2: This is normal text file<br>Total number of lines in file: 1</p>
+<p>###############################<br>This<br>is<br>sample<br>file<br>This<br>is<br>normal<br>text<br>file</p>
+<p>################################<br>Line # 1: This is sample file<br>Line # 2: This is normal text file<br>Total number of lines in file: 3</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/bash-read-file.html" data-id="cji8sg1qh002840io2z5pp9pw" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-selinux-introduce" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/selinux-introduce.html" class="article-date">
+  <time datetime="2015-02-18T07:08:30.000Z" itemprop="datePublished">2015-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/selinux-introduce.html">SELinux简单介绍(转)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="blog_article" class="d cl"><br><div id="msgcns!981AB8AAE639A977!296" class="bvMsg"><span style="font-weight: bold; color: #3366ff;">1. 为什么要使用SELinux</span><br><br>先举一个简单的例子<br>比如我们先查看一个在本机上ssh private key文件的permission<br><br><span style="color: #3366ff;"># ls -l ~leonard/.ssh</span><br><span style="color: #3366ff;">-rw——- 1 leonard leonard 1743 Jun 30 14:02 id_rsa</span><br><br>我们会发现这个文件除了root用户，只有leonard用户可以对它进行读写操作。那么假设现在leonard用户打开了一个firefox浏览器<br><br><span style="color: #3366ff;"># ps -ef|grep firefox</span><br><span style="color: #3366ff;">leonard 5868 5863 1 11:08 ? 00:02:14 /home/leonard/Apps/firefox/firefox-bin</span><br><br>那么我们可以看到，由于firefox拥有了leonard的权限，那么它就可以浏览并修改leonard用户的ssh key. 如果一个黑客入侵了这个firefox,那么leonard用户的ssh key就可以很容易地被盗走。<br>那么这里就产生了一个问题：运行一个firefox浏览器，其实根本不需要让它有权限可以查看用户的私人信息。一个应用程序应该只在他特定的使用范围内拥 有权限。但是在linux系统下，如果用户运行了一个程序，那么这个程序就拥有了和这个用户相同的权限（甚至可以是更高的权限，如果程序被setuid or setgid的话),如此一来本来属于这个用户的其他资源都可以被这个程序所享用，由此就会产生一系列的安全问题。<br><br>上面这个例子我取自于Daniel Walsh所写的 “Managing Red Hat Enterprise Linux 5”. 他是SELinux的首席工程师，而SELinux正是用来解决诸如此类的安全问题<br><br><span style="font-weight: bold; color: #3366ff;">2. 什么是SELinux</span><br><br>SELinux (Security-Enhanced Linux) 是一种Mandatory Access Control (MAC) 的应用。先不忙解释它，让我们先来看看Linux本身的安全标准<br><br>Linux本身的安全标准称之为：Discretionary Access Control (DAC)<br>在DAC的标准之下，Linux下resource(file, device…)的安全性完全取决于它所属的用户，用户组以及他们所设定的permission,由此就产生了下面这些问题<br><br>1. 用户执行的程序可以拥有所有属于这个用户其他资源的权限<br><br>2. 程序可以修改用户文件的permission (如evolution可以将用户的邮件修改成world readable)<br><br>3. 只有root和普通用户之分。过于简单的安全设计，以至于任何以root运行的程序遭到入侵时，整个系统将被攻破<br><br>4. Kernel无法区分你是用户还是程序，所以不同类别的security不能够得以实施<br><br>那么SELinux的Mandatory Access Control是怎么解决这些问题的呢<br><br>1. SELinux给file, resource(device etc.), user, process等增加了另一层的属性：称之为Security Context<br><br>2. SELinux的security context里面包括了: Type Enforcement, Role-Based Access Control 以及 Multi-Level Security (MLS) 三种不同的access control<br><br>3. 应用这些新属性的目的在于SELinux可以将程序限制在它仅需要控制的范围之内，从而最大限度的保护了user space<br><br>4. 使用SELinux可以一定程度降低root用户的权限。比如即使以root所运行的程序被侵犯以后，它也不可以获取对于用户空间资源的操控<br><br>如果说运用到实际中的话。那么比如当许多应用软件被发现漏洞以后，发行商和自由社区通常需要一段时间来给程序打补丁。那么使用了SELinux之后我们就可以保护我们的系统在这段时间内不会被次类攻击所侵犯<br><br><span style="font-weight: bold; color: #3366ff;">3. 如何关闭SELinux<br><br></span> 为什么要先讲如何关闭呢？因为搜索了一下，这个看来是问的最多的问题。的确如果你确实不需要或者还没有掌握SELinux的话，它会给你服务器的日常工作带来麻烦。所以下面我就来讲讲几种关闭SELinux的方法<br><br>3.1 无须重起而暂时关闭SELinux<br><br>以root用户运行以下命令<br><span style="color: #3366ff;"> # setenforce 0</span><br>这条命令的作用是把SELinux暂时设定成Permissive模式（关于Permissive Mode在以下会有介绍）<br><br>如果要恢复运行SELinux则可以运行<br><span style="color: #3366ff;"> # setenforce 1</span><br>这条命令会把SELinux设定成Enforcing模式<br><br>3.2 把SELinux永久设定为Permissive模式<br><br>这里需要讲一下Permissive和Enforcing模式的区别。 SELinux有三种模式：Enforcing, Permissive and Disable.<br>Enforcing模式就是应用SELinux所设定的Policy, 所有违反Policy的规则(Rules)都会被SELinux拒绝<br>Permissive和Enforcing的区别就在于它还是会遵循SELinux的Policy,但是对于违反规则的操作只会予以记录而并不会拒绝操作<br>Disable 顾名思义就是完全禁用SELinux<br><br>如果要永久设定为Permissive模式，我们就要修改SELinux的配置文件 /etc/sysconfig/selinux (在RHEL5下这是一个symbolic link to /etc/selinux/conf)<br><br><span style="color: #3366ff;"> # This file controls the state of SELinux on the system.</span><br><span style="color: #3366ff;"> # SELINUX= can take one of these three values:</span><br><span style="color: #3366ff;"> # enforcing - SELinux security policy is enforced.</span><br><span style="color: #3366ff;"> # permissive - SELinux prints warnings instead of enforcing.</span><br><span style="color: #3366ff;"> # disabled - SELinux is fully disabled.</span><br><span style="color: #3366ff;"> SELINUX=enforcing</span><br><span style="color: #3366ff;"> # SELINUXTYPE= type of policy in use. Possible values are:</span><br><span style="color: #3366ff;"> # targeted - Only targeted network daemons are protected.</span><br><span style="color: #3366ff;"> # strict - Full SELinux protection.</span><br><span style="color: #3366ff;"> SELINUXTYPE=targeted</span><br><br>修改<span style="color: #3366ff;">SELINUX=permissive</span>,然后重新启动就可以了<br><br>还有一种设置为Permissive的方法就是在boot loader里设置kernel parameter. 下面以grub为例<br>修改 /boot/grub/grub.conf, 写入enforcing=0<br><br><span style="color: #3366ff;"> title Red Hat Enterprise Linux Server (2.6.18-8.el5)</span><br><span style="color: #3366ff;"> root (hd0,0)</span><br><span style="color: #3366ff;"> kernel /vmlinuz-2.6.18-8.el5 ro root=/dev/VolGroup00/LogVol00 enforcing=0</span><br><span style="color: #3366ff;"> initrd /initrd-2.6.18-8.el5.img</span><br><br>注意设定kernel parameter会override配置文件的设置，所以如果bootloader里是enforcing=0,而设置文件里是 SELINUX=enforcing的话，那么重起以后SELinux还是会在Permissive模式下运行<br>建议如果在测试SELinux时遇到问题应该先把它设定为Permissive模式。等你确定需要永久关闭SELinux功能才把它设置成disable<br><br>3.3. 永久关闭SELinux<br><br>如果你确定需要永久关闭SELinux,那么就应该把它设置成disable模式<br>修改 /etc/sysconfig/selinux<br><span style="color: #3366ff;"> SELINUX=disable</span><br>然后重新启动<br><br>或者也可以在boot loader里设置 selinux=0<br><br><span style="color: #3366ff;"> title Red Hat Enterprise Linux Server (2.6.18-8.el5)</span><br><span style="color: #3366ff;"> root (hd0,0)</span><br><span style="color: #3366ff;"> kernel /vmlinuz-2.6.18-8.el5 ro root=/dev/VolGroup00/LogVol00 selinux=0</span><br><span style="color: #3366ff;"> initrd /initrd-2.6.18-8.el5.img</span><br><br><span style="color: #3366ff; font-weight: bold;">4. SELinux需要注意的几点</span><br><br>1. SELinux和其他的linux安全工具一样是用来辅助和增强linux的安全性，而不是用来代替原有的linux的安全设置。所以如果遇到 permission deny的情况下，应该首先检查是不是遵守了Linux本身的安全设置，然后再来检查它是否违反了SELinux所设定的规则<br><br>2. SELinux是基于kernel的安全系统。所以有些时候在改变了它的有关设置时需要重起系统才可以产生效果<br><br>3. SELinux对于deny的规则没有任何的设置。也就是说凡是不符合规则的操作将全部被deny<br><br>4. 在SELinux的Permissive模式下，kernel 只会记录第一次违犯规则的情况。而在Enforcing模式下每一次违反规则的情况都会被记录下来<br><br><span style="font-weight: bold; color: #3366ff;">5. SELinux的参考资料</span><br><br>1. NSA的SELinux官方主页: <a href="http://www.nsa.gov/selinux/" target="_blank" rel="external">http://www.nsa.gov/selinux/</a><br>2. Fedora Project的SELinux主页: <a href="http://fedoraproject.org/wiki/SELinux" target="_blank" rel="external">http://fedoraproject.org/wiki/SELinux</a><br>3. Dennis Walsh的live journal: <a href="http://danwalsh.livejournal.com/" target="_blank" rel="external">http://danwalsh.livejournal.com/</a></div><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/selinux-introduce.html" data-id="cji8sg1vd00bq40io7b3nhxsv" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-quotacheck-selinux" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/quotacheck-selinux.html" class="article-date">
+  <time datetime="2015-02-18T05:25:50.000Z" itemprop="datePublished">2015-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/quotacheck-selinux.html">quotacheck权限问题和selinux</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[root@DISS010 home]# quotacheck -cv /home<br>quotacheck: Scanning /dev/sdb1 [/home] done<br>quotacheck: Cannot stat old user quota file /home/aquota.user: そのようなファイルやディレクトリはありません. Usage will not be substracted.<br>quotacheck: Old group file name could not been determined. Usage will not be substracted.<br>quotacheck: Checked 28 directories and 771 files<br>quotacheck: Cannot create new quotafile /home/aquota.user.new: 許可がありません<br><strong><span style="color: #ff0000;">quotacheck: Cannot initialize IO on new quotafile: 許可がありません</span></strong></p>
+<p>[root@DISS010 home]# ll<br>合計 20<br>drwx——. 2 root     root 16384  2月 18 13:27 2015 lost+found<br>drwxr-xr-x. 5 postgres pg    4096  2月 18 13:32 2015 postgres</p>
+<p><strong><span style="color: #ff0000;">[root@DISS010 home]# restorecon -v /home/</span></strong><br><strong><span style="color: #ff0000;">restorecon reset /home context system_u:object_r:default_t:s0-&gt;system_u:object_r:home_root_t:s0</span></strong></p>
+<p>[root@DISS010 home]# quotacheck -cv /home<br>quotacheck: Scanning /dev/sdb1 [/home] done<br>quotacheck: Cannot stat old user quota file /home/aquota.user: そのようなファイルやディレクトリはありません. Usage will not be substracted.<br>quotacheck: Old group file name could not been determined. Usage will not be substracted.<br>quotacheck: Checked 28 directories and 771 files<br>quotacheck: Old file not found.<br>[root@DISS010 home]# ll<br>合計 28<br><strong><span style="color: #ff0000;">-rw——-. 1 root     root  6144  2月 18 14:57 2015 aquota.user</span></strong><br>drwx——. 2 root     root 16384  2月 18 13:27 2015 lost+found<br>drwxr-xr-x. 5 postgres pg    4096  2月 18 13:32 2015 postgres</p>
+<ul>
+<li>重设 SELinux 安全性本文<br>既然安全性本文是错的，那么就将他改回来即可嘛！怎么修改呢？可以透过两个命令喔！首先我们使用 chcon 来处理：</li>
+</ul>
+<p><a name="chcon"></a></p>
+<p><table class="term"></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="term"></td></p>
+<p><pre>[root@www ~]# <span class="term_command">chcon [-R] [-t type] [-u user] [-r role] 文件</span><br>[root@www ~]# <span class="term_command">chcon [-R] –reference=范例档 文件</span><br><span class="term_say">选项与参数：<br>-R  ：连同该目录下的次目录也同时修改；<br>-t  ：后面接安全性本文的类型栏位！例如 httpd_sys_content_t ；<br>-u  ：后面接身份识别，例如 system_u；<br>-r  ：后面街角色，例如 system_r；<br>–reference=范例档：拿某个文件当范例来修改后续接的文件的类型！</span></pre></p>
+<p><span class="term_hd">范例一：将刚刚的 index.html 类型改为 httpd_sys_content_t 的类型</span><br>[root@www ~]# <span class="term_command">chcon -t httpd_sys_content_t /var/www/html/index.html</span><br>[root@www ~]# <span class="term_command">ll -Z /var/www/html/index.html</span><br>-rw-r–r–  root root root:object_r:<span class="term_write">httpd_sys_content_t</span> /var/www/html/index.html<br><span class="term_say"># 瞧！这样就改回来啦！</span></p>
+<p><span class="term_hd">范例二：以 /etc/passwd 为依据，将 index.html 修改成该类型</span><br>[root@www ~]# <span class="term_command">ll -Z /etc/passwd</span><br>-rw-r–r–  root root system_u:object_r:<span class="term_write">etc_t</span>          /etc/passwd</p>
+<p>[root@www ~]# <span class="term_command">chcon –reference=/etc/passwd /var/www/html/index.html</span><br>[root@www ~]# <span class="term_command">ll -Z /var/www/html/index.html</span><br>-rw-r–r–  root root root:object_r:<span class="term_write">etc_t</span> /var/www/html/index.html<br><span class="term_say"># 看看！是否与上面的 /etc/passwd 相同了！不过，这又是错误的安全性本文！</span></p>
+<h1 id="先不要急著修改！我们来进行底下的另外一个命令处置看看！"><a href="#先不要急著修改！我们来进行底下的另外一个命令处置看看！" class="headerlink" title="先不要急著修改！我们来进行底下的另外一个命令处置看看！"></a>先不要急著修改！我们来进行底下的另外一个命令处置看看！</h1><p><br><br><br><br><br><a name="restorecon"></a></p>
+<p>chcon 是透过直接指定的方式来处理安全性本文的类型数据。那我们知道其实系统默认的目录都有特殊的 SELinux 安全性本文， 举例来说， /var/www/html 原本就是 httpd 可以读取的目录嘛！既然如此，那有没有可以使用默认的安全性本文来还原的方式？ 有的，那就是 restorecon 这玩意儿：</p>
+<p><table class="term"></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="term"></td></p>
+<p><pre>[root@www ~]# <span class="term_command">restorecon [-Rv] 文件或目录</span><br><span class="term_say">选项与参数：<br>-R  ：连同次目录一起修改；<br>-v  ：将过程显示到萤幕上</span></pre></p>
+<p><span class="term_hd">范例一：将刚刚错误的 index.html 以默认的安全性本文改正过来</span><br>[root@www ~]# <span class="term_command">restorecon -Rv /var/www/html/index.html</span><br>restorecon reset /var/www/html/index.html context system_u:object_r:<span class="term_write">etc_t</span>:s0-&gt;<br>system_u:object_r:<span class="term_write">httpd_sys_content_t</span>:s0<br><span class="term_say"># 上面这两行其实是同一行喔！表示将 index.html 由 etc_t 改为 httpd_sys_content_t</span><br><br><br><br><br><br>然后回到刚刚图 5.4.2 给他重读一下，嘿嘿！又可以看到正确的内容啦！这个过程完全没有动到 rwx 权限， 因为该权限本来就是对的！而错的部分是在於 SELinux 的安全性本文当中那个类型 (type) 配置错误！ 而配置错误的原因很可能是因为该文件由其他位置复制或移动过来所导致的！因此， 你得要善用 restorecon 以及 chcon 来处理这方面的问题喔！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/quotacheck-selinux.html" data-id="cji8sg1u0009i40ioracf2895" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux-fdisk" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/linux-fdisk.html" class="article-date">
+  <time datetime="2015-02-18T01:48:45.000Z" itemprop="datePublished">2015-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/linux-fdisk.html">Linux磁盘分区与格式化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div><span class="Apple-style-span" style="font-size: medium;">Windows/dos常用的分区工具：fdisk/partition magic/diskpart</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Linux下常用的分区工具：</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">    fdisk/sfdisk:命令行工具，各种版本和环境都能使用，包含在软件包util-linux中</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">    diskdruid:图形化分区工具，只能在安装REDHAT系统时使用。</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">下面我们开始实验：</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">环境/工具：Fedora 14/256M内存卡；fdisk</span></div><br><div><strong><span class="Apple-style-span" style="font-size: medium;">第一步：fdisk</span></strong></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice ~]#<span class="Apple-style-span" style="color: #f00000;"> fdisk -l /dev/sdb </span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk /dev/sdb: 254 MB, 254017536 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8 heads, 61 sectors/track, 1016 cylinders, total 496128 sectors </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Units = sectors of 1 <em> 512 = 512 bytes </em></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Sector size (logical/physical): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">I/O size (minimum/optimal): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk identifier: 0x00000000 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice ~]# <span class="Apple-style-span" style="color: #f00000;">fdisk /dev/sdb</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): #在输入上面的命令后会出现左边的提示，输入m就会得到一个帮助菜单，如下：</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): m </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command action </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   a   toggle a bootable flag </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   b   edit bsd disklabel </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   c   toggle the dos compatibility flag </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   d   delete a partition </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   l   list known partition types </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   m   print this menu </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   n   add a new partition </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   o   create a new empty DOS partition table </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   p   print the partition table </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   q   quit without saving changes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   s   create a new empty Sun disklabel </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   t   change a partition’s system id </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   u   change display/entry units </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   v   verify the partition table </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   w   write table to disk and exit </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   x   extra functionality (experts only) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">＃help虽然是英文的，可都很简单，在这里不再解释。</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#现在，我们正式开始分区的操作：</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): <span class="Apple-style-span" style="color: #f00000;">n #新建分区</span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command action </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   e   extended </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   p   primary partition (1-4) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#e/p分别对应扩展分区 /主分区；我们先分四个主分区，每个50M；然后再来增加主分区或扩展分区，看会出现怎样的状况，嘿嘿。</span></div><br><div><span class="Apple-style-span" style="color: #f00000; font-size: medium;">p  #分区类型为主分区</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Partition number (1-4, default 1):<span class="Apple-style-span" style="color: #f00000;"> 1 </span> #分区号，在这里我们依次选择1、2、3、4</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">First sector (2048-496127, default 2048):  #指定分区的起始扇区，一般默认，按enter键即可。</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Last sector, +sectors or +size{K,M,G} (2048-496127, default 496127): <span class="Apple-style-span" style="color: #f00000;">+50M</span>  #指定分区的终止扇区，根据前面的提示我们可以做出相应的选择+sectors 或 +size{K,M,G}</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): p  #用p打印出已建好的分区列表</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk /dev/sdb: 254 MB, 254017536 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8 heads, 61 sectors/track, 1016 cylinders, total 496128 sectors </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Units = sectors of 1  512 = 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Sector size (logical/physical): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">I/O size (minimum/optimal): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk identifier: 0x00000000 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb1            2048      104447       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#剩下的三个分区的建立操作同上</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#分好四个主分区后的情况如下</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> p </span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk /dev/sdb: 254 MB, 254017536 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8 heads, 61 sectors/track, 1016 cylinders, total 496128 sectors </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Units = sectors of 1 <em> 512 = 512 bytes </em></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Sector size (logical/physical): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">I/O size (minimum/optimal): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk identifier: 0x00000000 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb1            2048      104447       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb2          104448      206847       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb3          206848      309247       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb4          309248      309298          25+  83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#已经建好四个主分区啦，现在我们来看看如果再建主分区或是扩展分区的话会出现怎样的情况：</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): <span class="Apple-style-span" style="color: #f00000;">n </span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">You must delete some partition and add an extended partition first </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">＃看到了吧，不能再建分区啦！要再建分区的话必须删除some分区，再新建一个扩展分区才行。</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#现在，我们删掉一个主分区，来新建扩展分区</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> d </span> #删除分区</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Partition number (1-4):<span class="Apple-style-span" style="color: #f00000;"> 4 </span>  #选择要删除分区的分区号，我们选第四个</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> p </span>  #打印，如下，四个分区变成了三个！</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk /dev/sdb: 254 MB, 254017536 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8 heads, 61 sectors/track, 1016 cylinders, total 496128 sectors </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Units = sectors of 1  512 = 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Sector size (logical/physical): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">I/O size (minimum/optimal): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk identifier: 0x00000000 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb1            2048      104447       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb2          104448      206847       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb3          206848      309247       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#新建一个扩展分区</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#如果在没有建满三个主分的区的情况下建立扩展分区，相关选项会有些不同。</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> n</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command action </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   e   extended </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   p   primary partition (1-4) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"><span class="Apple-style-span" style="color: #f00000;">e</span>   </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Selected partition 4 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">First sector (309248-496127, default 309248): #enter，默认</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Using default value 309248 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Last sector, +sectors or +size{K,M,G} (309248-496127, default 496127):   #enter，默认，使用剩余空间</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Using default value 496127 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): <span class="Apple-style-span" style="color: #f00000;">p</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk /dev/sdb: 254 MB, 254017536 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8 heads, 61 sectors/track, 1016 cylinders, total 496128 sectors </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Units = sectors of 1 <em> 512 = 512 bytes </em></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Sector size (logical/physical): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">I/O size (minimum/optimal): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk identifier: 0x00000000 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb1            2048      104447       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb2          104448      206847       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb3          206848      309247       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb4          309248      496127       93440    5  Extended </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">＃接下来，我们在新建的扩展分区里再新建两个逻辑分区，因为已经有了三个主分区，这里不会再显示是建立逻辑分区还是主分区的提示！</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): n </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">First sector (311296-496127, default 311296):  #enter</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Using default value 311296 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Last sector, +sectors or +size{K,M,G} (311296-496127, default 496127): +50M </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): n </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">First sector (415744-496127, default 415744):  #enter</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Using default value 415744 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Last sector, +sectors or +size{K,M,G} (415744-496127, default 496127):  #enter</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Using default value 496127 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): p </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk /dev/sdb: 254 MB, 254017536 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8 heads, 61 sectors/track, 1016 cylinders, total 496128 sectors </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Units = sectors of 1  512 = 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Sector size (logical/physical): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">I/O size (minimum/optimal): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk identifier: 0x00000000 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb1            2048      104447       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb2          104448      206847       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb3          206848      309247       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb4          309248      496127       93440    5  Extended </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb5          311296      413695       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb6          415744      496127       40192   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">＃上面的列表，就是我们今天分区的成果啦！接下来保存退出，重启计算机，就可以进行下一步的mkfs操作啦！如果忘记了相关的操作命令，记得按m!!!</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> w  #保存</span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">The partition table has been altered! </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Calling ioctl() to re-read partition table. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Syncing disks. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">另：在建好分区后，我们还可以更改相关分区的文件系统类型</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">＃如，我们要把第二个主分区改成Linux下的交换分区，操作如下</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> t  #更改文件系统类型</span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Partition number (1-6):<span class="Apple-style-span" style="color: #f00000;"> 2  #选择第二个分区</span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Hex code (type L to list codes):<span class="Apple-style-span" style="color: #f00000;"> L ＃选择要更改的文件系统编码，可以按L来查看相关编码信息</span>。</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 1  FAT12           39  Plan 9          82  Linux swap / So c1  DRDOS/sec (FAT- </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 2  XENIX root      3c  PartitionMagic  83  Linux           c4  DRDOS/sec (FAT- </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 3  XENIX usr       40  Venix 80286     84  OS/2 hidden C:  c6  DRDOS/sec (FAT- </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> …………</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">16  Hidden FAT16    64  Novell Netware  af  HFS / HFS+      fb  VMware VMFS    </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">17  Hidden HPFS/NTF 65  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">18  AST SmartSleep  70  DiskSecure Mult b8  BSDI swap       fd  Linux raid auto </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">1b  Hidden W95 FAT3 75  PC/IX           bb  Boot Wizard hid fe  LANstep        </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">1c  Hidden W95 FAT3 80  Old Minix       be  Solaris boot    ff  BBT            </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">1e  Hidden W95 FAT1 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Hex code (type L to list codes):<span class="Apple-style-span" style="color: #f00000;"> 82 </span>   #查找到linux swap的编码为82</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Changed system type of partition 2 to 82 (Linux swap / Solaris) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): p </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">…………..</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb1            2048      104447       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb2          104448      206847       51200   82  Linux swap / Solaris </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb3          206848      309247       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb4          309248      496127       93440    5  Extended </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb5          311296      413695       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb6          415744      496127       40192   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#最后别忘了保存！如果你须要的话！</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#扩展分区不能直接使用，逻辑分区只能建立在扩展分区上！</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"><strong>第二步：mkfs</strong>（mkfs时分区的格式最好与fdisk设定的分区格式一致，不然…….）</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">mkfs支持ext2 ext3 vfa msdos jfs reiserfs等文件系统。</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">用法1：<span class="Apple-style-span" style="color: #f00000;">mkfs -t &lt;fstype&gt; &lt;partition&gt;</span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">例： mkfs -t ext3 /dev/sdb2</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">用法2：<span class="Apple-style-span" style="color: #f00000;">mkfs.&lt;fstype&gt; &lt;partition&gt;</span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">例：mkfs,vfat /dev/sdb3</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">mke2fs支持ext2/ext3文件系统</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">用法：<span class="Apple-style-span" style="color: #f00000;">mke2fs [-j] &lt;partition&gt;</span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">例:mke2fs -j /dev/sdb5</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"># 更多更具体的用法请参照相关命令的man手册</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">下面，接着实验：</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">例一</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice ~]# <span class="Apple-style-span" style="color: #f00000;">mkfs -t ext3 /dev/sdb1</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">mke2fs 1.41.12 (17-May-2010) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Filesystem label= </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">OS type: Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Block size=1024 (log=0) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Fragment size=1024 (log=0) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Stride=0 blocks, Stripe width=0 blocks </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">12824 inodes, 51200 blocks </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">2560 blocks (5.00%) reserved for the super user </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">First data block=1 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Maximum filesystem blocks=52428800 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">7 block groups </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8192 blocks per group, 8192 fragments per group </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">1832 inodes per group </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Superblock backups stored on blocks: </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8193, 24577, 40961 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Writing inode tables: done                            </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Creating journal (4096 blocks): done </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Writing superblocks and filesystem accounting information: done </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">This filesystem will be automatically checked every 34 mounts or </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">180 days, whichever comes first.  Use tune2fs -c or -i to override. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">例二：</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice ~]#<span class="Apple-style-span" style="color: #f00000;"> fdisk /dev/sdb</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help): t </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Partition number (1-6): 6 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Hex code (type L to list codes): L </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 1  FAT12           39  Plan 9          82  Linux swap / So c1  DRDOS/sec (FAT- </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 2  XENIX root      3c  PartitionMagic  83  Linux           c4  DRDOS/sec (FAT- </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 3  XENIX usr       40  Venix 80286     84  OS/2 hidden C:  c6  DRDOS/sec (FAT- </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 4  FAT16 &lt;32M      41  PPC PReP Boot   85  Linux extended  c7  Syrinx         </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 5  Extended        42  SFS             86  NTFS volume set da  Non-FS data    </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 6  FAT16           4d  QNX4.x          87  NTFS volume set db  CP/M / CTOS / . </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> 7  HPFS/NTFS       4e  QNX4.x 2nd part 88  Linux plaintext de  Dell Utility   </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">………</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Hex code (type L to list codes): <span class="Apple-style-span" style="color: #f00000;">7</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Changed system type of partition 6 to 7 (HPFS/NTFS) </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> p</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk /dev/sdb: 254 MB, 254017536 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">8 heads, 61 sectors/track, 1016 cylinders, total 496128 sectors </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Units = sectors of 1 <em> 512 = 512 bytes </em></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Sector size (logical/physical): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">I/O size (minimum/optimal): 512 bytes / 512 bytes </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Disk identifier: 0x00000000 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">   Device Boot      Start         End      Blocks   Id  System </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb1            2048      104447       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb2          104448      206847       51200   82  Linux swap / Solaris </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb3          206848      309247       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb4          309248      496127       93440    5  Extended </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb5          311296      413695       51200   83  Linux </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/dev/sdb6          415744      496127       40192    7  HPFS/NTFS </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Command (m for help):<span class="Apple-style-span" style="color: #f00000;"> w </span></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">The partition table has been altered! </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Calling ioctl() to re-read partition table. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Syncing disks. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice ~]# <span class="Apple-style-span" style="color: #f00000;">mkfs.ntfs /dev/sdb6</span> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Cluster size has been automatically set to 4096 bytes. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Initializing device with zeroes: 100% - Done. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Creating NTFS volume structures. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">mkntfs completed successfully. Have a nice day. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> <em>*第三部：挂载</em></span></div><br><div><span class="Apple-style-span" style="font-size: medium;">挂载：mount</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">例：mount /dev/sdb1 /mnt /sdb1</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">卸载：umonut</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">例：umount /dev/sdb1</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">/etc/fstab:</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">可以把要挂载的分区写入/etc/fstab，这样在开机的时候就能自动挂载啦！</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">＃关于mount/nmout具体用法请参照man手册，/etc/fstab内的挂载格式，参数等在该文件内都有相关的说明。这里只做一个简单的测试，不再累述！</span></div><br><div><span class="Apple-style-span" style="font-size: medium;"> </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice /]# cd /mnt </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice mnt]# mkdir sdb </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice mnt]# mount /dev/sdb1 /mnt/sdb </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice mnt]# cd /mnt/sdb </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice sdb]# echo “Hello! I am here” &gt; test.txt </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice sdb]# cat test.txt </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">Hello! I am here </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice sdb]# cd .. </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice mnt]# umount /dev/sdb1 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice mnt]# cd /mnt/sdb </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice sdb]# ls -l </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">total 0 </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#刚做的文件系统已经能正常使用啦！现在再来看看挂载没有经过mkfs的分区，会怎样！</span></div><br><div><span class="Apple-style-span" style="font-size: medium;">[root@novice sdb]# mount /dev/sdb2 /mnt/sdb </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">mount: unknown filesystem type ‘LVM2_member’ </span></div><br><div><span class="Apple-style-span" style="font-size: medium;">#不解释了喔！</span></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/linux-fdisk.html" data-id="cji8sg1sy007740iojfy5al6j" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-rpm-relocate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/rpm-relocate.html" class="article-date">
+  <time datetime="2015-02-16T05:00:56.000Z" itemprop="datePublished">2015-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OperatingSystem/">OperatingSystem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/rpm-relocate.html">rpm-relocate</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>RPMパッケージ管理</p>
+<p>はじめに</p>
+<p>RPMパッケージのインストール、更新、削除といった管理についてのメモです。<br>手順メモ<br>インストール先を変えたい<br>再配置可能なパッケージのインストール先を変更する</p>
+<p>–prefixオプションでインストール先ディレクトリを指定します。</p>
+<p><strong># rpm -ivh –prefix=/opt/pkgs netcdf-4.3.2-2.el6.x86_64.rpm</strong></p>
+<p>この場合、デフォルトでは/usr下にインストールされるパッケージを/opt/pkgs下にインストールします。</p>
+<p>再配置可能なパッケージとは、SPECファイルでPrefix属性が定義されているものです。<br>再配置不可能な場合、</p>
+<p><strong># rpm -ihv –prefix=/opt/local netcdf-4.3.2-1.el6.x86_64.rpm</strong><br>エラー: パッケージ netcdf は再配置できません<br>#</p>
+<p>とエラーになります。</p>
+<p>再配置不可能なパッケージのインストール先を変更する</p>
+<p><strong># rpm -ihv –relocate /usr=/opt/local –badreloc netcdf-4.3.2-1.el6.x86_64.rpm</strong></p>
+<p>再配置可能でないパッケージも–relocateオプションと–badrelocオプションでインストール先を変更することができます。<br>依存関係<br>依存関係を調べる</p>
+<p>$ rpm -qpR ruby-2.1.4-1.el6.x86_64.rpm<br>/usr/bin/env<br>/usr/bin/pkg-config<br>/usr/bin/ruby<br>coreutils<br>db4<br>gdbm<br>glibc<br>ld-linux-x86-64.so.2()(64bit)<br>:</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ibmer.info/rpm-relocate.html" data-id="cji8sg1uc00a340ioifr3hc17" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aix/">aix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/8/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MiddleWare/">MiddleWare</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OperatingSystem/">OperatingSystem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Salesforce/">Salesforce</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日本/">日本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apex/">Apex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB2/">DB2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM/">IBM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFDC/">SFDC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Salesforce/">Salesforce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceExam/">SalesforceExam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceTest/">SalesforceTest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SalesforceXyTools/">SalesforceXyTools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aix/">aix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ecshop/">ecshop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ilmt/">ilmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jython/">jython</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vba/">vba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/was/">was</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websphere/">websphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库优化/">数据库优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日本/">日本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试，test/">测试，test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/理论/">理论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟化/">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apex/" style="font-size: 14.17px;">Apex</a> <a href="/tags/DB2/" style="font-size: 10.83px;">DB2</a> <a href="/tags/Database/" style="font-size: 14.17px;">Database</a> <a href="/tags/IBM/" style="font-size: 11.67px;">IBM</a> <a href="/tags/IT/" style="font-size: 12.5px;">IT</a> <a href="/tags/SFDC/" style="font-size: 14.17px;">SFDC</a> <a href="/tags/SOA/" style="font-size: 10.83px;">SOA</a> <a href="/tags/Salesforce/" style="font-size: 20px;">Salesforce</a> <a href="/tags/SalesforceExam/" style="font-size: 10px;">SalesforceExam</a> <a href="/tags/SalesforceTest/" style="font-size: 10px;">SalesforceTest</a> <a href="/tags/SalesforceXyTools/" style="font-size: 15.83px;">SalesforceXyTools</a> <a href="/tags/aix/" style="font-size: 11.67px;">aix</a> <a href="/tags/android/" style="font-size: 14.17px;">android</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/c/" style="font-size: 10px;">c</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/eclipse/" style="font-size: 10.83px;">eclipse</a> <a href="/tags/ecshop/" style="font-size: 11.67px;">ecshop</a> <a href="/tags/ilmt/" style="font-size: 12.5px;">ilmt</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/jython/" style="font-size: 10px;">jython</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 14.17px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 18.33px;">php</a> <a href="/tags/python/" style="font-size: 10.83px;">python</a> <a href="/tags/shell/" style="font-size: 10.83px;">shell</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/vba/" style="font-size: 10.83px;">vba</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/was/" style="font-size: 15px;">was</a> <a href="/tags/websphere/" style="font-size: 10px;">websphere</a> <a href="/tags/windows/" style="font-size: 14.17px;">windows</a> <a href="/tags/wordpress/" style="font-size: 16.67px;">wordpress</a> <a href="/tags/分布式/" style="font-size: 13.33px;">分布式</a> <a href="/tags/微信/" style="font-size: 10.83px;">微信</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/数据库优化/" style="font-size: 10.83px;">数据库优化</a> <a href="/tags/日本/" style="font-size: 10.83px;">日本</a> <a href="/tags/测试，test/" style="font-size: 10px;">测试，test</a> <a href="/tags/理论/" style="font-size: 19.17px;">理论</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/虚拟化/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2001/01/">January 2001</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hello-world.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ApexCreator.html">SalesforceXyTools Sublime ApexCreator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-ExportToExcel.html">SalesforceXyTools Sublime Export SObject To Excel</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-TestCodeCreator.html">SalesforceXyTools Sublime Test Code Creator</a>
+          </li>
+        
+          <li>
+            <a href="/SalesforceXyTools-Sublime-Install.html">SalesforceXyTools Sublime Install Help</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">About</h3>
+    <div class="widget">
+      邮箱：exia.sfdc@outlook.com<br />
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Exia.Huang<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
